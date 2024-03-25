@@ -1,0 +1,36 @@
+:root {
+
+    /* 그림자 */
+
+    --box-shadow-1: 0px 4px 4px rgba(0, 0, 0, 0.3);
+    --box-shadow-2: 0px 1px 2px 0px rgba(0, 0, 0, 0.08), 0px 1px 1px -0.5px rgba(0, 0, 0, 0.01);
+    --box-shadow-3: 0px 3px 4px 0px rgba(0, 0, 0, 0.08), 0px 1px 2px -1px rgba(0, 0, 0, 0.01);
+    --box-shadow-4: 0px 6px 8px -2px rgba(0, 0, 0, 0.08), 0px 2px 3px -2px rgba(0, 0, 0, 0.01);
+    --box-shadow-5: 0px 8px 12px -2px rgba(0, 0, 0, 0.08), 0px 3px 4px -3px rgba(0, 0, 0, 0.01);
+    --box-shadow-6: 0px 16px 20px -4px rgba(0, 0, 0, 0.08), 0px 6px 8px -5px rgba(0, 0, 0, 0.01);
+    --box-shadow-7: 0px 20px 40px -9px rgba(0, 0, 0, 0.17);
+
+    /*  */
+
+    --width-0: 0px;
+    --width-1: 50px;
+    --width-2: 100px;
+    --width-3: 150px;
+    --width-4: 200px;
+    --width-5: 250px;
+    --width-6: 300px;
+    --width-7: 350px;
+    --width-8: 400px;
+    --width-9: 450px;
+    --width-10: 1200px;
+    --width-percent-1: 10%;
+    --width-percent-2: 20%;
+    --width-percent-3: 30%;
+    --width-percent-4: 40%;
+    --width-percent-5: 50%;
+    --width-percent-6: 60%;
+    --width-percent-7: 70%;
+    --width-percent-8: 80%;
+    --width-percent-9: 90%;
+    --width-percent-10: 100%;
+  }

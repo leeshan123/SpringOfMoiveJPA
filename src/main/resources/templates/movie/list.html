@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="inc/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>documents</title>
+    <link rel="stylesheet" type="text/css" href="/css/desktop.css" />
+</head>
+<body>
+    <main layout:fragment="main">
+    <section class="media">
+        <section class="">
+        <div style="display: none;"></div>
+        <section class="m-left:2 m-top:4 m-bottom:10">
+            <h1 class="d:none">영화목록</h1>
+            <section class="d:flex jc:space-between m-bottom:2">
+                <h1 class=" fs:4 fw:3">현재 상영작</h1>
+                <ul class="d:flex fs:1 ai:center jc:space-between p-right:1">
+                    <li class="p-right:3">
+                        <a href="" class="">박스오피스 순위</a>
+                    </li>
+                    <li class="p-right:3">
+                        <a href="">전날 관객 순위</a>
+                    </li>
+                    
+                    <li class="">
+                        <a href="" >평점 순위</a>
+                    </li>
+                </ul>
+            </section>
+            <section class=" d:flex media-pading">
+                <h1 class="d:none ">컨텐츠</h1>
+                <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">
+                    <div class="display:inline-block bd-color:base-10 ">
+                        <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"
+                        src="#"
+                            th:src="${m.getPosterUrl()}" alt="/" height="212px">
+                    </div>
+                    <div class="d:flex ai:center d:inline-block line-height:1">
+                            <span class="fs:8 fw:3 line-height:1 font-style:italic" th:text="${mCount.count}">1</span>
+                        <div  class="m-left:4 d:inline-block line-height:1">
+                            <div>
+                                <span class="fs:2 fw:3 d:inline-block"
+                                th:text="${m.getTotalRate()}">13000원 </span>
+                            </div>
+                            <div>
+                                <span class="fs:2 fw:1 d:inline-block"
+                                th:text="${m.getKorName()}">서울의 봄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+<!--                <div class="bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">-->
+<!--                    <div class="display:inline-block bd-color:base-10 ">-->
+<!--                        <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"-->
+<!--                        src="/moviespring/src/main/resources/static/img/media_museum_7.jpg" alt="/" width="140">-->
+<!--                    </div>-->
+<!--                    <div class="d:flex ai:center d:inline-block line-height:1">-->
+<!--                            <span class="fs:8 fw:3 line-height:1 font-style:italic"  >1</span>-->
+<!--                        <div  class="m-left:4 d:inline-block line-height:1">-->
+<!--                            <div>-->
+<!--                                <span class="fs:2 fw:3 d:inline-block" >13000원 </span>-->
+<!--                            </div>-->
+<!--                            <div>-->
+<!--                                <span class="fs:2 fw:1 d:inline-block">서울의 봄</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">-->
+<!--                    <div class="display:inline-block bd-color:base-10 ">-->
+<!--                        <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"-->
+<!--                        src="/moviespring/src/main/resources/static/img/media_museum_7.jpg" alt="/" width="140">-->
+<!--                    </div>-->
+<!--                    <div class="d:flex ai:center d:inline-block line-height:1">-->
+<!--                            <span class="fs:8 fw:3 line-height:1 font-style:italic"  >1</span>-->
+<!--                        <div  class="m-left:4 d:inline-block line-height:1">-->
+<!--                            <div>-->
+<!--                                <span class="fs:2 fw:3 d:inline-block" >13000원 </span>-->
+<!--                            </div>-->
+<!--                            <div>-->
+<!--                                <span class="fs:2 fw:1 d:inline-block">서울의 봄</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">-->
+<!--                    <div class="display:inline-block bd-color:base-10 ">-->
+<!--                        <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1" -->
+<!--                        src="/moviespring/src/main/resources/static/img/media_museum_7.jpg" alt="/" width="140">-->
+<!--                    </div>-->
+<!--                    <div class="d:flex ai:center d:inline-block line-height:1">-->
+<!--                            <span class="fs:8 fw:3 line-height:1 font-style:italic"  >1</span>-->
+<!--                        <div  class="m-left:4 d:inline-block line-height:1">-->
+<!--                            <div>-->
+<!--                                <span class="fs:2 fw:3 d:inline-block" >13000원 </span>-->
+<!--                            </div>-->
+<!--                            <div>-->
+<!--                                <span class="fs:2 fw:1 d:inline-block">서울의 봄</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">-->
+<!--                    <div class="display:inline-block bd-color:base-10 ">-->
+<!--                        <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"-->
+<!--                        src="/moviespring/src/main/resources/static/img/media_museum_7.jpg" alt="/" width="140">-->
+<!--                    </div>-->
+<!--                    <div class="d:flex ai:center d:inline-block line-height:1">-->
+<!--                            <span class="fs:8 fw:3 line-height:1 font-style:italic"  >1</span>-->
+<!--                        <div  class="m-left:4 d:inline-block line-height:1">-->
+<!--                            <div>-->
+<!--                                <span class="fs:2 fw:3 d:inline-block" >13000원 </span>-->
+<!--                            </div>-->
+<!--                            <div>-->
+<!--                                <span class="fs:2 fw:1 d:inline-block">서울의 봄</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                
+
+
+            </section>
+        </section>
+
+        <section class="m-left:3 m-top:4 m-bottom:10">
+            <h1 class="d:none">영화목록</h1>
+            <section class="d:flex jc:space-between m-bottom:2">
+                <h1 class=" fs:4 fw:3">개봉 예정작</h1>
+                <ul class="d:flex fs:1 ai:center jc:space-between p-right:1">
+                    <li>
+                        <a href="" class="p-right:3">개봉 날짜순</a>
+                    </li>
+                    <li>
+                        <a href="" class="">예매율순</a>
+                    </li>
+                </ul>
+            </section>
+            <section class=" d:flex media-pading">
+                <h1 class="d:none ">컨텐츠</h1>
+                <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">
+                    <div class="display:inline-block bd-color:base-10 ">
+                        <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"
+                             src="#"
+                             th:src="${m.getPosterUrl()}" alt="/" height="212px">
+                    </div>
+                    <div class="d:flex ai:center d:inline-block line-height:1">
+                        <span class="fs:8 fw:3 line-height:1 font-style:italic" th:text="${mCount.count}">1</span>
+                        <div  class="m-left:4 d:inline-block line-height:1">
+                            <div>
+                                <span class="fs:2 fw:3 d:inline-block"
+                                      th:text="${m.getTotalRate()}">13000원 </span>
+                            </div>
+                            <div>
+                                <span class="fs:2 fw:1 d:inline-block"
+                                      th:text="${m.getKorName()}">서울의 봄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </section>
+
+        <section class="m-left:3 m-top:4 m-bottom:10">
+            <h1 class="d:none ">영화목록</h1>
+            <section class="d:flex jc:space-between m-bottom:2">
+                <h1 class=" fs:4 fw:3">올해의 영화</h1>
+                <ul class="d:flex fs:1 ai:center jc:space-between p-right:1">
+                    <li>
+                        <a href="" class="p-right:3">박스오피스 순위</a>
+                    </li>
+                    <li>
+                        <a href="" class="p-right:3">전날 관객 순위</a>
+                    </li>
+                    
+                    <li>
+                        <a href="">평점 순위</a>
+                    </li>
+                </ul>
+            </section>
+            <section class=" d:flex media-pading">
+                <h1 class="d:none ">컨텐츠</h1>
+                <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">
+                    <div class="display:inline-block bd-color:base-10 ">
+                        <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"
+                             src="#"
+                             th:src="${m.getPosterUrl()}" alt="/" height="212px">
+                    </div>
+                    <div class="d:flex ai:center d:inline-block line-height:1">
+                        <span class="fs:8 fw:3 line-height:1 font-style:italic" th:text="${mCount.count}">1</span>
+                        <div  class="m-left:4 d:inline-block line-height:1">
+                            <div>
+                                <span class="fs:2 fw:3 d:inline-block"
+                                      th:text="${m.getTotalRate()}">13000원 </span>
+                            </div>
+                            <div>
+                                <span class="fs:2 fw:1 d:inline-block"
+                                      th:text="${m.getKorName()}">서울의 봄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </section>
+    </section>
+</section>
+</main>
+</body>
+</html>

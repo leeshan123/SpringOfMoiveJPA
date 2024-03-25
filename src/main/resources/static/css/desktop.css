@@ -1,0 +1,18 @@
+/* movie/list 반응형 */
+@media only screen and (min-width: 840px){
+    /* 중간 크기 화면용 스타일 작성 */
+    .media{
+        display: flex;
+        justify-content: center;
+    }
+
+    .content-list{
+
+        padding:right 30px;
+    }
+
+    .media-pading{
+        gap: 32px;
+    }
+}
+/* movie/detail 반응형 */
