@@ -5,7 +5,9 @@
     height: 100%;
     margin: 0 auto;
 }
-
+.header {
+    width: 100%;
+}
 /* Top Nav*/
 .header .top_nav h1.logo {
     font-family: "IBM Plex Sans KR", sans-serif;

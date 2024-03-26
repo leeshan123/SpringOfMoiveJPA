@@ -1,14 +1,15 @@
-body{
+main{
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: rgb(76, 76, 76);
-}
+    /*max-width: 700px;*/
 
-main{
-    max-width: 700px;
 }
-
+.test{
+    max-width: 900px;
+    padding: 8px;
+}
 
 .main-img-block{
     display: flex;
@@ -67,7 +68,7 @@ main{
 
 /* Media Queries*/
 @media (min-width: 1068px) {
-    main{
+    test{
         max-width: 900px;
     }
 
