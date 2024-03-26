@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 public class OnelineReview {
 
     private Long id;
+    private Long movieId;
+    private Long memberId;
     private Date reg_date;
     private String comments;
     private int memberRate;
-    private Long movieId;
-    private Long memberId;
 }

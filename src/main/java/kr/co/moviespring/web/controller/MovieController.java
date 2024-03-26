@@ -47,10 +47,10 @@ public class MovieController {
     //     return "redirect:/movie/list";
     // }
     @PostMapping("comment")
-    public String comment(String comments,int rate,Long movieId){
+    public String comment(String comments,int rate,@RequestParam("movie-id") Long movieId){
         System.out.println("post 요청");
 
-        OnelineReview review= commentService.SaveComment(comments,rate,movieId);
+        OnelineReview review = commentService.SaveComment(comments,rate,movieId);
         
         System.out.println("댓글작성");
         return "redirect:/movie/detail?movieid="+movieId;

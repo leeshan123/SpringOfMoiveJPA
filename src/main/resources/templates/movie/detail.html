@@ -26,13 +26,14 @@
                 </div>
 
             </div>
-            <form action="comment" method="POST">
             <div id="content" style="display: none">
-                <div class="txt-al:center fs:7 font-style:italic">
-                    <span>간단한 코멘트를 남겨주세요!</span>
+                <div class="txt-al:center fs:5 fw:3">
+                    <span>한줄평을 남겨주세요!</span>
                 </div>
+                <form action="comment" method="POST">
                 <div class="display:flex justify-content:space-between fs:4">
-                    <a class="icon icon-size:5 icon:hand_coins" href="">아이콘</a>
+                    <input type="text" name="movie-id" th:value="${movie.id}" class="d:none">
+                    <span class="icon icon-size:5 icon:hand_coins">아이콘</span>
                     <select id="rate" name="rate">
                         <option value="0">0원</option>
                         <option value="5000">5,000원</option>
@@ -44,12 +45,12 @@
                     </select>
                 </div>
                 <div class="display:flex align-items:flex-end flex-direction:column">
-                    <textarea id="comments" name="comments" class="width:10p height:2 p:2" type="text" placeholder="내용을 입력해주세요."
-                    style="border-top: solid 2px rgb(114, 114, 114); border-bottom: solid 2px rgb(114, 114, 114);"></textarea>
-                    <button type="button" class="n-btn n-btn-type:filled m:2" >평가완료</button>
+                    <textarea id="comments" name="comments" class="width:10p height:2 p:2 n-textbox n-textbox-status:success" type="text" placeholder="내용을 입력해주세요."
+                    ></textarea>
+                    <button type="submit" class="n-btn n-btn-type:filled m:2" >평가완료</button>
                 </div>
+                </form>
             </div>
-        </form>
             <div class="padding-left:2 padding-right:2 display:flex gap:4">
                 <span class="margin-right:auto icon icon-size:5 icon:hand_coins">아이콘</span>
                 <span class="fs:6 fw:3">감정가</span>
