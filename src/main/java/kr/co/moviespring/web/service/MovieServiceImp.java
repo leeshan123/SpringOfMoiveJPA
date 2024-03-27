@@ -26,5 +26,10 @@ public class MovieServiceImp implements MovieService {
         return movie;
     }
 
+    @Override
+    public void saveMovie(Movie movie) {
+        repository.save(movie);
+    }
+
     
 }

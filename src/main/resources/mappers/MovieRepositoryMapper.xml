@@ -14,4 +14,9 @@
 		where id=#{id}
 	</select>
 
+	<insert id="save" parameterType="Movie">
+		INSERT INTO movie (id, kor_name, eng_name, sponsor, release_date, total_rate, total_boxoffice, total_sales, daily_sales, total_audience, daily_audience, movie_intro, poster_url, stillcut_url, trailer_url, release_nation_id, genre_id)
+    	VALUES (#{id}, #{korName}, #{engName}, #{sponsor}, #{releaseDate}, #{totalRate}, #{totalBoxoffice}, #{totalSales}, #{dailySales}, #{totalAudience}, #{dailyAudience}, #{movieIntro}, #{posterUrl}, #{stillcutUrl}, #{trailerUrl}, #{releaseNationId}, #{genreId})
+	</insert>
+
 </mapper>

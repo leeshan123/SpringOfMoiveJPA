@@ -36,6 +36,7 @@ public class MovieController {
     public String detail(@RequestParam("movieid")Long movieId,Model model){
         Movie movie = movieService.getById(movieId);
         model.addAttribute("movie", movie);
+
         return "movie/detail";
     }
     
