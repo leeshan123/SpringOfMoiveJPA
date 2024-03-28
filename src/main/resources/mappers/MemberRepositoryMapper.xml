@@ -4,10 +4,12 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.moviespring.web.memberRepository.MemberRepository">
 	
+    <!-- 로그인 -->
     <select id="signin" resultType="Member">
     select * from member where user_id = ${userId}
     </select>
 
+    <!-- 회원가입 -->
 	<select id="regist" resultType="Member">
         insert into member(user_id,pwd,name,nickname,age,email) 
         values (${userId},${pwd},${name},${nickname},${age},${email});

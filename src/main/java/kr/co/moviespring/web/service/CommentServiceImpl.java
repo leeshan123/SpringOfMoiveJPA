@@ -7,17 +7,23 @@ import org.springframework.stereotype.Service;
 
 import kr.co.moviespring.web.entity.OnelineReview;
 import kr.co.moviespring.web.repository.CommentRepository;
+
 @Service
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
     CommentRepository commentrepository;
 
+    // 한줄평 등록//
     @Override
-    public OnelineReview SaveComment(String comments,int rate,Long movieId) {
+    public void SaveComment(String comments, int rate, Long movieId) {
+        commentrepository.Save(comments, rate, movieId);
+    }
 
-        OnelineReview comment = commentrepository.Save(comments,rate,movieId);
-
-        return comment;
+    // 한줄평 목록//
+    @Override
+    public OnelineReview getOnelineReviews(Long movieId) {
+        OnelineReview onelineReviews = commentrepository.getlist(movieId);
+        return onelineReviews;
     }
 }

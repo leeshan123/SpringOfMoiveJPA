@@ -10,38 +10,36 @@ import kr.co.moviespring.web.memberService.MemberService;
 @Controller
 @RequestMapping("user")
 public class UserController {
-//------------------------로그인---------------------//
+    // 로그인 공사중//
     @Autowired
     MemberService memberService;
 
     @GetMapping("signin")
-    public String signin(){
+    public String signin() {
 
         return "user/signin";
     }
     // @PostMapping("signin")
     // public String signin(String userId , String pwd){
-    //     boolean valid = memberService.validate();
+    // boolean valid = memberService.validate();
 
-    //     return "redirect:/movie/list";
+    // return "redirect:/movie/list";
     // }
 
-//------------------------회원가입---------------------//
-
+    // 회원가입 공사중//
     @GetMapping("regist")
-    public String regist(){
-        
+    public String regist() {
+
         return "user/regist";
     }
 
-
-
     // @PostMapping("membership")
-    // public String membership(String userId , String pwd ,String name, String nickname ,int age , String email){
-        
-    //     Member Member = memberService.membership(userId,pwd,name,nickname,age,email);
+    // public String membership(String userId , String pwd ,String name, String
+    // nickname ,int age , String email){
 
-    //     return "redirect:/user/signin";
+    // Member Member = memberService.membership(userId,pwd,name,nickname,age,email);
+
+    // return "redirect:/user/signin";
     // }
 
 }
