@@ -7,7 +7,7 @@
   <!-- 한줄평 등록 -->
 	<select id="Save" resultType="OnelineReview">
         insert into oneline_review (comments,member_id,movie_id,member_rate) 
-        values ('${comments}',,${movieId},${rate});
+        values ('${comments}',1,${movieId},${rate});
   </select>
 
   <!-- 한줄평 목록 -->

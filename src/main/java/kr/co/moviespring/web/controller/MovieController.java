@@ -40,10 +40,10 @@ public class MovieController {
         // 상세정보//
         Movie movie = movieService.getById(movieId);
         // 리뷰목록//
-        OnelineReview onelineReviews = commentService.getOnelineReviews(movieId);
+        List<OnelineReview> onelineReviews = commentService.getOnelineReviews(movieId);
 
         model.addAttribute("movie", movie);
-        model.addAttribute("review", onelineReviews);
+        model.addAttribute("reviews", onelineReviews);
 
         return "movie/detail";
     }

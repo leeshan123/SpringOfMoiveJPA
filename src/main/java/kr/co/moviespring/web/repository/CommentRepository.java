@@ -1,5 +1,7 @@
 package kr.co.moviespring.web.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.moviespring.web.entity.OnelineReview;
@@ -10,6 +12,6 @@ public interface CommentRepository {
     OnelineReview Save(String comments, int rate, Long movieId);
 
     // 한줄평 목록//
-    OnelineReview getlist(Long movieId);
+    List<OnelineReview> getlist(Long movieId);
 
 }

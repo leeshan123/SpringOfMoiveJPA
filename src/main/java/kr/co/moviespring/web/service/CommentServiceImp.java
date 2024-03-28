@@ -9,7 +9,7 @@ import kr.co.moviespring.web.entity.OnelineReview;
 import kr.co.moviespring.web.repository.CommentRepository;
 
 @Service
-public class CommentServiceImpl implements CommentService {
+public class CommentServiceImp implements CommentService {
 
     @Autowired
     CommentRepository commentRepository;
@@ -22,8 +22,8 @@ public class CommentServiceImpl implements CommentService {
 
     // 한줄평 목록//
     @Override
-    public OnelineReview getOnelineReviews(Long movieId) {
-        OnelineReview onelineReviews = commentRepository.getlist(movieId);
+    public List<OnelineReview> getOnelineReviews(Long movieId) {
+        List<OnelineReview> onelineReviews = commentRepository.getlist(movieId);
         return onelineReviews;
     }
 }
