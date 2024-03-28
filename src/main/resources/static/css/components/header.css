@@ -87,10 +87,15 @@
 .bottom_nav ul {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .bottom_nav ul li {
     padding: 12px 60px 16px 0;
+}
+.bottom_nav ul li:nth-child(1) {
+    padding-left: 15px;
 }
 
 /* Media Queries*/

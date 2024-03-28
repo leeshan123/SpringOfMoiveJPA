@@ -35,8 +35,9 @@
                 <form action="comment" method="POST">
                     <div class="display:flex justify-content:space-between fs:4">
                         <input type="text" name="movie-id" th:value="${movie.id}" class="d:none">
-                        <span class="icon icon-size:5 icon:hand_coins">아이콘</span>
-                        <select id="rate" name="rate">
+                        <!-- <span class="icon icon-size:5 icon:hand_coins">아이콘</span> -->
+                        <select class="n-select" id="rate" name="rate">
+                            <option value="0">적정가격을 골라주세요</option>
                             <option value="0">0원</option>
                             <option value="5000">5,000원</option>
                             <option value="10000">10,000원</option>
