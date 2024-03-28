@@ -12,18 +12,18 @@ import kr.co.moviespring.web.repository.CommentRepository;
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
-    CommentRepository commentrepository;
+    CommentRepository commentRepository;
 
     // 한줄평 등록//
     @Override
     public void SaveComment(String comments, int rate, Long movieId) {
-        commentrepository.Save(comments, rate, movieId);
+        commentRepository.Save(comments, rate, movieId);
     }
 
     // 한줄평 목록//
     @Override
     public OnelineReview getOnelineReviews(Long movieId) {
-        OnelineReview onelineReviews = commentrepository.getlist(movieId);
+        OnelineReview onelineReviews = commentRepository.getlist(movieId);
         return onelineReviews;
     }
 }
