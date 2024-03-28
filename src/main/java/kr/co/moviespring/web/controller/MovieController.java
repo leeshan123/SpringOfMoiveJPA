@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.moviespring.web.entity.OnelineReview;
 import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.service.CommentService;
 import kr.co.moviespring.web.service.MovieService;
@@ -51,7 +50,7 @@ public class MovieController {
     public String comment(String comments,int rate,@RequestParam("movie-id") Long movieId){
         System.out.println("post 요청");
 
-        OnelineReview review = commentService.SaveComment(comments,rate,movieId);
+        commentService.SaveComment(comments,rate,movieId);
         
         System.out.println("댓글작성");
         return "redirect:/movie/detail?movieid="+movieId;
