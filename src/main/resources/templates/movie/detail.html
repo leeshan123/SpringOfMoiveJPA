@@ -135,9 +135,9 @@
                         <div class="d:flex ai:center gap:3">
                             <span class="icon icon:user">아이콘</span>
                             <span th:text="${count.count}+승환">닉네임</span>
-                            <span th:text="${r.getMemberRate}+원" class="margin-right:auto">평점</span>
-                            <span th:text="${#dates.format(r.getRegDate, 'yyyy-MM-dd')}">날짜</span>
-                            <span th:text="${#dates.format(r.getRegDate, 'HH:mm')}">시간</span>
+                            <span th:text="${r.memberRate}+원" class="margin-right:auto">평점</span>
+                            <span th:text="${#dates.format(r.regDate, 'yyyy-MM-dd')}">날짜</span>
+                            <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>
                         </div>
                         <div th:text="${r.comments}">한줄평이 출력됩니다</div>
                         <div>
