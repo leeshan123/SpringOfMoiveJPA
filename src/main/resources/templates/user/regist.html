@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="inc/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+String userId , String pwd ,String name, String
+nickname ,int age , String email)
+    <main layout:fragment="main">
+        <form action="regist" method="post">
+            <label for="user-id">아이디 입력</label>
+            <input type="text" id="user-id" name="userId" src="" alt="">
+
+            <label for="password">비밀번호 입력</label>
+            <input type="text" id="password" name="pwd" src="" alt="">
+
+            <label for="nickname">닉네임 입력</label>
+            <input type="text" id="nickname" name="nickname" src="" alt="">
+
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" src="" alt="">
+
+            <label for="age">나이</label>
+            <input type="text" id="age" name="age" src="" alt="">
+
+            <label for="email">이메일 입력</label>
+            <input type="text" id="email" name="email" src="" alt="">
+
+            <button class="n-btn" type="submit">회원가입</button>
+        </form>
+    </main>
+</body>
+</html>

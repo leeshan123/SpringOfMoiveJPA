@@ -5,8 +5,8 @@
 <mapper namespace="kr.co.moviespring.web.memberRepository.MemberRepository">
 	
     <!-- 로그인 -->
-    <select id="signin" resultType="Member">
-    select * from member where user_id = ${userId}
+    <select id="findByMembername" resultType="Member">
+    select * from member where user_id = #{userId}
     </select>
 
     <!-- 회원가입 -->
