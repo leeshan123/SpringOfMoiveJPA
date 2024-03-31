@@ -1,45 +1,84 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="inc/layout">
-<head>
-    <meta charset="UTF-8">
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="inc/layout"
+>
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
+    <style>
+        .main {
+            padding: 100px 0;
+            font-weight: bold;
+        }
+    </style>
+  </head>
+  <body>
     <main layout:fragment="main">
-        <section class="login-form">
-            <h1 class="heading-7 text-align:center">Rland Login</h1>
-            <section th:if="${param.error ne null}" class="n-modal" tabindex="-1">
-                <h1 class="n-font:h3 font-weight:3"></h1>
+      <div class="d:flex jc:center main">
+        <section class="padding-x:7" style="width: 500px">
+          <!-- 뉴틸 max-w 왜 안먹힘? -->
+          <div class="d:flex flex-direction:row">
+              <h1 class="fw:bold fs:8 bd-bottom bd-w:2 bd-color:base-10 display:inline-block">
+                로그인
+              </h1>
+              <span class="flex-grow:1 bd-bottom bd-w:2"></span>
+          </div>
+          <section th:if="${param.error ne null}">
+            <h1 class="n-font:h3 font-weight:3"></h1>
 
-                <div class="mt:8 text-a:center">아이디나 비밀번호가 일치하지 않습니다.</div>
-
-                <div class="d:flex fl-direction:column gap:2 mt:8">
-                    <button type="button" class="n-btn n-btn-size:3">확인</button>
-                    <button type="button" class="n-btn n-btn:void n-btn-size:3">닫기</button>
-                </div>
-            </section>
-            <!-- <div th:if="${param.error ne null}">아이디나 비밀번호가 일치하지 않습니다.</div> -->
-            <form action="signin" method="post">
-                <fieldset>
-                    <legend class="d:none">인증정보</legend>
-                    <label class="d:none">아이디</label>
-                    <input type="text" name="userId" placeholder="아이디">
-                    <label class="d:none">비밀번호</label>
-                    <input class="mt:3" type="password" name="pwd" placeholder="비밀번호">
-                </fieldset>
-                <div class="mt:5">
-                    <button class="btn btn-main w:1" type="submit">로그인</button>
-                    <span class="w:1 d:inline-flex justify-content:center mt:3">또는</span>
-                    <a class="btn w:1 mt:3 al" href="">
-                        <span class="deco icon-google icon-size:3 w:1 d:inline-flex justify-content:center">구글 로그인</span></a>
-                </div>
-                <div class="mt:3 d:flex justify-content:center">
-                    <a href="">회원가입</a>
-                    <a href="" class="bl:1 bc:base-6 bls:solid ml:3 pl:3">비밀번호 찾기</a>
-                </div>
-            </form>
+            <div class="mt:8 text-a:center">
+              아이디나 비밀번호가 일치하지 않습니다.
+            </div>
+          </section>
+          <!-- <div th:if="${param.error ne null}">아이디나 비밀번호가 일치하지 않습니다.</div> -->
+          <form
+            action="signin"
+            method="post"
+            class="n-form bp:n-field-label:left box-shadow:3 bd-color:base-1"
+          >
+            <fieldset>
+              <legend class="d:none">인증정보</legend>
+              <div>
+                <label class="width:100%">
+                  <span class="fw:bold">아이디</span>
+                  <input type="text" name="userId" placeholder="아이디" />
+                </label>
+              </div>
+              <div>
+                <label>
+                  <span class="fw:bold">비밀번호</span>
+                  <input
+                    class="mt:3"
+                    type="password"
+                    name="pwd"
+                    placeholder="비밀번호"
+                  />
+                </label>
+              </div>
+            </fieldset>
+            <div class="mt:5">
+              <button class="n-btn" type="submit">로그인</button>
+              <span class="w:100p d:inline-flex justify-content:center mt:1"
+                >또는</span
+              >
+              <a class="n-btn n-btn-color:sub w:100p mt:1" href="">
+                <span
+                  class="deco icon-google icon-size:3 w:100p d:inline-flex justify-content:center"
+                  >구글 로그인</span
+                ></a
+              >
+            </div>
+            <div class="mt:5 d:flex fl-dir:row justify-content:center gap:5">
+              <a href="">아이디 찾기</a>
+              <a href="">비밀번호 찾기</a>
+              <a href="regist">회원가입</a>
+            </div>
+          </form>
         </section>
+      </div>
     </main>
-</body>
+  </body>
 </html>

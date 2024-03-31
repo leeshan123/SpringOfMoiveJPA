@@ -1,5 +1,8 @@
 :root {
+    /* 컬러 */
 
+    --rgb-base-10: rgba(38, 47, 69, 1);
+  
     /* 그림자 */
 
     --box-shadow-1: 0px 4px 4px rgba(0, 0, 0, 0.3);

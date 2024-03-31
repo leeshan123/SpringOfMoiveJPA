@@ -28,10 +28,9 @@ public class MemberServiceImp implements MemberService {
 
     // 회원 가입//
     @Override
-    public Member regist(String userId, String pwd, String name, String nickname, int age, String email) {
+    public void regist(String userId, String pwd, String name, String nickname, int age, String email) {
         
-        Member member = memberRepository.regist(userId, pwd, name, nickname, age, email);
-        return member;
+        memberRepository.regist(userId, pwd, name, nickname, age, email);
     }
 
 }
