@@ -16,8 +16,8 @@ public class CommentServiceImp implements CommentService {
 
     // 한줄평 등록//
     @Override
-    public void SaveComment(String comments, int rate, Long movieId) {
-        commentRepository.Save(comments, rate, movieId);
+    public void saveComment(String comments, int rate, Long movieId) {
+        commentRepository.save(comments, rate, movieId);
     }
 
     // 한줄평 목록//

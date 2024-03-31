@@ -60,7 +60,7 @@ public class MovieController {
     public String comment(String comments, int rate, @RequestParam("movie-id") Long movieId) {
         System.out.println("post 요청");
 
-        commentService.SaveComment(comments, rate, movieId);
+        commentService.saveComment(comments, rate, movieId);
 
         System.out.println("댓글작성");
         return "redirect:/movie/detail?movieid=" + movieId;
