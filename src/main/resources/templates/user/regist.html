@@ -6,8 +6,9 @@
     <title>Title</title>
 </head>
 <body>
-    <main layout:fragment="main">
-        <form action="regist" method="post">
+<main layout:fragment="main">
+    <div>
+        <form action="regist" method="post" class="n-form d:flex flex-direction:column">
             <label for="user-id">아이디 입력</label>
             <input type="text" id="user-id" name="userId" src="" alt="">
 
@@ -28,6 +29,7 @@
 
             <button class="n-btn" type="submit">회원가입</button>
         </form>
-    </main>
+    </div>
+</main>
 </body>
 </html>
