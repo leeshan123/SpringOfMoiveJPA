@@ -5,12 +5,20 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        overflow: hidden; //가로 드래그 숨김설정
+        overflow: hidden;
+    
     }
 
     .media{
-        max-width: 100%;
+        display: flex;
+        justify-content: center;
+        width: 100%;
         overflow: hidden;
+    }
+    .media-sect{
+        width: 100%;
+        max-width: 980px;
+        justify-content:  space-around;
     }
 
     .content-list{

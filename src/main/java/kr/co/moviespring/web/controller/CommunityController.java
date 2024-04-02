@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("community")
 public class CommunityController {
 
-    @GetMapping("board")
-    public String board(){
-        return "community/board";
+    @GetMapping("main")
+    public String main(){
+        return "community/main";
     }
     
 }

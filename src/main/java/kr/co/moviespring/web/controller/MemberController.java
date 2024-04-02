@@ -28,6 +28,7 @@ public class MemberController {
 
     @PostMapping("signin")
     public String signin(String userId, String pwd, HttpSession session, HttpServletResponse response) {
+        System.out.println("post요청");
         boolean valid = memberService.validate(userId, pwd);
         System.out.println("포스트 요청");
         if (!valid) {
@@ -40,11 +41,11 @@ public class MemberController {
         // // uidCookie.setSecure(false);
         // uidCookie.setHttpOnly(true);
         //
-        // Cookie userIdCookie = new Cookie("userId",userId);
-        // userIdCookie.setPath("/");
-        //
+        Cookie userIdCookie = new Cookie("userId",userId);
+        userIdCookie.setPath("/");
+        
         // response.addCookie(uidCookie);
-        // response.addCookie(userIdCookie);
+        response.addCookie(userIdCookie);
 
         return "redirect:/index";
     }
