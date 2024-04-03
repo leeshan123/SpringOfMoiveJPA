@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="inc/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="/ckeditor/translations/ko.js"></script>
+    <script>
+        window.addEventListener("load", function (e) {
+            ClassicEditor
+                .create(document.querySelector('#editor'))
+                .catch(error => {
+                    console.error(error);
+                });
+
+            ClassicEditor.create(document.querySelector('#contents'), {
+                language: 'ko'
+            }).then(editor => {
+                window.editor = editor;
+            }).catch(error => {
+                console.error(error);
+            });
+        })
+    </script>
+    <style>
+        .ck-editor__editable {
+            height: 400px;
+        }
+
+        .ck-content {
+            font-size: 13px;
+        }
+        h1 {
+            line-height: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <main layout:fragment="main">
+        <section>
+            <h1 class="text-align:center bg-color:base-9 color:base-1 bd-tl-radius:2	bd-tr-radius:2">게시글 작성</h1>
+            <form action="" method="post">
+                <div>
+                    <input class="h:1 w:100p fs:4 padding-x:3" type="text" name="title" placeholder="제목을 입력해주세요">
+                </div>
+                <div>
+                    <!-- <input type="text" name="category" list="category-list" autocomplete="off">  -->
+                    <!-- <datalist id="category-list">
+                        <option selected value="카테고리를 선택해주세요">카테고리를 선택해주세요</option>
+                        <option value="영화할인">영화할인</option>
+                        <option value="무대인사">무대인사</option>
+                        <option value="포스터,아트카드">포스터,아트카드</option>
+                        <option value="굿즈">굿즈</option>
+                        <option value="기타">기타</option>
+                    </datalist> -->
+
+                    <select class="n-select h:1 text-align:center" name="category">
+                        <option selected value="">카테고리를 선택해주세요</option>
+                        <option value="영화할인">영화할인</option>
+                        <option value="무대인사">무대인사</option>
+                        <option value="포스터,아트카드">포스터,아트카드</option>
+                        <option value="굿즈">굿즈</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div>
+                    <textarea name="content" id="editor" cols="30" rows="10" placeholder="내용을 입력해주세요">
+                    </textarea>
+                </div>
+                <div>
+                    <input class="" name="img-file" type="file" multiple />
+                </div>
+                <div class="text-align:right">
+                    <button class="n-btn n-btn-color:main-1 n-btn-size:2">작성완료</button>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

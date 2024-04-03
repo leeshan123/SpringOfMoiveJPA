@@ -1,7 +1,16 @@
 :root {
     /* 컬러 */
 
-    --rgb-base-10: rgba(38, 47, 69, 1);
+    --color-main-1: #718266;
+    --color-main-2: #637359;
+    --color-main-3: #54644A;
+
+    --color-sub-1: #339af0;
+    --color-sub-2: #228be6;
+    --color-sub-3: #1c7ed6;
+
+    --color-base-9: rgba(48, 50, 49, 1);
+    --color-base-10: #262F45;
   
     /* 그림자 */
 
@@ -37,11 +46,5 @@
     --width-percent-9: 90%;
     --width-percent-10: 100%;
 
-    --color-main-1:#718266;
-    --color-main-2: #637359;
-    --color-main-3: #54644A;
 
-    --color-sub-1: #339af0;
-    --color-sub-2: #228be6;
-    --color-sub-3: #1c7ed6;
   }
