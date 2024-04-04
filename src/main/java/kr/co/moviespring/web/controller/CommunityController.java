@@ -3,7 +3,6 @@ package kr.co.moviespring.web.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -14,10 +13,14 @@ public class CommunityController {
     public String main(){
         return "community/main";
     }
-    
+
+    @GetMapping("board")
+    public String board(){
+        return "community/board";
+    }
+
     @GetMapping("reg")
     public String reg() {
         return "community/reg";
     }
-    
 }

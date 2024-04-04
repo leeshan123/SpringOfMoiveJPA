@@ -94,4 +94,15 @@ main{
         width: 33%;
         height: 33%;
     }
+    .content{
+        overflow: hidden;
+    }
+    .toggle-on{
+    height: 1;
+    transform: height 1s ease;
+
+    }
+    .toggle-off{
+        height: 0;
+    }
 }

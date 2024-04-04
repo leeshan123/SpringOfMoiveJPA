@@ -6,7 +6,6 @@ function toggleContent() {
         content.style.display = "none";
     }
 }
-
 //공사중
 // window.addEventListener("load", function () {
 
