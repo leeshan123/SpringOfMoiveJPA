@@ -4,13 +4,28 @@
 				"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.moviespring.web.repository.MovieInsertRepository">
 
-<select id="findAll" resultType="Movie2">
-	select * from movie2
-</select>
 
-<insert id="saveMovie" parameterType="Movie2">
+	<insert id="DailyBoxOfficeSave" parameterType="Movie2">
 	INSERT INTO MOVIE2 (movieCd, movieNm, openDt, salesAmt, audiCnt, audiAcc)
 	VALUES (#{movieCd}, #{movieNm}, #{openDt}, #{salesAmt}, #{audiCnt}, #{audiAcc})
-</insert>
+	</insert>
+
+
+<!--	<insert id="saveAllMovie" parameterType="Movie2">-->
+
+<!--		INSERT INTO movie3 (movieCd, movieNm, openDt, repGenreNm)-->
+<!--		VALUES (#{movieCd}, #{movieNm}, #{openDt}, #{repGenreNm})-->
+
+<!--	</insert>-->
+
+	<insert id="saveIfNotMovie" parameterType="Movie2">
+		INSERT INTO movie3 (movieCd, movieNm, openDt, repGenreNm)
+		SELECT #{movieCd}, #{movieNm}, #{openDt}, #{repGenreNm}
+		FROM (SELECT 1) AS dummy
+		WHERE NOT EXISTS (
+		SELECT 1 FROM movie3 WHERE movieCd = #{movieCd}
+		)
+	</insert>
+
 
 </mapper>
