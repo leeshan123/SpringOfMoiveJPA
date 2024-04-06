@@ -10,7 +10,7 @@
   </select>
 
   <!-- 회원가입 -->
-  <insert id="regist" parameterType="Member">
+  <insert id="regist" parameterType="Member"> <!-- 매개변수로 전달받는 값이 객체면 파라미터 타입 속성으로 객체의 타입을 적어준다? -->
         insert into member(username,password,name,nickname,age,email,role)
         values (#{username},#{password},#{name},#{nickname},#{age},#{email},#{role});
   </insert>
