@@ -45,7 +45,7 @@
     <main layout:fragment="main">
         <section class="color:base-10">
             <h1 class="text-align:center bg-color:base-9 color:base-1 bd-tl-radius:2	bd-tr-radius:2">게시글 작성</h1>
-            <form action="" method="post">
+            <form action="reg" method="post">
                 <div>
                     <input class="h:1 w:100p fs:4 padding-x:3" type="text" name="title" placeholder="제목을 입력해주세요">
                 </div>
@@ -70,14 +70,14 @@
                     </select>
                 </div>
                 <div>
-                    <textarea name="content" id="editor" cols="30" rows="10" placeholder="내용을 입력해주세요">
+                    <textarea name="contents" id="" cols="30" rows="10" placeholder="내용을 입력해주세요">
                     </textarea>
                 </div>
                 <div>
                     <input class="" name="img-file" type="file" multiple />
                 </div>
                 <div class="text-align:right">
-                    <button class="n-btn n-btn-color:main-1 n-btn-size:2">작성완료</button>
+                    <button type="submit" class="n-btn n-btn-color:main-1 n-btn-size:2">작성완료</button>
                 </div>
             </form>
         </section>

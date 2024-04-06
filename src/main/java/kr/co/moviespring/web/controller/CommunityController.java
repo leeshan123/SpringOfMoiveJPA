@@ -36,7 +36,7 @@ public class CommunityController {
 
     @PostMapping("reg")
     public String reg(String title , String contents){
-        GeneralBoard Board = communityService.write(title,contents);
-        return "redirect:?";
+        communityService.write(title,contents);
+        return "redirect:/community/main";
     }
 }
