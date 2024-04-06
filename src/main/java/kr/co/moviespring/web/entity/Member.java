@@ -14,14 +14,15 @@ import lombok.NoArgsConstructor;
 public class Member {
     
  private Long id;
- private String userId;
- private String pwd;
+ private String username;
+ private String password;
  private String name;
  private String nickname;
  private int age;
  private String email;
  private int point;
- private Date reg_date;
- private String profile_image_url;
- private boolean is_with_drawn;// tinyint(1)
+ private Date regDate;
+ private String profileImageUrl;
+ private boolean isWithDrawn;// tinyint(1)
+ private String role;
 }

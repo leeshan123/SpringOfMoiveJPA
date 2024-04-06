@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="inc/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main layout:fragment="main">
+        <!-- <div style="height: 300px; width: 100px; background-color: red ;"></div>
+        </div> -->
+        <section class="media color:base-10">
+            <h1 class="d:none">게시판 리스트</h1>
+            <nav class="d:flex n-tabbar">
+                <div class="nav_container bottom_nav_container">
+                    <div>
+                        <ul class="n-tabbar   jc:space-between">
+                            <li class="active"><button>인기글</button></li>
+                            <li><button>영화할인</button></li>
+                            <li><button>무대인사</button></li>
+                            <li><button>포스터,아트카드</button></li>
+                            <li><button>굿즈</button></li>
+                            <li><button>자유게시판</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </section>
+        <section class="d:flex jc:space-around">
+            <h1 class="d:none">게시판 메인</h1>
+                <section style="width: 980px;" class="mw:10 mt:8">
+                    <h1 class="fw:bold fs:6 color:main-3">인기글</h1>
+                    <table style="width: 100%;"  class="box-shadow:1 bd-color:base-1 mt:4 m">
+                        <tr class="jc:space-around" >
+                            <th class="ai:center txt-al:center">분류</th>
+                            <th class="ai:center txt-al:center">제목</th>
+                            <th class="ai:center txt-al:center">글쓴이</th>
+                            <th class="ai:center txt-al:center">조회</th>
+                            <th class="ai:center txt-al:center">추천</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>4</td>
+                        </tr>
+                    </table>
+                    <div class="d:flex jc:flex-end">
+                        <button class="n-btn" ><a href="reg">게시글 작성</a></button>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </main>
+</body>
+</html>

@@ -7,7 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="/css/components/movie/detail.css">
-    <script src="/js/movie/detail.js"></script>
+    <script src="/js/movie/detail.js" defer></script>
+    <style>
+        .toggle-on{
+            display: block;
+            transform: translateY(30px);
+            transition: transform 2s;
+
+        }
+
+        .toggle-off{
+            display: none;
+            transform: translateY(-200px);
+            transition: transform 2s;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,12 +37,12 @@
             <div style="max-width: 100%; display: flex; justify-content: space-between; align-items: center;" class="border-left bd-color:main-2 bd-w:3 mt:2 mb:2 fs:5">
                 <div class="ml:1 fw:3" th:text="${movie.korName}">영화명</div>
                 <div>
-                    <button onclick="toggleContent()" class="fs:3 color:base-5"
+                    <button onclick="toggleContent()" class="fs:3 color:base-5 toggle"
                         style="text-decoration: underline;">평가하기</button>
                 </div>
 
             </div>
-            <div id="content" style="display: none">
+            <div id="content" class="toggle-off">
                 <div class="txt-al:center fs:5 fw:3">
                     <span>한줄평을 남겨주세요!</span>
                 </div>

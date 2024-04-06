@@ -5,10 +5,10 @@
 <mapper namespace="kr.co.moviespring.web.repository.CommentRepository">
 	
   <!-- 한줄평 등록 -->
-	<select id="Save" resultType="OnelineReview">
+	<insert id="save">
         insert into oneline_review (comments,member_id,movie_id,member_rate) 
-        values ('${comments}',1,${movieId},${rate});
-  </select>
+        values (#{comments},#{id},#{movieId},#{rate});
+  </insert>
 
   <!-- 한줄평 목록 -->
   <select id="getlist" resultType="OnelineReview">
