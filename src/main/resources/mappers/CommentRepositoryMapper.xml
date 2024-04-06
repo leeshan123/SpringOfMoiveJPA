@@ -7,7 +7,7 @@
   <!-- 한줄평 등록 -->
 	<insert id="save">
         insert into oneline_review (comments,member_id,movie_id,member_rate) 
-        values (#{comments},1,#{movieId},#{rate});
+        values (#{comments},#{id},#{movieId},#{rate});
   </insert>
 
   <!-- 한줄평 목록 -->

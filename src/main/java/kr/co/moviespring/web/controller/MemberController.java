@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.co.moviespring.web.memberService.MemberService;
+import kr.co.moviespring.web.entity.Member;
+import kr.co.moviespring.web.service.MemberService;
 
 @Controller
 @RequestMapping("user")
@@ -24,14 +25,15 @@ public class MemberController {
         return "user/signin";
     }
 
-    @PostMapping("signin")
-    public String signin(String userId, String pwd, HttpSession session, HttpServletResponse response) {
+    //스프링 사큐리티 설정파일의 .loginProcessingUrl("/user/signin")으로 로그인 폼데이터를 POST요청받음
+    /*@PostMapping("signin")
+    public String signin(String username, String password, HttpSession session, HttpServletResponse response) {
         System.out.println("post요청");
-        boolean valid = memberService.validate(userId, pwd);
+//        boolean valid = memberService.validate(username, password);
         System.out.println("포스트 요청");
-        if (!valid) {
-            return "redirect:signin?error";
-        }
+//        if (!valid) {
+//            return "redirect:signin?error";
+//        }
 
         // Cookie uidCookie = new Cookie("uid","1");
         // uidCookie.setPath("/");
@@ -39,14 +41,14 @@ public class MemberController {
         // // uidCookie.setSecure(false);
         // uidCookie.setHttpOnly(true);
         //
-        Cookie userIdCookie = new Cookie("userId",userId);
-        userIdCookie.setPath("/");
+        Cookie usernameCookie = new Cookie("username",username);
+        usernameCookie.setPath("/");
         
         // response.addCookie(uidCookie);
-        response.addCookie(userIdCookie);
+        response.addCookie(usernameCookie);
 
         return "redirect:/index";
-    }
+    }*/
 
     // 회원가입 공사중//
     @GetMapping("regist")
@@ -56,10 +58,10 @@ public class MemberController {
     }
 
     @PostMapping("regist")
-    public String regist(String userId, String pwd, String name, String nickname, int age, String email) {
-
-        memberService.regist(userId, pwd, name, nickname, age, email);
-
+    public String regist(Member member) {
+//        String userId, String pwd, String name, String nickname, int age, String email
+        memberService.regist(member);
+//        username, password, name, nickname, age, email
         return "redirect:/user/welcome";
     }
 

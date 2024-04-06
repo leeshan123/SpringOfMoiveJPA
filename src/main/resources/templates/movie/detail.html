@@ -7,7 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="/css/components/movie/detail.css">
-    <script src="/js/movie/detail.js"></script>
+    <script src="/js/movie/detail.js" defer></script>
+    <style>
+        .toggle-on{
+            display: block;
+            transform: translateY(30px);
+            transition: transform 2s;
+
+        }
+
+        .toggle-off{
+            display: none;
+            transform: translateY(-200px);
+            transition: transform 2s;
+        }
+    </style>
 </head>
 
 <body>
@@ -28,7 +42,7 @@
                 </div>
 
             </div>
-            <div id="content" style="display: none">
+            <div id="content" class="toggle-off">
                 <div class="txt-al:center fs:5 fw:3">
                     <span>한줄평을 남겨주세요!</span>
                 </div>
