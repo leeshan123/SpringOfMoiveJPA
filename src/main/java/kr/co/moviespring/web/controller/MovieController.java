@@ -30,6 +30,36 @@ public class MovieController {
     @GetMapping("list")
     public String list(Model model) {
 
+        //영화 받아오기 테스트
+        // List <Movie> mlist = new ArrayList<>();
+        // MovieAPI api = new MovieAPI();
+        // List<MovieInfoEntity> miList = new ArrayList<>();
+        // List<DailyBoxEntity> dbeList = new ArrayList<>();
+        // dbeList = api.requestBoxDailly();
+        // for (DailyBoxEntity dailyBoxEntity : dbeList) {
+        //     MovieInfoEntity movieInfo;
+        //     movieInfo = api.requestMovieInfo(dailyBoxEntity.getMovieCd());
+        //     miList.add(movieInfo);
+        //     MovieUrlEntity movieUrl = api.requestUrl(movieInfo.getMovieNm(), movieInfo.getOpenDt());
+
+        //     Movie m = new Movie();
+        //     m.setId(Long.parseLong(dailyBoxEntity.getMovieCd()));
+        //     m.setTotalBoxoffice(dailyBoxEntity.getRank());
+        //     m.setDailyAudience(dailyBoxEntity.getAudiCnt());
+        //     m.setTotalAudience(dailyBoxEntity.getAudiAcc());
+        //     m.setTotalSales(Long.parseLong(dailyBoxEntity.getSalesAcc()));
+        //     m.setKorName(movieInfo.getMovieNm());
+        //     m.setEngName(movieInfo.getMovieNmEn());
+        //     m.setReleaseDate(movieInfo.getOpenDt());
+        //     m.setReleaseNationId(movieInfo.getNationNm());
+        //     m.setGenreId(movieInfo.getGenreNm());
+        //     m.setTrailerUrl(movieUrl.getTrailerUrl());
+        //     m.setPosterUrl(movieUrl.getPosterUrl());
+        //     m.setStillcutUrl(movieUrl.getStillcutUrl());
+        //     m.setMovieIntro(movieUrl.getOverView());
+        //     mlist.add(m);
+        // }
+
         List<Movie> list = movieService.getList();
         model.addAttribute("list", list);
         return "movie/list";
