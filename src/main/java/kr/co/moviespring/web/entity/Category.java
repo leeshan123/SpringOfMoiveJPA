@@ -5,20 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class GeneralBoard {
+public class Category {
     
- private Long id;
- private String title;
- private String contents;
- private Date regDate;
- private int hit;
- private Long memberId;
- private Long categoryId;
-
+    private int id;
+    private String name;
 }

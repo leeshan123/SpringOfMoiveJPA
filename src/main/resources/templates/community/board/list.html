@@ -40,12 +40,14 @@
                             <th class="ai:center txt-al:center">조회</th>
                             <th class="ai:center txt-al:center">추천</th>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>4</td>
+                        <tr th:each="g:${list}">
+                            <a href="" th:href="@{detail(BoardId=${g.id})}">
+                                <td>자유</td>
+                                <td th:text="${g.title}">2</td>
+                                <td th:text="${g.memberId}">3</td>
+                                <td>3</td>
+                                <td>4</td>
+                            </a>
                         </tr>
                     </table>
                     <div class="d:flex jc:flex-end">
