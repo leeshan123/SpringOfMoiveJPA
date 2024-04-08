@@ -25,6 +25,18 @@ public class MemberController {
         return "user/signin";
     }
 
+    @GetMapping("findId")
+    public String findId() {
+
+        return "user/findId";
+    }
+
+    @GetMapping("findPwd")
+    public String findPwd() {
+
+        return "user/findPwd";
+    }
+
     //스프링 사큐리티 설정파일의 .loginProcessingUrl("/user/signin")으로 로그인 폼데이터를 POST요청받음
     /*@PostMapping("signin")
     public String signin(String username, String password, HttpSession session, HttpServletResponse response) {
