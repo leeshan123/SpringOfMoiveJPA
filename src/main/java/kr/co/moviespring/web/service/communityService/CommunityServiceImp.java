@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.service;
+package kr.co.moviespring.web.service.communityService;
 
 import kr.co.moviespring.web.repository.CommunityRepository;
 

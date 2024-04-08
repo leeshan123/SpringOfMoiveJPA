@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.OnelineReview;
-import kr.co.moviespring.web.service.CommentService;
-import kr.co.moviespring.web.service.MovieService;
+import kr.co.moviespring.web.service.commentService.CommentService;
+import kr.co.moviespring.web.service.movieService.MovieService;
 
 @Controller
 @RequestMapping("movie")
