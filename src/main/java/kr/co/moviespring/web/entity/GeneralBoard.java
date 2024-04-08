@@ -20,5 +20,6 @@ public class GeneralBoard {
  private int hit;
  private Long memberId;
  private Long categoryId;
+ private String imageUrl;
 
 }

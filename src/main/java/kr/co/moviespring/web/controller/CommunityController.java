@@ -24,9 +24,8 @@ public class CommunityController {
 
     // 커뮤니티 메인페이지 요청//
     @GetMapping("main")
-    public String main(@RequestParam(name="CategoryId",required = false)Long categoryId,Model model){
+    public String main(@RequestParam(name="c",required = false)Long categoryId,Model model){
         List<Category> categories = communityService.getListByCategoryId(categoryId);
-        System.out.println(categories);
         model.addAttribute("ctgId", categories);
         return "community/main";
     }
@@ -34,7 +33,8 @@ public class CommunityController {
 
     //게시글 목록 요청//
     @GetMapping("board/list")
-    public String board(@RequestParam(name="CategoryId",required = false)Long categoryId,Model model){
+    public String board(@RequestParam(name="c",required = false)Long categoryId,Model model){
+        System.out.println("c = " + categoryId);
         List <GeneralBoard> list = communityService.getList(categoryId);
         model.addAttribute("list", list);
         return "community/board/list";
@@ -42,20 +42,21 @@ public class CommunityController {
 
     //게시글 상세 요청//
     @GetMapping("detail")
-    public String detail(@RequestParam("BoardId")Long id,Model model){
+    public String detail(@RequestParam("b")Long id,Model model){
         GeneralBoard Genboard = communityService.getById(id);
         model.addAttribute("board", Genboard);
         return "community/board/list";
     }
     // 게시글 등록페이지 요청//
     @GetMapping("board/reg")
-    public String reg() {
+    public String reg(@RequestParam(name="c",required = false)Long categoryId,Model model) {
+        model.addAttribute("cId", categoryId);
         return "community/board/reg";
     }
 
     // 게시글 등록//
-    @PostMapping("reg")
-    public String reg(String title , String contents,@RequestParam(name="CategoryId",required = false)Long categoryId){
+    @PostMapping("board/reg")
+    public String reg(String title , String contents,@RequestParam(name="c",required = false)Long categoryId){
         communityService.write(title,contents,categoryId);
         return "redirect:/community/board/list";
     }

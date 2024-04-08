@@ -23,7 +23,7 @@
   <!-- 게시글 등록 -->
 	<insert id="saveContents">
         insert into general_board (title,contents,member_id,category_id) 
-        values (#{categoryId},#{title},#{contents},12);
+        values (#{title},#{contents},12,#{categoryId});
   </insert>
 
 </mapper>
