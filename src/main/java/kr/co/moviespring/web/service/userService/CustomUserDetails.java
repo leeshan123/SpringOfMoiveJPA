@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.service;
+package kr.co.moviespring.web.service.userService;
 
 import kr.co.moviespring.web.entity.Member;
 import org.springframework.security.core.GrantedAuthority;

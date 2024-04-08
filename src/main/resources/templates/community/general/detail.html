@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="inc/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main layout:fragment="main">
+        <div>자유게시판</div>
+        <section>
+            <h1>게시글 제목</h1>
+            <div>
+                <div>
+                    <span>아이콘</span>
+                    <span>작성자</span>
+                    <span>날짜</span>
+                    <span>시간</span>
+                </div>
+                <span>조회수</span>
+                <span>좋아요</span>
+                <span>댓글</span>
+            </div>
+            <div>
+                <span><img src="" alt=""></span>
+                <p>작성글 내용</p>
+            </div>
+            <div>좋아요 박스</div>
+            <div>
+                <span>수정</span>
+                <span>삭제</span>
+            </div>
+        </section>
+        <section>
+            <div>
+                <div>
+                    <span>아이콘</span>
+                    <span>작성자</span>
+                    <span>날짜</span>
+                    <span>시간</span>
+                </div>
+                <span>
+                    <span>아이콘
+                        <span>좋아요 수</span>
+                    </span>
+                    <span>아이콘
+                        <span>싫어요 수</span>
+                    </span>
+                </span>
+                <span>아이콘
+                    <span>댓글</span>
+                </span>
+            </div>
+        </section>
+        <form action="">
+            <div>
+                <span>아이콘</span>
+                <span>이름</span>
+            </div>
+            <div>
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <button>등록</button>
+            </div>
+        </form>
+        <div>
+            <span>목록</span>
+            <span>이전글</span>
+            <span>다음글</span>
+        </div>
+    </main>
+</body>
+</html>

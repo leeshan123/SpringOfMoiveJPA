@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.service;
+package kr.co.moviespring.web.service.communityService;
 
 import kr.co.moviespring.web.repository.CommunityRepository;
 
@@ -10,7 +10,7 @@ public class CommunityServiceImp implements CommunityService{
 
     @Autowired
     CommunityRepository communityRepository;
-
+    // 게시글 등록//
     @Override
     public void write(String title, String contents) {
         communityRepository.saveContents(title,contents);
