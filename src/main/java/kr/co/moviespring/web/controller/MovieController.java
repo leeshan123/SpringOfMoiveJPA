@@ -98,4 +98,11 @@ public class MovieController {
         System.out.println("댓글작성");
         return "redirect:/movie/detail?movieid=" + movieId;
     }
+
+    @GetMapping("actor")
+    public String actor() {
+
+        return "movie/actor";
+    }
+
 }

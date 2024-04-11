@@ -4,10 +4,264 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
 </head>
 <body>
     <main layout:fragment="main">
-        인덱스 페이지 공사중입니다
+        <!-- 미디어로 가운데로 값주기-->
+        <section class="media">
+            <section class="media-sect
+            d:flex flex-direction:column
+            overflow:hidden">
+                <section>
+                    <iframe class="bd-radius:3"
+                    width="100%" height="500"
+                    src="https://www.youtube.com/embed/-AZ7cnwn2YI" 
+                    frameborder="0" allowfullscreen>
+                    </iframe>
+                </section>
+
+                <!-- 현재 상영작(list에서 받아옴.) -->
+            <section class="m-left:2 m-top:4 m-bottom:10">
+                <h1 class="d:none">영화목록</h1>
+                <section class="d:flex jc:space-between m-bottom:2">
+                    <h1 class=" fs:5 fw:3">현재 상영작</h1>
+                    <ul class="d:flex fs:1 ai:center jc:space-between p-right:1">
+                        <li class="p-right:3">
+                            <a href="" class="">박스오피스 순위</a>
+                        </li>
+                        <li class="p-right:3">
+                            <a href="">전날 관객 순위</a>
+                        </li>
+                        
+                        <li class="">
+                            <a href="" >평점 순위</a>
+                        </li>
+                    </ul>
+                </section>
+                <section class=" d:flex media-pading">
+                    <h1 class="d:none ">컨텐츠</h1>
+                    <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">
+                        <div class="display:inline-block bd-color:base-10 ">
+                            <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"
+                            src=""
+                                th:src="${m.getPosterUrl()}" alt="/" height="212px" ></a>
+                        </div>
+                        <div class="d:flex ai:center d:inline-block line-height:1">
+                                <span class="fs:8 fw:3 line-height:1 font-style:italic" th:text="${mCount.count}">1</span>
+                            <div  class="m-left:4 d:inline-block line-height:1">
+                                <div>
+                                    <span class="fs:2 fw:3 d:inline-block"
+                                    th:text="${m.getTotalRate()}">13000원 </span>
+                                </div>
+                                <div>
+                                    <span class="fs:2 fw:1 d:inline-block"
+                                    th:text="${m.getKorName()}">서울의 봄</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </section>
+                </section>
+                <!-- 개봉 예정작(list에서 받아옴.) -->
+                <section class="m-left:3 m-top:4 m-bottom:10">
+                    <h1 class="d:none">영화목록</h1>
+                    <section class="d:flex jc:space-between m-bottom:2">
+                        <h1 class=" fs:5 fw:3">개봉 예정작</h1>
+                        <ul class="d:flex fs:1 ai:center jc:space-between p-right:1">
+                            <li>
+                                <a href="" class="p-right:3">개봉 날짜순</a>
+                            </li>
+                            <li>
+                                <a href="" class="">예매율순</a>
+                            </li>
+                        </ul>
+                    </section>
+                    <section class=" d:flex media-pading">
+                        <h1 class="d:none ">컨텐츠</h1>
+                        <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">
+                            <div class="display:inline-block bd-color:base-10 ">
+                                <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"
+                                    src="#"
+                                    th:src="${m.getPosterUrl()}" alt="/" height="212px">
+                            </div>
+                            <div class="d:flex ai:center d:inline-block line-height:1">
+                                <span class="fs:8 fw:3 line-height:1 font-style:italic" th:text="${mCount.count}">1</span>
+                                <div  class="m-left:4 d:inline-block line-height:1">
+                                    <div>
+                                        <span class="fs:2 fw:3 d:inline-block"
+                                            th:text="${m.getTotalRate()}">13000원 </span>
+                                    </div>
+                                    <div>
+                                        <span class="fs:2 fw:1 d:inline-block"
+                                            th:text="${m.getKorName()}">서울의 봄</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </section>
+                </section>
+                <!-- 2주의 영화 파트 -->
+                <section>
+                    <h1 class="d:none">2주의 영화</h1>
+                <div class="d:flex ai:center ac:center gap:2 mb:5">
+                    <span class="icon icon:trophy icon-size:5">트로피</span>
+                    <span class=" fs:5 fw:3">2주의 영화 </span>
+                    <span class="icon icon:trophy icon-size:5">트로피</span>
+                </div>
+                <!-- 전체 틀 -->
+                <div class="d:flex flex-direction:row gap:3">
+                    <!-- 왼쪽 포스터 부분 -->
+                    <div class="twoweek-movie-left d:flex flex-direction:column text-align:center">
+                        <div>
+                        <img src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20240404_36%2F1712216009593oVdA5_JPEG%2Fmovie_image.jpg"
+                         width="200px" height="300px" alt="">
+                        </div>
+                         <div class=" fs:5 fw:3">20000원</div>
+                         <div class=" fs:5 fw:3">쇼생크 탈출</div>
+
+                    </div>
+                    <!-- 오른쪽 한줄 평 부분 -->
+                    <div class="twoweek-movie-right d:flex flex-direction:column
+                    gap:2 mt:5 mb:5">
+                        <div class=" text-align:center fs:5 fw:bold mb:5">한줄평</div>
+
+                        <div>
+                        
+                        <div class=" deco icon:user">이승환: 쇼생크 탈출은 꼭 봐야재봐야재봐야재봐야재봐야재봐야재봐야재~</div>
+                        </div>
+
+                        <div>
+                            <div class=" deco icon:user">이승환: 쇼생크 탈출은 꼭 봐야재봐야재봐야재봐야재봐야재봐야재봐야재~</div>
+                        </div>
+
+                        <div>
+                            <div class=" deco icon:user">이승환: 쇼생크 탈출은 꼭 봐야재봐야재봐야재봐야재봐야재봐야재봐야재~</div>
+                        </div>
+
+                        <div>
+                            <div class=" deco icon:user">이승환: 쇼생크 탈출은 꼭 봐야재봐야재봐야재봐야재봐야재봐야재봐야재~</div>
+                        </div>
+
+                        <div>
+                            <div class=" deco icon:user">이승환: 쇼생크 탈출은 꼭 봐야재봐야재봐야재봐야재봐야재봐야재봐야재~</div>
+                        </div>
+
+                        <div class="user-comment align-content:end">
+                            <form action="/submit_comment" method="post">
+                                <div class="d:flex flex-direction:row gap:2 text-align:center ai:center">
+                                    <div class="deco icon:user">박준순:</div>
+                                    <div class="flex-grow:1">
+                                        <input class="bg-color:base-6 w:10p" type="text" name="comment" placeholder="댓글을 입력하세요." />
+                                    </div>
+                                    <button type="button" class="n-btn">입력</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        
+                        
+
+
+                </div>
+
+                </section>
+
+            <section class="d:flex gap:5 mt:5 mb:5">
+                <h1 class="d:none">이벤트 및 커뮤니티</h1>
+
+                <!-- 이벤트 -->
+                <div class="fl:fill mb:5">
+                    <div class="d:flex ac:center">
+                        <h1 class="fs:5 fw:3 flex-grow:1 mb:3">EVENT</h1>
+                        <a href="" class="fs:2">더보기></a>
+                    </div>
+                    <div class="d:flex fl-dir:column gap:2">
+                        <li><a>쿵</a></li>
+                        <li><a>푸</a></li>                        
+                        <li><a>팬</a></li>
+                        <li><a>더</a></li>
+                        <li><a>4</a></li>
+                        <li><a>짱</a></li>
+                    </div>
+                </div>
+                <!-- 커뮤니티 -->
+
+                <div class="fl:fill mb:5">
+                    <div class="d:flex">
+                        <h1 class="fs:5 fw:3 flex-grow:1 mb:3">커뮤니티</h1>
+                        <a href="" class="fs:2">더보기></a>
+                    </div>
+                    <div class="d:flex fl-dir:column gap:2">
+                        <li><a>쿵</a></li>
+                        <li><a>푸</a></li>                        
+                        <li><a>팬</a></li>
+                        <li><a>더</a></li>
+                        <li><a>4</a></li>
+                        <li><a>짱</a></li>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 관객수 놀이터 -->
+
+            <section>
+                <div class="d:flex ac:center">
+                    <h1 class="fs:5 fw:3 flex-grow:1 mb:3">놀이터</h1>
+                    <a href="" class="fs:2">더보기></a>
+                </div>
+
+                <div class="d:flex gap:3">
+                <div class="d:flex fl-dir:column movie-playground ai:center ac:center 
+                bd-radius:3 txt-al:center">
+                    <div class="w:10p bg-color:main-3 fs:3 fw:3 color:base-1">목표 관객수 1300만 이상</div>
+                    <div><img src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20240311_85%2F1710136183535z3QfC_JPEG%2Fmovie_image.jpg"
+                        width="200" height="300" alt=""></div>
+                        <div class="w:10p bg-color:main-3 fs:3 fw:3 color:accent-2 bd-radius:3"><a href="">참여하기</a></div>
+                </div>
+
+                <div class="d:flex fl-dir:column movie-playground ai:center ac:center 
+                bd-radius:3 txt-al:center">
+                    <div class="w:10p bg-color:main-3 fs:3 fw:3 color:base-1">목표 관객수 1300만 이상</div>
+                    <div><img src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20240311_85%2F1710136183535z3QfC_JPEG%2Fmovie_image.jpg"
+                        width="200" height="300" alt=""></div>
+                        <div class="w:10p bg-color:main-3 fs:3 fw:3 color:accent-2 bd-radius:3"><a href="">참여하기</a></div>
+                </div>
+
+                <div class="d:flex fl-dir:column movie-playground ai:center ac:center 
+                bd-radius:3 txt-al:center">
+                    <div class="w:10p bg-color:main-3 fs:3 fw:3 color:base-1">목표 관객수 1300만 이상</div>
+                    <div><img src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20240311_85%2F1710136183535z3QfC_JPEG%2Fmovie_image.jpg"
+                        width="200" height="300" alt=""></div>
+                        <div class="w:10p bg-color:main-3 fs:3 fw:3 color:accent-2 bd-radius:3"><a href="">참여하기</a></div>
+                </div>
+
+                <div class="d:flex fl-dir:column movie-playground ai:center ac:center 
+                bd-radius:3 txt-al:center">
+                    <div class="w:10p bg-color:main-3 fs:3 fw:3 color:base-1">목표 관객수 1300만 이상</div>
+                    <div><img src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20240311_85%2F1710136183535z3QfC_JPEG%2Fmovie_image.jpg"
+                        width="200" height="300" alt=""></div>
+                        <div class="w:10p bg-color:main-3 fs:3 fw:3 color:accent-2 bd-radius:3"><a href="">참여하기</a></div>
+                </div>
+
+                <div class="d:flex fl-dir:column movie-playground ai:center ac:center 
+                bd-radius:3 txt-al:center">
+                    <div class="w:10p bg-color:main-3 fs:3 fw:3 color:base-1">목표 관객수 1300만 이상</div>
+                    <div><img src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20240311_85%2F1710136183535z3QfC_JPEG%2Fmovie_image.jpg"
+                        width="200" height="300" alt=""></div>
+                        <div class="w:10p bg-color:main-3 fs:3 fw:3 color:accent-2 bd-radius:3"><a href="">참여하기</a></div>
+                </div>
+
+                </div>
+
+
+
+            </section>
+            
+            
+            </section>
+        </section>
     </main>
 </body>
 </html>
