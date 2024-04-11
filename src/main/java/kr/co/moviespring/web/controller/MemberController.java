@@ -31,10 +31,28 @@ public class MemberController {
         return "user/findId";
     }
 
-    @GetMapping("findPwd")
-    public String findPwd() {
+    @GetMapping("findIdResult")
+    public String findIdResult() {
 
-        return "user/findPwd";
+        return "user/findIdResult";
+    }
+
+    @GetMapping("changePwd")
+    public String changePwd() {
+
+        return "user/changePwd";
+    }
+
+    @GetMapping("changePwdResult")
+    public String changePwdResult() {
+
+        return "user/changePwdResult";
+    }
+
+    @GetMapping("findPwdResult")
+    public String findPwdResult() {
+
+        return "user/findPwdResult";
     }
 
     //스프링 사큐리티 설정파일의 .loginProcessingUrl("/user/signin")으로 로그인 폼데이터를 POST요청받음

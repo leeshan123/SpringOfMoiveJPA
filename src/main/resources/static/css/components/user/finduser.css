@@ -28,7 +28,8 @@ main nav div{
 .find-block{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    margin-top: 40px;
+    /* justify-content: center; */
     align-items: center;
     height: 70%;
 }
@@ -50,6 +51,7 @@ main nav div{
     border-bottom: solid 3px #424242;
 }
 
+.find-block section,
 .find-block form{
     font-size: 13px;
     width: 80%;
@@ -58,6 +60,10 @@ main nav div{
     display: flex;
     flex-direction: column;
     border: solid 1px #D3D3D3;
+}
+
+.find-block section{
+    font-size: 20px;
 }
 
 .find-block input{
