@@ -17,13 +17,12 @@
             <nav class="d:flex n-tabbar">
                 <div class="nav_container bottom_nav_container">
                     <div>
-                        <ul class="n-tabbar   jc:space-between">
-                            <li class="active"><button>인기글</button></li>
-                            <li><button>영화할인</button></li>
-                            <li><button>무대인사</button></li>
-                            <li><button>포스터,아트카드</button></li>
-                            <li><button>굿즈</button></li>
-                            <li><button>자유게시판</button></li>
+                        <ul class="n-tabbar jc:space-between">
+                            <li class="active"><button>자유 게시글</button></li>
+                            <li><button>인증 게시글</button></li>
+                            <li><button>리뷰 게시글</button></li>
+                            <li><button>자랑 게시글</button></li>
+                            <li><button>인기 게시글</button></li>
                         </ul>
                     </div>
                 </div>
@@ -32,39 +31,38 @@
         <section class="d:flex jc:space-around">
             <h1 class="d:none">게시판 메인</h1>
             <section style="width: 980px;" class="mw:10 mt:8">
-                <h1 class="fw:bold fs:6 color:main-3 ">인기글</h1>
-                <table style="width: 100%;" class="box-shadow:1 bd-color:base-1 mt:4 m">
-                    <thead>
-
+                <h1 class="fw:bold fs:6 color:main-3 " th:text="${c.name+'게시판'}">인기글</h1>
+                <table style="width: 100%;" class="mb:4 mt:4 table-layout:auto n-table n-table-border n-table-border-radius:3 fw:3">
+                    <thead class="">
                         <tr class="jc:space-around">
-                            <th class="ai:center txt-al:center">분류</th>
-                            <th class="ai:center txt-al:center">제목</th>
-                            <th class="ai:center txt-al:center">글쓴이</th>
-                            <th class="ai:center txt-al:center">조회</th>
-                            <th class="ai:center txt-al:center">추천</th>
-                            <th class="ai:center txt-al:center">작성일</th>
-
+                            <th class="">분류</th>
+                            <th class="txt-al:center">제목</th>
+                            <th class=" txt-al:center">작성자</th>
+                            <th class="txt-al:center">조회</th>
+                            <th class="txt-al:center">추천</th>
+                            <th class=" txt-al:center">작성일</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="g:${list}">
+                        <tr th:each="g:${list}" >
                             <td>
                                 <a th:href="@{detail(b=${g.id})}">
-                                    <span th:text="${g.title}">제목</span>
+                                    <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 txt-al:center m-right:2 px:1" 
+                                     th:text="${c.name}">제목</span>
                                 </a>
                             </td>
-                            <td th:text="${g.memberId}">작성자 ID</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
+                            <td class="txt-al:center" th:text="${g.title}">제목</td>
+                            <td class="txt-al:center">3</td>
+                            <td class="txt-al:center">4</td>
+                            <td class="txt-al:center">5</td>
+                            <td class="txt-al:center" th:text="${#dates.format(g.regDate, 'yyyy-MM-dd HH:mm:ss')}">6</td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="d:flex jc:flex-end">
+                <div class="d:flex jc:flex-end my:3">
                     <!-- th:href="@{reg(categoryId=${list.id})}" -->
                     <a href="reg">
-                        <button class="n-btn">게시글 작성</button>
+                        <button class="n-btn box-shadow:1">게시글 작성</button>
                     </a>
                 </div>
             </section>

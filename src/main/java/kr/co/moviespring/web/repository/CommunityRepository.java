@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import kr.co.moviespring.web.entity.Category;
 import kr.co.moviespring.web.entity.GeneralBoard;
 
 @Mapper
@@ -15,7 +14,5 @@ public interface CommunityRepository {
     List<GeneralBoard> findAll(Long CategoryId);
 
     GeneralBoard findById(Long id);
-
-    List<Category> findByCategoryId(Long categoryId);
 
 }

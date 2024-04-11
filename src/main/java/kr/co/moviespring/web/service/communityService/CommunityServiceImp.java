@@ -1,6 +1,5 @@
 package kr.co.moviespring.web.service.communityService;
 
-import kr.co.moviespring.web.entity.Category;
 import kr.co.moviespring.web.entity.GeneralBoard;
 import kr.co.moviespring.web.repository.CommunityRepository;
 
@@ -31,12 +30,5 @@ public class CommunityServiceImp implements CommunityService{
     public GeneralBoard getById(Long id) {
         GeneralBoard board = communityRepository.findById(id);
         return board;
-    }
-
-    //카테고리별 게시판 목록//
-    @Override
-    public List<Category> getListByCategoryId(Long categoryId) {
-        List<Category> categorys = communityRepository.findByCategoryId(categoryId);
-        return categorys;
     }
 }

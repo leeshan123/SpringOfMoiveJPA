@@ -26,4 +26,17 @@
         values (#{title},#{contents},12,#{categoryId});
   </insert>
 
+
+   <select id="findNameByCategoryId">
+		select name from category
+    where id=#{id}
+    </select>
+
+    <!-- <select>
+    SELECT category.name
+    FROM general_board
+    INNER JOIN category ON general_board.category_id = category.id
+    WHERE general_board.category_id = #{id}
+    </select> -->
+
 </mapper>
