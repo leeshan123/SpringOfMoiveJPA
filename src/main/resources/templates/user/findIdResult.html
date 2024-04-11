@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="inc/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/components/user/finduser.css">
+    <style>
+        main nav .deco:first-child{
+            color: #54644A;
+        }
+
+        main nav .deco:last-child{
+            color: #ADB5BD;
+        }
+    </style>
+</head>
+<body>
+    <main layout:fragment="main">
+        <nav>
+            <h1 class="d:none">아이디 비밀번호 찾기</h1>
+            <div class="deco-block">
+                <a class="deco deco-size:3 icon:student icon-color:main-3" href="findId">아이디 찾기</a>
+                <a class="deco deco-size:3 icon:gear_six icon-color:base-5" href="findPwd">비밀번호 찾기</a>
+            </div>
+        </nav>
+        <section class="find-block">
+            <div class="head">
+                <h1>아이디 찾기</h1>
+            </div>
+            <form action="/index" class="d:flex fd:column ai:center">
+                <h1 class="d:none">
+                    아이디명 정보
+                </h1>
+                <div>
+                    <p class="fs:5">고객님의 아이디는<br><span><b>[JSBABO]</b></span>입니다.</p>
+                    
+                </div>
+                <div class="mt:4">
+                    <button type="submit" class="fs:2">로그인 페이지로 돌아가기</button>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

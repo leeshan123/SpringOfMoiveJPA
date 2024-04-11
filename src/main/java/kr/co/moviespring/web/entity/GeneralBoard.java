@@ -19,5 +19,7 @@ public class GeneralBoard {
  private Date regDate;
  private int hit;
  private Long memberId;
+ private Long categoryId;
+ private String imageUrl;
 
 }

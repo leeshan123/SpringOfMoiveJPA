@@ -43,9 +43,9 @@
 
 <body>
     <main layout:fragment="main">
-        <section class="color:base-10">
+        <section class="color:base-10 mx:4 bd  bd-radius:3">
             <h1 class="text-align:center bg-color:base-9 color:base-1 bd-tl-radius:2	bd-tr-radius:2">게시글 작성</h1>
-            <form action="reg" method="post">
+            <form action="reg" method="post" class="mx:6">
                 <div>
                     <input class="h:1 w:100p fs:4 padding-x:3" type="text" name="title" placeholder="제목을 입력해주세요">
                 </div>
@@ -59,14 +59,12 @@
                         <option value="굿즈">굿즈</option>
                         <option value="기타">기타</option>
                     </datalist> -->
-
-                    <select class="n-select h:1 text-align:center" name="category">
+                    <select class="n-select h:1 text-align:center" name="c">
                         <option selected value="">카테고리를 선택해주세요</option>
-                        <option value="영화할인">영화할인</option>
-                        <option value="무대인사">무대인사</option>
-                        <option value="포스터,아트카드">포스터,아트카드</option>
-                        <option value="굿즈">굿즈</option>
-                        <option value="기타">기타</option>
+                        <option value="1">자유게시판</option>
+                        <option value="2">무대인사 인증</option>
+                        <option value="3">리뷰</option>
+                        <option value="4">포스터,아트카드</option>
                     </select>
                 </div>
                 <div>

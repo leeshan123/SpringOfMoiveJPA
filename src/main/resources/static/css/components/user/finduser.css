@@ -1,0 +1,113 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    flex: 1;
+}
+
+main nav{
+    display: flex;
+    justify-content: center;
+    background-color: #D4E1CE;
+    padding: 12px;
+    border-top: 1px solid #D3D3D3;
+    border-bottom: 1px solid #D3D3D3;
+}
+
+main nav div{
+    width: 80%;
+    max-width: 500px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.find-block{
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    /* justify-content: center; */
+    align-items: center;
+    height: 70%;
+}
+
+.find-block .head{
+    align-items: center; /* 내부 요소들을 수직으로 가운데 정렬합니다. */
+    width: 80%;
+    max-width: 500px;
+    border-bottom: 3px solid #D3D3D3;
+    margin: 20px;
+    padding-bottom: 8px;
+}
+
+.head h1{
+    font-size: 16px;
+    font-weight: 500;
+    display: inline;
+    padding-bottom: 8px;
+    border-bottom: solid 3px #424242;
+}
+
+.find-block section,
+.find-block form{
+    font-size: 13px;
+    width: 80%;
+    max-width: 500px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border: solid 1px #D3D3D3;
+}
+
+.find-block section{
+    font-size: 20px;
+}
+
+.find-block input{
+    padding: 4px 0;
+    border: solid 1px #D3D3D3;
+}
+
+.find-block form label{
+    color: #424242;
+    margin-top: 13px;
+    margin-bottom: 4px;
+}
+
+.email_button{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+    margin-bottom: 5%;
+}
+
+
+
+.find-block button{
+    padding: 0 4px;
+    height: 32px;
+    color: #424242;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.find-block button:active{
+    /* 눌렸을 때 그림자 제거 */
+    box-shadow: none; 
+}
+
+.inputcert{
+    text-align: right;
+}
+
+.inputcert input{
+    width: 50%;
+}
+
+.inputcert button{
+    font-weight: bold;
+}
