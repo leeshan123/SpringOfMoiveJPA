@@ -117,7 +117,7 @@
     justify-content: center;
     
     padding-bottom: 20px;
-    border-bottom: solid 1px #303231;
+    border-bottom: solid 1px #262F45;
 }
 
 .user-info-section ul{
@@ -142,6 +142,7 @@
 /* Media Queries*/
 @media only screen and (max-width: 1068px) {
     .user-info-section ul,
+    .user-welcome p,
     .nav_container {
         max-width: 680px;
     }
