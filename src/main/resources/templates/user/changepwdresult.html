@@ -24,27 +24,23 @@
         <nav>
             <h1 class="d:none">아이디 비밀번호 찾기</h1>
             <div>
-                <a class="deco deco-size:3 icon:student icon-color:base-5" href="findid">아이디 찾기</a>
-                <a class="deco deco-size:3 icon:gear_six icon-color:main-3" href="findpwd">비밀번호 찾기</a>
+                <a class="deco deco-size:3 icon:student icon-color:base-5" href="findId">아이디 찾기</a>
+                <a class="deco deco-size:3 icon:gear_six icon-color:main-3" href="findPwd">비밀번호 찾기</a>
             </div>
         </nav>
         <section class="find-block">
             <div class="head">
                 <h1>비밀번호 찾기</h1>
             </div>
-            <form action="changePwd">
-                <label for="">아이디</label>
-                <input type="text">
-                <label for="">이름</label>
-                <input type="text">
-                <label for="">이메일 주소</label>
-                <input type="email">
-                <div class="email_button">
-                    <button type="button" onclick="handleEmailButtonClick()">인증번호 받기</button>
+            <form action="/index" class="d:flex fd:column ai:center">
+                <h1 class="d:none">
+                    비밀번호 변경 확인페이지
+                </h1>
+                <div>
+                    <p class="fs:5">고갱님의 비밀번호가 변경되었습니다.</p>
                 </div>
-                <div class="inputcert">
-                    <input type="text" placeholder="인증번호 6자리 숫자 입력">
-                    <button type="submit">확인</button>
+                <div class="mt:4">
+                    <button type="submit" class="fs:2">로그인 페이지로 돌아가기</button>
                 </div>
             </form>
         </section>

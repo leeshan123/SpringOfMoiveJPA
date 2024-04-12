@@ -1,8 +1,5 @@
 package kr.co.moviespring.web.controller;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,35 +22,35 @@ public class MemberController {
         return "user/signin";
     }
 
-    @GetMapping("findId")
+    @GetMapping("findid")
     public String findId() {
 
-        return "user/findId";
+        return "user/findid";
     }
 
     @GetMapping("findIdResult")
     public String findIdResult() {
 
-        return "user/findIdResult";
+        return "findidresult";
     }
 
-    
-    @GetMapping("findPwd")
-    public String findPwd() {
 
-        return "user/findPwd";
+    @GetMapping("findpwd")
+    public String findpwd() {
+
+        return "user/findpwd";
     }
 
-    @GetMapping("changePwd")
+    @GetMapping("changepwd")
     public String changePwd() {
 
-        return "user/changePwd";
+        return "user/changepwd";
     }
 
-    @GetMapping("changePwdResult")
+    @GetMapping("changepwdresult")
     public String changePwdResult() {
 
-        return "user/changePwdResult";
+        return "user/changepwdresult";
     }
 
 

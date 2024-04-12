@@ -6,7 +6,6 @@ import kr.co.moviespring.web.service.categoryservice.CategoryService;
 import kr.co.moviespring.web.service.communityService.CommunityService;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,8 +38,6 @@ public class CommunityController {
           * 1. service에 mapper에서 카테고리마다 리스트5개씩 불러오는거 추가,
             2. 프론트에서 임의로 카운트 변수 설정하기. - 이때 불러오는 리스트는 카테고리 id와 무관하고 숫자만 같음*/
         model.addAttribute("ctgId", categories);
-        // model.addAttribute("list", list);
-
         return "community/main";
     }
 
@@ -56,12 +53,15 @@ public class CommunityController {
         return "community/board/list";
     }
 
-    //게시글 상세 요청//
-    @GetMapping("detail")
+    //게시글 상세페이지 요청//
+    @GetMapping("board/detail")
     public String detail(@RequestParam("b")Long id,Model model){
         GeneralBoard Genboard = communityService.getById(id);
+        Long categoryId = Genboard.getCategoryId();
+        String categoryName = communityService;
         model.addAttribute("board", Genboard);
-        return "community/board/list";
+
+        return "community/board/detail";
     }
     // 게시글 등록페이지 요청//
     @GetMapping("board/reg")
@@ -75,5 +75,12 @@ public class CommunityController {
     public String reg(String title , String contents,@RequestParam(name="c",required = false)Long categoryId){
         communityService.write(title,contents,categoryId);
         return "redirect:/community/board/list";
+    }
+
+    // 게시글 댓글 등록//
+    @PostMapping("board/detail")
+    public String regComment(String contents,@RequestParam(name="c",required = false)Long categoryId,@RequestParam(name="b",required = false)Long boardId){
+        communityService.write(contents,categoryId);
+        return "redirect:/community/board/detail?b="+boardId;
     }
 }

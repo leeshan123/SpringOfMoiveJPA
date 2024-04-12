@@ -32,7 +32,7 @@ public class WebSecurityConfig {
                        .loginProcessingUrl("/user/signin")
                        .permitAll())
        .logout((logout) -> logout
-       .logoutUrl("/user/logout")
+       .logoutUrl("/user/signout")
        .logoutSuccessUrl("/index")
        .permitAll());
 

@@ -13,9 +13,21 @@
                             </button>
                         </div>
                     </form>
-                    <a class="login_btn" href="user/signin" rel="">
-                        <i class="fa-solid fa-right-to-bracket"></i>
+                    <a class="login_btn" href="/user/signin" rel="">
+                        <i sec:authorize="isAnonymous()" class="icon icon:user"></i>
+                        <!-- <span sec:if anonymous="true">로그인</span> -->
                     </a>
+                    <a class="login_btn" href="/user/signout" rel="">
+                        <i sec:authorize="isAuthenticated()" class="fa-solid fa-right-to-bracket"></i>
+                        <!-- <span sec:if not="isAnonymous()" th:text="${#authentication.name}">이거 나오면 망함</span> -->
+                    </a>
+                    <div sec:authorize="isAuthenticated()">
+                        <a sec:authentication="name" href="movie/list"></a>
+                    </div>
+                    <!-- <a class="icon icon-sign-out icon-color:base-0" href="/user/logout">로그아웃</a></li> -->
+                    <!-- <div sec:authorize="isAnonymous()">이거 나오면 익명유저</div> -->
+                    <!-- <span sec:authentication="name">이거 나오면 망함</span> -->
+
                 </div>
             </div>
         </div>
