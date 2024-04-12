@@ -28,16 +28,20 @@ public class CommunityController {
     // 커뮤니티 메인페이지 요청//
     @GetMapping("main")
     public String main(Model model){
-        // Map<String,List<Category>> categories1 = categoryService.getListAllCategoryId();
         List<Category> categories = categoryService.getListAllCategoryId();
-        // List <GeneralBoard> list = communityService.getList(categoryId);
-        // System.out.println(list);
-        /*debug 돌리면 getList인자값이 null임,
-         categoryId 파라미터가 없는 메인페이지에서 카테고리별로 등록된 게시글 5개씩 보여줄때 사용할 parameter를 어떻게 받을까?*/
-         /*대충 방법2가지
-          * 1. service에 mapper에서 카테고리마다 리스트5개씩 불러오는거 추가,
-            2. 프론트에서 임의로 카운트 변수 설정하기. - 이때 불러오는 리스트는 카테고리 id와 무관하고 숫자만 같음*/
+        List <GeneralBoard> list1 = communityService.getList1();
+        List <GeneralBoard> list2 = communityService.getList2();
+        List <GeneralBoard> list3 = communityService.getList3();
+        List <GeneralBoard> list4 = communityService.getList4();
+
         model.addAttribute("ctgId", categories);
+        model.addAttribute("lits", list1);
+        model.addAttribute("list1", list1);
+        model.addAttribute("list2", list2);
+        model.addAttribute("list3", list3);
+        model.addAttribute("list4", list4);
+
+
         return "community/main";
     }
 
@@ -57,8 +61,8 @@ public class CommunityController {
     @GetMapping("board/detail")
     public String detail(@RequestParam("b")Long id,Model model){
         GeneralBoard Genboard = communityService.getById(id);
-        Long categoryId = Genboard.getCategoryId();
-        String categoryName = communityService;
+        // Long categoryId = Genboard.getCategoryId();
+        // String categoryName = communityService;
         model.addAttribute("board", Genboard);
 
         return "community/board/detail";
@@ -80,7 +84,7 @@ public class CommunityController {
     // 게시글 댓글 등록//
     @PostMapping("board/detail")
     public String regComment(String contents,@RequestParam(name="c",required = false)Long categoryId,@RequestParam(name="b",required = false)Long boardId){
-        communityService.write(contents,categoryId);
+        // communityService.write(contents,categoryId);
         return "redirect:/community/board/detail?b="+boardId;
     }
 }

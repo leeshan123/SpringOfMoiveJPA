@@ -31,4 +31,29 @@ public class CommunityServiceImp implements CommunityService{
         GeneralBoard board = communityRepository.findById(id);
         return board;
     }
+    @Override
+    public List<GeneralBoard> getList() {
+        List<GeneralBoard> list = communityRepository.findAll();
+        return list;
+    }
+    @Override
+    public List<GeneralBoard> getList1() {
+        List<GeneralBoard> list1 = communityRepository.findAll1();
+        return list1;
+    }
+    @Override
+    public List<GeneralBoard> getList2() {
+        List<GeneralBoard> list2 = communityRepository.findAll2();
+        return list2;
+    }
+    @Override
+    public List<GeneralBoard> getList3() {
+        List<GeneralBoard> list3 = communityRepository.findAll3();
+        return list3;
+    }
+    @Override
+    public List<GeneralBoard> getList4() {
+        List<GeneralBoard> list4 = communityRepository.findAll4();
+        return list4;
+    }
 }

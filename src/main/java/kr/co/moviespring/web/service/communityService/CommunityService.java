@@ -14,4 +14,14 @@ public interface CommunityService {
     //게시글 상세//
     GeneralBoard getById(Long id);
 
+    List<GeneralBoard> getList();
+
+    List<GeneralBoard> getList1();
+
+    List<GeneralBoard> getList2();
+
+    List<GeneralBoard> getList3();
+
+    List<GeneralBoard> getList4();
+
 }

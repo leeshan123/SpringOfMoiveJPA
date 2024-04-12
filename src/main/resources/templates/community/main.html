@@ -30,37 +30,98 @@
                     </div>
                 </section>
                 <section class="d:flex fl-wrap:wrap">
-                    <section th:each="c:${ctgId}" class="w:6 bd-bottom bd-color:main-10 m-top:4">
+                    <section class="w:6 bd-bottom bd-color:main-10 m-top:4 p-bottom:4">
                         <div>
-                            <a th:href="@{board/list(c=${c.id})}">
-                                <h1 class="fw:3 fs:6" th:text="${c.name}">인기글</h1>
+                            <a th:href="@{board/list(c=${1})}">
+                                <h1 class="fw:3 fs:6">자유</h1>
                             </a>
                         </div>
                         <div class="px:2">
                             <div class="d:flex m-top:3">
-                                <div th:with="numbers=${#numbers.sequence(1, 5)}" class="px:2">
-                                    <div th:each="number : ${numbers}" class="d:flex m-top:3">
+                                <div class="px:2">
+                                    <div th:each="l:${list1}" class="d:flex m-top:3">
                                         <div>
-                                            <span class="d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center m-right:2" th:text="${number}">1</span>
-
+                                            <span class="d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center m-right:2">1</span>
+                                            <!-- th:href="@{board/detail(c=${c.id}&b=${b.id})}" -->
                                         </div>
                                         <div>
-                                            <a href="" class="fw:3  m-right:1">제목</a>
+                                            <a href="" class="fw:3   m-right:1" th:href="@{board/detail(b=${l.id})}" th:text="${l.title}">제목</a>
                                         </div>
                                         <div>댓글</div>
                                     </div>
                                 </div>
-                                <!-- <div th:each="l:${c.id}">
-                                    <div>
-                                        <span
-                                            class="d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center m-right:2"
-                                            th:text="${l.title}">제목
-                                        </span>
+
+                            </div>
+                        </div>
+                    </section>
+                    <section class="w:6 bd-bottom bd-color:main-10 m-top:4 p-bottom:4">
+                        <div>
+                            <a th:href="@{board/list(c=${2})}">
+                                <h1 class="fw:3 fs:6">인증</h1>
+                            </a>
+                        </div>
+                        <div class="px:2">
+                            <div class="d:flex m-top:3">
+                                <div class="px:2">
+                                    <div th:each="l2:${list2}" class="d:flex m-top:3">
+                                        <div>
+                                            <span class="d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center m-right:2">1</span>
+
+                                        </div>
+                                        <div>
+                                            <a href="" class="fw:3  m-right:1" th:href="@{board/detail(b=${l2.id})}" th:text="${l2.title}">제목</a>
+                                        </div>
+                                        <div>댓글</div>
                                     </div>
-                                    <div class="txt-al:center"
-                                        th:text="${#dates.format(l.regDate, 'yyyy-MM-dd HH:mm:ss')}">6
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                    <section class="w:6 bd-bottom bd-color:main-10 m-top:4 p-bottom:4">
+                        <div>
+                            <a th:href="@{board/list(c=${3})}">
+                                <h1 class="fw:3 fs:6">리뷰 게시판</h1>
+                            </a>
+                        </div>
+                        <div class="px:2">
+                            <div class="d:flex m-top:3">
+                                <div class="px:2">
+                                    <div th:each="l3:${list3}" class="d:flex m-top:3">
+                                        <div>
+                                            <span class="d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center m-right:2">1</span>
+
+                                        </div>
+                                        <div>
+                                            <a href="" class="fw:3  m-right:1" th:href="@{board/detail(b=${l3.id})}" th:text="${l3.title}">제목</a>
+                                        </div>
+                                        <div>댓글</div>
                                     </div>
-                                </div> -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                    <section class="w:6 bd-bottom bd-color:main-10 m-top:4 p-bottom:4">
+                        <div>
+                            <a th:href="@{board/list(c=${4})}">
+                                <h1 class="fw:3 fs:6">자랑</h1>
+                            </a>
+                        </div>
+                        <div class="px:2">
+                            <div class="d:flex m-top:3">
+                                <div class="px:2">
+                                    <div th:each="l4:${list4}" class="d:flex m-top:3">
+                                        <div>
+                                            <span class="d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center m-right:2">1</span>
+                                        </div>
+                                        <div>
+                                            <a href="" class="fw:3  m-right:1" th:href="@{board/detail(c=${4}&b=${l4.id})}" th:text="${l4.title}">제목</a>
+                                        </div>
+                                        <div>댓글</div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </section>

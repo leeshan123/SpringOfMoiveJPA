@@ -15,4 +15,14 @@ public interface CommunityRepository {
 
     GeneralBoard findById(Long id);
 
+    List<GeneralBoard> findAll1();
+
+    List<GeneralBoard> findAll2();
+
+    List<GeneralBoard> findAll3();
+
+    List<GeneralBoard> findAll4();
+
+    List<GeneralBoard> findAll();
+
 }
