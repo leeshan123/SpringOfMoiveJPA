@@ -16,6 +16,12 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
+    @GetMapping("main")
+    public String main(){
+
+        return "user/main";
+    }
+
     @GetMapping("signin")
     public String signin() {
 
