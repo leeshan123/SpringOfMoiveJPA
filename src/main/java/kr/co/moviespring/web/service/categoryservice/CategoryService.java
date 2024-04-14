@@ -7,7 +7,7 @@ import kr.co.moviespring.web.entity.Category;
 public interface CategoryService {
     
     //게시글 카테고리 목록//
-    List<Category> getListAllCategoryId();
+    List<Category> getList();
 
-    Category getNameByCategoryId(Long categoryId);
+    Category getById(Long categoryId);
 }

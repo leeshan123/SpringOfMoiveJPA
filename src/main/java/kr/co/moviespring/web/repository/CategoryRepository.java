@@ -8,9 +8,9 @@ import kr.co.moviespring.web.entity.Category;
 @Mapper
 public interface CategoryRepository {
 
-    List<Category> findByCategoryId();
+    List<Category> findAll();
 
-    Category findNameByCategoryId(Long categoryId);
+    Category findById(Long categoryId);
 
     
 }

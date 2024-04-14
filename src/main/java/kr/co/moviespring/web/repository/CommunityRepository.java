@@ -11,18 +11,11 @@ public interface CommunityRepository {
     // 게시글 등록//
     void saveContents(String title, String contents, Long categoryId);
 
-    List<GeneralBoard> findAll(Long CategoryId);
+    // 카테고리별 게시글 목록
+    List<GeneralBoard> findAll(Long categoryId, int size);
 
     GeneralBoard findById(Long id);
 
-    List<GeneralBoard> findAll1();
-
-    List<GeneralBoard> findAll2();
-
-    List<GeneralBoard> findAll3();
-
-    List<GeneralBoard> findAll4();
-
-    List<GeneralBoard> findAll();
+//    List<GeneralBoard> findAll();
 
 }

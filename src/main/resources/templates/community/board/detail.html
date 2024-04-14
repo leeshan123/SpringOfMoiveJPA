@@ -19,7 +19,7 @@ layout:decorate="inc/layout">
 <body>
     <main layout:fragment="main" class="media padding-x:2">
         <section class="media-sect">
-            <div class="color:main-3 fw:bold fs:7 margin-bottom:4" th:text="${board.getCategoryId()}">자유게시판</div>
+            <div class="color:main-3 fw:bold fs:7 margin-bottom:4" th:text="${category.name+'게시판'}">자유게시판</div>
             <section class="p:2 border-bottom">
                 <h1 class="fs:5 margin-bottom:1" th:text="${board.getTitle()}">게시글 제목이 나타날 위치입니다</h1>
                 <div class="d:flex ai:center gap:3 margin-bottom:1">

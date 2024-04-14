@@ -32,7 +32,7 @@
             <h1 class="d:none">게시판 메인</h1>
             <section style="width: 980px;" class="mw:10 mt:8">
                 <h1 class="fw:bold fs:6 color:main-3 " th:text="${c.name+'게시판'}">인기글</h1>
-                <table style="width: 100%;" class="mb:4 mt:4 table-layout:auto n-table n-table-border n-table-border-radius:3 fw:3">
+                <table style="width: 100%;" class="mb:4 mt:4 table-layout:auto n-table n-table-hover n-table-border n-table-border-radius:3 fw:3">
                     <thead class="">
                         <tr class="jc:space-around">
                             <th class="">분류</th>
@@ -44,18 +44,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="g:${list}" >
+                        <tr th:each="board:${list}" >
                             <td>
-                                <a th:href="@{detail(b=${g.id})}">
-                                    <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 txt-al:center m-right:2 px:1" 
-                                     th:text="${c.name}">제목</span>
-                                </a>
+                                <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 txt-al:center m-right:2 px:1"
+                                 th:text="${c.name}">제목</span>
                             </td>
-                            <td class="txt-al:center" th:text="${g.title}">제목</td>
-                            <td class="txt-al:center">3</td>
-                            <td class="txt-al:center">4</td>
-                            <td class="txt-al:center">5</td>
-                            <td class="txt-al:center" th:text="${#dates.format(g.regDate, 'yyyy-MM-dd HH:mm:ss')}">6</td>
+                            <td class="txt-al:center"><a href="" th:href="@{detail(c=${c.id},id=${board.id})}" th:text="${board.title}"></a></td>
+                            <td class="txt-al:center">작성자</td>
+                            <td class="txt-al:center">조회수</td>
+                            <td class="txt-al:center">추천수</td>
+                            <td class="txt-al:center" th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}">작성일</td>
                         </tr>
                     </tbody>
                 </table>

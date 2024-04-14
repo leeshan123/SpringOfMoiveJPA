@@ -1,52 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.moviespring.web.repository.CommunityRepository">
-  <!-- 카테고리 목록 -->
-  <select id="findByCategoryId">
-		select * from category
-    </select>
 
-   <!-- 게시글 목록 -->
-    <select id="findAll">
-		select * from general_board where category_id = #{categoryId}
+    <!-- 카테고리별 게시글 목록 -->
+    <select id="findAll" resultType="GeneralBoard">
+        select * from general_board where category_id = #{categoryId}
+        ORDER BY reg_date DESC
+        limit #{size}
     </select>
 
     <!--게시글 상세-->
-    <select id="findById">
-		select * from general_board 
-    where id=#{id}
-    </select>
-
-
-  <!-- 게시글 등록 -->
-	<insert id="saveContents">
-        insert into general_board (title,contents,member_id,category_id) 
-        values (#{title},#{contents},12,#{categoryId});
-  </insert>
-
-
-   <select id="findNameByCategoryId">
-        select name from category
+    <select id="findById" resultType="GeneralBoard">
+        select * from general_board
         where id=#{id}
     </select>
 
-    <select id="findAll1">
-        SELECT * FROM general_board WHERE category_id =1 ORDER BY reg_date DESC limit 5;
-    </select>
-
-    <select id="findAll2">
-        SELECT * FROM general_board WHERE category_id =2 ORDER BY reg_date DESC limit 5;
-    </select>
-
-    <select id="findAll3">
-        SELECT * FROM general_board WHERE category_id =3 ORDER BY reg_date DESC limit 5;
-    </select>
-
-    <select id="findAll4">
-        SELECT * FROM general_board WHERE category_id =4 ORDER BY reg_date DESC limit 5;
-    </select>
+    <!-- 게시글 등록 -->
+    <insert id="saveContents">
+        insert into general_board (title,contents,member_id,category_id)
+        values (#{title},#{contents},12,#{categoryId});
+    </insert>
 
     <!-- <select>
     SELECT category.name

@@ -5,23 +5,17 @@ import java.util.List;
 import kr.co.moviespring.web.entity.GeneralBoard;
 
 public interface CommunityService {
+
     // 게시글 등록//
     void write(String title, String contents, Long categoryId);
 
-    //게시글 목록//
-    List<GeneralBoard> getList(Long categoryId);
+    //카테고리별 게시글 목록//
+    List<GeneralBoard> getList(Long categoryId, int size);
 
     //게시글 상세//
     GeneralBoard getById(Long id);
 
-    List<GeneralBoard> getList();
-
-    List<GeneralBoard> getList1();
-
-    List<GeneralBoard> getList2();
-
-    List<GeneralBoard> getList3();
-
-    List<GeneralBoard> getList4();
+    // 모든 게시물 목록 필요한가? 잘 모르겠음 일단 주석처리 2024-04-14, 일, 21:59  -JOON
+//    List<GeneralBoard> getList();
 
 }

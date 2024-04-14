@@ -19,16 +19,16 @@ public class CategoryServiceImp implements CategoryService{
     //카테고리별 게시판 목록//
 
     @Override
-    public List<Category> getListAllCategoryId() {
-        List<Category> categorys = categoryRepository.findByCategoryId();
-        return categorys;
+    public List<Category> getList() {
+        List<Category> categories = categoryRepository.findAll();
+        return categories;
     }
     
     //게시판 카테고리 이름찾기//
     @Override
-    public Category getNameByCategoryId(Long categoryId) {
-        Category name = categoryRepository.findNameByCategoryId(categoryId);
-        return name;
+    public Category getById(Long categoryId) {
+        Category category = categoryRepository.findById(categoryId);
+        return category;
     }
     
 }

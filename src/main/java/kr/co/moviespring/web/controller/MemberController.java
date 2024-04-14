@@ -34,10 +34,10 @@ public class MemberController {
         return "user/findid";
     }
 
-    @GetMapping("findIdResult")
+    @GetMapping("findid-Result")
     public String findIdResult() {
 
-        return "findidresult";
+        return "user/findid-result";
     }
 
 
@@ -47,16 +47,16 @@ public class MemberController {
         return "user/findpwd";
     }
 
-    @GetMapping("changepwd")
+    @GetMapping("change-pwd")
     public String changePwd() {
 
-        return "user/changepwd";
+        return "user/change-pwd";
     }
 
-    @GetMapping("changepwdresult")
+    @GetMapping("change-pwd-result")
     public String changePwdResult() {
 
-        return "user/changepwdresult";
+        return "user/change-pwd-result";
     }
 
 
