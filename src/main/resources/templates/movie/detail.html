@@ -9,14 +9,14 @@
     <link rel="stylesheet" type="text/css" href="/css/components/movie/detail.css">
     <script src="/js/movie/detail.js" defer></script>
     <style>
-        .toggle-on{
+        .toggle-on {
             display: block;
             transform: translateY(30px);
             transition: transform 2s;
 
         }
 
-        .toggle-off{
+        .toggle-off {
             display: none;
             transform: translateY(-200px);
             transition: transform 2s;
@@ -26,15 +26,16 @@
 
 <body>
     <main layout:fragment="main">
-        <section class="test">
+        <section class="test color:base-10">
             <h1 class="d:none">영화 디테일 페이지</h1>
-            <div class="main-img-block">
-                <img class="img" src="http://image.tmdb.org/t/p/original/kcrjQkK9XlUe0yD1cZptf4z5h3v.jpg"
+            <div class="main-img-block jc:">
+                <img class="img " style="width: 600; height: auto;" src="http://image.tmdb.org/t/p/original/kcrjQkK9XlUe0yD1cZptf4z5h3v.jpg"
                     th:src="${movie.getPosterUrl()}" width="100%" alt="">
                 <!--                <img class="img" src="http://file.koreafilm.or.kr/thm/02/99/18/21/tn_DPK021291.jpg" alt="">-->
                 <!--                <img class="img" src="http://file.koreafilm.or.kr/thm/02/99/18/21/tn_DPK021292.jpg" alt="">-->
             </div>
-            <div style="max-width: 100%; display: flex; justify-content: space-between; align-items: center;" class="border-left bd-color:main-2 bd-w:3 mt:2 mb:2 fs:5">
+            <div style="max-width: 100%; display: flex; justify-content: space-between; align-items: center;"
+                class="border-left bd-color:main-2 bd-w:3 mt:2 mb:2 fs:5">
                 <div class="ml:1 fw:3" th:text="${movie.korName}">영화명</div>
                 <div>
                     <button onclick="toggleContent()" class="fs:3 color:base-5 toggle"
@@ -139,25 +140,36 @@
                 <div class="image-block">
                     <span><img
                             src="https://search.pstatic.net/common?qualit y=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231102_299%2F1698892733787ApmPu_JPEG%2Fmovie_image.jpg"
-                            th:src="${movie.getStillcutUrl()}"
-                            alt="" height="140px"></span>
+                            th:src="${movie.getStillcutUrl()}" alt="" height="140px"></span>
                 </div>
             </section>
             <section>
                 <h1 class="pl:1 fw:3 fs:5 border-left bd-color:main-2 bd-w:3 mt:5 mb:2">한줄 평</h1>
-                <div th:each="r ,count: ${reviews}" class="fw:3 fs:2 padding-x:2 padding-y:3 bg-color:base-2 bd-radius:3 margin-bottom:3">
-                    <div class="d:flex flex-direction:column gap:2">
-                        <div class="d:flex ai:center gap:3">
-                            <span class="icon icon:user">아이콘</span>
-                            <span th:text="${count.count}+승환">닉네임</span>
-                            <span th:text="${r.memberRate}+원" class="margin-right:auto">평점</span>
-                            <span th:text="${#dates.format(r.regDate, 'yyyy-MM-dd')}">날짜</span>
-                            <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>
+                <div th:each="r ,count: ${reviews}"
+                    class="d:flex fw:3 fs:2 bd-radius:1 margin-bottom:3 px:2 py:2 bd bd-color:base-3">
+                    <div class="m-right:2">
+                        <span class="icon icon:user">아이콘</span>
+                    </div>
+                    <div class="w:100p">
+                        <div class="d:flex jc:space-between mb:1">
+                            <div class="d:flex ai:center gap:3 d:inline-block">
+                                <span th:text="${count.count}+승환">닉네임</span>
+                            </div>
+                            <div>
+                                <span th:text="${#dates.format(r.regDate, 'MM.dd  HH:mm')}">날짜</span>
+                            </div>
                         </div>
-                        <div th:text="${r.comments}">한줄평이 출력됩니다</div>
-                        <div>
-                            <span class="icon icon:thumbs_up">아이콘</span>
-                            <span th:text="${count.count}">좋아요 수</span>
+                        <div class="d:flex jc:space-between mb:1">
+                            <div th:text="${r.comments}">한줄평이 출력됩니다</div>
+                        </div>
+                        <div class="d:flex jc:space-between">
+                            <div class="d:inline-block">
+                                <span th:text="${r.memberRate}+원" class="margin-right:auto">평점</span>
+                            </div>
+                            <div>
+                                <span class="icon icon:thumbs_up">아이콘</span>
+                                <span th:text="${count.count}">좋아요 수</span>
+                            </div>
                         </div>
                     </div>
                 </div>

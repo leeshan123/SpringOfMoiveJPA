@@ -11,9 +11,9 @@
     <main layout:fragment="main">
     <section class="main-header">
         <section class="media color:base-10">
-        <section>
+        <section class="media-sect">
         <div style="display: none;"></div>
-        <section class="m-left:2 m-top:4 m-bottom:10">
+        <section class="m-left:3 m-top:4 m-bottom:10">
             <h1 class="d:none">영화목록</h1>
             <section class="d:flex jc:space-between m-bottom:2">
                 <h1 class=" fs:4 fw:3">현재 상영작</h1>
@@ -32,7 +32,7 @@
             </section>
             <section class=" d:flex media-pading">
                 <h1 class="d:none ">컨텐츠</h1>
-                <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">
+                <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:6">
                     <div class="display:inline-block bd-color:base-10 ">
                         <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"
                         src=""
@@ -54,7 +54,7 @@
                 </div>
             </section>
         </section>
-
+ 
         <section class="m-left:3 m-top:4 m-bottom:10">
             <h1 class="d:none">영화목록</h1>
             <section class="d:flex jc:space-between m-bottom:2">
@@ -70,7 +70,7 @@
             </section>
             <section class=" d:flex media-pading">
                 <h1 class="d:none ">컨텐츠</h1>
-                <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">
+                <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:6">
                     <div class="display:inline-block bd-color:base-10 ">
                         <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"
                              src="#"
@@ -113,7 +113,7 @@
             </section>
             <section class=" d:flex media-pading">
                 <h1 class="d:none ">컨텐츠</h1>
-                <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">
+                <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:6">
                     <div class="display:inline-block bd-color:base-10 ">
                         <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"
                              src="#"
