@@ -3,7 +3,7 @@
     <header class="header mb:6 color:base-10">
         <div class="top_nav">
             <div class="nav_container top_nav_container">
-                <h1 class="logo">영화의봄</h1>
+                <h1 class="logo"><a href="/index">영화의봄</a></h1>
                 <div class="search_box">
                     <form action="">
                         <div class="search">
@@ -22,7 +22,7 @@
                         <!-- <span sec:if not="isAnonymous()" th:text="${#authentication.name}">이거 나오면 망함</span> -->
                     </a>
                     <div sec:authorize="isAuthenticated()">
-                        <a sec:authentication="name" href="movie/list"></a>
+                        <a sec:authentication="name" href="/user/main"></a>
                     </div>
                     <!-- <a class="icon icon-sign-out icon-color:base-0" href="/user/logout">로그아웃</a></li> -->
                     <!-- <div sec:authorize="isAnonymous()">이거 나오면 익명유저</div> -->

@@ -105,5 +105,33 @@ public class MemberController {
 
         return "user/welcome";
     }
+    
+    @GetMapping("mymovie")
+    public String mymovie() {
+
+        return "user/mymovie";
+    }
+    @GetMapping("mybet")
+    public String mybet() {
+
+        return "user/mybet";
+    }
+    @GetMapping("myboard")
+    public String myboard() {
+
+        return "user/myboard";
+    }
+    @GetMapping("mycomment")
+    public String mycomment() {
+
+        return "user/mycomment";
+    }
+    @GetMapping("myinfo")
+    public String myinfo() {
+
+        return "user/myinfo";
+    }
+
+
 
 }

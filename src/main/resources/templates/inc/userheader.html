@@ -3,7 +3,7 @@
     <header class="header mb:6 color:base-10">
         <div class="top_nav">
             <div class="nav_container top_nav_container">
-                <h1 class="logo">영화의봄</h1>
+                <h1 class="logo"><a href="/index">영화의봄</a></h1>
                 <div class="search_box">
                     <form action="">
                         <div class="search">
@@ -13,9 +13,15 @@
                             </button>
                         </div>
                     </form>
-                    <a class="login_btn" href="user/signin" rel="">
-                        <i class="fa-solid fa-right-to-bracket"></i>
+                    <a class="login_btn" href="/user/signin" rel="">
+                        <i sec:authorize="isAnonymous()" class="icon icon:user"></i>
                     </a>
+                    <a class="login_btn" href="/user/signout" rel="">
+                        <i sec:authorize="isAuthenticated()" class="fa-solid fa-right-to-bracket"></i>
+                    </a>
+                    <div sec:authorize="isAuthenticated()">
+                        <a sec:authentication="name" href="/user/main"></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,31 +49,31 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="">
+                        <a href="mymovie">
                             <img src="/image/icon/slate.svg" alt="">
                             <div>내 영화</div>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="mybet">
                             <img src="/image/icon/bet.svg" alt="">
                             <div>내 배팅</div>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="myboard">
                             <img src="/image/icon/tools.svg" alt="">
                             <div>내 게시물</div>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="mycomment">
                             <img src="/image/icon/comment.svg" alt="">
                             <div>내 댓글</div>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="myinfo">
                             <img src="/image/icon/myInfo.svg" alt="">
                             <div>내 정보</div>
                         </a>
