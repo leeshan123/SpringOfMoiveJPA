@@ -1,0 +1,43 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+main{    
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main h1{
+    font-size: 20px;
+    font-weight: bold;
+    max-width: 980px;
+    width: 100%;
+}
+
+.movie-list{
+    width: 100%;
+    max-width: 980px;
+}
+
+.movie-list section{
+    display: flex;
+    column-gap: 20px;
+}
+
+.movie-list li{
+    width: 100%;
+    height: 280px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    margin: 80px 0;
+    padding: 12px;
+}
+
+.movie-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
