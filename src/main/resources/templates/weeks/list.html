@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <main layout:fragment="main media">
+    <main layout:fragment="main" class="media">
         <section class="media-sect">
             <h1 class="d:none">메인</h1>
             <section class="">
@@ -17,7 +17,7 @@
                 </div>
                 <div>
                     <div>
-                        <img src="/src/main/resources/static/image/제목 없음.png" alt="">
+                        <img src="" alt="">
                     </div>
                     <div>
                         <div>
@@ -48,7 +48,7 @@
             </section>
             <section>
                 <h1 class="pl:1 fw:3 fs:5 border-left bd-color:main-2 bd-w:3 mt:5 mb:2">한줄 평</h1>
-                <div th:each="r ,count: ${reviews}"
+                <div
                     class="d:flex fw:3 fs:2 bd-radius:1 margin-bottom:3 px:2 py:2 bd bd-color:base-3">
                     <div class="m-right:2">
                         <span class="icon icon:user">아이콘</span>
@@ -56,22 +56,22 @@
                     <div class="w:100p">
                         <div class="d:flex jc:space-between mb:1">
                             <div class="d:flex ai:center gap:3 d:inline-block">
-                                <span th:text="${count.count}+승환">닉네임</span>
+                                <span >닉네임</span>
                             </div>
                             <div>
-                                <span th:text="${#dates.format(r.regDate, 'MM.dd  HH:mm')}">날짜</span>
+                                <span>날짜</span>
                             </div>
                         </div>
                         <div class="d:flex jc:space-between mb:1">
-                            <div th:text="${r.comments}">한줄평이 출력됩니다</div>
+                            <div>한줄평이 출력됩니다</div>
                         </div>
                         <div class="d:flex jc:space-between">
                             <div class="d:inline-block">
-                                <span th:text="${r.memberRate}+원" class="margin-right:auto">평점</span>
+                                <span class="margin-right:auto">평점</span>
                             </div>
                             <div>
                                 <span class="icon icon:thumbs_up">아이콘</span>
-                                <span th:text="${count.count}">좋아요 수</span>
+                                <span>좋아요 수</span>
                             </div>
                         </div>
                     </div>
@@ -98,8 +98,8 @@
                     </div>
                 </div>
             </section>
-            <div class="">
-                 <button >다음주 후보 보러가기</button>
+            <div>
+                 <button class="n-btn">다음주 후보 보러가기</button>
             </div>
         </section>
     </main>
