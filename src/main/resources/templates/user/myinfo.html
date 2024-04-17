@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/components/user/myinfo.css">
     <style>
         .user-info-section ul li:nth-child(5){
             color: green;
@@ -17,6 +18,41 @@
     </style>
 </head>
 <body>
-    <main layout:fragment="main"></main>
+    <main layout:fragment="main">
+        <h1>회원정보</h1>
+        <section class="user-info">
+            <h1 class="d:none">회원정보</h1>
+            <div>
+                <div>ID</div>
+                <span>12345</span>
+            </div>
+            <div>
+                <div>이름</div>
+                <span>홍길동</span>
+            </div>
+            <div class="pb:8 bd-bottom border-width:2">
+                <div>나이</div>
+                <span>30</span>
+            </div>
+            <div class="test">
+                <div class="d:flex jc:space-between">닉네임<button type="button" class="n-btn n-btn-size:1">수정</button></div>
+                <span>nickname</span>
+                
+            </div>
+            <div class="test">
+                <div class="d:flex jc:space-between">비밀번호<button type="button" class="n-btn n-btn-size:1">수정</button></div>
+                <span>********</span>
+                
+            </div>
+            <div class="test">
+                <div class="d:flex jc:space-between">이메일<button type="button" class="n-btn n-btn-size:1">수정</button></div>
+                <span>example@example.com</span>
+                
+            </div>
+            <div class="txt-al:right">
+                <button type="button" class="n-btn n-btn:outline">회원탈퇴</button>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

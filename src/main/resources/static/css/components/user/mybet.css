@@ -17,17 +17,17 @@ main h1{
     width: 100%;
 }
 
-.movie-list{
+.bet-list{
     width: 100%;
     max-width: 980px;
 }
 
-.movie-list section{
+.bet-list section{
     display: flex;
     column-gap: 20px;
 }
 
-.movie-list li{
+.bet-list li{
     width: 100%;
     height: 280px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
