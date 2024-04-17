@@ -14,6 +14,16 @@
             width: 20px;
             height: 20px;
         }
+
+        .line-height {
+            line-height: 23px;
+        }
+
+        .bgc {
+            border-radius: 16px 16px 0 0;
+            background-color: #f7f7f7;
+            height: 54px;
+        }
     </style>
     <title>Document</title>
 </head>
@@ -23,33 +33,33 @@
         <section class="media px:3 color:base-10">
             <section class="media-sect">
                 <h1 class="d:none">게시판리스트</h1>
-                <section class="bd bd-color:main-10 txt-al:center">
+                <!-- <section class="bd bd-color:main-10 txt-al:center">
                     <h1>커뮤니티</h1>
                     <div>
                         <img src="" alt="">
                     </div>
-                </section>
-                <section class="d:flex fl-wrap:wrap">
-                    <section th:each="category,c : ${ctgId}" class="w:6 bd-bottom bd-color:main-10 m-top:4 p-bottom:4">
-                        <div>
+                </section> -->
+                <section class="d:flex fl-wrap:wrap gap:4">
+                    <section th:each="category,c : ${ctgId}" class="w:6 bd-bottom bd-color:main-10 m-top:4 p-bottom:4 n-item n-item-type:shadow p:0">
+                        <div class="bgc d:flex ai:center">
                             <a th:href="@{board/list(c=${category.id})}">
-                                <h1 class="fw:3 fs:6" th:text="${category.name+'게시판'}">자유</h1>
+                                <h1 class="fw:3 fs:4 color:main-3 px:4" th:text="${category.name+'게시판'}">자유</h1>
                             </a>
                         </div>
                         <div class="px:2">
-                            <div class="d:flex m-top:3">
-                                <div class="px:2">
-                                    <div th:each="list,c : ${#vars['list' + c.count]}" class="d:flex m-top:3">
+                            <div class="d:flex">
+                                <ul class="px:2">
+                                    <li th:each="list,c : ${#vars['list' + c.count]}" class="d:flex m-top:3 ai:center">
                                         <div>
-                                            <span class="d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center m-right:2" th:text="${c.count}">1</span>
+                                            <span class="d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center m-right:2 line-height" th:text="${c.count}">1</span>
                                             <!-- th:href="@{board/detail(c=${c.id}&b=${b.id})}" -->
                                         </div>
                                         <div>
-                                            <a href="" class="fw:3   m-right:1" th:href="@{board/detail(c=${category.id},id=${list.id})}" th:text="${list.title}">제목</a>
+                                            <a href="" class="color:base-10 m-right:1" th:href="@{board/detail(c=${category.id},id=${list.id})}" th:text="${list.title}">제목</a>
                                         </div>
-                                        <div>댓글</div>
-                                    </div>
-                                </div>
+                                        <div class="color:base-6 fs:2">[12]</div>
+                                    </li>
+                                </ul>
 
                             </div>
                         </div>

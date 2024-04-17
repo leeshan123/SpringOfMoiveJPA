@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.config;
+package kr.co.moviespring.web.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
