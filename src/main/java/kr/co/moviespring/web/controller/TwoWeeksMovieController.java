@@ -5,11 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("weeks")
+@RequestMapping("2weeks")
 public class TwoWeeksMovieController {
     
+    @GetMapping("movie")
+    public String movie (){
+        return "2weeks/movie";
+    }
+
     @GetMapping("list")
     public String list (){
-        return "weeks/list";
+        return "2weeks/list";
     }
 }

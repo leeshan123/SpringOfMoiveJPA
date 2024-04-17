@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="inc/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/js/2weeks/list.js" defer></script>
+</head>
+
+<body>
+    <main layout:fragment="main" class="media">
+        <section class="media-sect media-mobile">
+            <h1 class="d:none">메인</h1>
+            <section class="">
+                <h1 class="fw:3 fs:6 txt-al:center n-font">다음 2주의영화 후보 TOP6</h1>
+                <section class="bd bd-radius:3 bd-color:base-2 box-shadow:4 p:2">
+                    <h1 class="d:none">영화목록</h1>
+                    <div class="d:flex">
+                        <div class="m-right:2 w:5">
+                            <img src="" alt="이미지" width="200px">
+                        </div>
+                        <div class="w:100p">
+                            <div class="">
+                                <h2 class="d:none">영화정보</h2>
+                                <div class="fw:3">1위 파묘</div>
+                                <div>감독 장재현</div>
+                                <div class="d:flex">
+                                    <p>최민식</p><p>유해진</p><p>김고은</p><p>이도현</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="n-progress n-progress-color:main txt-al:center color:base-1 " role="progressbar w:10">
+                                    <div style="width: 10%; text-wrap: nowrap" class="text-wrap: nowrap">53표</div>
+                                    <span class="m:auto">
+                                        47표
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="icon icon-deco">100표</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="d:flex jc:center m-top:4" >
+                        <button id="modal-btn" type="button" class="n-btn">나만의 영화 추천하기</button>
+
+                        <section id="modal" class="n-modal d:none" tabindex="-1">
+                            <button class="n-font:subtitle text-align:center">영화검색👋</button>
+                            <div class="mt:4">
+                              <button id="close-btn" type="button" class="n-btn w:5">좀더 고민할래요..</button>
+                              <button id="close-btn" type="button" class="n-btn w:5">추천!!</button>
+                            </div>
+                          </section>
+                          <div id="modal-backdrop" class="backdrop d:none"></div>
+               </div>
+            </section>
+        </section>
+    </main>
+</body>
+
+</html>

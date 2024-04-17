@@ -9,38 +9,38 @@
 </head>
 <body>
     <main layout:fragment="main" class="media">
-        <section class="media-sect">
+        <section class="media-sect media-mobile">
             <h1 class="d:none">메인</h1>
             <section class="">
-                <div>
-                    <h1>2주의 영화</h1>
+                <div class="txt-al:center">
+                    <h1 class="fw:3 fs:8">2주의 영화</h1>
                 </div>
-                <div>
-                    <div>
-                        <img src="" alt="">
+                <div class="m-top:4">
+                    <div class="d:flex jc:center">
+                        <img src="" alt="dd">
                     </div>
-                    <div>
-                        <div>
-                            <div class="d:flex">
+                    <div class="m-top:4">
+                        <div class="d:flex jc:center">
+                            <div>
                                 <div>
-                                    <span>아이콘</span>
+                                    <span class="icon icon:trophy ">아이콘</span>
                                 </div>
                             </div>
-                            <div>
+                            <div class="d:inline-block">
                                 <div>
                                     10000원
                                 </div>
-                                <div>
+                                <div class="d:flex jc:center">
                                     이터널 선샤인
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <div>
+                    <div class="m-top:4">
+                        <div class="d:flex jc:center">
                             "Enjoy it"
                         </div>
-                        <div>
+                        <div class="d:flex jc:center">
                             평론가 한줄평
                         </div>
                     </div>
@@ -76,17 +76,27 @@
                         </div>
                     </div>
                 </div>
-            </section>
-            <section class=" d:flex media-pading">
-                <h1>역대 2주의 영화</h1>
-                <div class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:6">
-                    <div class="display:inline-block bd-color:base-10 ">
-                        <a href="">
-                            <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"src=""alt="/" height="212px" >
-                        </a>
+                <form action="" >
+                    <textarea id="comments" name="comments"
+                    class="width:10p h:1 p:2 n-textbox n-textbox-status:success" type="text"
+                    placeholder="내용을 입력해주세요."></textarea>
+                    <div class="d:flex jc:end">
+                        <button type="submit" class="n-btn">입력</button>
                     </div>
+                </form>
+            </section>
+            <section>
+                <h1>역대 2주의 영화</h1>
+                <section class="m-top:4">
+
+                    <div class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:6">
+                        <div class="display:inline-block bd-color:base-10 ">
+                            <a href="">
+                                <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"src=""alt="/" height="212px" >
+                            </a>
+                        </div>
                     <div class="d:flex ai:center d:inline-block line-height:1">
-                            <span class="fs:8 fw:3 line-height:1 font-style:italic">1</span>
+                        <span class="fs:8 fw:3 line-height:1 font-style:italic">1</span>
                         <div  class="m-left:4 d:inline-block line-height:1">
                             <div>
                                 <span class="fs:2 fw:3 d:inline-block">13000원 </span>
@@ -96,10 +106,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    </div>
+                </section>
             </section>
-            <div>
-                 <button class="n-btn">다음주 후보 보러가기</button>
+            <div class="d:flex jc:center m-top:4" >
+                 <a href="/2weeks/list">
+                     <button class="n-btn n-btn-color:main">다음주 후보 보러가기</button>
+                 </a>
             </div>
         </section>
     </main>

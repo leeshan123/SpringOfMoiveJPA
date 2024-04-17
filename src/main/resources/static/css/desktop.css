@@ -20,6 +20,7 @@
         width: 100%;
         max-width: 980px;
         justify-content:  space-around;
+            
     }
 
     .content-list{
@@ -32,3 +33,9 @@
     }
 }
 /* movie/detail 반응형 */
+@media only screen and (max-width: 840px){
+
+.media-mobile{
+    
+}
+}

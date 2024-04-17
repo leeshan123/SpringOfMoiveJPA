@@ -47,4 +47,16 @@
     --width-percent-9: 90%;
     --width-percent-10: 100%;
 
+
+    /* progress.css */
+    .n-progress {
+    --progress-height:24px;
+    --progress-border-radius: 8px;
+    --progress-background-color: #D9D9D9;
+  
+    --progressbar-color-main: var(--color-main-1);
+    --progressbar-color-sub: var(--color-sub-1);
+    --progressbar-color-accent: var(--color-accent-1);
+    --progressbar-color-base: var(--color-base-6);
+  }
 }
