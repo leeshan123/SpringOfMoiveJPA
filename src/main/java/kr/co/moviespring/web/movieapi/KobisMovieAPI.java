@@ -17,6 +17,9 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Actors;
+import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Companys;
+import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Directors;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -185,7 +188,6 @@ public class KobisMovieAPI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
         return dbeList;
     }
 
@@ -198,6 +200,7 @@ public class KobisMovieAPI {
 
         //반환할 변수 생성
         MovieInfoEntity movieInfo = new MovieInfoEntity();
+        KobisMovieInfoEntity kobisMovieInfo = new KobisMovieInfoEntity();
 
         // 변수 설정
         Map<String, String> paramMap = new HashMap<String, String>();
@@ -228,6 +231,73 @@ public class KobisMovieAPI {
             // 데이터 추출
             JSONObject movieInfoResult = responseBody.getJSONObject("movieInfoResult").getJSONObject("movieInfo");
 
+            //일단 코비스 영역 다시 데이터 추출
+            {
+                // "nations" 키의 값인 JsonArray를 추출
+                JSONArray nationsArray = movieInfoResult.getJSONArray("nations");
+                Iterator<Object> nationsIter = nationsArray.iterator();
+                List<String> nationList = new ArrayList<>();;
+                while(nationsIter.hasNext()){
+                    JSONObject object = (JSONObject)nationsIter.next();
+                    nationList.add(object.getString("nationNm"));
+                }
+                kobisMovieInfo.setNationNm(nationList);  
+
+                // "genres" 키의 값인 JsonArray를 추출
+                JSONArray genreArray = movieInfoResult.getJSONArray("genres");
+                Iterator<Object> genreIter = genreArray.iterator();
+                List<String> genreList = new ArrayList<>();
+                while (genreIter.hasNext()) {
+                    JSONObject object = (JSONObject)genreIter.next();
+                    genreList.add(object.getString("genreNm"));
+                }
+                kobisMovieInfo.setGenreNm(genreList);
+
+                // "directors" 키의 값인 JsonArray를 추출
+                JSONArray directorsArray = movieInfoResult.getJSONArray("directors");
+                Iterator<Object> directorsIter = directorsArray.iterator();
+                List<Directors> directorsList = new ArrayList<>();
+                while (directorsIter.hasNext()) {
+                    JSONObject object = (JSONObject)directorsIter.next();
+                    Directors director = new Directors();
+                    director.setPeopleNm(object.getString("peopleNm"));
+                    director.setPeopleNmEn(object.getString("peopleNmEn"));
+                    directorsList.add(director);
+                }
+                kobisMovieInfo.setDirectors(directorsList);
+
+                // "actors" 키의 값인 JsonArray를 추출
+                JSONArray actorsArray = movieInfoResult.getJSONArray("actors");
+                Iterator<Object> actorsIter = actorsArray.iterator();
+                List<Actors> actorsList = new ArrayList<>();
+                while (actorsIter.hasNext()) {
+                    JSONObject object = (JSONObject)actorsIter.next();
+                    Actors actor = new Actors();
+                    actor.setPeopleNm(object.getString("peopleNm"));
+                    actor.setPeopleNmEn(object.getString("peopleNmEn"));
+                    actor.setCast(object.getString("cast"));
+                    actor.setCastEn(object.getString("castEn"));
+                    actorsList.add(actor);
+                }
+                kobisMovieInfo.setActors(actorsList);
+
+                // "companys" 키의 값인 JsonArray를 추출
+                JSONArray companysArray = movieInfoResult.getJSONArray("companys");
+                Iterator<Object> companysIter = companysArray.iterator();
+                List<Companys> companysList = new ArrayList<>();
+                while (companysIter.hasNext()) {
+                    JSONObject object = (JSONObject)companysIter.next();
+                    Companys company = new Companys();
+                    company.setCompanyCd(object.getString("companyCd"));
+                    company.setCompanyNm(object.getString("companyNm"));
+                    company.setCompanyNmEn(object.getString("companyNmEn"));
+                    company.setCompanyPartNm(object.getString("companyPartNm"));
+                    companysList.add(company);
+                }
+                kobisMovieInfo.setCompanys(companysList);
+            }
+
+
             //반환할 리스트 객체 생성
             movieInfo.setMovieCd(movieInfoResult.getString("movieCd")); //영화코드
             movieInfo.setMovieNm(movieInfoResult.getString("movieNm")); //한글이름
@@ -239,8 +309,7 @@ public class KobisMovieAPI {
             JSONObject nationsObj = (JSONObject) nationsIter.next();
             movieInfo.setNationNm(nationsObj.getString("nationNm"));//제작국가
 
-
-            // "nations" 키의 값인 JsonArray를 추출
+            // "genres" 키의 값인 JsonArray를 추출
             JSONArray genreArray = movieInfoResult.getJSONArray("genres");
             Iterator<Object> genreIter = genreArray.iterator();//여기서 하나씩 받자
             JSONObject genreObj = (JSONObject) genreIter.next();
@@ -337,12 +406,11 @@ public class KobisMovieAPI {
     };
 
 
-    
     public static void main(String[] args) {
         // API 객체 생성
         KobisMovieAPI api = new KobisMovieAPI();
-        api.searchDailyBoxOfficeList();
-        // api.searchMovieInfo("20112207");
+        // api.searchDailyBoxOfficeList(); // 작동 확인
+        api.searchMovieInfo("20228797");// 범죄도시로 테스트
  
         // API 요청
         // api.requestAPI();

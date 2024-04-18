@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.google.gson.JsonArray;
 
+import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Actors;
+import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Companys;
+import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Directors;
+
 //영화 상세 정보
 //staffs는 자료가 이상해서 일단 버림
 public class KobisMovieInfoEntity {
@@ -28,29 +32,7 @@ public class KobisMovieInfoEntity {
     private String auditNo;	        //심의번호
     private String watchGradeNm;	//관람등급 명칭
 
-
-    // companys의 자료구조 => companyCd, companyNm, companyNmEn, companyPartNm
-    public class Companys {
-        private String companyCd;	    //참여 영화사 코드
-        private String companyNm;	    //참여 영화사명
-        private String companyNmEn;	    //참여 영화사명(영문)
-        private String companyPartNm;	//참여 영화사 분야명
-    }
-
-    // actors의 자료 구조 => peopleNm(한국명), peopleNmEn(영어명), cast, castEn
-    public class Actors{
-        private String peopleNm;	    //배우명
-        private String peopleNmEn;	    //배우명(영문)
-        private String cast;	        //배역명
-        private String castEn;	        //배역명(영문)
-    }
-
-    public class Directors {
-        // directors의 자료 구조 => peopleNm(한국명), peopleNmEn(영어명)
-        private String peopleNm;	 //감독명
-        private String peopleNmEn;	//감독명(영문)
-    }
-
+    
     public List<String> getNationNm() {
         return nationNm;
     }

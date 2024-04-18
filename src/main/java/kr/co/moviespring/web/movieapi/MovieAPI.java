@@ -27,6 +27,7 @@ public class MovieAPI {
     //   - 요청(Request) 요청 변수
     private String REQUEST_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
     private final String AUTH_KEY = "8eebf0d30cb02fd27d0ccede30262ce2";
+    private final String AUTH_KEY2 = "860589c36cddbbbbd930b4a6aaa53da7";
  
     //   - 일자 포맷
     private final SimpleDateFormat DATE_FMT = new SimpleDateFormat("yyyyMMdd");
@@ -175,8 +176,8 @@ public class MovieAPI {
         return dbeList;
     }
 
-    //
-    public MovieInfoEntity requestMovieInfo(String movieCd){
+    // 영화 상세정보, 영화코드
+    public MovieInfoEntity searchMovieInfo(String movieCd){
 
         //요청 url 설정
         REQUEST_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
@@ -225,7 +226,7 @@ public class MovieAPI {
             movieInfor.setNationNm(nationsObj.getString("nationNm"));//제작국가
 
 
-            // "nations" 키의 값인 JsonArray를 추출
+            // "genres" 키의 값인 JsonArray를 추출
             JSONArray genreArray = movieInfoResult.getJSONArray("genres");
             Iterator<Object> genreIter = genreArray.iterator();//여기서 하나씩 받자
             JSONObject genreObj = (JSONObject) genreIter.next();
@@ -327,7 +328,6 @@ public class MovieAPI {
         // API 객체 생성
         MovieAPI api = new MovieAPI();
 
-        api.requestMovieInfo("20112207");
  
         // API 요청
         // api.requestAPI();
