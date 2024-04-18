@@ -20,6 +20,7 @@
         width: 100%;
         max-width: 980px;
         justify-content:  space-around;
+        margin:60px;
             
     }
 
@@ -36,6 +37,10 @@
 @media only screen and (max-width: 840px){
 
 .media-mobile{
-    
-}
+    width: 100%;
+    justify-content: center;
+    margin:20px;
+}  
+
+
 }
