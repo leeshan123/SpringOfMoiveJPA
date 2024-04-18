@@ -31,7 +31,7 @@
 <body>
     <main layout:fragment="main">
         <section class="media color:base-10">
-            <section class="media-sect">
+            <section class="media-sect media-mobile">
                 <h1 class="d:none">게시판리스트</h1>
                 <!-- <section class="bd bd-color:main-10 txt-al:center">
                     <h1>커뮤니티</h1>
@@ -39,7 +39,7 @@
                         <img src="" alt="">
                     </div>
                 </section> -->
-                <section class="d:flex fl-wrap:wrap gap:4 media-mobile">
+                <section class="d:flex fl-wrap:wrap gap:4">
                     <section th:each="category,c : ${ctgId}" class="w:6 bd-bottom bd-color:main-10 m-top:4 p-bottom:4 n-item n-item-type:shadow p:0">
                         <div class="bgc d:flex ai:center">
                             <a th:href="@{board/list(c=${category.id})}">

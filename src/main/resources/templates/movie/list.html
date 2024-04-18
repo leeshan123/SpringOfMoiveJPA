@@ -6,7 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>documents</title>
     <link rel="stylesheet" type="text/css" href="/css/desktop.css" />
+    <script src="/js/movie/list.js" defer></script>
+    <link rel="stylesheet" href="/css/components/movie/list.css">
 </head>
+<!-- <style>
+    /* .scrable-content {
+    width: 300px; /* 스크롤 가능한 컨테이너의 너비 */
+    overflow-x: auto; /* 가로 스크롤바가 필요할 때만 표시되도록 함 */
+    scroll-behavior: smooth; /* 스크롤이 부드럽게 이동하도록 함 */
+    } */
+</style> -->
 <body>
     <main layout:fragment="main">
     <section class="main-header">
@@ -31,7 +40,7 @@
                 </ul>
             </section>
             <!-- 여기 바로밑에 of:scroll추가하고 스크롤 스타일 없애면 스크롤,스와이프로 가려진 목록 볼수있음 -->
-            <section class=" d:flex media-pading of:scroll">
+            <section class=" d:flex media-pading of:scroll of-y:hidden scrable-content">
                 <h1 class="d:none ">컨텐츠</h1>
                 <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:6">
                     <div class="display:inline-block bd-color:base-10 ">
@@ -53,10 +62,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="test">
+                    <div class="">
+                        <button class=" scr-btn-left icon  icon:arrow_left">1</button>
+                    </div>
+                    <div class="">
+                        <button class=" scr-btn-right icon  icon:arrow_right">1</button>
+                    </div>
+                </div>
             </section>
         </section>
  
-        <section class="m-left:3 m-top:4 m-bottom:10">
+        <section class="m-left:3 m-top:4 m-bottom:10 of:scroll of-y:hidden">
             <h1 class="d:none">영화목록</h1>
             <section class="d:flex jc:space-between m-bottom:2">
                 <h1 class=" fs:4 fw:3">개봉 예정작</h1>
@@ -95,7 +112,7 @@
             </section>
         </section>
 
-        <section class="m-left:3 m-top:4 m-bottom:10">
+        <section class="m-left:3 m-top:4 m-bottom:10 of:scroll of-y:hidden">
             <h1 class="d:none ">영화목록</h1>
             <section class="d:flex jc:space-between m-bottom:2">
                 <h1 class=" fs:4 fw:3">올해의 영화</h1>

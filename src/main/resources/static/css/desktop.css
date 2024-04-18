@@ -20,8 +20,7 @@
         width: 100%;
         max-width: 980px;
         justify-content:  space-around;
-        margin:60px;
-            
+        
     }
 
     .content-list{
@@ -39,7 +38,7 @@
 .media-mobile{
     width: 100%;
     justify-content: center;
-    margin:20px;
+
 }  
 
 
