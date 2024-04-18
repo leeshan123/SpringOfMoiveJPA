@@ -78,7 +78,7 @@ layout:decorate="inc/layout">
                 <div>
                     <span sec:authorize="isAuthenticated()" class="icon icon:bone">아이콘</span>
                     <span sec:authorize="isAuthenticated()"
-                        sec:authentication="name">이름</span>
+                        sec:authentication="principal.nickname">이름</span>
                     <div class="d:flex jc:center ai:center">
                         <span sec:authorize="isAnonymous()" class="icon icon:warning_circle">아이콘</span>
                         <span sec:authorize="isAnonymous()" class="middle-positiongg">로그인 후에 댓글을 작성하실 수 있습니다</span>

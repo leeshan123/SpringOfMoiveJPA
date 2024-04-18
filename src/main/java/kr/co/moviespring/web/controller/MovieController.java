@@ -2,7 +2,9 @@ package kr.co.moviespring.web.controller;
 
 import java.util.List;
 
+import kr.co.moviespring.web.config.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,7 +69,8 @@ public class MovieController {
 
     // 영화 상세//
     @GetMapping("detail")
-    public String detail(@RequestParam("movieid") Long movieId, Model model) {
+    public String detail(@AuthenticationPrincipal CustomUserDetails userDetails,
+                         @RequestParam("movieid") Long movieId, Model model) {
         // 상세정보//
         Movie movie = movieService.getById(movieId);
         // 리뷰목록//
@@ -75,6 +78,7 @@ public class MovieController {
 
         model.addAttribute("movie", movie);
         model.addAttribute("reviews", onelineReviews);
+        model.addAttribute("user", userDetails); //유저 정보 객체 넣어줌 테스트중
 
         return "movie/detail";
     }

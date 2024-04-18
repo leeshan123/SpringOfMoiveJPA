@@ -16,10 +16,10 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    @GetMapping("main")
+    @GetMapping("mypage")
     public String main(){
 
-        return "user/main";
+        return "user/mypage";
     }
 
     @GetMapping("signin")

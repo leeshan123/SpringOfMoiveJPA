@@ -24,8 +24,9 @@ public class WebSecurityConfig {
        http
                .csrf(csrf -> csrf.disable()) // 포스트 요청을 보낼때 csrf를 방지하고자 토큰을 비교하는 설정을 끈다
                .authorizeHttpRequests((requests) -> requests
-                       .requestMatchers("/movie/**").hasAnyRole("MEMBER","ADMIN") //역할별 권한설정, 멤버와 관리자 모두 접속가능
-                        .requestMatchers("/admin/**").hasRole("ADMIN")//관리자만 접속가능
+                       .requestMatchers("/user/**").hasAnyRole("MEMBER","ADMIN") //역할별 권한설정, 멤버와 관리자 모두 접속가능
+//                       .requestMatchers("/movie/**").hasAnyRole("MEMBER","ADMIN")
+                       .requestMatchers("/admin/**").hasRole("ADMIN")//관리자만 접속가능
                        .anyRequest().permitAll())
                .formLogin((form) -> form
                        .loginPage("/user/signin")

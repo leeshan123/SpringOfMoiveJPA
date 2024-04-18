@@ -100,15 +100,38 @@
 }
 
 .user-welcome{
+    /*max-width: 680px;*/
     display: flex;
     justify-content: center;
 }
 
-.user-welcome p{
+.user-welcome .point-bar{
     width: 100%;
+    /*width: 680px;*/
     max-width: 980px;
-    font-size: 24px;
+    font-size: 20px;
     margin: 24px 0;
+    color: #00482A;
+}
+
+.ishover{
+    display: none;
+    position: fixed;
+    transform: translate(240px, -50px);
+    font-size: 14px;
+    width: 200px;
+}
+
+.point-bar .icon\:info:hover ~ .ishover{
+    display: block;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .user-info-section nav{
@@ -143,7 +166,7 @@
 /* Media Queries*/
 @media only screen and (max-width: 1068px) {
     .user-info-section ul,
-    .user-welcome p,
+    .user-welcome .point-bar,
     .nav_container {
         max-width: 680px;
     }

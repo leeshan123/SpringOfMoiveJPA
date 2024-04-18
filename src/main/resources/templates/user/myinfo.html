@@ -24,29 +24,29 @@
             <h1 class="d:none">회원정보</h1>
             <div>
                 <div>ID</div>
-                <span>12345</span>
+                <span sec:authentication="principal.username">12345</span>
             </div>
             <div>
                 <div>이름</div>
-                <span>홍길동</span>
+                <span sec:authentication="principal.name">홍길동</span>
             </div>
             <div class="pb:8 bd-bottom border-width:2">
                 <div>나이</div>
-                <span>30</span>
+                <span sec:authentication="principal.age">30</span>
             </div>
             <div class="test">
                 <div class="d:flex jc:space-between">닉네임<button type="button" class="n-btn n-btn-size:1">수정</button></div>
-                <span>nickname</span>
+                <span sec:authentication="principal.nickname">nickname</span>
                 
             </div>
             <div class="test">
                 <div class="d:flex jc:space-between">비밀번호<button type="button" class="n-btn n-btn-size:1">수정</button></div>
-                <span>********</span>
-                
+<!--                <span sec:authentication="principal.password">********</span> 비번은 숨기는걸로...-->
+
             </div>
             <div class="test">
                 <div class="d:flex jc:space-between">이메일<button type="button" class="n-btn n-btn-size:1">수정</button></div>
-                <span>example@example.com</span>
+                <span sec:authentication="principal.email">example@example.com</span>
                 
             </div>
             <div class="txt-al:right">

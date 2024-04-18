@@ -1,51 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-    <header class="header mb:6 color:base-10">
-        <div class="top_nav">
-            <div class="nav_container top_nav_container">
-                <h1 class="logo"><a href="/index">영화의봄</a></h1>
-                <div class="search_box">
-                    <form action="">
-                        <div class="search">
-                            <input type="text" name="query" value="">
-                            <button type="submit">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                        </div>
-                    </form>
-                    <a class="login_btn" href="/user/signin" rel="">
-                        <i sec:authorize="isAnonymous()" class="icon icon:user"></i>
-                        <!-- <span sec:if anonymous="true">로그인</span> -->
-                    </a>
+<header class="header mb:6 color:base-10">
+    <div class="top_nav">
+        <div class="nav_container top_nav_container">
+            <h1 class="logo"><a href="/index">영화의봄</a></h1>
+            <div class="search_box">
+                <form action="">
+                    <div class="search">
+                        <input type="text" name="query" value="">
+                        <button type="submit">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                </form>
+                <a class="login_btn d:flex ai:center white-space:nowrap" href="/user/signin" rel="">
+                    <i sec:authorize="isAnonymous()" class="icon icon:user ml:1"></i>
+                    <span sec:authorize="isAnonymous()" class="ml:1 fs:2">로그인</span>
+                </a>
+                <div class="d:flex ai:center">
                     <a class="login_btn" href="/user/signout" rel="">
-                        <i sec:authorize="isAuthenticated()" class="fa-solid fa-right-to-bracket"></i>
+                        <i sec:authorize="isAuthenticated()" class="icon icon:sign_out ml:2"></i>
                         <!-- <span sec:if not="isAnonymous()" th:text="${#authentication.name}">이거 나오면 망함</span> -->
                     </a>
-                    <div sec:authorize="isAuthenticated()">
-                        <a sec:authentication="name" href="/user/main"></a>
+                    <div sec:authorize="isAuthenticated()" class="white-space:nowrap ml:1 fs:2">
+                        <a sec:authentication="principal.nickname" href="/user/mypage" class="vt-align:sub"></a>
+                        <!--                        th:text="${user.nickname}"-->
                     </div>
-                    <!-- <a class="icon icon-sign-out icon-color:base-0" href="/user/logout">로그아웃</a></li> -->
-                    <!-- <div sec:authorize="isAnonymous()">이거 나오면 익명유저</div> -->
-                    <!-- <span sec:authentication="name">이거 나오면 망함</span> -->
-
                 </div>
+                <!-- <a class="icon icon-sign-out icon-color:base-0" href="/user/logout">로그아웃</a></li> -->
+                <!-- <div sec:authorize="isAnonymous()">이거 나오면 익명유저</div> -->
+                <!-- <span sec:authentication="name">이거 나오면 망함</span> -->
+
             </div>
         </div>
-        <section class="media">
-            <h1 class="d:none">게시판 리스트</h1>
-            <nav class="d:flex n-tabbar">
-                <div class="nav_container bottom_nav_container">
-                    <div>
-                        <ul class="n-tabbar jc:space-between">
-                            <li class="active"><a href="/movie/list">영화</a></li>
-                            <li><a href="/community/main">이벤트</a></li>
-                            <li><a href="/2weeks/movie">이주의 영화</a></li>
-                            <li><a href="/community/main">커뮤니티</a></li>
-                            <li><a href="/playground/main">관객놀이터</a></li>
-                        </ul>
-                    </div>
+    </div>
+    <section class="media">
+        <h1 class="d:none">게시판 리스트</h1>
+        <nav class="d:flex n-tabbar">
+            <div class="nav_container bottom_nav_container">
+                <div>
+                    <ul class="n-tabbar jc:space-between fs:5">
+                        <li class="active"><a href="/movie/list">영화</a></li>
+                        <li><a href="/community/main">이벤트</a></li>
+                        <li><a href="/2weeks/movie">이주의 영화</a></li>
+                        <li><a href="/community/main">커뮤니티</a></li>
+                        <li><a href="/playground/main">관객놀이터</a></li>
+                    </ul>
                 </div>
-            </nav>
-        </section>
-    </header>
+            </div>
+        </nav>
+    </section>
+</header>
 </html>

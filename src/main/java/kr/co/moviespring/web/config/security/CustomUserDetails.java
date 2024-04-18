@@ -10,6 +10,7 @@ import java.util.Collection;
 public class CustomUserDetails implements UserDetails {
 
     private Member member;
+    // private String nickname;
     public CustomUserDetails(Member member) {
 
         this.member = member;
@@ -27,6 +28,47 @@ public class CustomUserDetails implements UserDetails {
             }
         });
         return collection;
+    }
+
+    public String getNickname() {
+        return member.getNickname();
+    }
+
+    public void setNickname(String nickname) {
+        this.member.setNickname(nickname);
+//        this.nickname = nickname;
+    }
+
+    public String getName() {
+        return member.getName();
+    }
+
+    public void setName(String name) {
+        this.member.setName(name);
+    }
+
+    public int getAge() {
+        return member.getAge();
+    }
+
+    public void setAge(int age) {
+        this.member.setAge(age);
+    }
+
+    public String getEmail() {
+        return member.getEmail();
+    }
+
+    public void setEmail(String email) {
+        this.member.setEmail(email);
+    }
+
+    public int getPoint() {
+        return member.getPoint();
+    }
+
+    public void setPoint(int point) {
+        this.member.setPoint(point);
     }
 
     @Override

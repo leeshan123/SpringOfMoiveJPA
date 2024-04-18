@@ -1,48 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <header class="header mb:6 color:base-10">
-        <div class="top_nav">
-            <div class="nav_container top_nav_container">
-                <h1 class="logo"><a href="/index">영화의봄</a></h1>
-                <div class="search_box">
-                    <form action="">
-                        <div class="search">
-                            <input type="text" name="query" value="">
-                            <button type="submit">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                        </div>
-                    </form>
-                    <a class="login_btn" href="/user/signin" rel="">
-                        <i sec:authorize="isAnonymous()" class="icon icon:user"></i>
-                    </a>
-                    <a class="login_btn" href="/user/signout" rel="">
-                        <i sec:authorize="isAuthenticated()" class="fa-solid fa-right-to-bracket"></i>
-                    </a>
-                    <div sec:authorize="isAuthenticated()">
-                        <a sec:authentication="name" href="/user/main"></a>
-                    </div>
+<header class="header mb:6 color:base-10">
+    <section>
+        <div class="user-welcome">
+            <div class="point-bar fw:500">
+                <div>
+                    <span sec:authentication="principal.name"></span>
+                    <span class="text-align:start"> 감독님 반갑습니다.</span>
+                </div>
+                <div>
+                    <span>내 누적 관객수 : </span>
+                    <span sec:authentication="principal.point">보유포인트</span>
+                    <!--TODO: 2024-04-18, 목, 23:15 포인트값을 3자리마다 , 찍고 싶은데 컨트롤러가 없어서 어떻게 해야할지.. -JOON-->
+<!--                    <span th:text="${#numbers.formatInteger(point,3,'COMMA')}"></span>-->
+                    <span>명</span>
+                    <span class="icon icon:info">설명 아이콘</span>
+                    <p class="n-item n-item-type:shadow p:2  color:base-6 ishover">'영화의봄'은 회원의 포인트를 관객수로 표현하고 있습니다,<br>천만영화의 꿈을 이뤄보세요!</p>
                 </div>
             </div>
-        </div>
-        <section class="media">
-            <h1 class="d:none">게시판 리스트</h1>
-            <nav class="d:flex n-tabbar">
-                <div class="nav_container bottom_nav_container">
-                    <div>
-                        <ul class="n-tabbar jc:space-between">
-                            <li class="active"><a href="/movie/list"><button>영화</button></a></li>
-                            <li><button>이벤트</button></li>
-                            <li><button>이주의 영화</button></li>
-                            <li><a href="/community/main"><button>커뮤니티</button></a></li>
-                            <li><button>관객놀이터</button></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </section>
-        <div class="user-welcome">
-            <p>00 감독님 반갑습니다.</p>
         </div>
         <section class="user-info-section">
             <h1 class="d:none">내 정보 리스트</h1>
@@ -81,5 +56,6 @@
                 </ul>
             </nav>
         </section>
-    </header>
+    </section>
+</header>
 </html>
