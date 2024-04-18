@@ -20,4 +20,6 @@
     	VALUES (#{id}, #{korName}, #{engName}, #{sponsor}, #{releaseDate}, #{totalRate}, #{totalBoxoffice}, #{totalSales}, #{dailySales}, #{totalAudience}, #{dailyAudience}, #{movieIntro}, #{posterUrl}, #{stillcutUrl}, #{trailerUrl}, #{releaseNationId}, #{genreId})
 	</insert>
 
+
+
 </mapper>

@@ -27,5 +27,13 @@
 		)
 	</insert>
 
+	<!--누적관객수 데이터 집어넣기	-->
+	<insert id="AduienceAccInsert" parameterType="Movie2">
+		UPDATE movie3
+		SET audiAcc = #{audiAcc}
+		WHERE MovieNm = #{movieNm}
+		AND OpenDt = #{openDt}
+	</insert>
+
 
 </mapper>

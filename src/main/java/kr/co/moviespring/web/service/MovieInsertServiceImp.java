@@ -50,6 +50,13 @@ public class MovieInsertServiceImp implements MovieInsertService{
             repository.saveIfNotMovie(movieList.get(i));
         }
     }
+    //엑셀에서 가져온 누적관객수 데이터 넣기.
+    @Override
+    public void AduienceAccInsert(List<Movie2> movie2List) {
+        for(int i=0; i<movie2List.size();i++){
+            repository.AduienceAccInsert(movie2List.get(i));
+        }
+    }
 
 
     //일별 박스오피스 외부 API요청하기
@@ -177,7 +184,7 @@ public class MovieInsertServiceImp implements MovieInsertService{
         List<Movie2> movielist= new ArrayList<>();
 
         // 1부터 10까지 실행(총 100개)
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < 200; i++) {
             try {
                 StringBuilder sb = new StringBuilder();
                 URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=" + key + "&curPage=" + i);
@@ -219,7 +226,9 @@ public class MovieInsertServiceImp implements MovieInsertService{
 
     }
 
-//영화 목록의 영화리스트 결과 클래스 담기
+
+
+    //영화 목록의 영화리스트 결과 클래스 담기
 class MovieListResult {
 
     @SerializedName("movieListResult")

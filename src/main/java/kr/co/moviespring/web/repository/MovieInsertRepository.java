@@ -13,6 +13,9 @@ public interface MovieInsertRepository {
 
     void saveIfNotMovie(Movie2 movie2);
 
+    //엑셀에서 가져온 누적관객수 데이터 넣기.
+    void AduienceAccInsert(Movie2 movie2);
+
 
 
 }

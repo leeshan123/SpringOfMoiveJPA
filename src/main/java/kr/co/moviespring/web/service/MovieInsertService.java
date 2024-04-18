@@ -16,6 +16,9 @@ public interface MovieInsertService {
     void saveIfNotMovie(List<Movie2> movie3List);
     void getsaveIfNotMovie(String key);
 
+    //엑셀에서 가져온 누적관객수 데이터 넣기.
+    void AduienceAccInsert(List<Movie2> movie2List);
+
 
 
 }
