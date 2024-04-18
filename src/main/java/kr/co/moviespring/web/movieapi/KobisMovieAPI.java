@@ -21,7 +21,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MovieAPI {
+public class KobisMovieAPI {
 
     // 상수 설정
     //   - 요청(Request) 요청 변수
@@ -55,10 +55,10 @@ public class MovieAPI {
         //   - 요청(Request) 인터페이스 Map
         //   - 어제자 다양성 한국영화 10개 조회
         Map<String, String> paramMap = new HashMap<String, String>();
-        paramMap.put("key"          , AUTH_KEY);                        // 발급받은 인증키
-        paramMap.put("targetDt"     , DATE_FMT.format(cal.getTime()));  // 조회하고자 하는 날짜
-        paramMap.put("itemPerPage"  , "10");                            // 결과 ROW 의 개수( 최대 10개 )
-        paramMap.put("multiMovieYn" , "N");                             // Y:다양성 영화, N:상업영화, Default:전체
+        paramMap.put("key"          , AUTH_KEY);                      // 발급받은 인증키
+        paramMap.put("targetDt"     , DATE_FMT.format(cal.getTime()));// 조회하고자 하는 날짜
+        paramMap.put("itemPerPage"  , "10");                    // 결과 ROW 의 개수( 최대 10개 )
+        paramMap.put("multiMovieYn" , "N");                     // Y:다양성 영화, N:상업영화, Default:전체
         //paramMap.put("repNationCd"  , "K");                             // K:한국영화, F:외국영화, Default:전체
 
         try {
@@ -105,7 +105,7 @@ public class MovieAPI {
 
     
     //순위, 대표코드, 해당일의 관객수, 누적관객수, 누적매출액
-    public List<KobisDailyBoxEntity> requestBoxDailly(){
+    public List<KobisDailyBoxEntity> searchDailyBoxOfficeList(){
         
         // 일단 어제 날짜
         Calendar cal = Calendar.getInstance();
@@ -160,11 +160,25 @@ public class MovieAPI {
                 JSONObject boxOffice = (JSONObject) iter.next();
                 
                 KobisDailyBoxEntity dbe = new KobisDailyBoxEntity();
-                dbe.setRank(boxOffice.getString("rnum"));
+                dbe.setRnum(boxOffice.getString("rnum"));
+                dbe.setRank(boxOffice.getString("rank"));
+                dbe.setRankInten(boxOffice.getString("rankInten"));
+                dbe.setRankOldAndNew(boxOffice.getString("rankOldAndNew"));
                 dbe.setMovieCd(boxOffice.getString("movieCd"));
-                dbe.setAudiCnt(boxOffice.getString("audiCnt"));
-                dbe.setAudiCnt(boxOffice.getString("audiAcc"));
+                dbe.setMovieNm(boxOffice.getString("movieNm"));
+                dbe.setOpenDt(boxOffice.getString("openDt"));
+                dbe.setSalesAmt(boxOffice.getString("salesAmt"));
+                dbe.setSalesShare(boxOffice.getString("salesShare"));
+                dbe.setSalesInten(boxOffice.getString("salesInten"));
+                dbe.setSalesChange(boxOffice.getString("salesChange"));
                 dbe.setSalesAcc(boxOffice.getString("salesAcc"));
+                dbe.setAudiCnt(boxOffice.getString("audiCnt"));
+                dbe.setAudiInten(boxOffice.getString("audiInten"));
+                dbe.setAudiChange(boxOffice.getString("audiChange"));
+                dbe.setAudiAcc(boxOffice.getString("audiAcc"));
+                dbe.setScrnCnt(boxOffice.getString("scrnCnt"));
+                dbe.setShowCnt(boxOffice.getString("showCnt"));
+
                 
                 dbeList.add(dbe);
             }
@@ -175,14 +189,15 @@ public class MovieAPI {
         return dbeList;
     }
 
-    //
-    public MovieInfoEntity requestMovieInfo(String movieCd){
+
+    //영화 상세정보, 인자값은 영화 코드
+    public MovieInfoEntity searchMovieInfo(String movieCd){
 
         //요청 url 설정
         REQUEST_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
 
         //반환할 변수 생성
-        MovieInfoEntity movieInfor = new MovieInfoEntity();
+        MovieInfoEntity movieInfo = new MovieInfoEntity();
 
         // 변수 설정
         Map<String, String> paramMap = new HashMap<String, String>();
@@ -214,30 +229,30 @@ public class MovieAPI {
             JSONObject movieInfoResult = responseBody.getJSONObject("movieInfoResult").getJSONObject("movieInfo");
 
             //반환할 리스트 객체 생성
-            movieInfor.setMovieCd(movieInfoResult.getString("movieCd")); //영화코드
-            movieInfor.setMovieNm(movieInfoResult.getString("movieNm")); //한글이름
-            movieInfor.setMovieNmEn(movieInfoResult.getString("movieNmEn"));//영문
+            movieInfo.setMovieCd(movieInfoResult.getString("movieCd")); //영화코드
+            movieInfo.setMovieNm(movieInfoResult.getString("movieNm")); //한글이름
+            movieInfo.setMovieNmEn(movieInfoResult.getString("movieNmEn"));//영문
             
             // "nations" 키의 값인 JsonArray를 추출
             JSONArray nationsArray = movieInfoResult.getJSONArray("nations");
             Iterator<Object> nationsIter = nationsArray.iterator();//여기서 하나씩 받자
             JSONObject nationsObj = (JSONObject) nationsIter.next();
-            movieInfor.setNationNm(nationsObj.getString("nationNm"));//제작국가
+            movieInfo.setNationNm(nationsObj.getString("nationNm"));//제작국가
 
 
             // "nations" 키의 값인 JsonArray를 추출
             JSONArray genreArray = movieInfoResult.getJSONArray("genres");
             Iterator<Object> genreIter = genreArray.iterator();//여기서 하나씩 받자
             JSONObject genreObj = (JSONObject) genreIter.next();
-            movieInfor.setGenreNm(genreObj.getString("genreNm"));//genreNm
+            movieInfo.setGenreNm(genreObj.getString("genreNm"));//genreNm
 
-            movieInfor.setOpenDt(movieInfoResult.getString("openDt"));//개봉일자
+            movieInfo.setOpenDt(movieInfoResult.getString("openDt"));//개봉일자
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         //반환
-        return movieInfor;
+        return movieInfo;
     }
 
     public MovieUrlEntity requestUrl(String movieName, String movieYear) throws IOException{
@@ -325,9 +340,9 @@ public class MovieAPI {
     
     public static void main(String[] args) {
         // API 객체 생성
-        MovieAPI api = new MovieAPI();
-
-        api.requestMovieInfo("20112207");
+        KobisMovieAPI api = new KobisMovieAPI();
+        api.searchDailyBoxOfficeList();
+        // api.searchMovieInfo("20112207");
  
         // API 요청
         // api.requestAPI();
