@@ -3,9 +3,14 @@
     position: absolute;
     justify-content: space-between;
     width: 100%;
-    max-width: 960px;
-    margin-top: 80px;
+    max-width: 980px;
+    margin-top: 115px;
     border-radius: 30px;
+}
+.aa{
+    background-color: #ffffff;
+    border: 1px hidden #000;
+    border-radius: 9999px;
 }
 
   /* 크로스 브라우저 스크롤바 스타일링 */

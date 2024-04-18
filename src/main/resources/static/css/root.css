@@ -60,4 +60,66 @@
     --progressbar-color-base: var(--color-base-6);
   }
 
+  /* button.css */
+.n-btn {
+  /* btn-size:1 */
+  --btn-height-1: 28px;
+  --btn-padding-1: 4px 12px;
+  --btn-font-size-1: 14px;
+  --btn-border-radius-1: 8px;
+
+  /* btn-size:2 */
+  --btn-height-2: 36px;
+  --btn-padding-2: 4px 16px;
+  --btn-font-size-2: 14px;
+  --btn-border-radius-2: 8px;
+
+  /* btn-size:3 */
+  --btn-height-3: 44px;
+  --btn-padding-3: 4px 4px;
+  --btn-font-size-3: 16px;
+  --btn-border-radius-3: 8px;
+
+  /* btn-type:filled */
+  --btn-filled-background-color-default: var(--color-main-2);
+  --btn-filled-background-color-hover: var(--color-main-1);
+  --btn-filled-background-color-active: var(--color-main-3);
+  --btn-filled-border: 1px solid transparent;
+  --btn-filled-color: var(--color-base-1);
+
+  /* btn-type:outline */
+  --btn-outline-background-color-default: var(--color-base-1);
+  --btn-outline-background-color-hover: rgba(var(--rgb-base-10), 0.05);
+  --btn-outline-background-color-active: rgba(var(--rgb-base-10), 0.07);
+  --btn-outline-border: 1px solid var(--color-base-3);
+  --btn-outline-color: inherit;
+
+  /* btn-type:void */
+  --btn-void-background-color-default: transparent;
+  --btn-void-background-color-hover: rgba(var(--rgb-base-10), 0.05);
+  --btn-void-background-color-active: rgba(var(--rgb-base-10), 0.07);
+  --btn-void-border: 1px solid transparent;
+
+  /* btn-color:base */
+  --btn-background-color-base-default: var(--color-base-9);
+  --btn-background-color-base-hover: var(--color-base-9);
+  --btn-border-base-default: 1px solid var(--color-base-8);
+  --btn-border-base-hover: 1px solid var(--color-base-8);
+  --btn-color-base: var(--color-base-1);
+
+  /* btn-color:sub */
+  --btn-background-color-sub-default: var(--color-sub-2);
+  --btn-background-color-sub-hover: var(--color-sub-2);
+  --btn-border-sub-default: 1px solid var(--color-sub-1);
+  --btn-border-sub-hover: 1px solid var(--color-sub-1);
+  --btn-color-sub: var(--color-base-1);
+
+  /* btn-color:accent */
+  --btn-background-color-accent-default: var(--color-accent-2);
+  --btn-background-color-accent-hover: var(--color-accent-2);
+  --btn-border-accent-default: 1px solid var(--color-accent-1);
+  --btn-border-accent-hover: 1px solid var(--color-accent-1);
+  --btn-color-accent: var(--color-base-1);
+}
+
 }
