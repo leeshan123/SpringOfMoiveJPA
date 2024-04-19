@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.gson.JsonArray;
 
 import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Actors;
+import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Audits;
 import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Companys;
 import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Directors;
 
@@ -13,11 +14,12 @@ import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Directors;
 //staffs는 자료가 이상해서 일단 버림
 public class KobisMovieInfoEntity {
 
-    private List<String> nationNm; //제작국가명, nations 는 여러개의 nationNm을 가지고 있을 수 있음
-    private List<String> genreNm;  //장르명, genres 는 여러 개의 genreNm을 가지고 있을 수 있음
-    private List<Actors> actors;
-    private List<Directors> directors;
-    private List<Companys> companys;
+    private List<String> nationNm;      //제작국가명
+    private List<String> genreNm;       //장르명
+    private List<Actors> actors;        //배우명
+    private List<Directors> directors;  //감독명
+    private List<Companys> companys;    //참여 영화사
+    private List<Audits> audits;        //심의정보
     
     private String movieNm;		    //영화명(국문)
     private String movieNmEn;	    //영화명(영문)
@@ -28,10 +30,6 @@ public class KobisMovieInfoEntity {
     private String prdtStatNm;	    //제작상태명
     private String typeNm;	        //영화유형명
     
-    //audits는 auditNo와 watchGradeNm, 웬만하면 1개일 듯
-    private String auditNo;	        //심의번호
-    private String watchGradeNm;	//관람등급 명칭
-
     
     public List<String> getNationNm() {
         return nationNm;
@@ -137,20 +135,12 @@ public class KobisMovieInfoEntity {
         this.typeNm = typeNm;
     }
 
-    public String getAuditNo() {
-        return auditNo;
+    public List<Audits> getAudits() {
+        return audits;
     }
 
-    public void setAuditNo(String auditNo) {
-        this.auditNo = auditNo;
-    }
-
-    public String getWatchGradeNm() {
-        return watchGradeNm;
-    }
-
-    public void setWatchGradeNm(String watchGradeNm) {
-        this.watchGradeNm = watchGradeNm;
+    public void setAudits(List<Audits> audits) {
+        this.audits = audits;
     }
 
 }

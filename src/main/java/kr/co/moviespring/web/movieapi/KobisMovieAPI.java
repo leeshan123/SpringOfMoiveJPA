@@ -18,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Actors;
+import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Audits;
 import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Companys;
 import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Directors;
 import okhttp3.OkHttpClient;
@@ -193,13 +194,12 @@ public class KobisMovieAPI {
 
 
     //영화 상세정보, 인자값은 영화 코드
-    public MovieInfoEntity searchMovieInfo(String movieCd){
+    public KobisMovieInfoEntity searchMovieInfo(String movieCd){
 
         //요청 url 설정
         REQUEST_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
 
         //반환할 변수 생성
-        MovieInfoEntity movieInfo = new MovieInfoEntity();
         KobisMovieInfoEntity kobisMovieInfo = new KobisMovieInfoEntity();
 
         // 변수 설정
@@ -295,33 +295,35 @@ public class KobisMovieAPI {
                     companysList.add(company);
                 }
                 kobisMovieInfo.setCompanys(companysList);
+
+                // "audits" 키의 값인 JsonArray를 추출
+                JSONArray auditsArray = movieInfoResult.getJSONArray("audits");
+                Iterator<Object> auditsIter = auditsArray.iterator();
+                List<Audits> auditsList = new ArrayList<>();
+                while (auditsIter.hasNext()) {
+                    JSONObject object = (JSONObject)auditsIter.next();
+                    Audits audits = new Audits();
+                    audits.setAuditNo(object.getString("auditNo"));
+                    audits.setWatchGradeNm(object.getString("watchGradeNm"));
+                    auditsList.add(audits);
+                }
+                kobisMovieInfo.setAudits(auditsList);
+
+                kobisMovieInfo.setMovieNm(movieInfoResult.getString("movieNm"));
+                kobisMovieInfo.setMovieNmEn(movieInfoResult.getString("movieNmEn"));
+                kobisMovieInfo.setMovieNmOg(movieInfoResult.getString("movieNmOg"));
+                kobisMovieInfo.setPrdtYear(movieInfoResult.getString("prdtYear"));
+                kobisMovieInfo.setShowTm(movieInfoResult.getString("showTm"));
+                kobisMovieInfo.setOpenDt(movieInfoResult.getString("openDt"));
+                kobisMovieInfo.setPrdtStatNm(movieInfoResult.getString("prdtStatNm"));
+                kobisMovieInfo.setTypeNm(movieInfoResult.getString("typeNm"));
             }
-
-
-            //반환할 리스트 객체 생성
-            movieInfo.setMovieCd(movieInfoResult.getString("movieCd")); //영화코드
-            movieInfo.setMovieNm(movieInfoResult.getString("movieNm")); //한글이름
-            movieInfo.setMovieNmEn(movieInfoResult.getString("movieNmEn"));//영문
-            
-            // "nations" 키의 값인 JsonArray를 추출
-            JSONArray nationsArray = movieInfoResult.getJSONArray("nations");
-            Iterator<Object> nationsIter = nationsArray.iterator();//여기서 하나씩 받자
-            JSONObject nationsObj = (JSONObject) nationsIter.next();
-            movieInfo.setNationNm(nationsObj.getString("nationNm"));//제작국가
-
-            // "genres" 키의 값인 JsonArray를 추출
-            JSONArray genreArray = movieInfoResult.getJSONArray("genres");
-            Iterator<Object> genreIter = genreArray.iterator();//여기서 하나씩 받자
-            JSONObject genreObj = (JSONObject) genreIter.next();
-            movieInfo.setGenreNm(genreObj.getString("genreNm"));//genreNm
-
-            movieInfo.setOpenDt(movieInfoResult.getString("openDt"));//개봉일자
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         //반환
-        return movieInfo;
+        return kobisMovieInfo;
     }
 
     public MovieUrlEntity requestUrl(String movieName, String movieYear) throws IOException{
@@ -410,7 +412,7 @@ public class KobisMovieAPI {
         // API 객체 생성
         KobisMovieAPI api = new KobisMovieAPI();
         // api.searchDailyBoxOfficeList(); // 작동 확인
-        api.searchMovieInfo("20228797");// 범죄도시로 테스트
+        // api.searchMovieInfo("20228797");// 범죄도시로 테스트
  
         // API 요청
         // api.requestAPI();
