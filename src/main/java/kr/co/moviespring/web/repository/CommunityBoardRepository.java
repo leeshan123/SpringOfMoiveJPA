@@ -4,17 +4,17 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import kr.co.moviespring.web.entity.GeneralBoard;
+import kr.co.moviespring.web.entity.CommunityBoard;
 
 @Mapper
-public interface CommunityRepository {
+public interface CommunityBoardRepository {
     // 게시글 등록//
     void saveContents(String title, String contents, Long categoryId);
 
     // 카테고리별 게시글 목록
-    List<GeneralBoard> findAll(Long categoryId, int size);
+    List<CommunityBoard> findAll(Long categoryId, int size);
 
-    GeneralBoard findById(Long id);
+    CommunityBoard findById(Long id);
 
 //    List<GeneralBoard> findAll();
 

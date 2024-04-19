@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import kr.co.moviespring.web.entity.Category;
 import kr.co.moviespring.web.repository.CategoryRepository;
-import kr.co.moviespring.web.repository.CommunityRepository;
 
 @Service
 public class CategoryServiceImp implements CategoryService{

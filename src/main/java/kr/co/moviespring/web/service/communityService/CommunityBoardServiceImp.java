@@ -1,7 +1,7 @@
 package kr.co.moviespring.web.service.communityService;
 
-import kr.co.moviespring.web.entity.GeneralBoard;
-import kr.co.moviespring.web.repository.CommunityRepository;
+import kr.co.moviespring.web.entity.CommunityBoard;
+import kr.co.moviespring.web.repository.CommunityBoardRepository;
 
 import java.util.List;
 
@@ -9,28 +9,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CommunityServiceImp implements CommunityService{
+public class CommunityBoardServiceImp implements CommunityBoardService {
 
     @Autowired
-    CommunityRepository communityRepository;
+    CommunityBoardRepository communityBoardRepository;
 
     // 게시글 등록//
     @Override
     public void write(String title, String contents,Long categoryId) {
-        communityRepository.saveContents(title,contents,categoryId);
+        communityBoardRepository.saveContents(title,contents,categoryId);
     }
 
     //카테고리별 게시글 목록//
     @Override
-    public List<GeneralBoard> getList(Long categoryId, int size) {
-        List<GeneralBoard> list = communityRepository.findAll(categoryId, size);
+    public List<CommunityBoard> getList(Long categoryId, int size) {
+        List<CommunityBoard> list = communityBoardRepository.findAll(categoryId, size);
         return list;
     }
 
     //게시글 상세//
     @Override
-    public GeneralBoard getById(Long id) {
-        GeneralBoard board = communityRepository.findById(id);
+    public CommunityBoard getById(Long id) {
+        CommunityBoard board = communityBoardRepository.findById(id);
         return board;
     }
 

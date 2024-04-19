@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.co.moviespring.web.entity.OnelineReview;
 
 @Mapper
-public interface CommentRepository {
+public interface OnelineReviewRepository {
     // 한줄평 등록//
     void save(Long id, String comments, int rate, Long movieId);
 

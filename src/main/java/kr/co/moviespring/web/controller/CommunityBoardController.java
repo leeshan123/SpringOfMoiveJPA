@@ -1,12 +1,10 @@
 package kr.co.moviespring.web.controller;
 
-import kr.co.moviespring.web.config.security.CustomUserDetails;
 import kr.co.moviespring.web.entity.Category;
-import kr.co.moviespring.web.entity.GeneralBoard;
+import kr.co.moviespring.web.entity.CommunityBoard;
 import kr.co.moviespring.web.service.categoryservice.CategoryService;
-import kr.co.moviespring.web.service.communityService.CommunityService;
+import kr.co.moviespring.web.service.communityService.CommunityBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +18,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping("community")
-public class CommunityController {
+public class CommunityBoardController {
     @Autowired
-    CommunityService communityService;
+    CommunityBoardService communityBoardService;
     @Autowired
     CategoryService categoryService;
 
@@ -32,7 +30,7 @@ public class CommunityController {
         List<Category> categories = categoryService.getList();
 
         for (int i = 0; i < categories.size(); i++) {
-        List <GeneralBoard> list = communityService.getList(categories.get(i).getId(),5);
+        List <CommunityBoard> list = communityBoardService.getList(categories.get(i).getId(),5);
         model.addAttribute("list"+(i+1), list);
         }
         model.addAttribute("ctgId", categories);
@@ -53,7 +51,7 @@ public class CommunityController {
     //게시글 목록 요청//
     @GetMapping("board/list")
     public String board(@RequestParam(name="c",required = false)Long categoryId, Model model){
-        List <GeneralBoard> list = communityService.getList(categoryId, 20);
+        List <CommunityBoard> list = communityBoardService.getList(categoryId, 20);
         Category category = categoryService.getById(categoryId);
         model.addAttribute("list", list);
         model.addAttribute("c", category);
@@ -67,7 +65,7 @@ public class CommunityController {
                          @RequestParam("id")Long boardId, Model model){
         //FIXME: 2024-04-14, 일, 22:58 주소창에서 카테고리 쿼리를 변경해도 게시글이 그대로 출력되는 버그있음,
         // 임의로 변경시 게시글의 카테고리명이 변경됨, 쿼리값에 카테고리가 필요한지? (디씨의 경우 있긴 함) -JOON
-        GeneralBoard board = communityService.getById(boardId);
+        CommunityBoard board = communityBoardService.getById(boardId);
         Category category = categoryService.getById(categoryId);
         model.addAttribute("board", board);
         model.addAttribute("category", category);
@@ -84,7 +82,7 @@ public class CommunityController {
     // 게시글 등록//
     @PostMapping("board/reg")
     public String reg(String title , String contents,@RequestParam(name="c",required = false)Long categoryId){
-        communityService.write(title,contents,categoryId);
+        communityBoardService.write(title,contents,categoryId);
         return "redirect:/community/board/list";
     }
 

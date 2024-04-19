@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GeneralBoard {
+public class CommunityBoard {
     
  private Long id;
  private String title;

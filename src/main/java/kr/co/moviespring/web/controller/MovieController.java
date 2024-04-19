@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.OnelineReview;
-import kr.co.moviespring.web.service.commentService.CommentService;
+import kr.co.moviespring.web.service.commentService.OnelineReviewService;
 import kr.co.moviespring.web.service.movieService.MovieService;
 
 @Controller
@@ -26,7 +26,7 @@ public class MovieController {
     MovieService movieService;
 
     @Autowired
-    CommentService commentService;
+    OnelineReviewService onelineReviewService;
 
     // 영화 목록//
     @GetMapping("list")
@@ -74,7 +74,7 @@ public class MovieController {
         // 상세정보//
         Movie movie = movieService.getById(movieId);
         // 리뷰목록//
-        List<OnelineReview> onelineReviews = commentService.getOnelineReviews(movieId);
+        List<OnelineReview> onelineReviews = onelineReviewService.getOnelineReviews(movieId);
 
         model.addAttribute("movie", movie);
         model.addAttribute("reviews", onelineReviews);
@@ -97,7 +97,7 @@ public class MovieController {
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(id);
 
-        commentService.saveComment(id, comments, rate, movieId);
+        onelineReviewService.saveComment(id, comments, rate, movieId);
 
         System.out.println("댓글작성");
         return "redirect:/movie/detail?movieid=" + movieId;

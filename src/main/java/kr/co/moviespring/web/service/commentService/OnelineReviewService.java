@@ -4,7 +4,7 @@ import java.util.List;
 
 import kr.co.moviespring.web.entity.OnelineReview;
 
-public interface CommentService {
+public interface OnelineReviewService {
 
     void saveComment(String id, String comments ,int rate, Long movieId);
 

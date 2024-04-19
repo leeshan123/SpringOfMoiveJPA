@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.moviespring.web.entity.OnelineReview;
-import kr.co.moviespring.web.repository.CommentRepository;
+import kr.co.moviespring.web.repository.OnelineReviewRepository;
 import kr.co.moviespring.web.repository.MemberRepository;
 
 @Service
-public class CommentServiceImp implements CommentService {
+public class OnelineReviewServiceImp implements OnelineReviewService {
 
     @Autowired
-    CommentRepository commentRepository;
+    OnelineReviewRepository onelineReviewRepository;
 
     @Autowired
     MemberRepository memberRepository;
@@ -24,13 +24,13 @@ public class CommentServiceImp implements CommentService {
     @Override
     public void saveComment(String id, String comments, int rate, Long movieId) {
         Member member = memberRepository.findByMembername(id);
-        commentRepository.save(member.getId(), comments, rate, movieId);
+        onelineReviewRepository.save(member.getId(), comments, rate, movieId);
     }
 
     // 한줄평 목록//
     @Override
     public List<OnelineReview> getOnelineReviews(Long movieId) {
-        List<OnelineReview> onelineReviews = commentRepository.getlist(movieId);
+        List<OnelineReview> onelineReviews = onelineReviewRepository.getlist(movieId);
         return onelineReviews;
     }
 }
