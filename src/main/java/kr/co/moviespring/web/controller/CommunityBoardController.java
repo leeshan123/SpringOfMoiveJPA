@@ -3,7 +3,8 @@ package kr.co.moviespring.web.controller;
 import kr.co.moviespring.web.entity.Category;
 import kr.co.moviespring.web.entity.CommunityBoard;
 import kr.co.moviespring.web.service.categoryservice.CategoryService;
-import kr.co.moviespring.web.service.communityService.CommunityBoardService;
+import kr.co.moviespring.web.service.communityBoardService.CommunityBoardService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

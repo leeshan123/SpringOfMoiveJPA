@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.service.communityService;
+package kr.co.moviespring.web.service.communityBoardService;
 
 import java.util.List;
 

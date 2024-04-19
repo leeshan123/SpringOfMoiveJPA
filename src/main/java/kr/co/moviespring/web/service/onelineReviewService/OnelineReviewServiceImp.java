@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.service.commentService;
+package kr.co.moviespring.web.service.onelineReviewService;
 
 import java.util.List;
 

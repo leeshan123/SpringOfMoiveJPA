@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.moviespring.web.entity.Member;
-import kr.co.moviespring.web.service.userService.MemberService;
+import kr.co.moviespring.web.service.memberService.MemberService;
 
 @Controller
 @RequestMapping("user")
