@@ -28,12 +28,25 @@
 	</insert>
 
 	<!--누적관객수 데이터 집어넣기	-->
-	<insert id="AduienceAccInsert" parameterType="Movie2">
+	<insert id="excelDataInsert" parameterType="Movie2">
 		UPDATE movie3
 		SET audiAcc = #{audiAcc}
 		WHERE MovieNm = #{movieNm}
 		AND OpenDt = #{openDt}
 	</insert>
+
+	<insert id="MovieDataUpdate" parameterType="Movie2">
+		UPDATE movie3
+		SET
+			movieNm = #{movieNm},
+			movieNmEn = #{movieNmEn},
+			openDt = #{openDt},
+			RepGenreNm = #{RepGenreNm},
+			nationAlt = #{nationAlt}
+		WHERE movieCd = #{movieCd}
+
+	</insert>
+
 
 
 </mapper>

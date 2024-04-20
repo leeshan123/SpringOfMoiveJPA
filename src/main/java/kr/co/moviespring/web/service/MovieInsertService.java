@@ -14,10 +14,14 @@ public interface MovieInsertService {
 //    void getsaveAllMovie(String key);
 
     void saveIfNotMovie(List<Movie2> movie3List);
-    void getsaveIfNotMovie(String key);
+    List<Movie2> getMovieList(String key);
 
     //엑셀에서 가져온 누적관객수 데이터 넣기.
-    void AduienceAccInsert(List<Movie2> movie2List);
+    void excelDataInsert(List<Movie2> movie2List);
+
+    void upDateMovieInfo(List<Movie2> movie2List);
+
+    List<Movie2> getExcelData(String filePath);
 
 
 

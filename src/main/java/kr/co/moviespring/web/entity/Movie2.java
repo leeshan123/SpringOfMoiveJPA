@@ -13,11 +13,13 @@ import lombok.NoArgsConstructor;
 public class Movie2 {
     private String movieCd; // 영화 코드(PK)
     private String movieNm; // 영화한국이름
+    private String movieNmEn; // 영화영어이름
     private String openDt; //날짜 일단 string으로
     private int salesAmt; //해당 매출액
     private int audiCnt; //해당 관객수
     private int audiAcc; // 누적 관객수
     private  String RepGenreNm; //대표 장르
+    private String nationAlt; //제작국가전부
 
 
 

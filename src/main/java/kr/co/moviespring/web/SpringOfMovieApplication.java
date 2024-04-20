@@ -1,7 +1,5 @@
 package kr.co.moviespring.web;
 
-import kr.co.moviespring.web.movieapi.AudiAccInsert;
-import kr.co.moviespring.web.movieapi.StartupTasks;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
