@@ -38,19 +38,6 @@ public class MovieInsertServiceImp implements MovieInsertService{
         }
     }
 
-    //다 저장하는 함수
-    //지금 쓸일은 없는듯
-    //영화 목록 리스트를 가져온걸 Myriadb에 넣기.
-//    @Override
-//    public void saveAllMovie(List<Movie2> movieList) {
-//        for(int i=0;i<movieList.size();i++){
-//            repository.saveAll(movieList.get(i));
-//        }
-//
-//    }
-
-    //같은게 없으면 저장함.
-    //영화 목록 리스트에서 중복이 없는 것만 가져옴
     @Override
     public void saveIfNotMovie(List<Movie2> movieList) {
         for(int i=0;i<movieList.size();i++){
@@ -66,9 +53,9 @@ public class MovieInsertServiceImp implements MovieInsertService{
     }
 
     @Override
-    public void upDateMovieInfo(List<Movie2> movie2List) {
-        for(int i=0; i<movie2List.size();i++){
-            repository.MovieDataUpdate(movie2List.get(i));
+    public void upDateMovieInfo(List<Movie2> movieList) {
+        for(int i=0; i<movieList.size();i++){
+            repository.MovieDataUpdate(movieList.get(i));
         }
     }
 
@@ -145,54 +132,6 @@ public class MovieInsertServiceImp implements MovieInsertService{
 
     }
 
-    //이거 쓸일이 없을거 같음
-//    @Override
-//    public void getsaveAllMovie(String key) {
-//
-//        List<Movie2> movielist= new ArrayList<>();
-//
-//        // 1부터 10까지 실행(총 100개)
-//        for (int i = 1; i < 10; i++) {
-//            try {
-//                StringBuilder sb = new StringBuilder();
-//                URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=" + key + "&curPage=" + i);
-//                BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-//
-//
-//                String line;
-//                while ((line = br.readLine()) != null) {
-//                    sb.append(line);
-//                }
-//
-//                Gson gson = new GsonBuilder().create();
-//
-//
-//                // Gson을 사용하여 JSON 데이터를 파싱
-//                MovieListResult movielistresult = gson.fromJson(sb.toString(), MovieListResult.class);
-//
-//                // 파싱된 데이터를 리스트에 추가 movielistresult가 null이면 값이 들어오지 않게 설정.
-//                if (movielistresult != null && movielistresult.getMovielistresult() != null) {
-//                    for (Movie2 movielistinfo : movielistresult.getMovielistresult().getMovieList()) {
-//                        Movie2 movie2 = new Movie2();
-//                        movie2.setMovieCd(movielistinfo.getMovieCd());
-//                        movie2.setMovieNm(movielistinfo.getMovieNm());
-//                        movie2.setOpenDt(movielistinfo.getOpenDt());
-//                        movie2.setRepGenreNm(movielistinfo.getRepGenreNm());
-//                        movielist.add(movie2);
-//                    }
-//                } else {
-//                    System.out.println("영화 널나옴.");
-//                }
-//
-//                br.close();
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//        saveAllMovie(movielist);
-//
-//    }
-
     //영화 목록 가져오기.
     @Override
     public List<Movie2> getMovieList(String key) {
@@ -201,7 +140,7 @@ public class MovieInsertServiceImp implements MovieInsertService{
 
         // 1부터 10까지 실행(총 100개)
 
-        for (int i = 9500; i < 10130; i++) {
+        for (int i = 0; i < 50; i++) {
             try {
                 StringBuilder sb = new StringBuilder();
                 URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=" + key + "&curPage=" + i);
@@ -323,6 +262,7 @@ class MovieListInfo {
                 movie2.setOpenDt(stringDate);
                 movie2.setAudiAcc(audienceCount);
                 movie2List.add(movie2);
+
 
             }
         } catch (IOException e) {

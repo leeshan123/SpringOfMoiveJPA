@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 //컴포넌트로 인식
 //어떻게 사용할지 고민해 봐야할듯!
 //@Component
-public class StartupTasks {
+public class DataInsertService {
 
 
     String key = "7142d2f276da9b8a161e569423e64ec3";
@@ -31,9 +31,9 @@ public class StartupTasks {
 //    @PostConstruct
     public void executeAfterStartup() {
         //영화 목록을 가져와서 영화 리스트를 업데이트함.
-        movieDataUpdate.movieListUpdate(movieDataUpdate.getMovieList(key));
+//        movieDataUpdate.movieListUpdate(movieDataUpdate.getMovieList(key));
         //영화 목록을 가져와서 영화 목록 중 없는 것만 데이터를 저장해줌.
-//        movieDataUpdate.movieListInsert(movieDataUpdate.getMovieList(key));
+        movieDataUpdate.movieListInsert(movieDataUpdate.getMovieList(key));
 
         //이제 다 넣어서 안쓸 것 같긴한데 엑셀에서 데이터를 가져와서 데이터를 삽입해줌.
 //        movieDataUpdate.excelDataInsert(movieDataUpdate.getExcelData(filePath));
