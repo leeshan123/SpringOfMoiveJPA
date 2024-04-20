@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.movieapi.KonisMovieInfoEntity;
+package kr.co.moviespring.web.movieapi.KobisMovieInfo;
 
 //심의정보
 public class Audits {

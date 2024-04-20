@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.google.gson.JsonArray;
 
-import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Actors;
-import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Audits;
-import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Companys;
-import kr.co.moviespring.web.movieapi.KonisMovieInfoEntity.Directors;
+import kr.co.moviespring.web.movieapi.KobisMovieInfo.Actors;
+import kr.co.moviespring.web.movieapi.KobisMovieInfo.Audits;
+import kr.co.moviespring.web.movieapi.KobisMovieInfo.Companys;
+import kr.co.moviespring.web.movieapi.KobisMovieInfo.Directors;
 
 //영화 상세 정보
 //staffs는 자료가 이상해서 일단 버림

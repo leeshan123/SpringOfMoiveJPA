@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.movieapi.KonisMovieInfoEntity;
+package kr.co.moviespring.web.movieapi.KobisMovieInfo;
 
 // companys의 자료구조 => companyCd, companyNm, companyNmEn, companyPartNm
 public class Companys {

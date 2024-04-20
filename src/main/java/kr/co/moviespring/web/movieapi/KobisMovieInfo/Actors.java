@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.movieapi.KonisMovieInfoEntity;
+package kr.co.moviespring.web.movieapi.KobisMovieInfo;
 
 // actors의 자료 구조 => peopleNm(한국명), peopleNmEn(영어명), cast, castEn
 public class Actors{
