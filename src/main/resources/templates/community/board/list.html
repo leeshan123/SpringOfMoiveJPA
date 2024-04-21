@@ -11,61 +11,59 @@
 <body>
     <main layout:fragment="main">
         <!-- <div style="height: 300px; width: 100px; background-color: red ;"></div>
-        </div> -->
+    </div> -->
+
+
         <section class="media color:base-10">
-            <h1 class="d:none">게시판 리스트</h1>
-            <nav class="d:flex n-tabbar">
-                <div class="nav_container bottom_nav_container">
-                    <div>
-                        <ul class="n-tabbar jc:space-between">
-                            <li class="active"><button>자유 게시글</button></li>
-                            <li><button>인증 게시글</button></li>
-                            <li><button>리뷰 게시글</button></li>
-                            <li><button>자랑 게시글</button></li>
-                            <li><button>인기 게시글</button></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </section>
-        <section class="d:flex jc:space-around">
-            <h1 class="d:none">게시판 메인</h1>
+            <h1 class="d:none">게시글 리스트</h1>
             <section style="width: 980px;" class="mw:10 mt:8">
-                <h1 class="fw:bold fs:6 color:main-3 " th:text="${c.name+'게시판'}">인기글</h1>
-                <table style="width: 100%;" class="mb:4 mt:4 table-layout:auto n-table n-table-hover n-table-border n-table-border-radius:3 fw:3">
-                    <thead class="">
-                        <tr class="jc:space-around">
-                            <th class="">분류</th>
-                            <th class="txt-al:center">제목</th>
-                            <th class=" txt-al:center">작성자</th>
-                            <th class="txt-al:center">조회</th>
-                            <th class="txt-al:center">추천</th>
-                            <th class=" txt-al:center">작성일</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="board:${list}" >
-                            <td>
-                                <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 txt-al:center m-right:2 px:1"
-                                 th:text="${c.name}">제목</span>
-                            </td>
-                            <td class="txt-al:center"><a href="" th:href="@{detail(c=${c.id},id=${board.id})}" th:text="${board.title}"></a></td>
-                            <td class="txt-al:center">작성자</td>
-                            <td class="txt-al:center">조회수</td>
-                            <td class="txt-al:center">추천수</td>
-                            <td class="txt-al:center" th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}">작성일</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="d:flex jc:flex-end my:3">
-                    <!-- th:href="@{reg(categoryId=${list.id})}" -->
-                    <a href="reg">
-                        <button class="n-btn box-shadow:1">게시글 작성</button>
-                    </a>
-                </div>
+                <h1 class="fw:bold fs:6 color:main-3 " th:text="${c.name == '인기글' || c.name == '굿즈&포스터 ' ? c.name : c.name+'게시판'}">인기글</h1>
+                <nav class="d:flex">
+                    <ul class="n-tabbar jc:end">
+                        <li th:each="ctgList, stat : ${ctgList}" th:classappend="${c.name == ctgList.name ? 'active' : ''}">
+                            <a th:text="${stat.first || ctgList.name == '굿즈&포스터 ' ? ctgList.name : ctgList.name+'게시판'}" th:href="@{list(c=${ctgList.engName})}">카테고리 목록</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div>
+                    <table style="width: 100%;"
+                        class="mb:4 mt:4 table-layout:auto n-table n-table-hover n-table-border n-table-border-radius:3 fw:3">
+                        <thead class="">
+                            <tr class="jc:space-around">
+                                <th class="">분류</th>
+                                <th class="txt-al:center">제목</th>
+                                <th class=" txt-al:center">작성자</th>
+                                <th class="txt-al:center">조회</th>
+                                <th class="txt-al:center">추천</th>
+                                <th class=" txt-al:center">작성일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="board:${list}">
+                                <td>
+                                    <span
+                                        class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 txt-al:center m-right:2 px:1"
+                                        th:text="${c.name}">제목</span>
+                                </td>
+                                <td class="txt-al:start"><a href="" th:href="@{detail(c=${c.engName},id=${board.id})}"
+                                        th:text="${board.title}"></a></td>
+                                <td class="txt-al:center">작성자</td>
+                                <td class="txt-al:center">조회수</td>
+                                <td class="txt-al:center">추천수</td>
+                                <td class="txt-al:center" th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}">작성일
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div  class="d:flex jc:flex-end my:3">
+                        <!-- th:href="@{reg(categoryId=${list.id})}" -->
+                        <a th:href="@{reg(c=${c.engName})}" href="reg">
+                            <button type="button" class="n-btn box-shadow:1">게시글 작성</button>
+                        </a>
+                    </div>
             </section>
         </section>
-        </section>
+        </div>
     </main>
 </body>
 

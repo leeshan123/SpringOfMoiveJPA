@@ -15,4 +15,10 @@
         where id=#{id}
     </select>
 
+    <!--이름별 카테고리 정보-->
+    <select id="findByName" resultType="Category">
+        select * from category
+        where eng_name=#{categoryName}
+    </select>
+
 </mapper>

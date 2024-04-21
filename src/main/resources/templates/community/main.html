@@ -40,10 +40,10 @@
                     </div>
                 </section> -->
                 <section class="d:flex fl-wrap:wrap gap:4">
-                    <section th:each="category,c : ${ctgId}" class="w:6 bd-bottom bd-color:main-10 m-top:4 p-bottom:4 n-item n-item-type:shadow p:0">
+                    <section th:each="category,c : ${categories}" class="w:6 bd-bottom bd-color:main-10 m-top:4 p-bottom:4 n-item n-item-type:shadow p:0">
                         <div class="bgc d:flex ai:center">
-                            <a th:href="@{board/list(c=${category.id})}">
-                                <h1 class="fw:3 fs:4 color:main-3 px:4" th:text="${category.name+'게시판'}">자유</h1>
+                            <a th:href="@{board/list(c=${category.engName})}">
+                                <h1 class="fw:3 fs:4 px:4" th:classappend="${c.first} ? 'color:accent-1 deco icon:trophy' : 'color:main-3'" th:text="${c.first || category.name == '굿즈&포스터 ' ? category.name : category.name+'게시판'}">자유</h1>
                             </a>
                         </div>
                         <div class="px:2">
@@ -55,7 +55,7 @@
                                             <!-- th:href="@{board/detail(c=${c.id}&b=${b.id})}" -->
                                         </div>
                                         <div>
-                                            <a href="" class="color:base-10 m-right:1" th:href="@{board/detail(c=${category.id},id=${list.id})}" th:text="${list.title}">제목</a>
+                                            <a href="" class="color:base-10 m-right:1" th:href="@{board/detail(c=${category.engName},id=${list.id})}" th:text="${list.title}">제목</a>
                                         </div>
                                         <div class="color:base-6 fs:2">[12]</div>
                                     </li>

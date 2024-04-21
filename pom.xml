@@ -22,8 +22,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-<!-- &lt;!&ndash; 사용자 인증과 권한설정을 도와주는 툴 &ndash;&gt; -->
-       <dependency> 
+
+       <dependency> <!-- 사용자 인증과 권한설정을 도와주는 툴-->
            <groupId>org.springframework.boot</groupId>
            <artifactId>spring-boot-starter-security</artifactId>
        </dependency>

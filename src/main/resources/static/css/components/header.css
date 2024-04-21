@@ -101,6 +101,10 @@
     padding-left: 15px;
 }
 
+.tabbar-height {
+    height: 40px;
+}
+
 
 
 /* Media Queries*/

@@ -1,5 +1,6 @@
 package kr.co.moviespring.web.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import kr.co.moviespring.web.entity.Category;
 import kr.co.moviespring.web.entity.CommunityBoard;
 import kr.co.moviespring.web.service.categoryService.CategoryService;
@@ -8,10 +9,7 @@ import kr.co.moviespring.web.service.communityBoardService.CommunityBoardService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +23,12 @@ public class CommunityBoardController {
     @Autowired
     CategoryService categoryService;
 
+    // 현재 url을 얻어서 모델에 넣어줌
+    @ModelAttribute("url")
+    String getRequestServletPath(HttpServletRequest request) {
+        return request.getServletPath();
+    }
+
     // 커뮤니티 메인페이지 요청//
     @GetMapping("main")
     public String main(Model model){
@@ -34,7 +38,7 @@ public class CommunityBoardController {
         List <CommunityBoard> list = communityBoardService.getList(categories.get(i).getId(),5);
         model.addAttribute("list"+(i+1), list);
         }
-        model.addAttribute("ctgId", categories);
+        model.addAttribute("categories", categories);
 
 //        List <GeneralBoard> list2 = communityService.getList2();
 //        List <GeneralBoard> list3 = communityService.getList3();
@@ -51,23 +55,25 @@ public class CommunityBoardController {
 
     //게시글 목록 요청//
     @GetMapping("board/list")
-    public String board(@RequestParam(name="c",required = false)Long categoryId, Model model){
-        List <CommunityBoard> list = communityBoardService.getList(categoryId, 20);
-        Category category = categoryService.getById(categoryId);
+    public String board(@RequestParam(name="c",required = false)String categoryName, Model model){
+        Category category = categoryService.getByName(categoryName);
+        List <CommunityBoard> list = communityBoardService.getList(category.getId(), 20);
+        List<Category> categories = categoryService.getList();
         model.addAttribute("list", list);
         model.addAttribute("c", category);
+        model.addAttribute("ctgList", categories);
 
         return "community/board/list";
     }
 
     //게시글 상세페이지 요청//
     @GetMapping("board/detail")
-    public String detail(@RequestParam("c")Long categoryId,
+    public String detail(@RequestParam("c")String categoryName,
                          @RequestParam("id")Long boardId, Model model){
         //FIXME: 2024-04-14, 일, 22:58 주소창에서 카테고리 쿼리를 변경해도 게시글이 그대로 출력되는 버그있음,
         // 임의로 변경시 게시글의 카테고리명이 변경됨, 쿼리값에 카테고리가 필요한지? (디씨의 경우 있긴 함) -JOON
         CommunityBoard board = communityBoardService.getById(boardId);
-        Category category = categoryService.getById(categoryId);
+        Category category = categoryService.getByName(categoryName);
         model.addAttribute("board", board);
         model.addAttribute("category", category);
 
@@ -75,16 +81,17 @@ public class CommunityBoardController {
     }
     // 게시글 등록페이지 요청//
     @GetMapping("board/reg")
-    public String reg(@RequestParam(name="c",required = false)Long categoryId, Model model) {
-        model.addAttribute("cId", categoryId);
+    public String reg(@RequestParam(name="c",required = false)String categoryName, Model model) {
+        model.addAttribute("cName", categoryName);
         return "community/board/reg";
     }
 
     // 게시글 등록//
     @PostMapping("board/reg")
-    public String reg(String title , String contents,@RequestParam(name="c",required = false)Long categoryId){
-        communityBoardService.write(title,contents,categoryId);
-        return "redirect:/community/board/list";
+    public String reg(String title , String contents, String categoryName){
+        Category category = categoryService.getByName(categoryName);
+        communityBoardService.write(title,contents,category.getId());
+        return "redirect:/community/board/list?c="+categoryName;
     }
 
     // 게시글 댓글 등록//

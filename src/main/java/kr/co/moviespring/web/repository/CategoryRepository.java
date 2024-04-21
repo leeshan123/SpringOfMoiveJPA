@@ -11,6 +11,8 @@ public interface CategoryRepository {
     List<Category> findAll();
 
     Category findById(Long categoryId);
+    Category findByName(String categoryName);
 
-    
+
+
 }
