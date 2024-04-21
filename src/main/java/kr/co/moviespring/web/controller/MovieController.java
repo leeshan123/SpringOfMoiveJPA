@@ -2,15 +2,17 @@ package kr.co.moviespring.web.controller;
 
 import java.util.List;
 
-import jakarta.servlet.http.HttpServletRequest;
-import kr.co.moviespring.web.config.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.moviespring.web.config.security.CustomUserDetails;
 import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.OnelineReview;
 import kr.co.moviespring.web.service.movieService.MovieService;
@@ -25,12 +27,6 @@ public class MovieController {
 
     @Autowired
     OnelineReviewService onelineReviewService;
-
-    // 현재 url을 얻어서 모델에 넣어줌
-    @ModelAttribute("url")
-    String getRequestServletPath(HttpServletRequest request) {
-        return request.getServletPath();
-    }
 
     // 영화 목록//
     @GetMapping("list")

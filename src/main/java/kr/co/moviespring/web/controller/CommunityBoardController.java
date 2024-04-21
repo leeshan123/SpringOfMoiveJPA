@@ -1,17 +1,19 @@
 package kr.co.moviespring.web.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import kr.co.moviespring.web.entity.Category;
-import kr.co.moviespring.web.entity.CommunityBoard;
-import kr.co.moviespring.web.service.categoryService.CategoryService;
-import kr.co.moviespring.web.service.communityBoardService.CommunityBoardService;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import kr.co.moviespring.web.entity.Category;
+import kr.co.moviespring.web.entity.CommunityBoard;
+import kr.co.moviespring.web.service.categoryService.CategoryService;
+import kr.co.moviespring.web.service.communityBoardService.CommunityBoardService;
 
 
 
@@ -22,12 +24,6 @@ public class CommunityBoardController {
     CommunityBoardService communityBoardService;
     @Autowired
     CategoryService categoryService;
-
-    // 현재 url을 얻어서 모델에 넣어줌
-    @ModelAttribute("url")
-    String getRequestServletPath(HttpServletRequest request) {
-        return request.getServletPath();
-    }
 
     // 커뮤니티 메인페이지 요청//
     @GetMapping("main")
