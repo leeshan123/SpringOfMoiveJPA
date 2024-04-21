@@ -159,10 +159,6 @@
         padding: 12px 15px 16px 0;
     }
 
-    .bottom_nav ul li a{
-        font-size: 14px;
-    }
-
 }
 
 @media only screen and (max-width: 380px) {
