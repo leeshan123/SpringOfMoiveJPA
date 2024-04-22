@@ -10,9 +10,7 @@
                 </div>
                 <div>
                     <span>내 누적 관객수 : </span>
-                    <span sec:authentication="principal.point">보유포인트</span>
-                    <!--TODO: 2024-04-18, 목, 23:15 포인트값을 3자리마다 , 찍고 싶은데 컨트롤러가 없어서 어떻게 해야할지.. -JOON-->
-<!--                    <span th:text="${#numbers.formatInteger(point,3,'COMMA')}"></span>-->
+                    <span th:text="${#numbers.formatInteger(#authentication.getPrincipal().getPoint(),3,'COMMA')}"></span>
                     <span>명</span>
                     <span class="icon icon:info">설명 아이콘</span>
                     <p class="n-item n-item-type:shadow p:2  color:base-6 ishover">'영화의봄'은 회원의 포인트를 관객수로 표현하고 있습니다,<br>천만영화의 꿈을 이뤄보세요!</p>
