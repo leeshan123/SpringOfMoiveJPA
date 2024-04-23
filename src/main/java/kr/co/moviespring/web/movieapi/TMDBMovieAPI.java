@@ -19,10 +19,10 @@ public class TMDBMovieAPI {
     
 
     // 영화명, 제작년도, 일단 search-movie에서 코드 찾은다음 movie-detatil에서 검색
-    public void movieDetail(String movieName, String movieYear) throws IOException{
+    public TMDBMovieDetailEntity movieDetail(String movieName, String movieYear) throws IOException{
 
         //반환할 데이터 객체 생성
-        //일단 보류
+        TMDBMovieDetailEntity movieDetail = new TMDBMovieDetailEntity();
 
         //search-movie 먼저 여기서는 영화 코드만 추출하면 됨.
         OkHttpClient client = new OkHttpClient();
@@ -83,9 +83,6 @@ public class TMDBMovieAPI {
             // JSON 객체로  변환
             JSONObject responseBody = new JSONObject(responseData.toString());
 
-            // 데이터 담을 그릇
-            TMDBMovieDetailEntity movieDetail = new TMDBMovieDetailEntity();
-
             // 데이터 추출 작업
             // "results" 키의 값인 JsonArray를 추출
             JSONObject videos = responseBody.getJSONObject("videos");
@@ -115,6 +112,8 @@ public class TMDBMovieAPI {
                 cast.setCharacter(object.getString("character"));
                 cast.setProfilePath(object.getString("profile_path"));
                 cast.setOriginalName(object.getString("original_name"));
+                cast.setOrder(String.valueOf(object.getLong("order")));
+                cast.setPopularity(String.valueOf(object.getDouble("popularity")));
                 castList.add(cast);
             }
             movieDetail.setCasts(castList);
@@ -164,14 +163,23 @@ public class TMDBMovieAPI {
 
         }
 
+        return movieDetail;
     }
+
+
+    // 배우검색
+    public void personDetails(String personId){
+        
+    }
+
 
     public static void main(String[] args) throws IOException {
         // API 객체 생성
         TMDBMovieAPI api = new TMDBMovieAPI();
         String movieName = "THE ROUNDUP : PUNISHMENT";
         String year = "2024";
-        api.movieDetail(movieName, year);
+        TMDBMovieDetailEntity entity = api.movieDetail(movieName, year);
+        System.out.println(entity.getOverview());
  
         // API 요청
         // api.requestAPI();
