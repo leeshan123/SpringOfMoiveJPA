@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.movieapi.KobisMovieInfo;
+package kr.co.moviespring.web.movieapi.dto.kobis.sub;
 
 
 // directors의 자료 구조 => peopleNm(한국명), peopleNmEn(영어명)

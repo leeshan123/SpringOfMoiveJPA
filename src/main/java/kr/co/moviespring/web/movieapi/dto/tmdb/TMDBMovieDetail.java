@@ -1,12 +1,12 @@
-package kr.co.moviespring.web.movieapi;
+package kr.co.moviespring.web.movieapi.dto.tmdb;
 
 import java.util.List;
 
-import kr.co.moviespring.web.movieapi.TMDBMovieDetail.Cast;
-import kr.co.moviespring.web.movieapi.TMDBMovieDetail.Genre;
-import kr.co.moviespring.web.movieapi.TMDBMovieDetail.Result;
+import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Cast;
+import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Genre;
+import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Result;
 
-public class TMDBMovieDetailEntity {
+public class TMDBMovieDetail {
     private List<Result> results;   // 유튜브 미리보기
     private List<Cast> casts;       // 캐스팅 배우 정보
     private List<Genre> genres;     // 장르

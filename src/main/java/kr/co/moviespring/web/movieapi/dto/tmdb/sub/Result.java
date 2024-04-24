@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.movieapi.TMDBMovieDetail;
+package kr.co.moviespring.web.movieapi.dto.tmdb.sub;
 
 public class Result {
     private String name;         // 영상소개글

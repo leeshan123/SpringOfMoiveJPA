@@ -17,10 +17,12 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import kr.co.moviespring.web.movieapi.KobisMovieInfo.Actors;
-import kr.co.moviespring.web.movieapi.KobisMovieInfo.Audits;
-import kr.co.moviespring.web.movieapi.KobisMovieInfo.Companys;
-import kr.co.moviespring.web.movieapi.KobisMovieInfo.Directors;
+import kr.co.moviespring.web.movieapi.dto.kobis.KobisDailyBox;
+import kr.co.moviespring.web.movieapi.dto.kobis.KobisMovieInfo;
+import kr.co.moviespring.web.movieapi.dto.kobis.sub.Actors;
+import kr.co.moviespring.web.movieapi.dto.kobis.sub.Audits;
+import kr.co.moviespring.web.movieapi.dto.kobis.sub.Companys;
+import kr.co.moviespring.web.movieapi.dto.kobis.sub.Directors;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -48,7 +50,7 @@ public class KobisMovieAPI {
     }
     
     //순위, 대표코드, 해당일의 관객수, 누적관객수, 누적매출액
-    public List<KobisDailyBoxEntity> searchDailyBoxOfficeList(){
+    public List<KobisDailyBox> searchDailyBoxOfficeList(){
         
         // 일단 어제 날짜
         Calendar cal = Calendar.getInstance();
@@ -62,7 +64,7 @@ public class KobisMovieAPI {
         paramMap.put("multiMovieYn" , "N");                             // Y:다양성 영화, N:상업영화, Default:전체
         
         //반환할 리스트 객체 생성
-        List<KobisDailyBoxEntity> dbeList = new ArrayList<>();
+        List<KobisDailyBox> dbeList = new ArrayList<>();
         
         try {
             // Request URL 연결 객체 생성
@@ -102,7 +104,7 @@ public class KobisMovieAPI {
             while(iter.hasNext()) {
                 JSONObject boxOffice = (JSONObject) iter.next();
                 
-                KobisDailyBoxEntity dbe = new KobisDailyBoxEntity();
+                KobisDailyBox dbe = new KobisDailyBox();
                 dbe.setRnum(boxOffice.getString("rnum"));
                 dbe.setRank(boxOffice.getString("rank"));
                 dbe.setRankInten(boxOffice.getString("rankInten"));
@@ -133,13 +135,13 @@ public class KobisMovieAPI {
 
 
     //영화 상세정보, 인자값은 영화 코드
-    public KobisMovieInfoEntity searchMovieInfo(String movieCd){
+    public KobisMovieInfo searchMovieInfo(String movieCd){
 
         //요청 url 설정
         REQUEST_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
 
         //반환할 변수 생성
-        KobisMovieInfoEntity kobisMovieInfo = new KobisMovieInfoEntity();
+        KobisMovieInfo kobisMovieInfo = new KobisMovieInfo();
 
         // 변수 설정
         Map<String, String> paramMap = new HashMap<String, String>();

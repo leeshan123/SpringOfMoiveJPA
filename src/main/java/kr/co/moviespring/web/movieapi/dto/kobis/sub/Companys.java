@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.movieapi.KobisMovieInfo;
+package kr.co.moviespring.web.movieapi.dto.kobis.sub;
 
 // companys의 자료구조 => companyCd, companyNm, companyNmEn, companyPartNm
 public class Companys {
