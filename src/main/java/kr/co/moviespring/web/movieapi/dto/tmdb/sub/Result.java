@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.movieapi.TMDBMovieDetail;
+package kr.co.moviespring.web.movieapi.dto.tmdb.sub;
 
 import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;

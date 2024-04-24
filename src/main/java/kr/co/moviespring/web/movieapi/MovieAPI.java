@@ -17,6 +17,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import kr.co.moviespring.web.movieapi.dto.kobis.KobisDailyBox;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -106,7 +107,7 @@ public class MovieAPI {
 
     
     //순위, 대표코드, 해당일의 관객수, 누적관객수, 누적매출액
-    public List<KobisDailyBoxEntity> requestBoxDailly(){
+    public List<KobisDailyBox> requestBoxDailly(){
         
         // 일단 어제 날짜
         Calendar cal = Calendar.getInstance();
@@ -120,7 +121,7 @@ public class MovieAPI {
         paramMap.put("multiMovieYn" , "N");                             // Y:다양성 영화, N:상업영화, Default:전체
         
         //반환할 리스트 객체 생성
-        List<KobisDailyBoxEntity> dbeList = new ArrayList<>();
+        List<KobisDailyBox> dbeList = new ArrayList<>();
         
         try {
             // Request URL 연결 객체 생성
@@ -160,7 +161,7 @@ public class MovieAPI {
             while(iter.hasNext()) {
                 JSONObject boxOffice = (JSONObject) iter.next();
                 
-                KobisDailyBoxEntity dbe = new KobisDailyBoxEntity();
+                KobisDailyBox dbe = new KobisDailyBox();
                 dbe.setRank(boxOffice.getString("rnum"));
                 dbe.setMovieCd(boxOffice.getString("movieCd"));
                 dbe.setAudiCnt(boxOffice.getString("audiCnt"));

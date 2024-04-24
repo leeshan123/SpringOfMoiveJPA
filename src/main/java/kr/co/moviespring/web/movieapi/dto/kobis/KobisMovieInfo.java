@@ -1,18 +1,19 @@
-package kr.co.moviespring.web.movieapi;
+package kr.co.moviespring.web.movieapi.dto.kobis;
 
 import java.util.Date;
 import java.util.List;
 
 import com.google.gson.JsonArray;
 
-import kr.co.moviespring.web.movieapi.KobisMovieInfo.Actors;
-import kr.co.moviespring.web.movieapi.KobisMovieInfo.Audits;
-import kr.co.moviespring.web.movieapi.KobisMovieInfo.Companys;
-import kr.co.moviespring.web.movieapi.KobisMovieInfo.Directors;
+import kr.co.moviespring.web.movieapi.dto.kobis.sub.Actors;
+import kr.co.moviespring.web.movieapi.dto.kobis.sub.Audits;
+import kr.co.moviespring.web.movieapi.dto.kobis.sub.Companys;
+import kr.co.moviespring.web.movieapi.dto.kobis.sub.Directors;
+
 
 //영화 상세 정보
 //staffs는 자료가 이상해서 일단 버림
-public class KobisMovieInfoEntity {
+public class KobisMovieInfo {
 
     private List<String> nationNm;      //제작국가명
     private List<String> genreNm;       //장르명

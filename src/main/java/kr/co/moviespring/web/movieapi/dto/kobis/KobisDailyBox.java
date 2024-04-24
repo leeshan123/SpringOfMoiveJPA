@@ -1,6 +1,6 @@
-package kr.co.moviespring.web.movieapi;
+package kr.co.moviespring.web.movieapi.dto.kobis;
 
-public class KobisDailyBoxEntity {
+public class KobisDailyBox {
 
     private String rnum;         //순번을 출력
     private String rank;         //해당일자의 박스오피스 순위

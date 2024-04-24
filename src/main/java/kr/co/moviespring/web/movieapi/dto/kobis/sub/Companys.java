@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.movieapi.KobisMovieInfo;
+package kr.co.moviespring.web.movieapi.dto.kobis.sub;
 
 import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;

@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import kr.co.moviespring.web.movieapi.TMDBMovieDetail.Cast;
-import kr.co.moviespring.web.movieapi.TMDBMovieDetail.Genre;
-import kr.co.moviespring.web.movieapi.TMDBMovieDetail.Result;
+import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBMovieDetail;
+import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBPersonDetails;
+import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Cast;
+import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Genre;
+import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Result;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -19,10 +23,10 @@ public class TMDBMovieAPI {
     
 
     // 영화명, 제작년도, 일단 search-movie에서 코드 찾은다음 movie-detatil에서 검색
-    public void movieDetail(String movieName, String movieYear) throws IOException{
+    public TMDBMovieDetail movieDetail(String movieName, String movieYear) throws IOException{
 
         //반환할 데이터 객체 생성
-        //일단 보류
+        TMDBMovieDetail movieDetail = new TMDBMovieDetail();
 
         //search-movie 먼저 여기서는 영화 코드만 추출하면 됨.
         OkHttpClient client = new OkHttpClient();
@@ -83,9 +87,6 @@ public class TMDBMovieAPI {
             // JSON 객체로  변환
             JSONObject responseBody = new JSONObject(responseData.toString());
 
-            // 데이터 담을 그릇
-            TMDBMovieDetailEntity movieDetail = new TMDBMovieDetailEntity();
-
             // 데이터 추출 작업
             // "results" 키의 값인 JsonArray를 추출
             JSONObject videos = responseBody.getJSONObject("videos");
@@ -113,8 +114,10 @@ public class TMDBMovieAPI {
                 cast.setId(String.valueOf(object.getLong("id")));
                 cast.setGender(String.valueOf(object.getLong("gender")));
                 cast.setCharacter(object.getString("character"));
-                cast.setProfilePath(object.getString("profile_path"));
+                cast.setProfilePath(object.isNull("profile_path") ? null : object.getString("profile_path"));
                 cast.setOriginalName(object.getString("original_name"));
+                cast.setOrder(String.valueOf(object.getLong("order")));
+                cast.setPopularity(String.valueOf(object.getDouble("popularity")));
                 castList.add(cast);
             }
             movieDetail.setCasts(castList);
@@ -154,24 +157,80 @@ public class TMDBMovieAPI {
             
             movieDetail.setId(String.valueOf(responseBody.getLong("id")));
             movieDetail.setTitle(responseBody.getString("title"));
-            movieDetail.setBackdropPath(responseBody.getString("backdrop_path"));
+            movieDetail.setBackdropPath(responseBody.isNull("backdrop_path") ? null : responseBody.getString("backdrop_path"));
             movieDetail.setOverview(responseBody.getString("overview"));
             movieDetail.setOriginalTitle(responseBody.getString("original_title"));
             movieDetail.setRuntime(String.valueOf(responseBody.getLong("runtime")));
             movieDetail.setReleaseDate(responseBody.getString("release_date"));
-            movieDetail.setPosterPath(responseBody.getString("poster_path"));
+            movieDetail.setPosterPath(responseBody.isNull("poster_path") ? null : responseBody.getString("poster_path"));
             movieDetail.setTagLine(responseBody.getString("tagline"));
 
         }
 
+        return movieDetail;
     }
+
+
+    // 배우검색
+    public TMDBPersonDetails personDetails(String personId) throws IOException{
+        // 채울 데이터
+        TMDBPersonDetails personDetails = new TMDBPersonDetails();
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+        .url("https://api.themoviedb.org/3/person/"+personId+"?language=ko-KR")
+        .get()
+        .addHeader("accept", "application/json")
+        .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM2U5NWU1MTY0NWUzYjgwZDU0MzQyNGQxYTA5ODg0YSIsInN1YiI6IjY2MDEzYjRmNzcwNzAwMDE2MzBhZjg0MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RFfawiMrE8C2YgpGPdaU5IOcl-R5t-JIquRBN6vaLzU")
+        .build();
+
+        Response response = client.newCall(request).execute();
+
+        // 응답 데이터를 JSON 형식으로 파싱
+        String responseData = response.body().string();
+
+        // JSON 객체로  변환
+        JSONObject responseBody = new JSONObject(responseData.toString());
+
+        // "also_known_as" 키의 값인 JsonArray를 추출
+        JSONArray nameArr = responseBody.getJSONArray("also_known_as");
+        Iterator<Object> nameIter = nameArr.iterator();
+        // 배우 여러 이름 받아오는데 영문이랑 한글이 필요함 고민중.
+        while (nameIter.hasNext()) {
+            Object object = nameIter.next();
+            String name = object.toString();
+            Pattern pattern = Pattern.compile("[가-힣]+");
+            Matcher matcher = pattern.matcher(name);
+            if (matcher.find()){
+                //이름 저장하는 로직
+                personDetails.setKorName(name);
+                break;
+            } 
+        }
+
+        personDetails.setBirthday(responseBody.isNull("birthday") ? null : responseBody.getString("birthday"));
+        personDetails.setDeathday(responseBody.isNull("deathday") ? null : responseBody.getString("deathday"));
+        personDetails.setPlaceOfBirth(responseBody.isNull("place_of_birth") ? null : responseBody.getString("place_of_birth"));
+        personDetails.setProfilePath(responseBody.isNull("profile_path") ? null : responseBody.getString("profile_path"));
+
+        return personDetails;
+    }
+
 
     public static void main(String[] args) throws IOException {
         // API 객체 생성
         TMDBMovieAPI api = new TMDBMovieAPI();
-        String movieName = "THE ROUNDUP : PUNISHMENT";
-        String year = "2024";
-        api.movieDetail(movieName, year);
+        
+        // 사람 디테일 마동석:1024395, 티모시:1190668, 
+        TMDBPersonDetails personDetails = new TMDBPersonDetails();
+        personDetails = api.personDetails("1190668");
+        System.out.println(personDetails.getKorName());
+        
+        // 영화 디테일 찾는 방법(웬만하면 영어 이름으로 찾기)
+        // String movieName = "THE ROUNDUP : PUNISHMENT";
+        // String year = "2024";
+        // TMDBMovieDetailEntity entity = api.movieDetail("시동", "2019");
+        // System.out.println(entity.getOverview());
  
         // API 요청
         // api.requestAPI();
