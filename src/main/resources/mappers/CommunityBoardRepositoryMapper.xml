@@ -6,7 +6,12 @@
 
     <!-- 카테고리별 게시글 목록 -->
     <select id="findAll" resultType="CommunityBoard">
-        select * from community_board where category_id = #{categoryId}
+<!--        select * from community_board where category_id = #{categoryId}-->
+<!--        ORDER BY reg_date DESC-->
+<!--        limit #{size}-->
+        SELECT c.*, m.nickname AS nickname
+        FROM community_board c
+        JOIN member m ON c.member_id = m.id where category_id = #{categoryId}
         ORDER BY reg_date DESC
         limit #{size}
     </select>
@@ -23,6 +28,9 @@
         values (#{title},#{contents},12,#{categoryId});
     </insert>
 
+    <delete id="delete">
+        DELETE FROM community_board WHERE id=#{id};
+    </delete>
     <!-- <select>
     SELECT category.name
     FROM general_board

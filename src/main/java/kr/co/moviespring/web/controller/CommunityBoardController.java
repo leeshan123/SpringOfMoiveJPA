@@ -5,10 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import kr.co.moviespring.web.entity.Category;
 import kr.co.moviespring.web.entity.CommunityBoard;
@@ -96,5 +93,29 @@ public class CommunityBoardController {
                                              @RequestParam(name="b",required = false)Long boardId){
 //        communityService.write(contents,categoryId);
         return "redirect:/community/board/detail?b="+boardId;
+    }
+
+    // 게시글 등록 수정페이지 요청//
+    @GetMapping("board/edit/{id}")
+    public String edit(@PathVariable Long id,@RequestParam(name="c",required = false)String categoryName, Model model) {
+        CommunityBoard board = communityBoardService.editById(id);
+        model.addAttribute("board", board);
+        return "community/board/reg";
+    }
+
+    // 게시글 수정//
+    @PostMapping("board/edit/{id}")
+    public String edit(@PathVariable Long id,@RequestParam(name="c",required = false)String categoryName) {
+//        CommunityBoard board = communityBoardService.editById(id);
+//        model.addAttribute("board", board);
+        return "redirect:/community/board/detail?c="+categoryName+"&id="+id;
+    }
+
+    // 게시글 삭제//
+    @DeleteMapping("board/delete/{id}")
+    public String delete(@PathVariable Long id,@RequestParam(name="c",required = false)String categoryName ) {
+        int result = communityBoardService.deleteById(id);
+
+        return "redirect:/community/board/list?c="+categoryName;
     }
 }

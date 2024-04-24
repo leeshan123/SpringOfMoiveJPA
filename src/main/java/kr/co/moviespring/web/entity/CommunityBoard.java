@@ -20,6 +20,7 @@ public class CommunityBoard {
  private int hit;
  private Long memberId;
  private Long categoryId;
+ private String nickname; //TODO: 2024-04-25, 목, 0:20 실제 테이블엔 없는 값인데 뷰 만들어야하나? -JOON
  private String imageUrl;
 
 }

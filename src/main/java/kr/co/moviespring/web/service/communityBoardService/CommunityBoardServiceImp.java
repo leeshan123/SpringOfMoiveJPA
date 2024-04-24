@@ -19,6 +19,20 @@ public class CommunityBoardServiceImp implements CommunityBoardService {
     public void write(String title, String contents,Long categoryId) {
         communityBoardRepository.saveContents(title,contents,categoryId);
     }
+    
+    // 게시글 삭제//
+    @Override
+    public int deleteById(Long id) {
+        int result = communityBoardRepository.delete(id);
+        return result;
+    }
+    
+    // 게시글 수정
+    @Override
+    public CommunityBoard editById(Long id) {
+        CommunityBoard board = communityBoardRepository.findById(id);
+        return board;
+    }
 
     //카테고리별 게시글 목록//
     @Override
