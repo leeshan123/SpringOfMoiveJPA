@@ -11,7 +11,7 @@ public class SpringOfMovieApplication {
         SpringApplication.run(SpringOfMovieApplication.class, args);
         System.out.println("서버시작");
 
-
+        
     }
 
 }

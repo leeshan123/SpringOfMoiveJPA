@@ -1,6 +1,8 @@
 package kr.co.moviespring.web.movieapi;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,7 +24,7 @@ import okhttp3.Response;
 public class TMDBMovieAPI {
     
 
-    // 영화명, 제작년도, 일단 search-movie에서 코드 찾은다음 movie-detatil에서 검색
+    // 영화명, 제작년도, 일단 search-movie에서 코드 찾은다음 movie-detatil에서 검색, 검색된 결과가 없으면 null을 반환
     public TMDBMovieDetail movieDetail(String movieName, String movieYear) throws IOException{
 
         //반환할 데이터 객체 생성
@@ -58,6 +60,8 @@ public class TMDBMovieAPI {
             // 영화 코드 추출
             JSONArray arrMovieInfo = responseBody.getJSONArray("results");
             Iterator<Object> iter = arrMovieInfo.iterator();
+            if(arrMovieInfo.isEmpty())
+                return null;
             JSONObject jnMovieInfoParts = (JSONObject)iter.next();
 
             //키 입력하면 값 반환, 아래는 예시(overview라는 키를 입력)
@@ -222,16 +226,24 @@ public class TMDBMovieAPI {
         TMDBMovieAPI api = new TMDBMovieAPI();
         
         // 사람 디테일 마동석:1024395, 티모시:1190668, 
-        TMDBPersonDetails personDetails = new TMDBPersonDetails();
-        personDetails = api.personDetails("1190668");
-        System.out.println(personDetails.getKorName());
+        // TMDBPersonDetails personDetails = new TMDBPersonDetails();
+        // personDetails = api.personDetails("1190668");
+        // System.out.println(personDetails.getKorName());
         
         // 영화 디테일 찾는 방법(웬만하면 영어 이름으로 찾기)
         // String movieName = "THE ROUNDUP : PUNISHMENT";
         // String year = "2024";
-        // TMDBMovieDetailEntity entity = api.movieDetail("시동", "2019");
-        // System.out.println(entity.getOverview());
- 
+        // 아래는 영화이름하고 년도 쓰면 오버뷰 나오게 함. 영화명은 한글 영문 모두 가능
+        while(true){
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String movieName = br.readLine();
+            String movieYear = br.readLine();
+            TMDBMovieDetail entity = api.movieDetail(movieName, movieYear);
+            if(entity != null)
+                System.out.println(entity.getOverview());
+            else
+                System.out.println("영화 없음");
+        }
         // API 요청
         // api.requestAPI();
         // api.requestBoxDailly();

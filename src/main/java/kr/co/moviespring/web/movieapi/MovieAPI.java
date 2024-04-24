@@ -17,7 +17,11 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import kr.co.moviespring.web.entity.Actor;
+import kr.co.moviespring.web.entity.Director;
+import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.movieapi.dto.kobis.KobisDailyBox;
+import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBMovieDetail;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -326,13 +330,17 @@ public class MovieAPI {
 
 
     
-    public static void main(String[] args) {
-        // API 객체 생성
-        MovieAPI api = new MovieAPI();
+    public static void main(String[] args) throws IOException {
+        // 일단 위에거 안쓰고 데이터 저장용 테스트
+        TMDBMovieAPI api = new TMDBMovieAPI();
+        String movieName = "THE ROUNDUP : PUNISHMENT";
+        String year = "2024";
+        TMDBMovieDetail md = api.movieDetail(movieName, year);
 
- 
-        // API 요청
-        // api.requestAPI();
-        // api.requestBoxDailly();
+        //db에 넣을 entity
+        Actor actor = new Actor();
+        Director director = new Director();
+        Movie movie = new Movie();
+
     }
 }
