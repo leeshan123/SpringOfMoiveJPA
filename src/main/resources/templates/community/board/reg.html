@@ -6,26 +6,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
-    <script src="/ckeditor/ckeditor.js"></script>
-    <script src="/ckeditor/translations/ko.js"></script>
-<!--    <script>-->
-<!--        window.addEventListener("load", function (e) {-->
-<!--            ClassicEditor-->
-<!--                .create(document.querySelector('#editor'))-->
-<!--                .catch(error => {-->
-<!--                    console.error(error);-->
-<!--                });-->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/translations/ko.js"></script>
+<!--    <script src="/ckeditor/ckeditor.js"></script>-->
+<!--    <script src="/ckeditor/translations/ko.js"></script>-->
+    <script>
+        window.addEventListener("load", function (e) {
 
-<!--            ClassicEditor.create(document.querySelector('#contents'), {-->
-<!--                language: 'ko'-->
-<!--            }).then(editor => {-->
-<!--                window.editor = editor;-->
-<!--            }).catch(error => {-->
-<!--                console.error(error);-->
-<!--            });-->
-<!--        })-->
-<!--    </script>-->
+                ClassicEditor.create( document.querySelector( '#editor' ), {
+
+                language: "ko"
+            } );
+
+        })
+    </script>
     <style>
         /*.ck-editor__editable {*/
         /*    height: 400px;*/
@@ -55,7 +49,7 @@
                 </div>
                 <div>
                     <!--textarea 작성줄 길어져도 줄넘김해서 쓰지 말것 입력창에 공백생김-->
-                    <textarea class="h:5 n-textbox" name="contents" id="" placeholder="내용을 입력해주세요"></textarea>
+                    <textarea class="h:8" name="contents" id="editor" placeholder="내용을 입력해주세요"></textarea>
                 </div>
                 <div>
                     <input class="" name="img-file" type="file" multiple />

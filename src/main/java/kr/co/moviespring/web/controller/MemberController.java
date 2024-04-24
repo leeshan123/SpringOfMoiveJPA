@@ -86,14 +86,14 @@ public class MemberController {
     }*/
 
     // 회원가입 공사중//
-    @GetMapping("regist")
-    public String regist() {
+    @GetMapping("signup")
+    public String signup() {
 
-        return "user/regist";
+        return "user/signup";
     }
 
-    @PostMapping("regist")
-    public String regist(Member member) {
+    @PostMapping("signup")
+    public String signup(Member member) {
 //        String userId, String pwd, String name, String nickname, int age, String email
         memberService.regist(member);
 //        username, password, name, nickname, age, email
