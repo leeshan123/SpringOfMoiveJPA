@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.service.memberService;
+package kr.co.moviespring.web.service;
 
 
 import kr.co.moviespring.web.entity.Member;

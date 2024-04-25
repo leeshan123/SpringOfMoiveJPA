@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.moviespring.web.entity.Movie;
-import kr.co.moviespring.web.service.movieService.MovieService;
+import kr.co.moviespring.web.service.MovieService;
 
 @Controller
 @RequestMapping("/")

@@ -16,7 +16,7 @@
                 ClassicEditor.create( document.querySelector( '#editor' ), {
 
                 language: "ko"
-            } );
+            });
 
         })
     </script>
@@ -32,8 +32,13 @@
             line-height: 40px;
             height: 40px;
         }
+
         .line-gap {
             margin-bottom: 100px;
+        }
+
+        .ck-editor__editable_inline {
+            min-height: 400px;
         }
     </style>
 </head>
@@ -42,14 +47,14 @@
     <main layout:fragment="main">
         <section class="color:base-10 mx:4 bd bd-radius:3">
             <h1 class="text-align:center bg-color:base-9 color:base-1 bd-tl-radius:2 bd-tr-radius:2">게시글 작성</h1>
-            <form action="reg" method="post" class="mx:6">
+            <form th:action="${board != null ? board.id : 'reg'}" action="reg" method="post" class="mx:6">
                 <div class="margin-top:2 line-gap">
                     <input class="n-textbox n-textbox-type:underline" type="text" name="title" placeholder="제목을 입력해주세요" th:value="${board != null ? board.title : ''}">
                     <input class="d:none" type="text" name="categoryName" th:value="${cName}">
                 </div>
                 <div>
                     <!--textarea 작성줄 길어져도 줄넘김해서 쓰지 말것 입력창에 공백생김-->
-                    <textarea class="h:8" name="contents" id="editor" placeholder="내용을 입력해주세요" th:text="${board != null ? board.contents : ''}"></textarea>
+                    <textarea class="" name="contents" id="editor" placeholder="내용을 입력해주세요" th:text="${board != null ? board.contents : ''}"></textarea>
                 </div>
                 <div>
                     <input class="" name="img-file" type="file" multiple />

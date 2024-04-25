@@ -2,6 +2,7 @@ package kr.co.moviespring.web.controller;
 
 import java.util.List;
 
+import kr.co.moviespring.web.entity.CommunityBoardView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import kr.co.moviespring.web.entity.Category;
 import kr.co.moviespring.web.entity.CommunityBoard;
-import kr.co.moviespring.web.service.categoryService.CategoryService;
-import kr.co.moviespring.web.service.communityBoardService.CommunityBoardService;
+import kr.co.moviespring.web.service.CategoryService;
+import kr.co.moviespring.web.service.CommunityBoardService;
 
 
 
@@ -28,7 +29,7 @@ public class CommunityBoardController {
         List<Category> categories = categoryService.getList();
 
         for (int i = 0; i < categories.size(); i++) {
-        List <CommunityBoard> list = communityBoardService.getList(categories.get(i).getId(),5);
+        List <CommunityBoardView> list = communityBoardService.getList(categories.get(i).getId(),5);
         model.addAttribute("list"+(i+1), list);
         }
         model.addAttribute("categories", categories);
@@ -50,7 +51,8 @@ public class CommunityBoardController {
     @GetMapping("board/list")
     public String board(@RequestParam(name="c",required = false)String categoryName, Model model){
         Category category = categoryService.getByName(categoryName);
-        List <CommunityBoard> list = communityBoardService.getList(category.getId(), 20);
+        List <CommunityBoardView> list = communityBoardService.getList(category.getId(), 20);
+//        System.out.println(list.get(0).toString());
         List<Category> categories = categoryService.getList();
         model.addAttribute("list", list);
         model.addAttribute("c", category);
@@ -84,6 +86,7 @@ public class CommunityBoardController {
     public String reg(String title , String contents, String categoryName){
         Category category = categoryService.getByName(categoryName);
         communityBoardService.write(title,contents,category.getId());
+        System.out.println("등록");
         return "redirect:/community/board/list?c="+categoryName;
     }
 
@@ -98,21 +101,22 @@ public class CommunityBoardController {
     // 게시글 등록 수정페이지 요청//
     @GetMapping("board/edit/{id}")
     public String edit(@PathVariable Long id,@RequestParam(name="c",required = false)String categoryName, Model model) {
-        CommunityBoard board = communityBoardService.editById(id);
+        CommunityBoard board = communityBoardService.getById(id);
         model.addAttribute("board", board);
+        model.addAttribute("cName", categoryName);
         return "community/board/reg";
     }
 
-    // 게시글 수정//
+    // 게시글 수정// //put으로 바꿔야함
     @PostMapping("board/edit/{id}")
-    public String edit(@PathVariable Long id,@RequestParam(name="c",required = false)String categoryName) {
-//        CommunityBoard board = communityBoardService.editById(id);
+    public String edit(String contents , String title, @PathVariable Long id, String categoryName) {
+        communityBoardService.editById(id, title, contents);
 //        model.addAttribute("board", board);
         return "redirect:/community/board/detail?c="+categoryName+"&id="+id;
     }
 
-    // 게시글 삭제//
-    @DeleteMapping("board/delete/{id}")
+    // 게시글 삭제// //delete로 바꿔야함
+    @GetMapping("board/delete/{id}")
     public String delete(@PathVariable Long id,@RequestParam(name="c",required = false)String categoryName ) {
         int result = communityBoardService.deleteById(id);
 

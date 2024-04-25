@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.moviespring.web.config.security.CustomUserDetails;
 import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.OnelineReview;
-import kr.co.moviespring.web.service.movieService.MovieService;
-import kr.co.moviespring.web.service.onelineReviewService.OnelineReviewService;
+import kr.co.moviespring.web.service.MovieService;
+import kr.co.moviespring.web.service.OnelineReviewService;
 
 @Controller
 @RequestMapping("movie")

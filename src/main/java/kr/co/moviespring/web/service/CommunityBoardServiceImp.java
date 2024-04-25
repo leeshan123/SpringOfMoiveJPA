@@ -1,6 +1,7 @@
-package kr.co.moviespring.web.service.communityBoardService;
+package kr.co.moviespring.web.service;
 
 import kr.co.moviespring.web.entity.CommunityBoard;
+import kr.co.moviespring.web.entity.CommunityBoardView;
 import kr.co.moviespring.web.repository.CommunityBoardRepository;
 
 import java.util.List;
@@ -29,15 +30,14 @@ public class CommunityBoardServiceImp implements CommunityBoardService {
     
     // 게시글 수정
     @Override
-    public CommunityBoard editById(Long id) {
-        CommunityBoard board = communityBoardRepository.findById(id);
-        return board;
+    public void editById(Long id, String title, String contents) {
+        communityBoardRepository.edit(id, title, contents);
     }
 
     //카테고리별 게시글 목록//
     @Override
-    public List<CommunityBoard> getList(Long categoryId, int size) {
-        List<CommunityBoard> list = communityBoardRepository.findAll(categoryId, size);
+    public List<CommunityBoardView> getList(Long categoryId, int size) {
+        List<CommunityBoardView> list = communityBoardRepository.findAll(categoryId, size);
         return list;
     }
 

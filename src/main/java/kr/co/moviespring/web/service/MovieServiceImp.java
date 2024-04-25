@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.service.movieService;
+package kr.co.moviespring.web.service;
 
 import java.util.List;
 

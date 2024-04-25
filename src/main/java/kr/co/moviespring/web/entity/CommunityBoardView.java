@@ -11,8 +11,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CommunityBoard {
-    
+public class CommunityBoardView {
+
  private Long id;
  private String title;
  private String contents;
@@ -20,6 +20,7 @@ public class CommunityBoard {
  private int hit;
  private Long memberId;
  private Long categoryId;
+ private String nickname;
  private String imageUrl;
 
 }
