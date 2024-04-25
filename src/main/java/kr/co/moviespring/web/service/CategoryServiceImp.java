@@ -1,4 +1,4 @@
-package kr.co.moviespring.web.service.categoryService;
+package kr.co.moviespring.web.service;
 
 import kr.co.moviespring.web.entity.Category;
 import kr.co.moviespring.web.repository.CategoryRepository;

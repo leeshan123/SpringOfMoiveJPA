@@ -1,8 +1,9 @@
-package kr.co.moviespring.web.service.communityBoardService;
+package kr.co.moviespring.web.service;
 
 import java.util.List;
 
 import kr.co.moviespring.web.entity.CommunityBoard;
+import kr.co.moviespring.web.entity.CommunityBoardView;
 
 public interface CommunityBoardService {
 
@@ -11,11 +12,10 @@ public interface CommunityBoardService {
     // 게시글 삭제
     int deleteById(Long id);
     // 게시글 수정
-    CommunityBoard editById(Long id);
+    void editById(Long id, String title, String contents);
     //카테고리별 게시글 목록//
-    List<CommunityBoard> getList(Long categoryId, int size);
+    List<CommunityBoardView> getList(Long categoryId, int size);
     //게시글 상세//
-
     CommunityBoard getById(Long id);
 
 
