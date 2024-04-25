@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import kr.co.moviespring.web.entity.Actor;
 import kr.co.moviespring.web.entity.Director;
 import kr.co.moviespring.web.entity.Movie;
+import kr.co.moviespring.web.entity.MovieActor;
+import kr.co.moviespring.web.entity.MovieDirector;
 import kr.co.moviespring.web.movieapi.dto.kobis.KobisDailyBox;
 import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBMovieDetail;
 import okhttp3.OkHttpClient;
@@ -341,6 +343,9 @@ public class MovieAPI {
         Actor actor = new Actor();
         Director director = new Director();
         Movie movie = new Movie();
+        MovieActor movieActor = new MovieActor();
+        MovieDirector movieDirector = new MovieDirector();
+
 
     }
 }

@@ -16,4 +16,5 @@ public class Actor {
     private String korName;
     private String engName;
     private String imgUrl;
+    private Double popularity;
 }
