@@ -3,12 +3,14 @@ package kr.co.moviespring.web.movieapi.dto.tmdb;
 import java.util.List;
 
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Cast;
+import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Crew;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Genre;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Result;
 
 public class TMDBMovieDetail {
     private List<Result> results;   // 유튜브 미리보기
     private List<Cast> casts;       // 캐스팅 배우 정보
+    private List<Crew> crews;       // 스텝 정보, 감독만 빼올거임
     private List<Genre> genres;     // 장르
     private List<String> productCountries;  // 제작국가
     private List<String> originCountries;   // 원래 국가?
@@ -16,7 +18,7 @@ public class TMDBMovieDetail {
     private String id;            // 영화 ID
     private String title;         // 영화명
     private String backdropPath;  // 스틸컷
-    private String overview;      //영화 소개글
+    private String overview;      // 영화 소개글
     private String originalTitle; // 영화 원제목
     private String runtime;       // 상영시간
     private String releaseDate;   // 개봉일
@@ -106,5 +108,11 @@ public class TMDBMovieDetail {
     }
     public void setTagLine(String tagLine) {
         this.tagLine = tagLine;
+    }
+    public List<Crew> getCrews() {
+        return crews;
+    }
+    public void setCrews(List<Crew> crews) {
+        this.crews = crews;
     }
 }

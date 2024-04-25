@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Result {
     private String name;         // 영상소개글
-    private String publishedAt; // 영상 업로드 날짜(외국사이트라 1일 차이)
+    private String publishedAt;  // 영상 업로드 날짜(외국사이트라 1일 차이)
     private String key;          // 영상 주소 키
 
 //

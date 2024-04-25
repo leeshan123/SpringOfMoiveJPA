@@ -1,6 +1,10 @@
 package kr.co.moviespring.web.repository;
 
 import kr.co.moviespring.web.entity.Movie2;
+import kr.co.moviespring.web.entity.Movie3;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -21,6 +25,7 @@ public interface MovieInsertRepository {
     //영화 데이터 업데이트
     void MovieDataUpdate(Movie2 movie2);
 
-
+    // 태평 Movie3 가져오기 테스트
+    List<Movie3> getlist();
 
 }

@@ -14,20 +14,20 @@ public class ActorServiceImp implements ActorService{
 
     @Override
     public Actor add(Actor actor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        repository.save(actor);
+        return actor;
     }
 
     @Override
     public Actor getById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        // 일단 null값
+        return null;
     }
 
     @Override
     public int remove(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        // 일단 0값
+        return 0;
     }
     
 }

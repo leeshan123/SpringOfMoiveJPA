@@ -13,6 +13,6 @@ public class MovieActor {
     private Long movieId;
     private Long actorId;
     private Long order;
-    private String castEngName;
     private String castKorName;
+    private String castEngName;
 }

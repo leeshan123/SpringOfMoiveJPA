@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import kr.co.moviespring.web.entity.Movie2;
+import kr.co.moviespring.web.entity.Movie3;
 import kr.co.moviespring.web.repository.MovieInsertRepository;
 
 import org.apache.poi.ss.usermodel.CellType;
@@ -271,6 +272,13 @@ class MovieListInfo {
         }
 
         return movie2List;
+    }
+
+    //일단 10개만 가져와서 테스트
+    @Override
+    public List<Movie3> getMovieList() {
+        List<Movie3> list = repository.getlist();
+        return list;
     }
 
 

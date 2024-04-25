@@ -4,6 +4,15 @@
 				"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.moviespring.web.repository.MovieInsertRepository">
 
+	<select id="getlist" resultType="Movie3">
+		SELECT * FROM 
+			spring_of_movie_db.movie3 
+		where 
+			rep_genre_nm not like '%에로%' 
+			and open_dt &lt; 20240425 
+		order by open_dt desc limit 10
+	</select>
+
 
 <!--	일일 박스오피스 데이터 넣기-->
 	<insert id="DailyBoxOfficeSave" parameterType="Movie2">

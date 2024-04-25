@@ -24,9 +24,13 @@ import kr.co.moviespring.web.entity.MovieActor;
 import kr.co.moviespring.web.entity.MovieDirector;
 import kr.co.moviespring.web.movieapi.dto.kobis.KobisDailyBox;
 import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBMovieDetail;
+import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBPersonDetails;
+import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Cast;
+import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Crew;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
 
 public class MovieAPI {
 
@@ -337,7 +341,8 @@ public class MovieAPI {
         TMDBMovieAPI api = new TMDBMovieAPI();
         String movieName = "THE ROUNDUP : PUNISHMENT";
         String year = "2024";
-        TMDBMovieDetail md = api.movieDetail(movieName, year);
+        TMDBMovieDetail md = api.movieDetail(movieName, year); //영화 정보를 불러옴
+
 
         //db에 넣을 entity
         Actor actor = new Actor();
@@ -346,6 +351,60 @@ public class MovieAPI {
         MovieActor movieActor = new MovieActor();
         MovieDirector movieDirector = new MovieDirector();
 
+        // Movie 저장. 심의등급, 장르, 한글명, 영어명, 개봉년도, kobis코드는 먼저 저장
+        // movie.setGenre();
+        // movie.setEngName();
+        // movie.setKorName();
+        // movie.setWatchGrade();
+        // movie.setReleaseDate();
+        // movie.setReleaseNation();
+        // movie.setSponsor();
+        // movie.setKobisId();
+        movie.setTmdbId(md.getId());
+        movie.setMovieIntro(md.getOverview());
+        movie.setPosterUrl("https://image.tmdb.org/t/p/original/" + md.getPosterPath());
+        movie.setRunningTime(md.getRuntime());
+        movie.setStillcutUrl("https://image.tmdb.org/t/p/original/" + md.getBackdropPath());
+        movie.setTrailerUrl("https://www.youtube.com/watch?v=" + md.getResults().get(0).getKey());
+        
+        // actor 저장
+        List<Cast> casts = md.getCasts();
+        for (Cast cast : casts) {
+            actor.setEngName(cast.getOriginalName());
+            actor.setImgUrl("https://image.tmdb.org/t/p/original/"+cast.getProfilePath());
+            actor.setTmdbId(cast.getId());
+            actor.setPopularity(Double.parseDouble(cast.getPopularity()));
+            TMDBPersonDetails pd = api.personDetails(cast.getId());
+            actor.setKorName(pd.getKorName());
+            
+            // movieActor 저장
+            {
+                movieActor.setActorId(actor.getId());
+                movieActor.setMovieId(movie.getId());
+                movieActor.setCastEngName(cast.getCharacter());
+                // movieActor.setCastKorName(year); 한국배역명은 일단 보류
+                movieActor.setOrder(Long.parseLong(cast.getOrder()));
+            }
+        }
+
+        // director 저장
+        List<Crew> crews = md.getCrews();
+        for (Crew crew : crews) {
+            director.setEngName(crew.getOriginalName());
+            director.setImgUrl("https://image.tmdb.org/t/p/original/"+crew.getProfilePath());
+            director.setTmdbId(crew.getId());
+            director.setPopularity(Double.parseDouble(crew.getPopularity()));
+            TMDBPersonDetails pd = api.personDetails(crew.getId());
+            director.setKorName(pd.getKorName());
+
+            // movieDirector 저장
+            {
+                movieDirector.setDirectorId(director.getId());
+                movieDirector.setMovieId(movie.getId());;
+            }
+        }
+
+        
 
     }
 }
