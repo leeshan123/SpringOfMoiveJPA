@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBMovieDetail;
 import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBPersonDetails;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Cast;
+import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Crew;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Genre;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Result;
 import okhttp3.OkHttpClient;
@@ -125,6 +126,24 @@ public class TMDBMovieAPI {
                 castList.add(cast);
             }
             movieDetail.setCasts(castList);
+
+            // "crew" 키의 값인 JsonArray를 추출
+            JSONArray crewArr = credits.getJSONArray("crew");
+            Iterator<Object> crewIter = crewArr.iterator();
+            List<Crew> crewList = new ArrayList<>();
+            while (crewIter.hasNext()) {
+                JSONObject object = (JSONObject)crewIter.next();
+                if(object.getString("job").equals("Director")){
+                    Crew crew = new Crew();
+                    crew.setId(String.valueOf(object.getLong("id")));
+                    crew.setGender(String.valueOf(object.getLong("gender")));
+                    crew.setProfilePath(object.isNull("profile_path") ? null : object.getString("profile_path"));
+                    crew.setOriginalName(object.getString("original_name"));
+                    crew.setPopularity(String.valueOf(object.getDouble("popularity")));
+                    crewList.add(crew);
+                }
+            }
+            movieDetail.setCrews(crewList);
 
             // "genres" 키의 값인 JsonArray를 추출
             JSONArray genreArr = responseBody.getJSONArray("genres");

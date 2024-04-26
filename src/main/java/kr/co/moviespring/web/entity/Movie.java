@@ -31,6 +31,6 @@ public class Movie {
 //    private int dailySales;//일단 null
 //    private int totalAudience;//영화상세정보(누적관객수) > audiAcc
 //    private int dailyAudience;//영화상세정보(하루관객수)
-    private Long releaseNationId;//영화상세정보(제작국가) > nations/nationNm
-    private Long genreId;//영화상세정보(장르) > genres/genreNm
+    private String releaseNation;//영화상세정보(제작국가) > nations/nationNm
+    private String genre;//영화상세정보(장르)> genres/genreNm 장르는 코비스에 있는거 그냥 문자열로 넣기로함
 }

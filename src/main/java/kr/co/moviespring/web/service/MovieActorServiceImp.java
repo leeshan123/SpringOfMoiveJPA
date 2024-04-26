@@ -14,14 +14,14 @@ public class MovieActorServiceImp implements MovieActorService{
 
     @Override
     public MovieActor add(MovieActor movieActor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        repository.save(movieActor);
+        return movieActor;
     }
 
     @Override
     public int remove(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        // 일단 0값
+        return 0;
     }
     
 }

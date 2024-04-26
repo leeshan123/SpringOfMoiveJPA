@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import kr.co.moviespring.web.entity.Movie2;
+import kr.co.moviespring.web.entity.Movie3;
 import kr.co.moviespring.web.repository.MovieInsertRepository;
 
 import org.apache.poi.ss.usermodel.CellType;
@@ -140,10 +141,10 @@ public class MovieInsertServiceImp implements MovieInsertService{
 
         // 1부터 10까지 실행(총 100개)
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 1; i < 1100; i++) {
             try {
                 StringBuilder sb = new StringBuilder();
-                URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=" + key + "&curPage=" + i);
+                URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=" + key + "&curPage=" + i+"&itemPerPage=100");
                 BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
 
 
@@ -164,10 +165,41 @@ public class MovieInsertServiceImp implements MovieInsertService{
                         Movie2 movie2 = new Movie2();
                         movie2.setMovieCd(movielistinfo.getMovieCd());
                         movie2.setMovieNm(movielistinfo.getMovieNm());
+                        movie2.setPrdtYear(movielistinfo.getPrdtYear());
                         movie2.setOpenDt(movielistinfo.getOpenDt());
                         movie2.setRepGenreNm(movielistinfo.getRepGenreNm());
                         movie2.setMovieNmEn(movielistinfo.getMovieNmEn());
                         movie2.setNationAlt(movielistinfo.getNationAlt());
+
+                        String directorlist = "";
+                        List<Movie2.Director> directors = movielistinfo.getDirectors();
+                        for (int j = 0; j < directors.size(); j++) {
+                            Movie2.Director director = directors.get(j);
+                            directorlist += director.getPeopleNm();
+                            if (j < directors.size() - 1) {
+                                directorlist += "|";
+                            }
+                        }
+
+                        String companylist = "";
+                        List<Movie2.Company> companies = movielistinfo.getCompanys();
+                        for (int k = 0; k < companies.size(); k++) {
+                            Movie2.Company company = companies.get(k);
+                            companylist += company.getCompanyCd();
+                            if (k < companies.size() - 1) {
+                                companylist += "|";
+                            }
+                        }
+
+                        movie2.setDirectorNm(directorlist);
+                        movie2.setCompanyCd(companylist);
+
+
+
+
+
+
+
                         movielist.add(movie2);
                     }
                 } else {
@@ -180,10 +212,12 @@ public class MovieInsertServiceImp implements MovieInsertService{
             }
         }
         System.out.println(movielist.size());
-//        saveIfNotMovie(movielist);
+
+
         return movielist;
 
     }
+
 
 
 
@@ -193,18 +227,21 @@ class MovieListResult {
     @SerializedName("movieListResult")
     private MovieListInfo movieListInfo;
 
+
     public MovieListInfo getMovielistresult() {
         return movieListInfo;
     }
-}
+
+    }
 //영화 목록의 영화 리스트결과의 리스트정보 담기.
 class MovieListInfo {
     @SerializedName("movieList")
     private List<Movie2> movieList;
 
-    public List<Movie2> getMovieList() {
-        return movieList;
-    }
+
+    public List<Movie2> getMovieList() {return movieList;}
+
+
 }
 
 //엑셀 데이터 가져오기.
@@ -271,6 +308,13 @@ class MovieListInfo {
         }
 
         return movie2List;
+    }
+
+    //일단 10개만 가져와서 테스트
+    @Override
+    public List<Movie3> getMovieList() {
+        List<Movie3> list = repository.getlist();
+        return list;
     }
 
 

@@ -14,20 +14,20 @@ public class DirectorServiceImp implements DirectorService{
 
     @Override
     public Director add(Director director) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        repository.save(director);
+        return director;
     }
 
     @Override
     public Director getById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        // 일단 null값
+        return null;
     }
 
     @Override
     public int remove(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        // 일단 0값
+        return 0;
     }
     
 }
