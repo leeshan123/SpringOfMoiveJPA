@@ -22,8 +22,8 @@
 
 <!--	영화 목록 중에 없는 데이터 집어넣기-->
 	<insert id="saveIfNotMovie" parameterType="Movie2">
-		INSERT INTO movie3 (movie_cd, movie_nm, open_dt, rep_genre_nm, movie_nm_en, nation_alt)
-		SELECT #{movieCd}, #{movieNm}, #{openDt}, #{repGenreNm}, #{movieNmEn}, #{nationAlt}
+		INSERT INTO movie3 (movie_cd, movie_nm, open_dt, rep_genre_nm, movie_nm_en, nation_alt, prd_year)
+		SELECT #{movieCd}, #{movieNm}, #{openDt}, #{repGenreNm}, #{movieNmEn}, #{nationAlt},#{prdYear}
 		FROM (SELECT 1) AS dummy
 		WHERE NOT EXISTS (
 		SELECT 1 FROM movie3 WHERE movie_cd = #{movieCd}
@@ -46,7 +46,10 @@
 		movie_nm_en = #{movieNmEn},
 		open_dt = #{openDt},
 		rep_genre_nm = #{repGenreNm},
-		nation_alt = #{nationAlt}
+		nation_alt = #{nationAlt},
+		prd_year = #{prdtYear},
+		company_cd = #{companyCd},
+		director_nm = #{directorNm}
 		WHERE movie_cd = #{movieCd}
 
 	</insert>
