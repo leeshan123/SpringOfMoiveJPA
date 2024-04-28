@@ -77,18 +77,18 @@ public class HomeController {
         KobisMovieAPI kobisApi = new KobisMovieAPI();
         String movieName = "THE ROUNDUP : PUNISHMENT";
         String year = "2024";
-        TMDBMovieDetail md = api.movieDetail(movieName, year); //영화 정보를 불러옴
 
-        // Movie3 목록 불러오기
+        // Movie3 목록 불러오기(테스트용, 일단 10개만, 20240425 이전만)
         List<Movie3> list = serviceTest.getMovieList();
 
+        // 제목이랑 개봉일자(년도만 추출) 저장해서 영화정보 불러오기
+        movieName = list.get(0).getMovieNmEn();
+        year = list.get(0).getOpenDt().substring(0, 4); 
+        
+        TMDBMovieDetail md = api.movieDetail(movieName, year); //영화 정보를 불러옴
 
         //db에 넣을 entity
         Movie movie = new Movie();
-        List<Actor> actors = new ArrayList<>();
-        List<Director> directors = new ArrayList<>();
-        List<MovieActor> movieActors = new ArrayList<>();
-        List<MovieDirector> movieDirectors = new ArrayList<>();
         
 
         // Movie 저장. 심의등급, 장르, 한글명, 영어명, 개봉년도, kobis코드는 먼저 저장

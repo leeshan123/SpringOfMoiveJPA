@@ -209,13 +209,15 @@ public class TMDBMovieAPI {
             JSONObject responseBody = new JSONObject(responseData.toString());
 
             // 데이터 추출 작업
-            // "backdrops" 키의 값인 JsonArray를 추출
+            // "backdrops" 키의 값인 JsonArray를 추출, 10개만 저장
             JSONArray images = responseBody.getJSONArray("backdrops");
             Iterator<Object> imagesIter = images.iterator();
             List<String> stillCutList = new ArrayList<>();
             while (imagesIter.hasNext()) {
                 JSONObject object = (JSONObject)imagesIter.next();
                 stillCutList.add(object.isNull("file_path") ? null : object.getString("file_path"));
+                if(stillCutList.size() == 10)
+                    break;
             }
             movieDetail.setStillCuts(stillCutList);
         }
