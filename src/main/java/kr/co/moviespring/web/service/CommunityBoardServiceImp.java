@@ -34,11 +34,20 @@ public class CommunityBoardServiceImp implements CommunityBoardService {
         communityBoardRepository.edit(id, title, contents);
     }
 
+
+    //카테고리별+검색쿼리값 게시글 목록//
+    @Override
+    public List<CommunityBoardView> getList(Long categoryId, Integer page, Integer size, String query) {
+//        int size = 20;
+        int offset = (page-1)*size;
+        List<CommunityBoardView> list = communityBoardRepository.findAll(categoryId, query, offset, size);
+        return list;
+    }
+
     //카테고리별 게시글 목록//
     @Override
-    public List<CommunityBoardView> getList(Long categoryId, int size) {
-        List<CommunityBoardView> list = communityBoardRepository.findAll(categoryId, size);
-        return list;
+    public List<CommunityBoardView> getList(Long categoryId, Integer page, Integer size) {
+        return getList(categoryId, page, size, null);
     }
 
     //게시글 상세//
@@ -46,6 +55,17 @@ public class CommunityBoardServiceImp implements CommunityBoardService {
     public CommunityBoard getById(Long id) {
         CommunityBoard board = communityBoardRepository.findById(id);
         return board;
+    }
+
+    @Override
+    public int getCount(Long categoryId) {
+        return getCount(categoryId, null);
+    }
+
+    @Override
+    public int getCount(Long categoryId, String query) {
+        int count = communityBoardRepository.getCount(categoryId, query);
+        return count;
     }
 
 //    @Override

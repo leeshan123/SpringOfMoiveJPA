@@ -18,7 +18,7 @@ layout:decorate="inc/layout">
 </head>
 <body>
     <main layout:fragment="main" class="media padding-x:2">
-        <section class="media-sect">
+        <section class="media-sect-for-commu">
             <h1 class="color:main-3 fw:bold fs:7 margin-bottom:4" th:text="${category.name == '인기글' || category.name == '굿즈&포스터 ' ? category.name : category.name+'게시판'}">자유게시판</h1>
             <section class="p:2 border-bottom">
                 <h1 class="fs:5 margin-bottom:1" th:text="${board.title}">게시글 제목이 나타날 위치입니다</h1>

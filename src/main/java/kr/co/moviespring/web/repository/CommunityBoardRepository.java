@@ -19,10 +19,13 @@ public interface CommunityBoardRepository {
     void edit(Long id, String title, String contents);
 
     // 카테고리별 게시글 목록
-    List<CommunityBoardView> findAll(Long categoryId, int size);
+    List<CommunityBoardView> findAll(Long categoryId, String query, int offset, int size);
 
     //게시글 디테일페이지
     CommunityBoard findById(Long id);
+
+    //페이징을 위한 게시글 갯수 카운팅
+    int getCount(Long categoryId, String query);
 
 
 //    List<GeneralBoard> findAll();

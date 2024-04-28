@@ -1,10 +1,11 @@
 /* Footer*/
 .footer {
+    margin-top: auto;
     width: 100%;
-    padding: 10px 20px;
-    height: 100px;
+    padding: 20px 0 38px 0;
     background-color: rgba(48, 50, 49, 1);
     color: rgba(255, 255, 255, 0.87);
+    font-size: 14px;
 }
 
 .footer_container {
@@ -15,7 +16,8 @@
 }
 
 .footer_container ul {
-    padding-top: 10px;
+    /*padding-top: 10px;*/
+    display: flex;
 }
 
 .footer_container ul li {

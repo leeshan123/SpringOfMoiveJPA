@@ -18,9 +18,15 @@
     
     .media-sect{
         width: 100%;
-        max-width: 980px;
+        /*max-width: 980px; !*커뮤니티 및 기타*!*/
+        max-width: 1320px; /*영화 리스트, 디테일 페이지*/
         justify-content:  space-around;
-        
+    }
+
+    .media-sect-for-commu{
+        width: 980px;
+        max-width: 980px; /*커뮤니티 및 기타*/
+        /*justify-content:  space-around;*/
     }
 
     .content-list{
@@ -29,7 +35,7 @@
     }
 
     .media-pading{
-        gap: 32px;
+        /*gap: 32px;*/
     }
 }
 /* movie/detail 반응형 */

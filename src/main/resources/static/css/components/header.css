@@ -11,7 +11,7 @@
 }
 /* Top Nav*/
 .header .top_nav h1.logo {
-    font-family: "IBM Plex Sans KR", sans-serif;
+    /*font-family: "IBM Plex Sans KR", sans-serif;*/
     font-size: 24px;
     font-weight: 700;
     font-style: normal;
@@ -105,10 +105,77 @@
     height: 40px;
 }
 
+/*유저 헤더 추가 부분*/
+  .user-welcome{
+      /*max-width: 680px;*/
+      display: flex;
+      justify-content: center;
+  }
+
+.user-welcome .point-bar{
+    width: 100%;
+    /*width: 680px;*/
+    max-width: 980px;
+    font-size: 20px;
+    margin: 24px 0;
+    color: #00482A;
+}
+
+.ishover{
+    display: none;
+    position: fixed;
+    transform: translate(240px, -50px);
+    font-size: 14px;
+    width: 200px;
+}
+
+.point-bar .icon\:info:hover ~ .ishover{
+    display: block;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.user-info-section nav{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    padding-bottom: 20px;
+    border-bottom: solid 1px #262F45;
+}
+
+.user-info-section ul{
+    width: 100%;
+    max-width: 980px;
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+}
+
+
+.user-info-section a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 8px;
+}
+
+.user-info-section img{
+    height: 40px;
+}
+
 
 
 /* Media Queries*/
 @media only screen and (max-width: 1068px) {
+    .user-info-section ul,
+    .user-welcome .point-bar,
     .nav_container {
         max-width: 680px;
     }

@@ -41,13 +41,39 @@
             width: 100%;
             height: 30%;
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 40%);
+            /*:hover {*/
+            /*    transform: scale(1.1);*/
+            /*}*/
+        }
+        .gradient-overlay:hover + .main-img {
+            transform: scale(1.1);
         }
     </style>
+<!--    <script>-->
+<!--        document.addEventListener('DOMContentLoaded', function () {-->
+<!--            document.querySelector('.gradient-overlay').addEventListener('mouseover', function () {-->
+<!--                document.querySelector('.main-img').style.transform = 'scale(1.1)';-->
+<!--            });-->
+
+<!--            document.querySelector('.gradient-overlay').addEventListener('mouseout', function () {-->
+<!--                document.querySelector('.main-img').style.transform = 'scale(1)';-->
+<!--            });-->
+<!--        });-->
+<!--        document.addEventListener('DOMContentLoaded', function () {-->
+<!--            document.querySelector('.main-img').addEventListener('mouseover', function () {-->
+<!--                document.querySelector('.main-img').style.transform = 'scale(1.1)';-->
+<!--            });-->
+
+<!--            document.querySelector('.main-img').addEventListener('mouseout', function () {-->
+<!--                document.querySelector('.main-img').style.transform = 'scale(1)';-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
 </head>
 
 <body>
     <main layout:fragment="main">
-        <section class="test">
+        <section class="d:flex fl-dir:column ai:center">
             <h1 class="d:none">영화 디테일 페이지</h1>
             <div class="position:relative d:flex overflow:hidden">
                 <img class="main-img" src="http://image.tmdb.org/t/p/original/kcrjQkK9XlUe0yD1cZptf4z5h3v.jpg"
@@ -58,150 +84,170 @@
                 <img class="logo-position position:absolute width:3" src="http://image.tmdb.org/t/p/original//zPEtfLeTXr8RnYxwBm0Zm4ytmQX.png" alt="">
 <!--                transform: translateX(0px);-->
             </div>
-            <div style="max-width: 100%; display: flex; justify-content: space-between; align-items: center;"
-                 class="border-left bd-color:main-2 bd-w:3 mt:2 mb:2 fs:5">
-                <div>
-                    <div class="ml:1 fw:3" th:text="${movie.korName}">영화명</div>
-                </div>
-                <div>
-                    <button onclick="toggleContent()" class="fs:3 color:base-5 toggle"
-                            style="text-decoration: underline;">평가하기
-                    </button>
-                </div>
-
-            </div>
-            <div id="content" class="toggle-off">
-                <div class="txt-al:center fs:5 fw:3">
-                    <span>한줄평을 남겨주세요!</span>
-                </div>
-                <form action="comment" method="POST">
-                    <div class="display:flex justify-content:space-between fs:4">
-                        <input type="text" name="movie-id" th:value="${movie.id}" class="d:none">
-                        <!-- <span class="icon icon-size:5 icon:hand_coins">아이콘</span> -->
-                        <select class="n-select" id="rate" name="rate">
-                            <option value="0">적정가격을 골라주세요</option>
-                            <option value="0">0원</option>
-                            <option value="5000">5,000원</option>
-                            <option value="10000">10,000원</option>
-                            <option value="15000">15,000원</option>
-                            <option value="20000">20,000원</option>
-                            <option value="25000">25,000원</option>
-                            <option value="30000">30,000원</option>
-                        </select>
+            <div class="test">
+                <div style="max-width: 100%; display: flex; justify-content: space-between; align-items: center;"
+                     class="border-left bd-color:main-2 bd-w:3 mt:2 mb:2 fs:5">
+                    <div>
+                        <div class="ml:1 fw:3 title-font" th:text="${movie.korName}">영화명</div>
                     </div>
-                    <div class="display:flex align-items:flex-end flex-direction:column">
+                    <div>
+                        <button onclick="toggleContent()" class="fs:3 color:base-5 toggle"
+                                style="text-decoration: underline;">평가하기
+                        </button>
+                    </div>
+
+                </div>
+                <div id="content" class="toggle-off">
+                    <div class="txt-al:center fs:5 fw:3">
+                        <span>한줄평을 남겨주세요!</span>
+                    </div>
+                    <form action="comment" method="POST">
+                        <div class="display:flex justify-content:space-between fs:4">
+                            <input type="text" name="movie-id" th:value="${movie.id}" class="d:none">
+                            <!-- <span class="icon icon-size:5 icon:hand_coins">아이콘</span> -->
+                            <select class="n-select" id="rate" name="rate">
+                                <option value="0">적정가격을 골라주세요</option>
+                                <option value="0">0원</option>
+                                <option value="5000">5,000원</option>
+                                <option value="10000">10,000원</option>
+                                <option value="15000">15,000원</option>
+                                <option value="20000">20,000원</option>
+                                <option value="25000">25,000원</option>
+                                <option value="30000">30,000원</option>
+                            </select>
+                        </div>
+                        <div class="display:flex align-items:flex-end flex-direction:column">
                         <textarea id="comments" name="comments"
                                   class="width:10p height:2 p:2 n-textbox n-textbox-status:success" type="text"
                                   placeholder="내용을 입력해주세요."></textarea>
-                        <button type="submit" class="n-btn n-btn-type:filled m:2 submit-button">평가완료</button>
+                            <button type="submit" class="n-btn n-btn-type:filled m:2 submit-button">평가완료</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="padding-left:2 padding-right:2 display:flex fl-dir:column gap:2">
+                    <!--                <span class="margin-right:auto icon icon-size:5 icon:hand_coins">아이콘</span>-->
+                    <!--                <span class="fs:6 fw:3">감정가</span>-->
+                    <div class="fs:6 fw:3 color:accent-3">30,000원
+                        <span class="fs:3 fw:2 color:base-10">(3,426리뷰)</span>
                     </div>
-                </form>
-            </div>
-            <div class="padding-left:2 padding-right:2 display:flex fl-dir:column gap:2">
-<!--                <span class="margin-right:auto icon icon-size:5 icon:hand_coins">아이콘</span>-->
-<!--                <span class="fs:6 fw:3">감정가</span>-->
-                <span class="fs:6 fw:3 color:accent-3">30,000원</span>
-                <div>
-                    <span>2023 · </span>
-                    <span>범죄/액션 · </span>
-                    <span>한국</span>
+                    <div>
+                        <span>2023 · </span>
+                        <span>범죄/액션 · </span>
+                        <span>한국</span>
+                    </div>
+                    <div>
+                        <span>1시간49분 · </span>
+                        <span>15세 · </span>
+                        <span>누적 관객 133만명</span>
+                    </div>
                 </div>
-                <div>
-                    <span>1시간49분 · </span>
-                    <span>15세 · </span>
-                    <span>누적 관객 133만명</span>
-                </div>
-            </div>
 
-            <section>
-                <h1 class="d:none pl:1 fw:3 fs:5 border-left bd-color:main-2 bd-w:3 mt:7 mb:2">영화 줄거리</h1>
-                <div class="avg-block color:base-7 margin-top:3" th:text="${movie.getMovieIntro()}">
-                    영화 줄거리
-                </div>
-            </section>
+                <section>
+                    <h1 class="d:none pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3 mt:7 mb:2">영화 줄거리</h1>
+                    <div class="avg-block color:base-6 margin-top:3 fw:500 fs:4" th:text="${movie.getMovieIntro()}">
+                        영화 줄거리
+                    </div>
+                </section>
 
-            <div>
-                <h1 class="fw:3 fs:5 border-left bd-color:main-2 bd-w:3 mt:7 mb:2 pl:1">감독 · 배우</h1>
-                <section class="display:flex padding:2">
-                    <div class="margin-right:10">
-                        <a href="">
-                            <img src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201311%2F20131118115820901-1644449.jpg"
-                                 width="100px" height="auto" alt="">
-                            <div class="padding:1">
-                                <div><span>김성수</span></div>
-                                <div><span class="fs:2 color:base-6">아수라,비트</span></div>
+                <section class="section-margin">
+                    <h1 class="fw:3 section-font border-left bd-color:main-2 bd-w:3 pl:1">감독 · 배우</h1>
+                    <div class="display:flex padding:2">
+<!--                        <div class="margin-right:10">-->
+<!--                            <a href="">-->
+<!--                                <img src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201311%2F20131118115820901-1644449.jpg"-->
+<!--                                     width="100px" height="auto" alt="">-->
+<!--                                <div class="padding:1">-->
+<!--                                    <div><span>김성수</span></div>-->
+<!--                                    <div><span class="fs:2 color:base-6">아수라,비트</span></div>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </div>-->
+                        <ul class="d:flex width:10p fl-wrap:nowrap gap:5">
+                            <li th:each="i : ${#numbers.sequence(1, 10)}" class="d:flex">
+                                <a href="">
+                                    <div class="display:flex margin-right:4">
+                                        <img src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
+                                             width="100px" height="auto" alt="">
+                                    </div>
+                                    <div class="padding:1 fs:3">
+                                        <div>
+                                            <span>정우성</span>
+                                        </div>
+                                        <div>
+                                            <span class="fs:2 color:base-6">이태신</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="section-margin">
+                    <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3">예고편</h1>
+                    <div class="avg-block d:flex gap:3 bd-radius:1">
+                        <!-- trailerPlayPop?pFileNm= 을 play/ 로 바꿔주기 -->
+                        <!-- <video controls width="49%">
+                            <source src="https://www.kmdb.or.kr/trailer/play/MK060294_P02.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video> -->
+                        <!-- <video controls width="49%">
+                            <source src="https://www.kmdb.or.kr/trailer/play/MK060211_P02.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video> -->
+                        <iframe class="bd-radius:1" th:each="i : ${#numbers.sequence(1, 3)}" width="430px" height="290px" src="https://www.youtube.com/embed/rjW9E1BR_30"
+                                th:src="${movie.getTrailerUrl()}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </section>
+                <section class="section-margin">
+                    <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3">스틸컷</h1>
+                    <div class="d:flex gap:3">
+                        <img class="bd-radius:1" th:each="i : ${#numbers.sequence(1, 10)}" src="https://search.pstatic.net/common?qualit y=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231102_299%2F1698892733787ApmPu_JPEG%2Fmovie_image.jpg"
+                            th:src="${movie.getStillcutUrl()}"
+                            alt="" height="290px">
+                    </div>
+                </section>
+                <section class="section-margin">
+                    <div class="d:flex mb:5">
+                        <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3 mr:auto">한줄 평
+                        <span class="fs:3 fw:2 color:base-10">(3,426리뷰)</span>
+                    </h1>
+                        <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
+                            <li class="p-right:3 fs:3 color:base-10">
+                                <a href="" class="">최신 순</a>
+                            </li>
+                            <li class="p-right:3">
+                                <a href="">평점 순</a>
+                            </li>
+
+                            <li class="">
+                                <a href="">좋아요 순</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="d:flex flex-direction:column gap:2">
+                        <li th:each="r ,count: ${reviews}" class="n-item n-item-type:shadow ttr">
+                            <div class="d:flex flex-direction:column gap:2">
+                                <div class="d:flex">
+                                    <span th:text="${r.memberRate}+원"
+                                           class="margin-right:auto color:sub-1 fw:bold">평점</span>
+                                    <span th:text="${#dates.format(r.regDate, 'yyyy년 MM월 dd일')}">날짜</span>
+<!--                                    <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>-->
+                                </div>
+                                <div class="d:flex ai:center gap:3">
+                                    <span class="icon icon:user">아이콘</span>
+                                    <span th:text="${count.count}+승환">닉네임</span>
+                                </div>
+                                <div th:text="${r.comments}">한줄평이 출력됩니다</div>
+                                <div class="d:inline-block bd bd-radius:5">
+                                    <span class="icon icon:thumbs_up">아이콘</span>
+                                    <span th:text="${count.count}">좋아요 수</span>
+                                    <button class="ml:2">좋아요</button>
+                                </div>
                             </div>
-                        </a>
-                    </div>
-                    <ul class="d:flex width:10p fl-wrap:wrap gap:5">
-                        <li class="d:flex">
-                            <a href="">
-                                <div class="display:flex margin-right:4">
-                                    <img src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
-                                         width="48px" height="auto" alt="">
-                                </div>
-                                <div class="padding:1 fs:3">
-                                    <div>
-                                        <span>정우성</span>
-                                    </div>
-                                    <div>
-                                        <span class="fs:2 color:base-6">이태신</span>
-                                    </div>
-                                </div>
-                            </a>
                         </li>
                     </ul>
                 </section>
             </div>
-            <section>
-                <h1 class="pl:1 fw:3 fs:5 border-left bd-color:main-2 bd-w:3 mt:7 mb:2">영화 예고편</h1>
-                <div class="avg-block">
-                    <!-- trailerPlayPop?pFileNm= 을 play/ 로 바꿔주기 -->
-                    <!-- <video controls width="49%">
-                        <source src="https://www.kmdb.or.kr/trailer/play/MK060294_P02.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video> -->
-                    <!-- <video controls width="49%">
-                        <source src="https://www.kmdb.or.kr/trailer/play/MK060211_P02.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video> -->
-                    <iframe width="49%" height="250px" src="https://www.youtube.com/embed/rjW9E1BR_30"
-                            th:src="${movie.getTrailerUrl()}" frameborder="0" allowfullscreen></iframe>
-                    <iframe width="49%" height="250px" src="https://www.youtube.com/embed/38c0poYLV1I"
-                            th:src="${movie.getTrailerUrl()}" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </section>
-            <section>
-                <h1 class="pl:1 fw:3 fs:5 border-left bd-color:main-2 bd-w:3 mt:7 mb:2">영화 스틸컷</h1>
-                <div class="image-block">
-                    <span><img
-                            src="https://search.pstatic.net/common?qualit y=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231102_299%2F1698892733787ApmPu_JPEG%2Fmovie_image.jpg"
-                            th:src="${movie.getStillcutUrl()}"
-                            alt="" height="140px"></span>
-                </div>
-            </section>
-            <section>
-                <h1 class="pl:1 fw:3 fs:5 border-left bd-color:main-2 bd-w:3 mt:5 mb:2">한줄 평</h1>
-                <div class="d:flex flex-direction:column gap:2">
-                    <div th:each="r ,count: ${reviews}" class="n-item n-item-type:outline-box">
-                        <div class="d:flex flex-direction:column gap:2">
-                            <div class="d:flex ai:center gap:3">
-                                <span class="icon icon:user">아이콘</span>
-                                <span th:text="${count.count}+승환">닉네임</span>
-                                <span th:text="${r.memberRate}+원"
-                                      class="margin-right:auto color:sub-1 fw:bold">평점</span>
-                                <span th:text="${#dates.format(r.regDate, 'yyyy-MM-dd')}">날짜</span>
-                                <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>
-                            </div>
-                            <div th:text="${r.comments}">한줄평이 출력됩니다</div>
-                            <div>
-                                <span class="icon icon:thumbs_up">아이콘</span>
-                                <span th:text="${count.count}">좋아요 수</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </section>
     </main>
 </body>

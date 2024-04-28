@@ -44,6 +44,10 @@
         .ck-editor__editable_inline {
             min-height: 400px;
         }
+
+        strong {
+            font-weight: bold; /* 임시로 글꼴 두께 설정만 초기화 해봄*/
+        }
     </style>
 </head>
 
@@ -58,7 +62,7 @@
                 </div>
                 <div>
                     <!--textarea 작성줄 길어져도 줄넘김해서 쓰지 말것 입력창에 공백생김-->
-                    <textarea class="" name="contents" id="editor" placeholder="내용을 입력해주세요" th:text="${board != null ? board.contents : ''}"></textarea>
+                    <textarea name="contents" id="editor" placeholder="내용을 입력해주세요" th:text="${board != null ? board.contents : ''}"></textarea>
                 </div>
                 <div>
                     <input class="" name="img-file" type="file" multiple />
