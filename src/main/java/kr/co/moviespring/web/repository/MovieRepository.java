@@ -11,9 +11,11 @@ public interface MovieRepository {
 
     List<Movie> findAll();
 
-    void save(Movie movie);
+    Long save(Movie movie);
 
     Movie findById(Long id);
+
+    Movie findByTMDBId(String id);
 
 
 }

@@ -13,9 +13,10 @@ public class ActorServiceImp implements ActorService{
     ActorRepository repository;
 
     @Override
-    public Actor add(Actor actor) {
+    public Long add(Actor actor) {
         repository.save(actor);
-        return actor;
+        Long actorId = actor.getId(); 
+        return actorId;
     }
 
     @Override
@@ -28,6 +29,12 @@ public class ActorServiceImp implements ActorService{
     public int remove(Long id) {
         // 일단 0값
         return 0;
+    }
+
+    @Override
+    public Actor getByTMDBId(String id) {
+        Actor actor = repository.findByTMDBId(id);
+        return actor;
     }
     
 }

@@ -7,7 +7,8 @@ import kr.co.moviespring.web.entity.Actor;
 @Mapper
 public interface ActorRepository {
     
-    int save(Actor actor);
+    Long save(Actor actor);
     int update(Actor actor);
     int delete(Actor actor);
+    Actor findByTMDBId(String id);
 }

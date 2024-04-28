@@ -30,10 +30,18 @@ public class MovieServiceImp implements MovieService {
         return movie;
     }
 
-    // ?? //
+    // 저장하고 생성된 영화 ID를 받아와서 리턴 //
     @Override
-    public void saveMovie(Movie movie) {
+    public Long saveMovie(Movie movie) {
         repository.save(movie);
+        Long movieId = movie.getId();
+        return movieId;
+    }
+
+    @Override
+    public Movie getByTMDBId(String id) {
+        Movie movie = repository.findByTMDBId(id);
+        return movie;
     }
 
 }

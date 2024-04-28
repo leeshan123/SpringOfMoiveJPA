@@ -1,5 +1,7 @@
 package kr.co.moviespring.web.entity;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,10 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MovieActor {
+public class MovieStillcut {
+    private Long id;
     private Long movieId;
-    private Long actorId;
-    private Long castOrder;
-    private String castKorName;
-    private String castEngName;
+    private String url;
 }
