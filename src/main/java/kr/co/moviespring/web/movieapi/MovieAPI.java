@@ -341,7 +341,9 @@ public class MovieAPI {
         TMDBMovieAPI api = new TMDBMovieAPI();
         String movieName = "THE ROUNDUP : PUNISHMENT";
         String year = "2024";
-        TMDBMovieDetail md = api.movieDetail(movieName, year); //영화 정보를 불러옴
+
+        Long movieCode = api.serchMovie(movieName, year);
+        TMDBMovieDetail md = api.movieDetail(movieCode); //영화 정보를 불러옴
 
 
         //db에 넣을 entity

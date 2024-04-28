@@ -15,5 +15,7 @@ public interface MovieRepository {
 
     Movie findById(Long id);
 
+    Movie findByTMDBId(String id);
+
 
 }

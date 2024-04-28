@@ -1,6 +1,11 @@
 package kr.co.moviespring.web.controller;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -85,12 +90,64 @@ public class HomeController {
         movieName = list.get(0).getMovieNmEn();
         year = list.get(0).getOpenDt().substring(0, 4); 
         
-        TMDBMovieDetail md = api.movieDetail(movieName, year); //영화 정보를 불러옴
+        // TMDB에서 이름 년도로 영화 정보를 불러옴
+        Long movieCode = api.serchMovie(movieName, year);
+
+        // movieCode가 null이 아니면 중복체크 후 저장, 아니면 리턴
+        TMDBMovieDetail md = new TMDBMovieDetail();
+        if(movieCode != null){
+            //중복체크
+            String strCode = Long.toString(movieCode);
+            Movie movie = movieService.getByTMDBId(strCode);
+
+            if(movie == null)
+                md = api.movieDetail(movieCode);
+            else{
+                System.out.println("이미 존재하는 영화");
+                return "index";
+            }
+        }
+        else{
+            // movie3의 데이터로 api에서 찾지 못했다면 데이터를 csv에 저장 후 리턴
+            // csv 테스트
+            String movieString = list.get(0).toString();
+
+            String directoryPath = "C:/Newlec/test_csv/"; // 폴더 경로
+            String fileName = "not_save_movie.csv";
+
+            // 폴더가 존재하지 않으면 폴더를 생성.
+            Path path = Paths.get(directoryPath);
+            if (!Files.exists(path)) {
+                try {
+                    Files.createDirectories(path);
+                    System.out.println("폴더가 생성되었습니다: " + path);
+                } catch (IOException e) {
+                    System.err.println("폴더 생성 중 오류가 발생하였습니다: " + e.getMessage());
+                }
+            }
+
+            // 값만 꺼내기
+            String[] keyValuePairs = movieString.split(", ");
+            StringBuilder csvLine = new StringBuilder();
+            for (String pair : keyValuePairs) {
+                String[] keyValue = pair.split("=");
+                String value = keyValue.length > 1 ? keyValue[1] : ""; // 값이 없는 경우 공백으로 처리
+                csvLine.append(value).append(",");
+            }
+            // 마지막 쉼표와 ) 제거
+            csvLine.delete(csvLine.length() - 2, csvLine.length());
+            csvLine.append("\n");
+
+            // 파일 경로
+            String filePath = directoryPath + "/" + fileName;
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
+            writer.write(csvLine.toString());
+            writer.close();
+        }
 
         //db에 넣을 entity
         Movie movie = new Movie();
         
-
         // Movie 저장. 심의등급, 장르, 한글명, 영어명, 개봉년도, kobis코드는 먼저 저장
         movie.setGenre(list.get(0).getRepGenreNm());
         movie.setEngName(list.get(0).getMovieNmEn());
@@ -117,6 +174,8 @@ public class HomeController {
         movie.setStillcutUrl("https://image.tmdb.org/t/p/original" + md.getBackdropPath());
         movie.setTrailerUrl("https://www.youtube.com/embed/" + md.getResults().get(0).getKey());
 
+
+        // movie를 db에 저장
         Long movieID = movieService.saveMovie(movie);
 
 
