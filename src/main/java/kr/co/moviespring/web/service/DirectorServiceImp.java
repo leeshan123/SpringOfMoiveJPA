@@ -29,5 +29,11 @@ public class DirectorServiceImp implements DirectorService{
         // 일단 0값
         return 0;
     }
+
+    @Override
+    public Director getByTMDBId(String id) {
+        Director director = repository.findByTMDBId(id);
+        return director;
+    }
     
 }

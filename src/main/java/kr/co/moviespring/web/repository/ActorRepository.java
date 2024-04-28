@@ -10,4 +10,5 @@ public interface ActorRepository {
     Long save(Actor actor);
     int update(Actor actor);
     int delete(Actor actor);
+    Actor findByTMDBId(String id);
 }

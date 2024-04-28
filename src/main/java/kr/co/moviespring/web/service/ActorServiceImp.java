@@ -30,5 +30,11 @@ public class ActorServiceImp implements ActorService{
         // 일단 0값
         return 0;
     }
+
+    @Override
+    public Actor getByTMDBId(String id) {
+        Actor actor = repository.findByTMDBId(id);
+        return actor;
+    }
     
 }

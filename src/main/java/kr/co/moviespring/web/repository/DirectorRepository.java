@@ -9,4 +9,5 @@ public interface DirectorRepository {
     Long save(Director director);
     int update(Director director);
     int delete(Director director);
+    Director findByTMDBId(String id);
 }

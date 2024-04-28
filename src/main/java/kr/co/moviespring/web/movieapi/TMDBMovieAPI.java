@@ -41,8 +41,8 @@ public class TMDBMovieAPI {
         OkHttpClient client = new OkHttpClient();
         
         // 영화 코드만 추출하는 search-movie
-        String reqUrl = String.format("https://api.themoviedb.org/3/search/movie?query=%s&include_adult=false&language=ko-KR&video&primary_release_year=%s&page=1", strMovieName, strYear);
-
+        String reqUrl = String.format("https://api.themoviedb.org/3/search/movie?query=%s&include_adult=false&language=ko-KR&page=1&year=%s", strMovieName, strYear);
+                                             
         //요청 url, query(영화명)와 primary_release_year(년도)는 나중에 인자값으로 전달받아서 처리
         Request request = new Request.Builder()
             .url(reqUrl)
@@ -242,7 +242,7 @@ public class TMDBMovieAPI {
     }
 
 
-    // 배우검색
+    // 영화인검색
     public TMDBPersonDetails personDetails(String personId) throws IOException{
         // 채울 데이터
         TMDBPersonDetails personDetails = new TMDBPersonDetails();
@@ -299,7 +299,7 @@ public class TMDBMovieAPI {
         
         // 영화 디테일 찾는 방법(웬만하면 영어 이름으로 찾기)
         // String movieName = "THE ROUNDUP : PUNISHMENT";
-        // Long movieCode = api.serchMovie(movieName, "1267");
+        // Long movieCode = api.serchMovie(movieName, "2024");
         // System.out.println(movieCode);
 
         // 아래는 영화이름하고 년도 쓰면 오버뷰 나오게 함. 영화명은 한글 영문 모두 가능

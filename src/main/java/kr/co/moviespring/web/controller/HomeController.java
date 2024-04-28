@@ -87,10 +87,14 @@ public class HomeController {
         List<Movie3> list = serviceTest.getMovieList();
 
         // 제목이랑 개봉일자(년도만 추출) 저장해서 영화정보 불러오기
+        // 일단 1개만 저장하고 나중에 반복문으로 가져온 개수만큼 저장하기
         movieName = list.get(0).getMovieNmEn();
         year = list.get(0).getOpenDt().substring(0, 4); 
         
         // TMDB에서 이름 년도로 영화 정보를 불러옴
+        // 임시로 범죄도시1로 테스트
+        movieName = "THE OUTLAWS";
+        year = "2017";
         Long movieCode = api.serchMovie(movieName, year);
 
         // movieCode가 null이 아니면 중복체크 후 저장, 아니면 리턴
@@ -143,6 +147,8 @@ public class HomeController {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
             writer.write(csvLine.toString());
             writer.close();
+
+            return "index";
         }
 
         //db에 넣을 entity
@@ -175,7 +181,7 @@ public class HomeController {
         movie.setTrailerUrl("https://www.youtube.com/embed/" + md.getResults().get(0).getKey());
 
 
-        // movie를 db에 저장
+        // movie를 db에 저장하고 생성된 ID 가져옴
         Long movieID = movieService.saveMovie(movie);
 
 
@@ -190,20 +196,29 @@ public class HomeController {
         // actor 테이블 저장
         List<Cast> casts = md.getCasts();
         for (Cast cast : casts) {
-            Actor actor = new Actor();
-            actor.setEngName(cast.getOriginalName());
-            actor.setImgUrl("https://image.tmdb.org/t/p/original"+cast.getProfilePath());
-            actor.setTmdbId(cast.getId());
-            actor.setPopularity(Double.parseDouble(cast.getPopularity()));
-            TMDBPersonDetails pd = api.personDetails(cast.getId());
-            actor.setKorName(pd.getKorName());
+            String tmdbId = cast.getId();
 
             // 리스트에 저장할 필요가 있음?
             // actors.add(actor);
 
-            // db에 저장
-            Long actorId = actorService.add(actor);
-            
+            // db에 tmdbId가 있는지 체크 후 저장하거나 배우ID 가져오기
+            Actor actor = actorService.getByTMDBId(tmdbId);
+            Long actorId = 0L;
+            if(actor == null){
+                // db에 저장하고 생성된 ID 가져옴
+                actor = new Actor();
+                actor.setEngName(cast.getOriginalName());
+                actor.setImgUrl("https://image.tmdb.org/t/p/original"+cast.getProfilePath());
+                actor.setTmdbId(tmdbId);
+                actor.setPopularity(Double.parseDouble(cast.getPopularity()));
+                TMDBPersonDetails pd = api.personDetails(cast.getId());
+                actor.setKorName(pd.getKorName());
+                // db에 저장하고 생성된 ID 가져옴
+                actorId = actorService.add(actor);
+            }
+            else
+                actorId = actor.getId();
+
             // movieActor 테이블 저장
             {
                 MovieActor movieActor = new MovieActor();
@@ -224,19 +239,26 @@ public class HomeController {
         // director 테이블 저장
         List<Crew> crews = md.getCrews();
         for (Crew crew : crews) {
-            Director director = new Director();
-            director.setEngName(crew.getOriginalName());
-            director.setImgUrl("https://image.tmdb.org/t/p/original"+crew.getProfilePath());
-            director.setTmdbId(crew.getId());
-            director.setPopularity(Double.parseDouble(crew.getPopularity()));
-            TMDBPersonDetails pd = api.personDetails(crew.getId());
-            director.setKorName(pd.getKorName());
+            String tmdbId = crew.getId();
 
-            // 리스트에 저장할 필요가 없는것같음?
-            // directors.add(director);
+            // db에 tmdbId가 있는지 체크 후 저장하거나 배우ID 가져오기
+            Director director = directorService.getByTMDBId(tmdbId);
+            Long directorId = 0L;
 
-            // db에 저장
-            Long directorId = directorService.add(director);
+            if(director == null){
+                director = new Director();
+                director.setEngName(crew.getOriginalName());
+                director.setImgUrl("https://image.tmdb.org/t/p/original"+crew.getProfilePath());
+                director.setTmdbId(crew.getId());
+                director.setPopularity(Double.parseDouble(crew.getPopularity()));
+                TMDBPersonDetails pd = api.personDetails(crew.getId());
+                director.setKorName(pd.getKorName());
+                // db에 저장하고 생성된 ID 가져옴
+                directorId = directorService.add(director);
+            }
+            else{
+                directorId = director.getId();
+            }
 
             // movieDirector 테이블 저장
             {
