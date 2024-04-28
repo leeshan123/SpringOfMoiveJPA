@@ -14,6 +14,7 @@ public class TMDBMovieDetail {
     private List<Genre> genres;     // 장르
     private List<String> productCountries;  // 제작국가
     private List<String> originCountries;   // 원래 국가?
+    private List<String> stillCuts; //스틸컷
 
     private String id;            // 영화 ID
     private String title;         // 영화명
@@ -114,5 +115,11 @@ public class TMDBMovieDetail {
     }
     public void setCrews(List<Crew> crews) {
         this.crews = crews;
+    }
+    public List<String> getStillCuts() {
+        return stillCuts;
+    }
+    public void setStillCuts(List<String> stillCuts) {
+        this.stillCuts = stillCuts;
     }
 }

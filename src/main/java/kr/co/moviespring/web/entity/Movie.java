@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Movie {
     private Long id; //영화상세정보(영화코드) > movieCd
-    private String kobisId; //영화상세정보(영화코드) > movieCd
     private String tmdbId;  //영화상세정보(영화코드) > movieCd
+    private String kobisId; //영화상세정보(영화코드) > movieCd
     private String korName; //영화상세정보(한글이름) > movieNm
     private String engName; //영화상세정보(영문) > movieNmEn
     private String sponsor; //일단 null

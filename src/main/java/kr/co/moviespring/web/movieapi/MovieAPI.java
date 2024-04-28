@@ -383,7 +383,7 @@ public class MovieAPI {
                 movieActor.setMovieId(movie.getId());
                 movieActor.setCastEngName(cast.getCharacter());
                 // movieActor.setCastKorName(year); 한국배역명은 일단 보류
-                movieActor.setOrder(Long.parseLong(cast.getOrder()));
+                movieActor.setCastOrder(Long.parseLong(cast.getCastOrder()));
             }
         }
 

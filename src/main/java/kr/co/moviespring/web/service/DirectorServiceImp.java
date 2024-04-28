@@ -13,9 +13,9 @@ public class DirectorServiceImp implements DirectorService{
     DirectorRepository repository;
 
     @Override
-    public Director add(Director director) {
-        repository.save(director);
-        return director;
+    public Long add(Director director) {
+        Long directorId = repository.save(director);
+        return directorId;
     }
 
     @Override

@@ -32,8 +32,10 @@ public class MovieServiceImp implements MovieService {
 
     // ?? //
     @Override
-    public void saveMovie(Movie movie) {
+    public Long saveMovie(Movie movie) {
         repository.save(movie);
+        Long movieId = movie.getId();
+        return movieId;
     }
 
 }

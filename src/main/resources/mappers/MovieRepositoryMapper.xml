@@ -15,9 +15,12 @@
 	</select>
 
 	<!-- 영화 등록 (임시) -->
-	<insert id="save" parameterType="Movie">
-		INSERT INTO movie (id, kor_name, eng_name, sponsor, release_date, total_rate, total_boxoffice, total_sales, daily_sales, total_audience, daily_audience, movie_intro, poster_url, stillcut_url, trailer_url, release_nation_id, genre_id)
-    	VALUES (#{id}, #{korName}, #{engName}, #{sponsor}, #{releaseDate}, #{totalRate}, #{totalBoxoffice}, #{totalSales}, #{dailySales}, #{totalAudience}, #{dailyAudience}, #{movieIntro}, #{posterUrl}, #{stillcutUrl}, #{trailerUrl}, #{releaseNationId}, #{genreId})
+	<insert id="save" parameterType="Movie" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO movie (tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, stillcut_url, trailer_url, release_nation, genre)
+    	VALUES 
+			(#{tmdbId}, #{kobisId}, #{korName}, #{engName}, #{sponsor},
+			#{releaseDate}, #{runningTime}, #{watchGrade}, #{movieIntro}, #{posterUrl},
+			#{stillcutUrl}, #{trailerUrl}, #{releaseNation}, #{genre})
 	</insert>
 
 

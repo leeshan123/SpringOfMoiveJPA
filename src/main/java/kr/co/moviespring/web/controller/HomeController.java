@@ -19,6 +19,7 @@ import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.Movie3;
 import kr.co.moviespring.web.entity.MovieActor;
 import kr.co.moviespring.web.entity.MovieDirector;
+import kr.co.moviespring.web.entity.MovieStillcut;
 import kr.co.moviespring.web.movieapi.KobisMovieAPI;
 import kr.co.moviespring.web.movieapi.TMDBMovieAPI;
 import kr.co.moviespring.web.movieapi.dto.kobis.KobisMovieInfo;
@@ -26,8 +27,13 @@ import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBMovieDetail;
 import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBPersonDetails;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Cast;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Crew;
+import kr.co.moviespring.web.service.ActorService;
+import kr.co.moviespring.web.service.DirectorService;
+import kr.co.moviespring.web.service.MovieActorService;
+import kr.co.moviespring.web.service.MovieDirectorService;
 import kr.co.moviespring.web.service.MovieInsertService;
 import kr.co.moviespring.web.service.MovieService;
+import kr.co.moviespring.web.service.MovieStillcutService;
 
 @Controller
 @RequestMapping("/")
@@ -37,7 +43,23 @@ public class HomeController {
     MovieService movieService;
 
     @Autowired
+    ActorService actorService;
+
+    @Autowired
+    DirectorService directorService;
+
+    @Autowired
+    MovieActorService movieActorService;
+
+    @Autowired
+    MovieDirectorService movieDirectorService;
+
+    @Autowired
     MovieInsertService serviceTest;
+
+    @Autowired
+    MovieStillcutService stillcutService;
+
 
     @GetMapping("index")
     public String index(Model model) {
@@ -79,7 +101,6 @@ public class HomeController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         Date releaseDate = dateFormat.parse(dateString);
         movie.setReleaseDate(releaseDate);
-        
         movie.setReleaseNation(list.get(0).getNationAlt());
         movie.setKobisId(list.get(0).getMovieCd());
 
@@ -91,34 +112,53 @@ public class HomeController {
         // tmdb에서 채움
         movie.setTmdbId(md.getId());
         movie.setMovieIntro(md.getOverview());
-        movie.setPosterUrl("https://image.tmdb.org/t/p/original/" + md.getPosterPath());
+        movie.setPosterUrl("https://image.tmdb.org/t/p/original" + md.getPosterPath());
         movie.setRunningTime(md.getRuntime());
-        movie.setStillcutUrl("https://image.tmdb.org/t/p/original/" + md.getBackdropPath());
-        movie.setTrailerUrl("https://www.youtube.com/watch?v=" + md.getResults().get(0).getKey());
-        
+        movie.setStillcutUrl("https://image.tmdb.org/t/p/original" + md.getBackdropPath());
+        movie.setTrailerUrl("https://www.youtube.com/embed/" + md.getResults().get(0).getKey());
+
+        Long movieID = movieService.saveMovie(movie);
+
+
+        // 스틸컷 저장
+        MovieStillcut stillcut = new MovieStillcut();
+        stillcut.setMovieId(movieID);   
+        for (String strUrl : md.getStillCuts()) {
+            stillcut.setUrl(strUrl);
+            stillcutService.add(stillcut);   
+        }
+
         // actor 테이블 저장
         List<Cast> casts = md.getCasts();
         for (Cast cast : casts) {
             Actor actor = new Actor();
             actor.setEngName(cast.getOriginalName());
-            actor.setImgUrl("https://image.tmdb.org/t/p/original/"+cast.getProfilePath());
+            actor.setImgUrl("https://image.tmdb.org/t/p/original"+cast.getProfilePath());
             actor.setTmdbId(cast.getId());
             actor.setPopularity(Double.parseDouble(cast.getPopularity()));
             TMDBPersonDetails pd = api.personDetails(cast.getId());
             actor.setKorName(pd.getKorName());
 
-            actors.add(actor);
+            // 리스트에 저장할 필요가 있음?
+            // actors.add(actor);
+
+            // db에 저장
+            Long actorId = actorService.add(actor);
             
             // movieActor 테이블 저장
             {
                 MovieActor movieActor = new MovieActor();
-                movieActor.setActorId(actor.getId());
-                movieActor.setMovieId(movie.getId());
+                movieActor.setActorId(actorId);
+                movieActor.setMovieId(movieID);
                 movieActor.setCastEngName(cast.getCharacter());
                 // movieActor.setCastKorName(year); 한국배역명은 일단 보류
-                movieActor.setOrder(Long.parseLong(cast.getOrder()));
+                movieActor.setCastOrder(Long.parseLong(cast.getCastOrder()));
 
-                movieActors.add(movieActor);
+                // 리스트에 저장할 필요가 있나?
+                // movieActors.add(movieActor);
+
+                //db에 저장
+                movieActorService.add(movieActor);
             }
         }
 
@@ -127,21 +167,27 @@ public class HomeController {
         for (Crew crew : crews) {
             Director director = new Director();
             director.setEngName(crew.getOriginalName());
-            director.setImgUrl("https://image.tmdb.org/t/p/original/"+crew.getProfilePath());
+            director.setImgUrl("https://image.tmdb.org/t/p/original"+crew.getProfilePath());
             director.setTmdbId(crew.getId());
             director.setPopularity(Double.parseDouble(crew.getPopularity()));
             TMDBPersonDetails pd = api.personDetails(crew.getId());
             director.setKorName(pd.getKorName());
 
-            directors.add(director);
+            // 리스트에 저장할 필요가 없는것같음?
+            // directors.add(director);
+
+            // db에 저장
+            Long directorId = directorService.add(director);
 
             // movieDirector 테이블 저장
             {
                 MovieDirector movieDirector = new MovieDirector();
-                movieDirector.setDirectorId(director.getId());
-                movieDirector.setMovieId(movie.getId());
+                movieDirector.setDirectorId(directorId);
+                movieDirector.setMovieId(movieID);
 
-                movieDirectors.add(movieDirector);
+                // movieDirectors.add(movieDirector);
+                // db에 저장
+                movieDirectorService.add(movieDirector);
             }
         }
         return "index";

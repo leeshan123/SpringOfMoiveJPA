@@ -76,7 +76,7 @@ public class TMDBMovieAPI {
             //(포스트) tmdb, poster_path,
             //스틸컷이미지,  backdrop_path
             //트레일러영상,  videos <= 배열 형식으로 받아야 함
-            String reqUrl = String.format("https://api.themoviedb.org/3/movie/%d?append_to_response=videos,credits&language=ko-KR", lMovieCode);
+            String reqUrl = String.format("https://api.themoviedb.org/3/movie/%d?append_to_response=videos,credits,images&language=ko-KR", lMovieCode);
             Request request = new Request.Builder()
                 .url(reqUrl)
                 .get()
@@ -101,9 +101,9 @@ public class TMDBMovieAPI {
             while (resultIter.hasNext()) {
                 JSONObject object = (JSONObject)resultIter.next();
                 Result result = new Result();
-                result.setKey(object.getString("key"));
-                result.setName(object.getString("name"));
-                result.setPublishedAt(object.getString("published_at"));
+                result.setKey(object.isNull("key") ? null : object.getString("key"));
+                result.setName(object.isNull("name") ? null : object.getString("name"));
+                result.setPublishedAt(object.isNull("published_at") ? null : object.getString("published_at"));
                 resultList.add(result);
             }
             movieDetail.setResults(resultList);
@@ -118,10 +118,10 @@ public class TMDBMovieAPI {
                 Cast cast = new Cast();
                 cast.setId(String.valueOf(object.getLong("id")));
                 cast.setGender(String.valueOf(object.getLong("gender")));
-                cast.setCharacter(object.getString("character"));
+                cast.setCharacter(object.isNull("character") ? null : object.getString("character"));
                 cast.setProfilePath(object.isNull("profile_path") ? null : object.getString("profile_path"));
-                cast.setOriginalName(object.getString("original_name"));
-                cast.setOrder(String.valueOf(object.getLong("order")));
+                cast.setOriginalName(object.isNull("original_name") ? null : object.getString("original_name"));
+                cast.setCastOrder(String.valueOf(object.getLong("order")));
                 cast.setPopularity(String.valueOf(object.getDouble("popularity")));
                 castList.add(cast);
             }
@@ -181,13 +181,43 @@ public class TMDBMovieAPI {
             movieDetail.setId(String.valueOf(responseBody.getLong("id")));
             movieDetail.setTitle(responseBody.getString("title"));
             movieDetail.setBackdropPath(responseBody.isNull("backdrop_path") ? null : responseBody.getString("backdrop_path"));
-            movieDetail.setOverview(responseBody.getString("overview"));
-            movieDetail.setOriginalTitle(responseBody.getString("original_title"));
+            movieDetail.setOverview(responseBody.isNull("overview") ? null : responseBody.getString("overview"));
+            movieDetail.setOriginalTitle(responseBody.isNull("original_title") ? null : responseBody.getString("original_title"));
             movieDetail.setRuntime(String.valueOf(responseBody.getLong("runtime")));
-            movieDetail.setReleaseDate(responseBody.getString("release_date"));
+            movieDetail.setReleaseDate(responseBody.isNull("release_date") ? null : responseBody.getString("release_date"));
             movieDetail.setPosterPath(responseBody.isNull("poster_path") ? null : responseBody.getString("poster_path"));
-            movieDetail.setTagLine(responseBody.getString("tagline"));
+            movieDetail.setTagLine(responseBody.isNull("tagline") ? null : responseBody.getString("tagline"));
 
+        }
+
+        // 스틸컷
+        {
+            String reqUrl = String.format("https://api.themoviedb.org/3/movie/%d/images", lMovieCode);
+            Request request = new Request.Builder()
+            .url(reqUrl)
+            .get()
+            .addHeader("accept", "application/json")
+            .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM2U5NWU1MTY0NWUzYjgwZDU0MzQyNGQxYTA5ODg0YSIsInN1YiI6IjY2MDEzYjRmNzcwNzAwMDE2MzBhZjg0MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RFfawiMrE8C2YgpGPdaU5IOcl-R5t-JIquRBN6vaLzU")
+            .build();
+
+            Response response = client.newCall(request).execute();
+
+            // 응답 데이터를 JSON 형식으로 파싱
+            String responseData = response.body().string();
+
+            // JSON 객체로  변환
+            JSONObject responseBody = new JSONObject(responseData.toString());
+
+            // 데이터 추출 작업
+            // "backdrops" 키의 값인 JsonArray를 추출
+            JSONArray images = responseBody.getJSONArray("backdrops");
+            Iterator<Object> imagesIter = images.iterator();
+            List<String> stillCutList = new ArrayList<>();
+            while (imagesIter.hasNext()) {
+                JSONObject object = (JSONObject)imagesIter.next();
+                stillCutList.add(object.isNull("file_path") ? null : object.getString("file_path"));
+            }
+            movieDetail.setStillCuts(stillCutList);
         }
 
         return movieDetail;

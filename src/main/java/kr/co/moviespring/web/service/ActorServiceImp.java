@@ -13,9 +13,10 @@ public class ActorServiceImp implements ActorService{
     ActorRepository repository;
 
     @Override
-    public Actor add(Actor actor) {
+    public Long add(Actor actor) {
         repository.save(actor);
-        return actor;
+        Long actorId = actor.getId(); 
+        return actorId;
     }
 
     @Override

@@ -6,7 +6,7 @@ import kr.co.moviespring.web.entity.Director;
 
 @Mapper
 public interface DirectorRepository {
-    int save(Director director);
+    Long save(Director director);
     int update(Director director);
     int delete(Director director);
 }

@@ -7,5 +7,5 @@ import kr.co.moviespring.web.entity.Movie;
 public interface MovieService {
     List <Movie> getList();
     Movie getById(Long id);
-    void saveMovie(Movie movie);
+    Long saveMovie(Movie movie);
 }
