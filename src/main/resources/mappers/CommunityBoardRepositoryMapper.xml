@@ -39,15 +39,15 @@
     </select>
 
     <!--게시글 상세-->
-    <select id="findById" resultType="CommunityBoard">
-        SELECT * FROM community_board
+    <select id="findById" resultType="CommunityBoardView">
+        SELECT * FROM community_board_view
         WHERE id=#{id}
     </select>
 
     <!-- 게시글 등록 -->
     <insert id="saveContents">
         INSERT INTO community_board (title,contents,member_id,category_id)
-        VALUES (#{title},#{contents},12,#{categoryId});
+        VALUES (#{title},#{contents},#{memberId},#{categoryId});
     </insert>
 
     <!-- 게시글 수정 -->

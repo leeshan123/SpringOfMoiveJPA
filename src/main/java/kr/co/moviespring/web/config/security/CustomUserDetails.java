@@ -4,6 +4,8 @@ import kr.co.moviespring.web.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import groovyjarjarantlr4.v4.parse.ANTLRParser.ruleAction_return;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -28,6 +30,13 @@ public class CustomUserDetails implements UserDetails {
             }
         });
         return collection;
+    }
+    public Long getId(){
+        return member.getId();
+    }
+
+    public void setId(Long Id){
+        this.member.setId(Id);
     }
 
     public String getNickname() {

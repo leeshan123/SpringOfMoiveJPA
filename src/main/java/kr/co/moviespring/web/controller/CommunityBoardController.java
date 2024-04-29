@@ -4,10 +4,12 @@ import java.util.List;
 
 import kr.co.moviespring.web.entity.CommunityBoardView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import kr.co.moviespring.web.config.security.CustomUserDetails;
 import kr.co.moviespring.web.entity.Category;
 import kr.co.moviespring.web.entity.CommunityBoard;
 import kr.co.moviespring.web.service.CategoryService;
@@ -74,9 +76,10 @@ public class CommunityBoardController {
                          @RequestParam("id")Long boardId, Model model){
         //FIXME: 2024-04-14, 일, 22:58 주소창에서 카테고리 쿼리를 변경해도 게시글이 그대로 출력되는 버그있음,
         // 임의로 변경시 게시글의 카테고리명이 변경됨, 쿼리값에 카테고리가 필요한지? (디씨의 경우 있긴 함) -JOON
-        CommunityBoard board = communityBoardService.getById(boardId);
+        CommunityBoardView board1 = communityBoardService.getById(boardId);
+        // CommunityBoard board = communityBoardService.getById(boardId);
         Category category = categoryService.getByName(categoryName);
-        model.addAttribute("board", board);
+        model.addAttribute("board", board1);
         model.addAttribute("category", category);
 
         return "community/board/detail";
@@ -90,9 +93,14 @@ public class CommunityBoardController {
 
     // 게시글 등록//
     @PostMapping("board/reg")
-    public String reg(String title , String contents, String categoryName){
+    public String reg(String title , String contents, String categoryName,@AuthenticationPrincipal CustomUserDetails userDetails){
         Category category = categoryService.getByName(categoryName);
-        communityBoardService.write(title,contents,category.getId());
+
+        Long memberId = null;
+        if(userDetails != null)
+        memberId= userDetails.getId();
+        
+        communityBoardService.write(memberId,title,contents,category.getId());
         System.out.println("등록");
         return "redirect:/community/board/list?c="+categoryName;
     }
@@ -108,7 +116,9 @@ public class CommunityBoardController {
     // 게시글 등록 수정페이지 요청//
     @GetMapping("board/edit/{id}")
     public String edit(@PathVariable Long id,@RequestParam(name="c",required = false)String categoryName, Model model) {
-        CommunityBoard board = communityBoardService.getById(id);
+        // CommunityBoard board = communityBoardService.getById(id);
+        CommunityBoardView board = communityBoardService.getById(id);
+
         model.addAttribute("board", board);
         model.addAttribute("cName", categoryName);
         return "community/board/reg";

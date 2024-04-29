@@ -10,7 +10,7 @@ import kr.co.moviespring.web.entity.CommunityBoard;
 @Mapper
 public interface CommunityBoardRepository {
     // 게시글 등록//
-    void saveContents(String title, String contents, Long categoryId);
+    // void saveContents(String title, String contents, Long categoryId);
 
     // 게시글 삭제//
     int delete(Long id);
@@ -22,10 +22,15 @@ public interface CommunityBoardRepository {
     List<CommunityBoardView> findAll(Long categoryId, String query, int offset, int size);
 
     //게시글 디테일페이지
-    CommunityBoard findById(Long id);
+    // CommunityBoard findById(Long id);
+    CommunityBoardView findById(Long id);
+
 
     //페이징을 위한 게시글 갯수 카운팅
     int getCount(Long categoryId, String query);
+
+    //nickname 붙여서 게시글등록
+    void saveContents(Long memberId, String title, String contents, Long categoryId);
 
 
 //    List<GeneralBoard> findAll();
