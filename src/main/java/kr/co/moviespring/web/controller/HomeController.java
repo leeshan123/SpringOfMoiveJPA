@@ -177,7 +177,7 @@ public class HomeController {
         movie.setMovieIntro(md.getOverview());
         movie.setPosterUrl("https://image.tmdb.org/t/p/original" + md.getPosterPath());
         movie.setRunningTime(md.getRuntime());
-        movie.setStillcutUrl("https://image.tmdb.org/t/p/original" + md.getBackdropPath());
+        movie.setMainImgUrl("https://image.tmdb.org/t/p/original" + md.getBackdropPath());
         movie.setTrailerUrl("https://www.youtube.com/embed/" + md.getResults().get(0).getKey());
 
 

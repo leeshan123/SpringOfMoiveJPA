@@ -23,7 +23,8 @@ public class Movie {
     private String watchGrade;//"audits":[{"auditNo":"2012-F610","watchGradeNm":"15세이상관람가"}]"
     private String movieIntro;//영화 상세 검색(MOVIES>Details)(소개글) tmdb overview
     private String posterUrl;//영화 상세 검색(MOVIES>Details) (포스트) tmdb poster_path
-    private String stillcutUrl;//이건(스틸컷이미지) tmdb
+    private String logoUrl;//이건(로고이미지) tmdb
+    private String mainImgUrl;//이건(메인이미지) tmdb
     private String trailerUrl;//이건(트레일러영상) tmdb
 //    private int totalRate;//일단 null
 //    private int totalBoxoffice;//영화상세정보(랭킹) > audiAcc
