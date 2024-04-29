@@ -81,7 +81,7 @@
                 <div class="gradient-overlay"></div>
                 <!--                <img class="img" src="http://file.koreafilm.or.kr/thm/02/99/18/21/tn_DPK021291.jpg" alt="">-->
                 <!--                <img class="img" src="http://file.koreafilm.or.kr/thm/02/99/18/21/tn_DPK021292.jpg" alt="">-->
-                <img class="logo-position position:absolute width:3" th:src="${movie.logoUrl}" src="http://image.tmdb.org/t/p/original//zPEtfLeTXr8RnYxwBm0Zm4ytmQX.png" alt="">
+                <img class="logo-position position:absolute width:3p" th:src="${movie.logoUrl}" src="http://image.tmdb.org/t/p/original//zPEtfLeTXr8RnYxwBm0Zm4ytmQX.png" alt="">
 <!--                transform: translateX(0px);-->
             </div>
             <div class="test">
@@ -131,13 +131,19 @@
                         <span class="fs:3 fw:2 color:base-10">(3,426리뷰)</span>
                     </div>
                     <div>
-                        <span>2023 · </span>
-                        <span>범죄/액션 · </span>
-                        <span>한국</span>
+                        <span th:text="${#dates.format(movie.releaseDate, 'yyyy')+' · '}">2023 · </span>
+                        <span th:text="${movie.genre}+' · '">범죄/액션 · </span>
+                        <span th:text="${movie.releaseNation}">한국</span>
                     </div>
+<!--                    <th:block th:with="totalMinutes=${movie.runningTime}">-->
+<!--                        &lt;!&ndash; 시간 계산 &ndash;&gt;-->
+<!--                        <span th:text="${#numbers.formatDecimal(totalMinutes div 60,0,0)}"></span>시간-->
+<!--                        &lt;!&ndash; 분 계산 &ndash;&gt;-->
+<!--                        <span th:text="${totalMinutes mod 60}"></span>분-->
+<!--                    </th:block>-->
                     <div>
-                        <span>1시간49분 · </span>
-                        <span>15세 · </span>
+                        <span th:text="${movie.runningTime}+' · '">1시간49분 · </span>
+                        <span th:text="${movie.watchGrade}+' · '">15세 · </span>
                         <span>누적 관객 133만명</span>
                     </div>
                 </div>
