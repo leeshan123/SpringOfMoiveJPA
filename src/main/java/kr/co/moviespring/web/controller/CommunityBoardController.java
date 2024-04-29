@@ -115,10 +115,10 @@ public class CommunityBoardController {
 
     // 게시글 댓글 등록//
     @PostMapping("board/detail")
-    public String regComment(String contents,@RequestParam(name="c",required = false)Long categoryId,
-                                             @RequestParam(name="b",required = false)Long boardId){
-//        communityService.write(contents,categoryId);
-        return "redirect:/community/board/detail?b="+boardId;
+    public String regComment(String contents,@RequestParam(name="c",required = false)String categoryName,
+                                             @RequestParam(name="id",required = false)Long boardId){
+        communityBoardService.write(contents,categoryId);
+        return "redirect:/community/board/detail?c="+categoryName+"&id="+boardId;
     }
 
     // 게시글 등록 수정페이지 요청//
