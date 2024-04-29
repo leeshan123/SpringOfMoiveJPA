@@ -2,6 +2,8 @@ package kr.co.moviespring.web.controller;
 
 import java.util.List;
 
+import kr.co.moviespring.web.entity.*;
+import kr.co.moviespring.web.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,10 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.moviespring.web.config.security.CustomUserDetails;
-import kr.co.moviespring.web.entity.Movie;
-import kr.co.moviespring.web.entity.OnelineReview;
-import kr.co.moviespring.web.service.MovieService;
-import kr.co.moviespring.web.service.OnelineReviewService;
 
 @Controller
 @RequestMapping("movie")
@@ -27,6 +25,12 @@ public class MovieController {
 
     @Autowired
     OnelineReviewService onelineReviewService;
+
+    @Autowired
+    MovieActorService movieActorService;
+
+    @Autowired
+    MovieDirectorService movieDirectorService;
 
     // 영화 목록//
     @GetMapping("list")
@@ -73,10 +77,14 @@ public class MovieController {
                          @RequestParam("movieid") Long movieId, Model model) {
         // 상세정보//
         Movie movie = movieService.getById(movieId);
+        List<MovieActorView> actors = movieActorService.getById(movieId);
+        List<Director> directors = movieDirectorService.getById(movieId); //디렉터 타입인데 무비디렉터 서비스 쓰는게 맞나?
         // 리뷰목록//
         List<OnelineReview> onelineReviews = onelineReviewService.getOnelineReviews(movieId);
 
         model.addAttribute("movie", movie);
+        model.addAttribute("actors", actors);
+        model.addAttribute("directors", directors);
         model.addAttribute("reviews", onelineReviews);
         model.addAttribute("user", userDetails); //유저 정보 객체 넣어줌 테스트중
 

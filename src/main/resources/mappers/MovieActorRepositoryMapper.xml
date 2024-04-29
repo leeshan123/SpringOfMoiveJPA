@@ -9,4 +9,13 @@
         values (#{movieId}, #{actorId}, #{castOrder}, #{castEngName})
     </insert>
 
+    <!--영화아이디별 배우목록-->
+    <select id="findAllById" resultType="MovieActorView">
+        SELECT actor.id actor_id, actor.kor_name, actor.eng_name, movie_actor.cast_eng_name, actor.img_url, actor.popularity
+        FROM movie_actor
+        INNER JOIN actor ON movie_actor.actor_id = actor.id
+        WHERE movie_actor.movie_id = #{movieId}
+        ORDER BY popularity DESC
+    </select>
+
 </mapper>

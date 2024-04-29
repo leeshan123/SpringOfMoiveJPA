@@ -117,7 +117,7 @@ public class CommunityBoardController {
     @PostMapping("board/detail")
     public String regComment(String contents,@RequestParam(name="c",required = false)String categoryName,
                                              @RequestParam(name="id",required = false)Long boardId){
-        communityBoardService.write(contents,categoryId);
+//        communityBoardService.write(contents,categoryId);
         return "redirect:/community/board/detail?c="+categoryName+"&id="+boardId;
     }
 
