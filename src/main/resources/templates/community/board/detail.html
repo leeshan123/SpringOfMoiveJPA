@@ -22,7 +22,7 @@ layout:decorate="inc/layout">
             <h1 class="color:main-3 fw:bold fs:7 margin-bottom:4" th:text="${category.name == '인기글' || category.name == '굿즈&포스터 ' ? category.name : category.name+'게시판'}">자유게시판</h1>
             <section class="p:2 border-bottom">
                 <h1 class="fs:5 margin-bottom:1" th:text="${board.title}">게시글 제목이 나타날 위치입니다</h1>
-                <div class="d:flex ai:center gap:3 margin-bottom:1">
+                <div class="d:flex ai:center gap:3 margin-bottom:1 mt:5">
                     <div class="margin-right:auto">
                         <span class="icon icon:bone">아이콘</span>
                         <span class="fw:bold" th:text="${board.nickname}">작성자</span>
@@ -52,7 +52,7 @@ layout:decorate="inc/layout">
                         </div>
                     </div>
                 </div>
-                <div class="text-align:end fs:5 fw:bold color:main-3">
+                <div class="text-align:end fs:5 fw:bold color:main-3" th:if="${userId eq board.memberId}">
                     <a th:href="@{'edit/'+${board.id}(c=${category.engName})}">수정</a>
                     <a th:href="@{'delete/'+${board.id}(c=${category.engName})}">삭제</a>
                 </div>

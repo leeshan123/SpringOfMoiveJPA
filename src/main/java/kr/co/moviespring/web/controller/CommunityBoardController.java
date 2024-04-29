@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.moviespring.web.entity.CommunityBoardView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,13 +73,20 @@ public class CommunityBoardController {
 
     //게시글 상세페이지 요청//
     @GetMapping("board/detail")
+    
     public String detail(@RequestParam("c")String categoryName,
-                         @RequestParam("id")Long boardId, Model model){
+                         @RequestParam("id")Long boardId, Model model,@AuthenticationPrincipal CustomUserDetails userDetails){
         //FIXME: 2024-04-14, 일, 22:58 주소창에서 카테고리 쿼리를 변경해도 게시글이 그대로 출력되는 버그있음,
         // 임의로 변경시 게시글의 카테고리명이 변경됨, 쿼리값에 카테고리가 필요한지? (디씨의 경우 있긴 함) -JOON
+        Long memberId = null;
+        if(userDetails != null)
+        memberId= userDetails.getId();
+
         CommunityBoardView board1 = communityBoardService.getById(boardId);
-        // CommunityBoard board = communityBoardService.getById(boardId);
+        // CommunityBoard board = communityBoardService.getById(boardId); 예전버전
         Category category = categoryService.getByName(categoryName);
+
+        model.addAttribute("userId", memberId);
         model.addAttribute("board", board1);
         model.addAttribute("category", category);
 
