@@ -29,19 +29,11 @@ public class CommunityBoardController {
         List<Category> categories = categoryService.getList();
 
         for (int i = 0; i < categories.size(); i++) {
-        List <CommunityBoardView> list = communityBoardService.getList(categories.get(i).getId(),5);
-        model.addAttribute("list"+(i+1), list);
+            Long categoryId = categories.get(i).getId();
+            List <CommunityBoardView> list = communityBoardService.getList(categoryId,1, 5);
+            model.addAttribute("list"+(i+1), list); // list1,2,3,4,5로 보내려고 +1해줌 특별한 의미 없음
         }
         model.addAttribute("categories", categories);
-
-//        List <GeneralBoard> list2 = communityService.getList2();
-//        List <GeneralBoard> list3 = communityService.getList3();
-//        List <GeneralBoard> list4 = communityService.getList4();
-
-//        model.addAttribute("list1", list1);
-//        model.addAttribute("list2", list2);
-//        model.addAttribute("list3", list3);
-//        model.addAttribute("list4", list4);
 
         return "community/main";
     }
@@ -49,12 +41,27 @@ public class CommunityBoardController {
 
     //게시글 목록 요청//
     @GetMapping("board/list")
-    public String board(@RequestParam(name="c",required = false)String categoryName, Model model){
+    public String board(@RequestParam(name = "c",required = false) String categoryName,
+                        @RequestParam(name = "q",required = false) String query,
+                        @RequestParam(name = "p",required = false, defaultValue = "1") Integer page,
+                        Model model){
         Category category = categoryService.getByName(categoryName);
-        List <CommunityBoardView> list = communityBoardService.getList(category.getId(), 20);
-//        System.out.println(list.get(0).toString());
+        Long categoryId = category.getId();
+        List <CommunityBoardView> list = communityBoardService.getList(categoryId, page, 20);
+        int count = 0;
+        count = communityBoardService.getCount(categoryId);
+
+//        if (categoryId != null) {
+//            list = communityBoardService.getList(page, categoryId);
+//            count = communityBoardService.getCount(categoryId);
+        if (query != null) {
+            list = communityBoardService.getList(categoryId, page, 20, query);
+            count = communityBoardService.getCount(categoryId, query);
+        }
+
         List<Category> categories = categoryService.getList();
         model.addAttribute("list", list);
+        model.addAttribute("count", count);
         model.addAttribute("c", category);
         model.addAttribute("ctgList", categories);
 

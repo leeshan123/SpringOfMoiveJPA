@@ -25,26 +25,34 @@
 <!--        ORDER BY reg_date DESC-->
 
         select * from community_board_view
-        where category_id = #{categoryId}
+
+        <where>
+            <if test="categoryId != null">
+                category_id = #{categoryId}
+            </if>
+            <if test="query != null">
+                AND title LIKE '%${query}%'
+            </if>
+        </where>
         ORDER BY reg_date DESC
-        limit #{size}
+        LIMIT #{offset} ,#{size};
     </select>
 
     <!--게시글 상세-->
     <select id="findById" resultType="CommunityBoard">
-        select * from community_board
-        where id=#{id}
+        SELECT * FROM community_board
+        WHERE id=#{id}
     </select>
 
     <!-- 게시글 등록 -->
     <insert id="saveContents">
-        insert into community_board (title,contents,member_id,category_id)
-        values (#{title},#{contents},12,#{categoryId});
+        INSERT INTO community_board (title,contents,member_id,category_id)
+        VALUES (#{title},#{contents},12,#{categoryId});
     </insert>
 
     <!-- 게시글 수정 -->
     <update id="edit">
-        UPDATE community_board SET title=#{title}, contents=#{contents} WHERE ID=#{id};
+        UPDATE community_board SET title=#{title}, contents=#{contents} WHERE id=#{id};
     </update>
 
     <!-- 게시글 삭제 -->
@@ -57,5 +65,18 @@
     INNER JOIN category ON general_board.category_id = category.id
     WHERE general_board.category_id = #{id}
     </select> -->
+
+    <!--페이징을 위한 게시글 갯수 카운팅-->
+    <select id="getCount" resultType="Integer">
+        SELECT COUNT(*) FROM community_board
+        <where>
+            <if test="categoryId != null">
+                category_id = #{categoryId}
+            </if>
+            <if test="query != null">
+                AND title LIKE '%${query}%'
+            </if>
+        </where>
+    </select>
 
 </mapper>

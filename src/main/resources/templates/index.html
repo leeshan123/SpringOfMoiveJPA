@@ -5,101 +5,114 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="/css/desktop.css" />
+    <script src="/js/movie/list.js" defer></script>
+    <link rel="stylesheet" href="/css/components/movie/list.css">
+    <style>
+        .icon-size {
+            width: 28px;
+            height: 28px;
+        }
+        .icon-position {
+            bottom:8px;
+            left:4px;
+            z-index: 1;
+        }
+        .line-height {
+            line-height: 28px;
+        }
+    </style>
 </head>
 <body>
     <main layout:fragment="main">
         <!-- 미디어로 가운데로 값주기-->
+        <section>
+            <h1 class="d:none">메인페이지 대문</h1>
+            <iframe class="bd-radius:3"
+                    width="100%" height="700"
+                    src="https://www.youtube.com/embed/-AZ7cnwn2YI"
+                    frameborder="0" allowfullscreen>
+            </iframe>
+        </section>
         <section class="media">
-            <section class="media-sect
+            <h1 class="d:none">메인페이지 컨텐츠</h1>
+            <div class="media-sect
             d:flex flex-direction:column
             overflow:hidden">
-                <section>
-                    <iframe class="bd-radius:3"
-                    width="100%" height="500"
-                    src="https://www.youtube.com/embed/-AZ7cnwn2YI" 
-                    frameborder="0" allowfullscreen>
-                    </iframe>
-                </section>
 
                 <!-- 현재 상영작(list에서 받아옴.) -->
             <section class="m-left:2 m-top:4 m-bottom:10">
                 <h1 class="d:none">영화목록</h1>
-                <section class="d:flex jc:space-between m-bottom:2">
-                    <h1 class=" fs:5 fw:3">현재 상영작</h1>
-                    <ul class="d:flex fs:1 ai:center jc:space-between p-right:1">
+                <section class="d:flex jc:space-between m-bottom:3">
+                    <h1 class=" fs:6 fw:3 ">현재 상영작</h1>
+                    <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
                         <li class="p-right:3">
-                            <a href="movie/list" class="">박스오피스 순위</a>
+                            <a href="" class="fs:3 color:base-10">박스오피스 순위</a>
                         </li>
                         <li class="p-right:3">
                             <a href="">전날 관객 순위</a>
                         </li>
-                        
+
                         <li class="">
                             <a href="" >평점 순위</a>
                         </li>
                     </ul>
                 </section>
-                <section class=" d:flex media-pading">
+                <!-- 여기 바로밑에 of:scroll추가하고 스크롤 스타일 없애면 스크롤,스와이프로 가려진 목록 볼수있음 -->
+                <section class="p-left:3 d:flex media-pading of:scroll of-y:hidden scrable-content">
                     <h1 class="d:none ">컨텐츠</h1>
-                    <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">
-                        <div class="display:inline-block bd-color:base-10 ">
-                            <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"
-                            src=""
-                                th:src="${m.getPosterUrl()}" alt="/" height="212px" ></a>
+                    <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
+                        <div class="position:relative display:inline-block bd-color:base-10 ">
+                            <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1"
+                                                                                       src=""
+                                                                                       th:src="${m.getPosterUrl()}" alt="/" height="363px" ></a>
+                            <span class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold" th:text="${mCount.count}">1</span>
                         </div>
-                        <div class="d:flex ai:center d:inline-block line-height:1">
-                                <span class="fs:8 fw:3 line-height:1 font-style:italic" th:text="${mCount.count}">1</span>
-                            <div  class="m-left:4 d:inline-block line-height:1">
-                                <div>
-                                    <span class="fs:2 fw:3 d:inline-block"
-                                    >13000원 </span>
-                                </div>
-                                <div>
-                                    <span class="fs:2 fw:1 d:inline-block"
-                                    th:text="${m.getKorName()}">서울의 봄</span>
-                                </div>
+                        <div class="d:flex fl-dir:column gap:2 d:inline-block mt:2">
+                            <div class="d:flex">
+                            <span class="fs:3 fw:2 d:inline-block mr:auto"
+                                  th:text="${m.getKorName()}">서울의 봄</span>
+                                <span class="fs:3 fw:600 d:inline-block">13000원 </span>
                             </div>
+                            <div>2024  ·  한국</div>
+                            <div class="fs:2 color:base-6">누적 관객수 100만명</div>
                         </div>
                     </div>
-                    </section>
+                </section>
                 </section>
                 <!-- 개봉 예정작(list에서 받아옴.) -->
-                <section class="m-left:3 m-top:4 m-bottom:10">
+                <section class="m-left:3 m-top:4 m-bottom:10 of:scroll of-y:hidden">
                     <h1 class="d:none">영화목록</h1>
-                    <section class="d:flex jc:space-between m-bottom:2">
-                        <h1 class=" fs:5 fw:3">개봉 예정작</h1>
-                        <ul class="d:flex fs:1 ai:center jc:space-between p-right:1">
+                    <section class="d:flex jc:space-between m-bottom:3">
+                        <h1 class=" fs:6 fw:3">개봉 예정작</h1>
+                        <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
                             <li>
-                                <a href="" class="p-right:3">개봉 날짜순</a>
+                                <a href="" class="p-right:3 fs:3 color:base-10">개봉 날짜순</a>
                             </li>
                             <li>
                                 <a href="" class="">예매율순</a>
                             </li>
                         </ul>
                     </section>
-                    <section class=" d:flex media-pading">
+                    <section class="p-left:3 d:flex media-pading of:scroll of-y:hidden scrable-content">
                         <h1 class="d:none ">컨텐츠</h1>
-                        <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:2">
-                            <div class="display:inline-block bd-color:base-10 ">
-                                <img class="bd-radius:1 bd-color:base-10 line-height:1 box-shadow:1"
-                                    src="#"
-                                    th:src="${m.getPosterUrl()}" alt="/" height="212px">
+                        <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
+                            <div class="position:relative display:inline-block bd-color:base-10 ">
+                                <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1"
+                                                                                           src=""
+                                                                                           th:src="${m.getPosterUrl()}" alt="/" height="363px" ></a>
+                                <span class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold" th:text="${mCount.count}">1</span>
                             </div>
-                            <div class="d:flex ai:center d:inline-block line-height:1">
-                                <span class="fs:8 fw:3 line-height:1 font-style:italic" th:text="${mCount.count}">1</span>
-                                <div  class="m-left:4 d:inline-block line-height:1">
-                                    <div>
-                                        <span class="fs:2 fw:3 d:inline-block"
-                                            >13000원 </span>
-                                    </div>
-                                    <div>
-                                        <span class="fs:2 fw:1 d:inline-block"
-                                            th:text="${m.getKorName()}">서울의 봄</span>
-                                    </div>
+                            <div class="d:flex fl-dir:column gap:2 d:inline-block mt:2">
+                                <div class="d:flex">
+                            <span class="fs:3 fw:2 d:inline-block mr:auto"
+                                  th:text="${m.getKorName()}">서울의 봄</span>
+                                    <span class="fs:3 fw:600 d:inline-block">13000원 </span>
                                 </div>
+                                <div>2024  ·  한국</div>
+                                <div class="fs:2 color:base-6">누적 관객수 100만명</div>
                             </div>
                         </div>
-        
                     </section>
                 </section>
 
@@ -266,7 +279,7 @@
             </section>
             
             
-            </section>
+            </div>
         </section>
     </main>
 </body>

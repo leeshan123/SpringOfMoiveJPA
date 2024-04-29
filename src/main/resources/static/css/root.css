@@ -123,3 +123,21 @@
 }
 
 }
+
+/* 추가적인 태그별 기본값 세팅 */
+body{
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    display: flex;
+    flex-direction: column;
+    /*overflow: scroll;*/
+    overflow-x: auto;
+    overflow-y: scroll;
+    /*-webkit-font-smoothing: antialiased; //폰트 부드럽게 안티걸어줌 굳이 안써도 브라우저가 자체적으로 적용하는듯?*/
+
+    /*-ms-overflow-style: none; // IE에서 스크롤바 감춤 안되는듯? 일단 보관 나중에 재확인
+&::-webkit-scrollbar {
+    display: none !important; // 윈도우 크롬 등
+    } */
+
+    /*scrollbar-gutter: stable;*/
+}

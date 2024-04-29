@@ -16,7 +16,7 @@
         }
 
         .line-height {
-            line-height: 23px;
+            line-height: 20px;
         }
 
         .bgc {
@@ -33,6 +33,7 @@
             /* font-size: 50px; */
             /* place-self: stretch stretch; */
         }
+
         .grid-default-height {
             /* 그리드 기본 높이 설정 , 나중에 필요할수도? 임시보관 */
             /* place-self: stretch stretch; */
@@ -64,7 +65,7 @@
 <body>
     <main layout:fragment="main">
         <div class="media color:base-10">
-            <section class="media-sect media-mobile">
+            <section class="media-sect-for-commu media-mobile">
                 <h1 class="d:none">게시판리스트</h1>
                 <!-- <section class="bd bd-color:main-10 txt-al:center">
                     <h1>커뮤니티</h1>
@@ -72,11 +73,12 @@
                         <img src="" alt="">
                     </div>
                 </section> -->
-                <section class="d:grid grid-template-rows:3 grid-template-columns:2 ji:center ai:center gap:4 max-w:100p mx:4 m-bottom:10">
-                    <section th:each="category,c : ${categories}" th:classappend="${c.first} ? 'first-grid' : ''" class="w:10p bd-bottom bd-color:main-10 p-bottom:4 n-item n-item-type:shadow p:0">
+                <section class="d:grid grid-template-rows:3 grid-template-columns:2 ji:center ai:center gap:4 mx:4 m-bottom:10">
+                    <section th:each="category,c : ${categories}" th:classappend="${c.first} ? 'first-grid' : ''" class="h:10p w:10p bd-bottom bd-color:main-10 p-bottom:4 n-item n-item-type:shadow p:0">
                         <div class="bgc d:flex ai:center">
                             <a th:href="@{board/list(c=${category.engName})}">
-                                <h1 class="fw:3 fs:4 px:4" th:classappend="${c.first} ? 'color:accent-1 deco icon:trophy' : 'color:main-3'" th:text="${c.first || category.name == '굿즈&포스터 ' ? category.name : category.name+'게시판'}">자유</h1>
+                                <h1 class="fw:3 fs:4 px:4" th:classappend="${c.first} ? 'color:accent-1' : 'color:main-3'" th:text="${(c.first || category.name == '굿즈&포스터') ? (c.first ? '🔥' + category.name : category.name) : category.name + '게시판'}"
+                                >자유</h1>
                             </a>
                         </div>
                         <div class="px:2">
