@@ -85,7 +85,6 @@ public class TMDBMovieAPI {
         //search-movie 먼저 여기서는 영화 코드만 추출하면 됨.
         OkHttpClient client = new OkHttpClient();
         
-        
         {
             //movie-detail, 추출할 데이터: 
             //(소개글) tmdb, overview, 
@@ -117,7 +116,7 @@ public class TMDBMovieAPI {
             while (resultIter.hasNext()) {
                 JSONObject object = (JSONObject)resultIter.next();
                 Result result = new Result();
-                result.setKey("https://www.youtube.com/embed/" + (object.isNull("key") ? null : object.getString("key")));
+                result.setKey(object.isNull("key") ? null : ("https://www.youtube.com/embed/" + object.getString("key")));
                 result.setName(object.isNull("name") ? null : object.getString("name"));
                 result.setPublishedAt(object.isNull("published_at") ? null : object.getString("published_at"));
                 resultList.add(result);
@@ -135,13 +134,14 @@ public class TMDBMovieAPI {
                 cast.setId(String.valueOf(object.getLong("id")));
                 cast.setGender(String.valueOf(object.getLong("gender")));
                 cast.setCharacter(object.isNull("character") ? null : object.getString("character"));
-                cast.setProfilePath("https://image.tmdb.org/t/p/original" + (object.isNull("profile_path") ? null : object.getString("profile_path")));
+                cast.setProfilePath(object.isNull("profile_path") ? null : ("https://image.tmdb.org/t/p/original" + object.getString("profile_path")));
                 cast.setOriginalName(object.isNull("original_name") ? null : object.getString("original_name"));
                 cast.setCastOrder(String.valueOf(object.getLong("order")));
                 cast.setPopularity(String.valueOf(object.getDouble("popularity")));
                 castList.add(cast);
             }
             movieDetail.setCasts(castList);
+
 
             // "crew" 키의 값인 JsonArray를 추출
             JSONArray crewArr = credits.getJSONArray("crew");
@@ -153,7 +153,7 @@ public class TMDBMovieAPI {
                     Crew crew = new Crew();
                     crew.setId(String.valueOf(object.getLong("id")));
                     crew.setGender(String.valueOf(object.getLong("gender")));
-                    crew.setProfilePath("https://image.tmdb.org/t/p/original" + (object.isNull("profile_path") ? null : object.getString("profile_path")));
+                    crew.setProfilePath(object.isNull("profile_path") ? null : ("https://image.tmdb.org/t/p/original" + object.getString("profile_path")));
                     crew.setOriginalName(object.getString("original_name"));
                     crew.setPopularity(String.valueOf(object.getDouble("popularity")));
                     crewList.add(crew);
@@ -196,14 +196,51 @@ public class TMDBMovieAPI {
             
             movieDetail.setId(String.valueOf(responseBody.getLong("id")));
             movieDetail.setTitle(responseBody.getString("title"));
-            movieDetail.setBackdropPath("https://image.tmdb.org/t/p/original" + (responseBody.isNull("backdrop_path") ? null : responseBody.getString("backdrop_path")));
+            movieDetail.setBackdropPath(responseBody.isNull("backdrop_path") ? null : ("https://image.tmdb.org/t/p/original" + responseBody.getString("backdrop_path")));
             movieDetail.setOverview(responseBody.isNull("overview") ? null : responseBody.getString("overview"));
             movieDetail.setOriginalTitle(responseBody.isNull("original_title") ? null : responseBody.getString("original_title"));
             movieDetail.setRuntime(String.valueOf(responseBody.getLong("runtime")));
             movieDetail.setReleaseDate(responseBody.isNull("release_date") ? null : responseBody.getString("release_date"));
-            movieDetail.setPosterPath("https://image.tmdb.org/t/p/original" + (responseBody.isNull("poster_path") ? null : responseBody.getString("poster_path")));
+            movieDetail.setPosterPath(responseBody.isNull("poster_path") ? null : ("https://image.tmdb.org/t/p/original" + responseBody.getString("poster_path")));
             movieDetail.setTagLine(responseBody.isNull("tagline") ? null : responseBody.getString("tagline"));
 
+        }
+
+
+        // 비디오 없으면 다시 받아오기
+        if(movieDetail.getResults().size() == 0)
+        {
+            String reqUrl = String.format("https://api.themoviedb.org/3/movie/%s/videos", movieCode);
+            Request request = new Request.Builder()
+            .url(reqUrl)
+            .get()
+            .addHeader("accept", "application/json")
+            .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM2U5NWU1MTY0NWUzYjgwZDU0MzQyNGQxYTA5ODg0YSIsInN1YiI6IjY2MDEzYjRmNzcwNzAwMDE2MzBhZjg0MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RFfawiMrE8C2YgpGPdaU5IOcl-R5t-JIquRBN6vaLzU")
+            .build();
+
+            Response response = client.newCall(request).execute();
+
+            // 응답 데이터를 JSON 형식으로 파싱
+            String responseData = response.body().string();
+            // JSON 객체로  변환
+            JSONObject responseBody = new JSONObject(responseData.toString());
+
+            // "results" 키의 값인 JsonArray를 추출
+            JSONArray resultArray = responseBody.getJSONArray("results");
+            Iterator<Object> resultIter = resultArray.iterator();
+            List<Result> resultList = new ArrayList<>();
+            while (resultIter.hasNext()) {
+                JSONObject object = (JSONObject)resultIter.next();
+                Result result = new Result();
+                result.setKey(object.isNull("key") ? null : ("https://www.youtube.com/embed/" + object.getString("key")));
+                result.setName(object.isNull("name") ? null : object.getString("name"));
+                result.setPublishedAt(object.isNull("published_at") ? null : object.getString("published_at"));
+                resultList.add(result);
+
+                if(resultList.size() == 5)
+                    break;
+            }
+            movieDetail.setResults(resultList);
         }
 
         // 스틸컷
@@ -231,7 +268,7 @@ public class TMDBMovieAPI {
             List<String> stillCutList = new ArrayList<>();
             while (imagesIter.hasNext()) {
                 JSONObject object = (JSONObject)imagesIter.next();
-                stillCutList.add("https://image.tmdb.org/t/p/original" + (object.isNull("file_path") ? null : object.getString("file_path")));
+                stillCutList.add(object.isNull("file_path") ? null : ("https://image.tmdb.org/t/p/original" + object.getString("file_path")));
                 if(stillCutList.size() == 10)
                     break;
             }
@@ -244,7 +281,7 @@ public class TMDBMovieAPI {
                 JSONObject object = (JSONObject)logosIter.next();
                 String logoNt = object.isNull("iso_639_1") ? "" : object.getString("iso_639_1");
                 if(logoNt.equals("ko")){
-                    movieDetail.setLogo(object.getString("file_path"));
+                    movieDetail.setLogo("https://image.tmdb.org/t/p/original" + object.getString("file_path"));
                     break;
                 }
                 else if(logoNt.equals("en"))

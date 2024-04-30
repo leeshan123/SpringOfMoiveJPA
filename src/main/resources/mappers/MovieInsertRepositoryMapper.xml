@@ -5,12 +5,15 @@
 <mapper namespace="kr.co.moviespring.web.repository.MovieInsertRepository">
 
 	<select id="getlist" resultType="Movie3">
-		SELECT * FROM 
+		<!-- SELECT * FROM 
 			movie3
 		where 
 			rep_genre_nm not like '%에로%' 
 		and 
-			open_dt like '${year}%'
+			open_dt like '${year}%' -->
+
+		select * from movie3	
+		where movie_nm like '%나는 네가 지난 13%'
 	</select>
 
 
