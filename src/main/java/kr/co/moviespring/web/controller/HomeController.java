@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.moviespring.web.entity.Actor;
@@ -74,8 +75,8 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("test")
-    public String test() throws IOException, ParseException{
+    @PostMapping("test")
+    public String test(String nyear) throws IOException, ParseException{
 
         // 일단 위에거 안쓰고 데이터 저장용 테스트
         TMDBMovieAPI api = new TMDBMovieAPI();
@@ -83,19 +84,24 @@ public class HomeController {
         String movieName = "THE ROUNDUP : PUNISHMENT";
         String year = "2024";
 
-        // Movie3 목록 불러오기(테스트용, 일단 10개만, 20240425 이전만)
-        List<Movie3> list = serviceTest.getMovieList();
+        // Movie3 목록 불러오기(년도수만큼 불러오기)
+        List<Movie3> list = serviceTest.getMovie3List(year);
 
+
+        
         // 제목이랑 개봉일자(년도만 추출) 저장해서 영화정보 불러오기
         // 일단 1개만 저장하고 나중에 반복문으로 가져온 개수만큼 저장하기
         movieName = list.get(0).getMovieNmEn();
         year = list.get(0).getOpenDt().substring(0, 4); 
         
         // TMDB에서 이름 년도로 영화 정보를 불러옴
-        // 임시로 범죄도시1로 테스트
-        movieName = "THE OUTLAWS";
-        year = "2017";
+        // 영어이름으로 요청 후 없으면 한글이름으로 다시 요청
         Long movieCode = api.serchMovie(movieName, year);
+        if(movieCode == null){
+            movieName = list.get(0).getMovieNm();
+            movieCode = api.serchMovie(movieName, year);
+        }
+
 
         // movieCode가 null이 아니면 중복체크 후 저장, 아니면 리턴
         TMDBMovieDetail md = new TMDBMovieDetail();
@@ -175,10 +181,11 @@ public class HomeController {
         // tmdb에서 채움
         movie.setTmdbId(md.getId());
         movie.setMovieIntro(md.getOverview());
-        movie.setPosterUrl("https://image.tmdb.org/t/p/original" + md.getPosterPath());
+        movie.setPosterUrl(md.getPosterPath());
         movie.setRunningTime(md.getRuntime());
-        movie.setMainImgUrl("https://image.tmdb.org/t/p/original" + md.getBackdropPath());
-        movie.setTrailerUrl("https://www.youtube.com/embed/" + md.getResults().get(0).getKey());
+        movie.setLogoUrl(md.getLogo());
+        movie.setMainImgUrl(md.getBackdropPath());
+        movie.setTrailerUrl(md.getResults().isEmpty() ? null : md.getResults().get(0).getKey());
 
 
         // movie를 db에 저장하고 생성된 ID 가져옴
@@ -208,7 +215,7 @@ public class HomeController {
                 // db에 저장하고 생성된 ID 가져옴
                 actor = new Actor();
                 actor.setEngName(cast.getOriginalName());
-                actor.setImgUrl("https://image.tmdb.org/t/p/original"+cast.getProfilePath());
+                actor.setImgUrl(cast.getProfilePath());
                 actor.setTmdbId(tmdbId);
                 actor.setPopularity(Double.parseDouble(cast.getPopularity()));
                 TMDBPersonDetails pd = api.personDetails(cast.getId());
@@ -248,7 +255,7 @@ public class HomeController {
             if(director == null){
                 director = new Director();
                 director.setEngName(crew.getOriginalName());
-                director.setImgUrl("https://image.tmdb.org/t/p/original"+crew.getProfilePath());
+                director.setImgUrl(crew.getProfilePath());
                 director.setTmdbId(crew.getId());
                 director.setPopularity(Double.parseDouble(crew.getPopularity()));
                 TMDBPersonDetails pd = api.personDetails(crew.getId());

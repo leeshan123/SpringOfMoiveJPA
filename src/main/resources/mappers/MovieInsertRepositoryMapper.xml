@@ -6,11 +6,11 @@
 
 	<select id="getlist" resultType="Movie3">
 		SELECT * FROM 
-			spring_of_movie_db.movie3 
+			movie3
 		where 
 			rep_genre_nm not like '%에로%' 
-			and open_dt &lt; 20240425 
-		order by open_dt desc limit 10
+		and 
+			open_dt like '${year}%'
 	</select>
 
 

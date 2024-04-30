@@ -1,5 +1,6 @@
 package kr.co.moviespring.web.movieapi.dto.kobis;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,14 @@ import kr.co.moviespring.web.movieapi.dto.kobis.sub.Directors;
 //영화 상세 정보
 //staffs는 자료가 이상해서 일단 버림
 public class KobisMovieInfo {
+
+    // 생성자 null값 반환이 안되게
+    // public KobisMovieInfo() {
+    //     this.actors = new ArrayList<>();
+    //     this.directors = new ArrayList<>();
+    //     this.companys = new ArrayList<>();
+    //     this.audits = new ArrayList<>();
+    // }
 
     private List<String> nationNm;      //제작국가명
     private List<String> genreNm;       //장르명

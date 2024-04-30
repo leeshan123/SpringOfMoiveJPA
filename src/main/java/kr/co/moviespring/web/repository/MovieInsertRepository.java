@@ -26,6 +26,6 @@ public interface MovieInsertRepository {
     void MovieDataUpdate(Movie2 movie2);
 
     // 태평 Movie3 가져오기 테스트
-    List<Movie3> getlist();
+    List<Movie3> getlist(String year);
 
 }

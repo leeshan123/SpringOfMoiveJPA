@@ -312,8 +312,8 @@ class MovieListInfo {
 
     //일단 10개만 가져와서 테스트
     @Override
-    public List<Movie3> getMovieList() {
-        List<Movie3> list = repository.getlist();
+    public List<Movie3> getMovie3List(String year) {
+        List<Movie3> list = repository.getlist(year);
         return list;
     }
 

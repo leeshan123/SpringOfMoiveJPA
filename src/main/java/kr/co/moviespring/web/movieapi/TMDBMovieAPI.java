@@ -117,7 +117,7 @@ public class TMDBMovieAPI {
             while (resultIter.hasNext()) {
                 JSONObject object = (JSONObject)resultIter.next();
                 Result result = new Result();
-                result.setKey(object.isNull("key") ? null : object.getString("key"));
+                result.setKey("https://www.youtube.com/embed/" + (object.isNull("key") ? null : object.getString("key")));
                 result.setName(object.isNull("name") ? null : object.getString("name"));
                 result.setPublishedAt(object.isNull("published_at") ? null : object.getString("published_at"));
                 resultList.add(result);
@@ -135,7 +135,7 @@ public class TMDBMovieAPI {
                 cast.setId(String.valueOf(object.getLong("id")));
                 cast.setGender(String.valueOf(object.getLong("gender")));
                 cast.setCharacter(object.isNull("character") ? null : object.getString("character"));
-                cast.setProfilePath(object.isNull("profile_path") ? null : object.getString("profile_path"));
+                cast.setProfilePath("https://image.tmdb.org/t/p/original" + (object.isNull("profile_path") ? null : object.getString("profile_path")));
                 cast.setOriginalName(object.isNull("original_name") ? null : object.getString("original_name"));
                 cast.setCastOrder(String.valueOf(object.getLong("order")));
                 cast.setPopularity(String.valueOf(object.getDouble("popularity")));
@@ -153,7 +153,7 @@ public class TMDBMovieAPI {
                     Crew crew = new Crew();
                     crew.setId(String.valueOf(object.getLong("id")));
                     crew.setGender(String.valueOf(object.getLong("gender")));
-                    crew.setProfilePath(object.isNull("profile_path") ? null : object.getString("profile_path"));
+                    crew.setProfilePath("https://image.tmdb.org/t/p/original" + (object.isNull("profile_path") ? null : object.getString("profile_path")));
                     crew.setOriginalName(object.getString("original_name"));
                     crew.setPopularity(String.valueOf(object.getDouble("popularity")));
                     crewList.add(crew);
@@ -196,12 +196,12 @@ public class TMDBMovieAPI {
             
             movieDetail.setId(String.valueOf(responseBody.getLong("id")));
             movieDetail.setTitle(responseBody.getString("title"));
-            movieDetail.setBackdropPath(responseBody.isNull("backdrop_path") ? null : responseBody.getString("backdrop_path"));
+            movieDetail.setBackdropPath("https://image.tmdb.org/t/p/original" + (responseBody.isNull("backdrop_path") ? null : responseBody.getString("backdrop_path")));
             movieDetail.setOverview(responseBody.isNull("overview") ? null : responseBody.getString("overview"));
             movieDetail.setOriginalTitle(responseBody.isNull("original_title") ? null : responseBody.getString("original_title"));
             movieDetail.setRuntime(String.valueOf(responseBody.getLong("runtime")));
             movieDetail.setReleaseDate(responseBody.isNull("release_date") ? null : responseBody.getString("release_date"));
-            movieDetail.setPosterPath(responseBody.isNull("poster_path") ? null : responseBody.getString("poster_path"));
+            movieDetail.setPosterPath("https://image.tmdb.org/t/p/original" + (responseBody.isNull("poster_path") ? null : responseBody.getString("poster_path")));
             movieDetail.setTagLine(responseBody.isNull("tagline") ? null : responseBody.getString("tagline"));
 
         }
@@ -231,11 +231,26 @@ public class TMDBMovieAPI {
             List<String> stillCutList = new ArrayList<>();
             while (imagesIter.hasNext()) {
                 JSONObject object = (JSONObject)imagesIter.next();
-                stillCutList.add(object.isNull("file_path") ? null : object.getString("file_path"));
+                stillCutList.add("https://image.tmdb.org/t/p/original" + (object.isNull("file_path") ? null : object.getString("file_path")));
                 if(stillCutList.size() == 10)
                     break;
             }
             movieDetail.setStillCuts(stillCutList);
+
+            // "logos" 키의 값인 JsonArray를 추출
+            JSONArray logos = responseBody.getJSONArray("logos");
+            Iterator<Object> logosIter = logos.iterator();
+            while (logosIter.hasNext()){
+                JSONObject object = (JSONObject)logosIter.next();
+                String logoNt = object.isNull("iso_639_1") ? "" : object.getString("iso_639_1");
+                if(logoNt.equals("ko")){
+                    movieDetail.setLogo(object.getString("file_path"));
+                    break;
+                }
+                else if(logoNt.equals("en"))
+                    movieDetail.setLogo("https://image.tmdb.org/t/p/original" + object.getString("file_path"));
+            }
+
         }
 
         return movieDetail;
@@ -303,17 +318,17 @@ public class TMDBMovieAPI {
         // System.out.println(movieCode);
 
         // 아래는 영화이름하고 년도 쓰면 오버뷰 나오게 함. 영화명은 한글 영문 모두 가능
-        // while(true){
-        //     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        //     String movieName = br.readLine();
-        //     String movieYear = br.readLine();
-        //     Long movieCode = api.serchMovie(movieName, movieYear);
-        //     TMDBMovieDetail entity = api.movieDetail(movieCode);
-        //     if(entity != null)
-        //         System.out.println(entity.getOverview());
-        //     else
-        //         System.out.println("영화 없음");
-        // }
+        while(true){
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String movieName = br.readLine();
+            String movieYear = br.readLine();
+            Long movieCode = api.serchMovie(movieName, movieYear);
+            TMDBMovieDetail entity = api.movieDetail(movieCode);
+            if(entity != null)
+                System.out.println(entity.getOverview());
+            else
+                System.out.println("영화 없음");
+        }
 
 
         // API 요청
