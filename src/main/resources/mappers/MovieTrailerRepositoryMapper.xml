@@ -10,5 +10,11 @@
         values 
             (#{movieId}, #{url}, #{trailerIntro})
     </insert>
-    
+
+    <!--영화 아이디별 예고편 가져오기-->
+    <select id="findAllById" resultType="MovieTrailer">
+        SELECT * FROM movie_trailer
+        WHERE movie_id=#{movieId}
+    </select>
+
 </mapper>

@@ -32,6 +32,13 @@ public class MovieController {
     @Autowired
     MovieDirectorService movieDirectorService;
 
+    @Autowired
+    MovieStillcutService movieStillcutService;
+
+    @Autowired
+    MovieTrailerService movieTrailerService;
+
+
     // 영화 목록//
     @GetMapping("list")
     public String list(Model model) {
@@ -79,6 +86,8 @@ public class MovieController {
         Movie movie = movieService.getById(movieId);
         List<MovieActorView> actors = movieActorService.getById(movieId);
         List<Director> directors = movieDirectorService.getById(movieId); //디렉터 타입인데 무비디렉터 서비스 쓰는게 맞나?
+        List<MovieStillcut> stillcuts = movieStillcutService.getById(movieId);
+        List<MovieTrailer> trailers = movieTrailerService.getById(movieId);
         // 리뷰목록//
         List<OnelineReview> onelineReviews = onelineReviewService.getOnelineReviews(movieId);
 
@@ -86,6 +95,8 @@ public class MovieController {
         model.addAttribute("actors", actors);
         model.addAttribute("directors", directors);
         model.addAttribute("reviews", onelineReviews);
+        model.addAttribute("stillcuts", stillcuts);
+        model.addAttribute("trailers", trailers);
         model.addAttribute("user", userDetails); //유저 정보 객체 넣어줌 테스트중
 
         return "movie/detail-copy";

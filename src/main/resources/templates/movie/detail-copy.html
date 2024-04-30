@@ -226,22 +226,34 @@
                 </section>
             </section>
                 <section class="section-margin">
-                    <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3">예고편</h1>
-                    <div class="avg-block d:flex gap:3 bd-radius:1">
-                        <!-- trailerPlayPop?pFileNm= 을 play/ 로 바꿔주기 -->
-                        <!-- <video controls width="49%">
-                            <source src="https://www.kmdb.or.kr/trailer/play/MK060294_P02.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video> -->
-                        <!-- <video controls width="49%">
-                            <source src="https://www.kmdb.or.kr/trailer/play/MK060211_P02.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video> -->
-                        <iframe class="bd-radius:1" th:each="i : ${#numbers.sequence(1, 3)}" width="430px"
-                            height="290px" src="https://www.youtube.com/embed/rjW9E1BR_30"
-                            th:src="${movie.getTrailerUrl()}" frameborder="0" allowfullscreen></iframe>
-                    </div>
+                    <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3">트레일러</h1>
+                    <section class="d:flex">
+                        <h1 class="d:none">스크롤버튼</h1>
+                        <!-- left button -->
+                        <div class="left-div d:flex jc:center ai:center d:inline-block">
+                            <button
+                                    class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left2 icon:caret_left_bold">
+                                <span class="icon icon:caret_left_bold">아이콘</span>
+                            </button>
+                        </div>
+                        <section class="of:scroll of-y:hidden scrable-content2">
+                            <h1 class="d:none">컨텐츠</h1>
+                            <div class="d:flex gap:3">
+                                <iframe class="bd-radius:1" th:each="trailers : ${trailers}"
+                                        height="290px" width="430px" src=""
+                                        th:src="${trailers.url}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </section>
+                        <div class="right-div d:flex jc:center ai:center d:inline-block">
+                            <button
+                                    class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right2 ">
+                                <span class="icon icon:caret_right_bold">아이콘</span>
+                            </button>
+                        </div>
+                    </section>
                 </section>
+
+
                 <section class="section-margin">
                     <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3">스틸컷</h1>
                     <section class="d:flex">
@@ -249,26 +261,27 @@
                         <!-- left button -->
                         <div class="left-div d:flex jc:center ai:center d:inline-block">
                             <button
-                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left2 icon:caret_left_bold">
+                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left3 icon:caret_left_bold">
                                 <span class="icon icon:caret_left_bold">아이콘</span>
                             </button>
                         </div>
-                        <section class="of:scroll of-y:hidden scrable-content2">
+                        <section class="of:scroll of-y:hidden scrable-content3">
                             <h1 class="d:none">컨텐츠</h1>
                             <div class="d:flex gap:3">
-                                <img class="bd-radius:1" th:each="i : ${#numbers.sequence(1, 10)}"
-                                    src="https://search.pstatic.net/common?qualit y=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231102_299%2F1698892733787ApmPu_JPEG%2Fmovie_image.jpg"
-                                    th:src="${movie.mainImgUrl}" alt="" height="290px">
+                                <img class="bd-radius:1" th:each="stillcuts : ${stillcuts}" src="https://search.pstatic.net/common?qualit y=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231102_299%2F1698892733787ApmPu_JPEG%2Fmovie_image.jpg"
+                                     th:src="${stillcuts.url}"
+                                     alt="" height="290px">
                             </div>
                         </section>
                         <div class="right-div d:flex jc:center ai:center d:inline-block">
                             <button
-                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right2 ">
+                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right3 ">
                                 <span class="icon icon:caret_right_bold">아이콘</span>
                             </button>
                         </div>
                     </section>
                 </section>
+
                 <section class="section-margin">
                     <div class="d:flex mb:5">
                         <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3 mr:auto">한줄 평
@@ -294,7 +307,7 @@
                                     <span th:text="${r.memberRate}+원"
                                         class="margin-right:auto color:sub-1 fw:bold">평점</span>
                                     <span th:text="${#dates.format(r.regDate, 'yyyy년 MM월 dd일')}">날짜</span>
-                                    <!--                                    <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>-->
+<!--                                    <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>-->
                                 </div>
                                 <div class="d:flex ai:center gap:3">
                                     <span class="icon icon:user">아이콘</span>

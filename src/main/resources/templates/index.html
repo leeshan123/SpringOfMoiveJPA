@@ -74,7 +74,7 @@
                                   th:text="${m.getKorName()}">서울의 봄</span>
                                 <span class="fs:3 fw:600 d:inline-block">13000원 </span>
                             </div>
-                            <div th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">2024  ·  한국</div>
+                            <div class="fs:2" th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">2024  ·  한국</div>
                             <div class="fs:2 color:base-6">누적 관객수 100만명</div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                                   th:text="${m.getKorName()}">서울의 봄</span>
                                     <span class="fs:3 fw:600 d:inline-block">13000원 </span>
                                 </div>
-                                <div th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">2024  ·  한국</div>
+                                <div class="fs:2" th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">2024  ·  한국</div>
                                 <div class="fs:2 color:base-6">누적 관객수 100만명</div>
                             </div>
                         </div>
