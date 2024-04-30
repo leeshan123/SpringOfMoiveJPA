@@ -8,7 +8,7 @@ main{
 .test{
     max-width: 1320px;
     padding: 8px;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .main-img-block{

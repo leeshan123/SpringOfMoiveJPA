@@ -1,4 +1,4 @@
-.test{
+/* .test{
     display: flex;
     position: absolute;
     justify-content: space-between;
@@ -6,11 +6,30 @@
     max-width: 980px;
     margin-top: 115px;
     border-radius: 30px;
-}
+} */
 .aa{
     background-color: #ffffff;
     border: 1px hidden #000;
     border-radius: 9999px;
+
+}
+
+.left-div{
+    z-index: 1;
+    height: 360px;
+    width: 1px;
+}
+.right-div{
+    z-index: 1;
+    height: 360px;
+    width: 1px;
+
+}
+.scr-btn-left{
+    position: absolute;
+}
+.scr-btn-left{
+    position: absolute;
 }
 
   /* 크로스 브라우저 스크롤바 스타일링 */
