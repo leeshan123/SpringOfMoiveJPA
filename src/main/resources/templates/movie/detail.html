@@ -11,31 +11,35 @@
     <script src="/js/movie/list.js" defer></script>
     <script src="/js/movie/detail.js" defer></script>
     <style>
-        .toggle-on{
+        .toggle-on {
             display: block;
             transform: translateY(30px);
             transition: transform 2s;
 
         }
 
-        .toggle-off{
+        .toggle-off {
             display: none;
             transform: translateY(-200px);
             transition: transform 2s;
         }
-        .logo-position{
+
+        .logo-position {
             left: 3%;
-            bottom:5%;
+            bottom: 5%;
         }
-        .main-img{
+
+        .main-img {
             transition: transform 700ms ease-out;
             /*background-color: #2C3037;*/
             background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
         }
+
         .main-img:hover {
             transform: scale(1.1);
             /*transition: transform 700ms ease-out;*/
         }
+
         .gradient-overlay {
             position: absolute;
             bottom: 0;
@@ -47,7 +51,8 @@
             /*    transform: scale(1.1);*/
             /*}*/
         }
-        .gradient-overlay:hover + .main-img {
+
+        .gradient-overlay:hover+.main-img {
             transform: scale(1.1);
         }
     </style>
@@ -77,7 +82,7 @@
     <main layout:fragment="main">
         <section class="d:flex fl-dir:column ai:center">
             <h1 class="d:none">영화 디테일 페이지</h1>
-            <div class="position:relative d:flex overflow:hidden image-wrapper">
+            <div class="position:relative d:flex overflow:hidden">
                 <img class="main-img" th:src="${movie.mainImgUrl}"
                     src="http://image.tmdb.org/t/p/original/kcrjQkK9XlUe0yD1cZptf4z5h3v.jpg" width="100%" alt="">
                 <div class="gradient-overlay"></div>
@@ -90,8 +95,22 @@
             <div class="test">
                 <div style="max-width: 100%; display: flex; justify-content: space-between; align-items: center;"
                     class="border-left bd-color:main-2 bd-w:3 mt:2 mb:2 fs:5">
-                    <div>
+                    <div class="d:flex">
                         <div class="ml:1 fw:3 title-font" th:text="${movie.korName}">영화명</div>
+<!--                        <div th:if="${#strings.contains(movie.watchGrade, '12')}">-->
+<!--                            <span>모델값에 '12'가 포함되어 있습니다.</span> 추후에 심의정보값이 난해하면 사용고려-->
+<!--                        </div>-->
+                        <div class="ml:1 d:flex ai:center" th:switch="${movie.watchGrade}">
+                            <!--                        <p th:case="'전체관람가'">전체 연령 제한</p>-->
+                            <svg width="30px" height="30px" th:case="'전체관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.642 500H56.38C25.256 500 0 474.764 0 443.632V56.368C0 25.235 25.256 0 56.379 0h387.263C474.775 0 500 25.235 500 56.368v387.264C500 474.764 474.775 500 443.642 500" style="fill:#00964b"/><path d="m144.95 378.216-6.064-38.323-44.366.01-6.064 38.292-57.17.02v-.687l54.138-256.2h62.527l54.138 256.22.02.668h-57.16zm-28.257-174.19-14.129 87.439h28.247l-14.118-87.439zM212.167 378.213V121.316h57.17v205.447h67.246v51.45zM348.693 378.199V121.312l57.17.01-.03 205.447h67.277v51.461z" style="fill:#fff"/></svg>
+                            <!--                        <p th:case="'12세이상관람가'">12세 이상</p>-->
+                            <svg width="30px" height="30px" th:case="'12세이상관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.617 500H56.373C25.24 500 0 474.77 0 443.648V56.373C0 25.24 25.241 0 56.373 0h387.244C474.738 0 500 25.241 500 56.373v387.275C500 474.769 474.738 500 443.617 500" style="fill:#eabc00"/><path d="M108.175 422.27V173.766H80.664l35.629-96.046h69.009v344.55zM407.596 77.719H219.137a7.695 7.695 0 0 0-7.695 7.695v104.143h75.332v-46.903H340v41.477l-131.272 187.18v50.535h205.686v-67.224H304.372l96.045-134.841c3.012-4.22 5.405-7.891 7.22-11.058 1.816-3.157 3.312-6.22 4.519-9.253 1.186-2.992 2.021-6.303 2.465-9.913.464-3.61.67-7.963.67-13.08V85.414a7.689 7.689 0 0 0-7.695-7.695" style="fill:#fff"/></svg>
+                            <!--                        <p th:case="'15세이상관람가'">15세 이상</p>-->
+                            <svg width="30px" height="30px" th:case="'15세이상관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.638 500H56.352C25.252 500 0 474.759 0 443.638V56.362C0 25.242 25.252 0 56.352 0h387.286C474.768 0 500 25.241 500 56.362v387.276c0 31.12-25.231 56.362-56.362 56.362" style="fill:#dc7317"/><path d="M107.957 422.277V173.783H80.436l35.619-96.076h69.04v344.57zM407.825 195.418H286.972v-50.514h126.3V77.701H211.217v183.56h129.446v96.055h-54.578v-45.109h-74.868v102.358c0 4.25 3.456 7.695 7.705 7.695H407.825a7.695 7.695 0 0 0 7.695-7.695V203.114a7.695 7.695 0 0 0-7.695-7.696" style="fill:#fff"/></svg>
+                            <!--                        <p th:case="'청소년관람불가'">관람 불가</p>-->
+                            <svg width="30px" height="30px" th:case="'청소년관람불가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.62 500H56.35C25.21 500 0 474.79 0 443.65V56.37C0 25.24 25.21 0 56.35 0h387.27c31.13 0 56.36 25.24 56.36 56.37v387.28c0 31.14-25.23 56.35-56.36 56.35" style="fill:#d61d28"/><path d="M105.917 422.269V173.764h-27.52l35.648-96.051h68.975v344.556zM416.625 281.105c-.588-4.198-1.64-7.818-3.136-10.82a23.291 23.291 0 0 0-6.096-7.674c-2.548-2.104-5.787-4.198-9.686-6.302l-22.992-10.82 22.992-12.193c6.911-4.208 11.8-8.86 14.658-13.976 2.846-5.106 4.26-12.77 4.26-22.992V85.403a7.695 7.695 0 0 0-7.695-7.695H217.332c-4.25 0-7.705 3.445-7.705 7.695v110.925c0 9.892 1.454 17.504 4.291 22.754 2.857 5.292 7.757 10.006 14.647 14.214l23.002 12.193-23.002 10.82c-7.84 4.198-12.997 9.18-15.555 14.863-2.547 5.735-3.827 14.142-3.827 25.282V414.569c0 4.25 3.456 7.705 7.706 7.705h192.97c4.239 0 7.684-3.456 7.684-7.705V296.454c0-6.024-.31-11.14-.918-15.349m-75.752 69.883c0 4.25-3.456 7.685-7.695 7.685h-39.61c-4.238 0-7.704-3.435-7.704-7.685v-68.954c0-4.25 3.466-7.695 7.705-7.695h39.609c4.24 0 7.695 3.445 7.695 7.695v68.954zm0-141.91c0 4.249-3.456 7.694-7.695 7.694h-39.61c-4.238 0-7.704-3.445-7.704-7.695v-60.3c0-4.24 3.466-7.685 7.705-7.685h39.609c4.24 0 7.695 3.445 7.695 7.685v60.3z" style="fill:#fff"/></svg>
+<!--                            <p th:case="*">심의정보없음</p>-->
+                        </div>
                     </div>
                     <div>
                         <button onclick="toggleContent()" class="fs:3 color:base-5 toggle"
@@ -144,8 +163,10 @@
                     <!--                        &lt;!&ndash; 분 계산 &ndash;&gt;-->
                     <!--                        <span th:text="${totalMinutes mod 60}"></span>분-->
                     <!--                    </th:block>-->
-                    <div>
-                        <span th:text="${movie.runningTime}+' · '">1시간49분 · </span>
+                    <div th:with="floathour=${movie.runningTime}/60,
+                                  hour=${T(java.lang.Math).floor(floathour)},
+                                  minute=${movie.runningTime} % 60">
+                        <span  th:text="${hour}+0+'시간 '+${minute}+'분'+' · '">1시간49분 · </span>
                         <span th:text="${movie.watchGrade}+' · '">15세 · </span>
                         <span>누적 관객 133만명</span>
                     </div>
@@ -157,154 +178,168 @@
                         영화 줄거리
                     </div>
                 </section>
-                <section class="">
+                <section class="section-margin">
                     <h1 class="fw:3 section-font border-left bd-color:main-2 bd-w:3 pl:1">감독 · 배우</h1>
                     <section class="d:flex">
                         <h1 class="d:none">스크롤버튼</h1>
-                        <!-- left button -->
-                        <div class="left-div d:flex jc:center ai:center d:inline-block">
-                            <button
-                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left1 icon:caret_left_bold">
-                                <span class="icon icon:caret_left_bold">아이콘</span>
-                            </button>
-                        </div>
-                        <section class="of:scroll of-y:hidden scrable-content1">
-                            <h1 class="d:none">컨텐츠</h1>
-                            <div class="display:flex padding:2">
-                                <ul class="d:flex width:10p fl-wrap:nowrap gap:5">
-                                    <!-- directors 리스트를 먼저 반복 -->
-                                    <li th:each="director : ${directors}" class="d:flex">
-                                        <!-- 감독 정보를 출력 -->
-                                        <a href="">
-                                            <div class="display:flex margin-right:4">
-                                                <img th:src="${director.imgUrl}"
-                                                    src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
-                                                    width="100px" height="auto" alt="">
+                    <!-- left button -->
+                    <div class="left-div d:flex jc:center ai:center d:inline-block">
+                        <button
+                            class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left1 icon:caret_left_bold">
+                            <span class="icon icon:caret_left_bold">아이콘</span>
+                        </button>
+                    </div>
+                    <section class="of:scroll of-y:hidden scrable-content1">
+                        <div class="display:flex padding:2">
+                            <ul class="d:flex width:10p fl-wrap:nowrap gap:5">
+                                <!-- directors 리스트를 먼저 반복 -->
+                                <li th:each="director : ${directors}" class="d:flex">
+                                    <!-- 감독 정보를 출력 -->
+                                    <a href="">
+                                        <div class="display:flex margin-right:4">
+                                            <img class="obj-fit:cover" th:src="${director.imgUrl != null ? director.imgUrl : '/image/unknown_person.jpg'}"
+                                                src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
+                                                width="100px" height="150px" alt="">
+                                        </div>
+                                        <div class="padding:1 fs:3">
+                                            <div>
+                                                <span th:text="${director.korName} ?: ${director.engName}">감독 이름</span>
                                             </div>
-                                            <div class="padding:1 fs:3">
-                                                <div>
-                                                    <span th:text="${director.korName} ?: ${director.engName}">감독
-                                                        이름</span>
-                                                </div>
-                                                <!-- 감독의 영문 이름은 없는 것으로 추정하여 임의의 값 사용 -->
-                                                <div>
-                                                    <span class="fs:2 color:base-6">감독</span>
-                                                </div>
+                                            <!-- 감독의 영문 이름은 없는 것으로 추정하여 임의의 값 사용 -->
+                                            <div>
+                                                <span class="fs:2 color:base-6">감독</span>
                                             </div>
-                                        </a>
-                                    </li>
-                                    <li th:each="actors : ${actors}" class="d:flex">
-                                        <a href="">
-                                            <div class="display:flex margin-right:4">
-                                                <img th:src="${actors.imgUrl}"
-                                                    src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
-                                                    width="100px" height="auto" alt="">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li th:each="actor : ${actors}" class="d:flex">
+                                    <a href="">
+                                        <div class="display:flex margin-right:4">
+                                            <img class="obj-fit:cover" th:src="${actor.imgUrl != null ? actor.imgUrl : '/image/unknown_person.jpg'}"
+                                                src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
+                                                width="100px" height="150px" alt="">
+                                        </div>
+                                        <div class="padding:1 fs:3">
+                                            <div>
+                                                <span th:text="${actor.korName} ?: ${actor.engName}">정우성</span>
                                             </div>
-                                            <div class="padding:1 fs:3">
-                                                <div>
-                                                    <span th:text="${actors.korName} ?: ${actors.engName}">정우성</span>
-                                                </div>
-                                                <div>
-                                                    <span class="fs:2 color:base-6"
-                                                        th:text="${actors.castEngName}">이태신</span>
-                                                </div>
+                                            <div>
+                                                <span class="fs:2 color:base-6"
+                                                    th:text="${actor.castEngName}">이태신</span>
                                             </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </section>
-                        <div class="right-div d:flex jc:center ai:center d:inline-block">
-                            <button
-                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right1 ">
-                                <span class="icon icon:caret_right_bold">아이콘</span>
-                            </button>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </section>
-                </section>
-                <section class="section-margin">
-                    <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3">예고편</h1>
-                    <div class="avg-block d:flex gap:3 bd-radius:1">
-                        <!-- trailerPlayPop?pFileNm= 을 play/ 로 바꿔주기 -->
-                        <!-- <video controls width="49%">
-                            <source src="https://www.kmdb.or.kr/trailer/play/MK060294_P02.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video> -->
-                        <!-- <video controls width="49%">
-                            <source src="https://www.kmdb.or.kr/trailer/play/MK060211_P02.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video> -->
-                        <iframe class="bd-radius:1" th:each="i : ${#numbers.sequence(1, 3)}" width="430px"
-                            height="290px" src="https://www.youtube.com/embed/rjW9E1BR_30"
-                            th:src="${movie.getTrailerUrl()}" frameborder="0" allowfullscreen></iframe>
+                    <div class="right-div d:flex jc:center ai:center d:inline-block">
+                        <button
+                            class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right1 ">
+                            <span class="icon icon:caret_right_bold">아이콘</span>
+                        </button>
                     </div>
                 </section>
+            </section>
                 <section class="section-margin">
-                    <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3 ">스틸컷</h1>
+                    <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3">트레일러</h1>
                     <section class="d:flex">
                         <h1 class="d:none">스크롤버튼</h1>
                         <!-- left button -->
                         <div class="left-div d:flex jc:center ai:center d:inline-block">
                             <button
-                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left2 icon:caret_left_bold">
+                                    class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left2 icon:caret_left_bold">
                                 <span class="icon icon:caret_left_bold">아이콘</span>
                             </button>
                         </div>
                         <section class="of:scroll of-y:hidden scrable-content2">
+                            <h1 class="d:none">컨텐츠</h1>
                             <div class="d:flex gap:3">
-                                <img class="bd-radius:1" th:each="i : ${#numbers.sequence(1, 10)}"
-                                    src="https://search.pstatic.net/common?qualit y=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231102_299%2F1698892733787ApmPu_JPEG%2Fmovie_image.jpg"
-                                    th:src="${movie.mainImgUrl}" alt="" height="290px">
+                                <iframe class="bd-radius:1" th:each="trailers : ${trailers}"
+                                        height="290px" width="516px" src=""
+                                        th:src="${trailers.url}" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </section>
                         <div class="right-div d:flex jc:center ai:center d:inline-block">
-                            <button class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right2 ">
+                            <button
+                                    class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right2 ">
                                 <span class="icon icon:caret_right_bold">아이콘</span>
                             </button>
                         </div>
                     </section>
                 </section>
-        <section class="section-margin">
-            <div class="d:flex mb:5">
-                <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3 mr:auto">한줄 평
-                    <span class="fs:3 fw:2 color:base-10">(3,426리뷰)</span>
-                </h1>
-                <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
-                    <li class="p-right:3 fs:3 color:base-10">
-                        <a href="" class="">최신 순</a>
-                    </li>
-                    <li class="p-right:3">
-                        <a href="">평점 순</a>
-                    </li>
 
-                    <li class="">
-                        <a href="">좋아요 순</a>
-                    </li>
-                </ul>
-            </div>
-            <ul class="d:flex flex-direction:column gap:2">
-                <li th:each="r ,count: ${reviews}" class="n-item n-item-type:shadow ttr">
-                    <div class="d:flex flex-direction:column gap:2">
-                        <div class="d:flex">
-                            <span th:text="${r.memberRate}+원" class="margin-right:auto color:sub-1 fw:bold">평점</span>
-                            <span th:text="${#dates.format(r.regDate, 'yyyy년 MM월 dd일')}">날짜</span>
-                            <!--                                    <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>-->
+
+                <section class="section-margin">
+                    <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3">스틸컷</h1>
+                    <section class="d:flex">
+                        <h1 class="d:none">스크롤버튼</h1>
+                        <!-- left button -->
+                        <div class="left-div d:flex jc:center ai:center d:inline-block">
+                            <button
+                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left3 icon:caret_left_bold">
+                                <span class="icon icon:caret_left_bold">아이콘</span>
+                            </button>
                         </div>
-                        <div class="d:flex ai:center gap:3">
-                            <span class="icon icon:user">아이콘</span>
-                            <span th:text="${count.count}+승환">닉네임</span>
+                        <section class="of:scroll of-y:hidden scrable-content3">
+                            <h1 class="d:none">컨텐츠</h1>
+                            <div class="d:flex gap:3">
+                                <img class="bd-radius:1" th:each="stillcuts : ${stillcuts}" src="https://search.pstatic.net/common?qualit y=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231102_299%2F1698892733787ApmPu_JPEG%2Fmovie_image.jpg"
+                                     th:src="${stillcuts.url}"
+                                     alt="" height="290px">
+                            </div>
+                        </section>
+                        <div class="right-div d:flex jc:center ai:center d:inline-block">
+                            <button
+                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right3 ">
+                                <span class="icon icon:caret_right_bold">아이콘</span>
+                            </button>
                         </div>
-                        <div th:text="${r.comments}">한줄평이 출력됩니다</div>
-                        <div class="d:inline-block bd bd-radius:5">
-                            <span class="icon icon:thumbs_up">아이콘</span>
-                            <span th:text="${count.count}">좋아요 수</span>
-                            <button class="ml:2">좋아요</button>
-                        </div>
+                    </section>
+                </section>
+
+                <section class="section-margin">
+                    <div class="d:flex mb:5">
+                        <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3 mr:auto">한줄 평
+                            <span class="fs:3 fw:2 color:base-10">(3,426리뷰)</span>
+                        </h1>
+                        <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
+                            <li class="p-right:3 fs:3 color:base-10">
+                                <a href="" class="">최신 순</a>
+                            </li>
+                            <li class="p-right:3">
+                                <a href="">평점 순</a>
+                            </li>
+
+                            <li class="">
+                                <a href="">좋아요 순</a>
+                            </li>
+                        </ul>
                     </div>
-                </li>
-            </ul>
-        </section>
-        </div>
+                    <ul class="d:flex flex-direction:column gap:2">
+                        <li th:each="r ,count: ${reviews}" class="n-item n-item-type:shadow ttr">
+                            <div class="d:flex flex-direction:column gap:2">
+                                <div class="d:flex">
+                                    <span th:text="${r.memberRate}+원"
+                                        class="margin-right:auto color:sub-1 fw:bold">평점</span>
+                                    <span th:text="${#dates.format(r.regDate, 'yyyy년 MM월 dd일')}">날짜</span>
+<!--                                    <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>-->
+                                </div>
+                                <div class="d:flex ai:center gap:3">
+                                    <span class="icon icon:user">아이콘</span>
+                                    <span th:text="${count.count}+승환">닉네임</span>
+                                </div>
+                                <div th:text="${r.comments}">한줄평이 출력됩니다</div>
+                                <div class="d:inline-block bd bd-radius:5">
+                                    <span class="icon icon:thumbs_up">아이콘</span>
+                                    <span th:text="${count.count}">좋아요 수</span>
+                                    <button class="ml:2">좋아요</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
         </section>
     </main>
 </body>

@@ -18,6 +18,12 @@
             left:4px;
             z-index: 1;
         }
+        .watch-grade-position {
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            z-index: 1;
+        }
         .line-height {
             line-height: 28px;
         }
@@ -41,47 +47,74 @@
             overflow:hidden">
 
                 <!-- 현재 상영작(list에서 받아옴.) -->
-            <section class="m-left:3 mr:3 m-top:4 m-bottom:10">
-                <h1 class="d:none">영화목록</h1>
-                <section class="d:flex jc:space-between m-bottom:3">
-                    <h1 class=" fs:6 fw:3 ">현재 상영작</h1>
-                    <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
-                        <li class="p-right:3">
-                            <a href="" class="fs:3 color:base-10">박스오피스 순위</a>
-                        </li>
-                        <li class="p-right:3">
-                            <a href="">전날 관객 순위</a>
-                        </li>
+                <section class="m-left:3 mr:3 m-top:4 m-bottom:10">
+                    <h1 class="d:none">영화목록</h1>
+                    <section class="d:flex jc:space-between m-bottom:3">
+                        <h1 class=" fs:6 fw:3 ">현재 상영작</h1>
+                        <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
+                            <li class="p-right:3">
+                                <a href="" class="fs:3 color:base-10">박스오피스 순위</a>
+                            </li>
+                            <li class="p-right:3">
+                                <a href="">전날 관객 순위</a>
+                            </li>
 
-                        <li class="">
-                            <a href="" >평점 순위</a>
-                        </li>
-                    </ul>
-                </section>
-                <!-- 여기 바로밑에 of:scroll추가하고 스크롤 스타일 없애면 스크롤,스와이프로 가려진 목록 볼수있음 -->
-                <section class="d:flex media-pading of:scroll of-y:hidden scrable-content">
-                    <h1 class="d:none ">컨텐츠</h1>
-                    <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
-                        <div class="position:relative display:inline-block bd-color:base-10 ">
-                            <a href="detail" th:href="@{movie/detail(movieid=${m.id})}"><img class="bd-radius:1"
-                                                                                       src=""
-                                                                                       th:src="${m.getPosterUrl()}" alt="/" height="363px" ></a>
-                            <span class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold" th:text="${mCount.count}">1</span>
+                            <li class="">
+                                <a href="">평점 순위</a>
+                            </li>
+                        </ul>
+                    </section>
+                    <section class="d:flex"> <!-- 스크롤 버튼 section-->
+                        <h1 class="d:none">스크롤버튼</h1>
+                        <!-- left button -->
+                        <div class="left-div d:flex jc:center ai:center d:inline-block">
+                            <button
+                                    class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left1 icon:caret_left_bold">
+                                <span class="icon icon:caret_left_bold">아이콘</span>
+                            </button>
                         </div>
-                        <div class="d:flex fl-dir:column gap:2 d:inline-block mt:2">
-                            <div class="d:flex">
-                            <span class="fs:3 fw:2 d:inline-block mr:auto"
-                                  th:text="${m.getKorName()}">서울의 봄</span>
-                                <span class="fs:3 fw:600 d:inline-block">13000원 </span>
+                        <section class="d:flex media-pading of:scroll of-y:hidden scrable-content1">
+                            <h1 class="d:none ">컨텐츠</h1>
+                            <div th:each="m,mCount : ${list}"
+                                 class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
+                                <div class="position:relative display:inline-block bd-color:base-10 ">
+                                    <a href="detail" th:href="@{movie/detail(movieid=${m.id})}"><img class="bd-radius:1"
+                                                                                               src="" th:src="${m.getPosterUrl()}" alt="/" height="363px"></a>
+                                    <span
+                                            class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
+                                            th:text="${mCount.count}">1</span>
+                                    <span><svg class="watch-grade-position" width="30px" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.642 500H56.38C25.256 500 0 474.764 0 443.632V56.368C0 25.235 25.256 0 56.379 0h387.263C474.775 0 500 25.235 500 56.368v387.264C500 474.764 474.775 500 443.642 500" style="fill:#00964b"/><path d="m144.95 378.216-6.064-38.323-44.366.01-6.064 38.292-57.17.02v-.687l54.138-256.2h62.527l54.138 256.22.02.668h-57.16zm-28.257-174.19-14.129 87.439h28.247l-14.118-87.439zM212.167 378.213V121.316h57.17v205.447h67.246v51.45zM348.693 378.199V121.312l57.17.01-.03 205.447h67.277v51.461z" style="fill:#fff"/></svg></span>
+                                </div>
+                                <div class="d:flex fl-dir:column gap:2 d:inline-block mt:2">
+                                    <div class="d:flex">
+                                            <span class="fs:3 fw:2 d:inline-block mr:auto"
+                                                  th:text="${m.getKorName()}">서울의 봄</span>
+                                        <span class="fs:3 white-space:nowrap fw:600 d:inline-block">13000원 </span>
+                                    </div>
+                                    <div class="fs:2"
+                                         th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">
+                                        2024 · 한국</div>
+                                    <div class="fs:2 color:base-6">누적 관객수 100만명</div>
+                                </div>
                             </div>
-                            <div class="fs:2" th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">2024  ·  한국</div>
-                            <div class="fs:2 color:base-6">누적 관객수 100만명</div>
+                        </section>
+                        <!-- 스크롤버튼 -->
+                        <div class="right-div d:flex jc:center ai:center d:inline-block">
+                            <button class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right1 ">
+                                <span class="icon icon:caret_right_bold">아이콘</span>
+                                <!-- <svg
+                                    xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+                                    viewBox="0 0 256 256">
+                                    <path
+                                        d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z">
+                                    </path>
+                                </svg> -->
+                            </button>
                         </div>
-                    </div>
-                </section>
+                    </section>
                 </section>
                 <!-- 개봉 예정작(list에서 받아옴.) -->
-                <section class="m-left:3 mr:3 m-top:4 m-bottom:10 of:scroll of-y:hidden">
+                <section class="m-left:3 mr:3 m-top:4 m-bottom:10">
                     <h1 class="d:none">영화목록</h1>
                     <section class="d:flex jc:space-between m-bottom:3">
                         <h1 class=" fs:6 fw:3">개봉 예정작</h1>
@@ -94,24 +127,51 @@
                             </li>
                         </ul>
                     </section>
-                    <section class="d:flex media-pading of:scroll of-y:hidden scrable-content">
-                        <h1 class="d:none ">컨텐츠</h1>
-                        <div th:each="m,mCount : ${list}" class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
-                            <div class="position:relative display:inline-block bd-color:base-10 ">
-                                <a href="detail" th:href="@{movie/detail(movieid=${m.id})}"><img class="bd-radius:1"
-                                                                                           src=""
-                                                                                           th:src="${m.getPosterUrl()}" alt="/" height="363px" ></a>
-                                <span class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold" th:text="${mCount.count}">1</span>
-                            </div>
-                            <div class="d:flex fl-dir:column gap:2 d:inline-block mt:2">
-                                <div class="d:flex">
-                            <span class="fs:3 fw:2 d:inline-block mr:auto"
-                                  th:text="${m.getKorName()}">서울의 봄</span>
-                                    <span class="fs:3 fw:600 d:inline-block">13000원 </span>
+                    <section class="d:flex"><!-- 스크롤버튼 section-->
+                        <h1 class="d:none">스크롤버튼</h1>
+                        <div class="left-div d:flex jc:center ai:center d:inline-block">
+                            <button class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left2 ">
+                                <span class="icon icon:caret_left_bold">아이콘</span>
+                            </button>
+                        </div>
+                        <section class="d:flex media-pading of:scroll of-y:hidden scrable-content2">
+                            <h1 class="d:none ">컨텐츠</h1>
+                            <div th:each="m,mCount : ${list}"
+                                 class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
+                                <div class="position:relative display:inline-block bd-color:base-10 ">
+                                    <a href="detail" th:href="@{movie/detail(movieid=${m.id})}"><img class="bd-radius:1"
+                                                                                               src="" th:src="${m.getPosterUrl()}" alt="/" height="363px"></a>
+                                    <span
+                                            class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
+                                            th:text="${mCount.count}">1</span>
+                                    <span><svg class="watch-grade-position" width="30px" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.642 500H56.38C25.256 500 0 474.764 0 443.632V56.368C0 25.235 25.256 0 56.379 0h387.263C474.775 0 500 25.235 500 56.368v387.264C500 474.764 474.775 500 443.642 500" style="fill:#00964b"/><path d="m144.95 378.216-6.064-38.323-44.366.01-6.064 38.292-57.17.02v-.687l54.138-256.2h62.527l54.138 256.22.02.668h-57.16zm-28.257-174.19-14.129 87.439h28.247l-14.118-87.439zM212.167 378.213V121.316h57.17v205.447h67.246v51.45zM348.693 378.199V121.312l57.17.01-.03 205.447h67.277v51.461z" style="fill:#fff"/></svg></span>
                                 </div>
-                                <div class="fs:2" th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">2024  ·  한국</div>
-                                <div class="fs:2 color:base-6">누적 관객수 100만명</div>
+                                <div class="d:flex fl-dir:column gap:2 d:inline-block mt:2">
+                                    <div class="d:flex">
+                                            <span class="fs:3 fw:2 d:inline-block mr:auto"
+                                                  th:text="${m.getKorName()}">서울의 봄</span>
+                                        <span class="fs:3 white-space:nowrap fw:600 d:inline-block">13000원 </span>
+                                    </div>
+                                    <div class="fs:2"
+                                         th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">
+                                        2024 · 한국</div>
+                                    <div class="fs:2 color:base-6">누적 관객수 100만명</div>
+                                </div>
                             </div>
+                        </section>
+                        <!-- 스크롤버튼 -->
+                        <div class="right-div d:flex jc:center ai:center d:inline-block">
+                            <button
+                                    class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right2">
+                                <span class="icon icon:caret_right_bold">아이콘</span>
+                                <!-- <svg
+                                    xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+                                    viewBox="0 0 256 256">
+                                    <path
+                                        d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z">
+                                    </path>
+                                </svg> -->
+                            </button>
                         </div>
                     </section>
                 </section>

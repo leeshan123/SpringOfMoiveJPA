@@ -99,7 +99,7 @@ public class MovieController {
         model.addAttribute("trailers", trailers);
         model.addAttribute("user", userDetails); //유저 정보 객체 넣어줌 테스트중
 
-        return "movie/detail-copy";
+        return "movie/detail";
     }
 
     // @PostMapping("Comment")
