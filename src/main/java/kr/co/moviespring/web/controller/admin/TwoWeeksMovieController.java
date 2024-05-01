@@ -24,10 +24,9 @@ public class TwoWeeksMovieController {
     
     @PostMapping("vote-list")
     public String voteListReg(){
-        
-        
-        
 
+        
+        
         return "admin/2weeks/vote-list";
     }
     
