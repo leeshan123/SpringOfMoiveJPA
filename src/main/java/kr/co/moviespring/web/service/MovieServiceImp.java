@@ -17,8 +17,13 @@ public class MovieServiceImp implements MovieService {
 
     @Override
     public List<Movie> getList() {
-
         List<Movie> list = repository.findAll();
+        return list;
+    }
+    // 검색값으로 영화목록 가져오기//
+    @Override
+    public List<Movie> getByQuery(String query) {
+        List<Movie> list = repository.findByQuery(query);
         return list;
     }
 

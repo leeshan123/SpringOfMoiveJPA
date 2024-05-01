@@ -111,7 +111,7 @@ public class MovieController {
     // }
     // 한줄평 등록//
     @PostMapping("comment")
-    public String comment(String comments, int rate, @RequestParam("movie-id") Long movieId) {
+    public String comment(String comments, int rate, @RequestParam("movieid") Long movieId) {
 
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(id);

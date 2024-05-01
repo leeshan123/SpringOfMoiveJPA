@@ -8,7 +8,12 @@
 		select * from movie limit 10;
     </select>
 
-	<!-- 영화 상세 목록 -->
+	<!-- 검색한 영화 목록 -->
+	<select id="findByQuery" resultType="Movie">
+		SELECT * FROM movie WHERE kor_name LIKE '%${query}%'
+	</select>
+
+	<!-- 영화 상세 페이지 -->
 	<select id="findById" resultType="Movie">
 		select * from movie
 		where id=#{id}
@@ -18,7 +23,6 @@
 		select * from movie
 		where tmdb_id=#{id}
 	</select>
-	
 
 	<!-- 영화 등록 (임시) -->
 	<insert id="save" parameterType="Movie" useGeneratedKeys="true" keyProperty="id">
@@ -28,7 +32,5 @@
 			#{releaseDate}, #{runningTime}, #{watchGrade}, #{movieIntro}, #{posterUrl},
 			#{logoUrl}, #{mainImgUrl}, #{trailerUrl}, #{releaseNation}, #{genre})
 	</insert>
-
-
 
 </mapper>

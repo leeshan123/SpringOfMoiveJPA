@@ -30,6 +30,7 @@ public class WebSecurityConfig {
                        .requestMatchers("/user/findid-result").permitAll()
                        .requestMatchers("/user/change-pwd").permitAll()
                        .requestMatchers("/user/change-pwd-result").permitAll()
+                       .requestMatchers("/user/welcome").permitAll()
                        .requestMatchers("/user/**").hasAnyRole("MEMBER","ADMIN") //역할별 권한설정, 멤버와 관리자 모두 접속가능
                        .requestMatchers("/admin/**").hasRole("ADMIN")//관리자만 접속가능
                        .anyRequest().permitAll() //위에서부터 우선순위가 적용됨

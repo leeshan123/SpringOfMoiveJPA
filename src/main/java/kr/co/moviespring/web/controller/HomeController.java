@@ -43,6 +43,7 @@ import kr.co.moviespring.web.service.MovieInsertService;
 import kr.co.moviespring.web.service.MovieService;
 import kr.co.moviespring.web.service.MovieStillcutService;
 import kr.co.moviespring.web.service.MovieTrailerService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
@@ -79,6 +80,21 @@ public class HomeController {
         model.addAttribute("list", list);
 
         return "index";
+    }
+
+    //게시글 검색페이지 요청
+    @GetMapping("search")
+    public String search(@RequestParam(name="query",required = false)String query, Model model) {
+        List<Movie> mList = movieService.getByQuery(query);
+//        List<Actor> aList = actorService.getByQuery(query);
+//        List<Director> dList = directorService.getByQuery(query);
+
+        model.addAttribute("query", query);
+        model.addAttribute("mList", mList);
+//        model.addAttribute(("directors"), directors);
+//        model.addAttribute(("actors"), actors);
+
+        return "search";
     }
 
     @PostMapping("test")
