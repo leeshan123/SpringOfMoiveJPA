@@ -11,8 +11,8 @@
   </insert>
 
   <!-- 한줄평 목록 -->
-  <select id="getlist" resultType="OnelineReview">
-        select * from oneline_review where movie_id = ${movieId}
+  <select id="getlist" resultType="OnelineReviewView">
+        select * from one_line_review_view where movie_id = ${movieId};
   </select>
   
 <!--  사용자 고유 id(Long)에서 member의 nickname를 찾아야함

@@ -54,9 +54,7 @@ public class CommunityBoardController {
         int count = 0;
         count = communityBoardService.getCount(categoryId);
 
-//        if (categoryId != null) {
-//            list = communityBoardService.getList(page, categoryId);
-//            count = communityBoardService.getCount(categoryId);
+
         if (query != null) {
             list = communityBoardService.getList(categoryId, page, 20, query);
             count = communityBoardService.getCount(categoryId, query);

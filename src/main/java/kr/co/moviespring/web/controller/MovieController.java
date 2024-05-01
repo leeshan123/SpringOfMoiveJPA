@@ -89,7 +89,7 @@ public class MovieController {
         List<MovieStillcut> stillcuts = movieStillcutService.getById(movieId);
         List<MovieTrailer> trailers = movieTrailerService.getById(movieId);
         // 리뷰목록//
-        List<OnelineReview> onelineReviews = onelineReviewService.getOnelineReviews(movieId);
+        List<OnelineReviewView> onelineReviews = onelineReviewService.getOnelineReviews(movieId);
 
         model.addAttribute("movie", movie);
         model.addAttribute("actors", actors);

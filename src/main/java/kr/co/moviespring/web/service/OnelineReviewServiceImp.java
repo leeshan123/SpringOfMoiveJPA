@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.moviespring.web.entity.OnelineReview;
+import kr.co.moviespring.web.entity.OnelineReviewView;
 import kr.co.moviespring.web.repository.OnelineReviewRepository;
 import kr.co.moviespring.web.repository.MemberRepository;
 
@@ -29,8 +30,8 @@ public class OnelineReviewServiceImp implements OnelineReviewService {
 
     // 한줄평 목록//
     @Override
-    public List<OnelineReview> getOnelineReviews(Long movieId) {
-        List<OnelineReview> onelineReviews = onelineReviewRepository.getlist(movieId);
+    public List<OnelineReviewView> getOnelineReviews(Long movieId) {
+        List<OnelineReviewView> onelineReviews = onelineReviewRepository.getlist(movieId);
         return onelineReviews;
     }
 }
