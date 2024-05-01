@@ -9,6 +9,10 @@
 		where tmdb_id=#{id}
 	</select>
 
+    <select id="findAllByName" resultType="Actor">
+        SELECT * FROM actor WHERE kor_name LIKE '%${query}%'
+    </select>
+
     <insert id="save" parameterType="Actor" useGeneratedKeys="true" keyProperty="id">
         insert into actor (kobis_id, tmdb_id, kor_name, eng_name, img_url, popularity)
         values (#{kobisId}, #{tmdbId}, #{korName}, #{engName}, #{imgUrl}, #{popularity})

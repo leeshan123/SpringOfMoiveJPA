@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import kr.co.moviespring.web.entity.Director;
 import kr.co.moviespring.web.repository.DirectorRepository;
 
+import java.util.List;
+
 @Service
 public class DirectorServiceImp implements DirectorService{
 
@@ -29,6 +31,12 @@ public class DirectorServiceImp implements DirectorService{
     public int remove(Long id) {
         // 일단 0값
         return 0;
+    }
+
+    @Override
+    public List<Director> getListByName(String query) {
+        List<Director> list = repository.findAllByName(query);
+        return list;
     }
 
     @Override

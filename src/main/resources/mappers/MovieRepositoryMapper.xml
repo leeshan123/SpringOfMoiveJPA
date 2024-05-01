@@ -9,7 +9,7 @@
     </select>
 
 	<!-- 검색한 영화 목록 -->
-	<select id="findByQuery" resultType="Movie">
+	<select id="findAllByName" resultType="Movie">
 		SELECT * FROM movie WHERE kor_name LIKE '%${query}%'
 	</select>
 

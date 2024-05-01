@@ -18,5 +18,5 @@ public interface MovieRepository {
     Movie findByTMDBId(String id);
 
     // 검색값으로 영화목록 가져오기//
-    List<Movie> findByQuery(String query);
+    List<Movie> findAllByName(String query);
 }

@@ -85,14 +85,14 @@ public class HomeController {
     //게시글 검색페이지 요청
     @GetMapping("search")
     public String search(@RequestParam(name="query",required = false)String query, Model model) {
-        List<Movie> mList = movieService.getByQuery(query);
-//        List<Actor> aList = actorService.getByQuery(query);
-//        List<Director> dList = directorService.getByQuery(query);
+        List<Movie> mList = movieService.getListByName(query);
+        List<Actor> aList = actorService.getListByName(query);
+        List<Director> dList = directorService.getListByName(query);
 
         model.addAttribute("query", query);
         model.addAttribute("mList", mList);
-//        model.addAttribute(("directors"), directors);
-//        model.addAttribute(("actors"), actors);
+        model.addAttribute(("dList"), dList);
+        model.addAttribute(("aList"), aList);
 
         return "search";
     }
