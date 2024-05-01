@@ -64,7 +64,8 @@ const scrollAmount = 980;
 const scrollContents = [
   { content: document.querySelector(".scrable-content1"), leftBtn: document.querySelector(".scr-btn-left1"), rightBtn: document.querySelector(".scr-btn-right1") },
   { content: document.querySelector(".scrable-content2"), leftBtn: document.querySelector(".scr-btn-left2"), rightBtn: document.querySelector(".scr-btn-right2") },
-  { content: document.querySelector(".scrable-content3"), leftBtn: document.querySelector(".scr-btn-left3"), rightBtn: document.querySelector(".scr-btn-right3") }
+  { content: document.querySelector(".scrable-content3"), leftBtn: document.querySelector(".scr-btn-left3"), rightBtn: document.querySelector(".scr-btn-right3") },
+  { content: document.querySelector(".scrable-content4"), leftBtn: document.querySelector(".scr-btn-left4"), rightBtn: document.querySelector(".scr-btn-right4") }
 ];
 
 // 좌측 부드럽게 스크롤

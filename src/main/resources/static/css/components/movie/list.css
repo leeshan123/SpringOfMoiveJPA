@@ -34,7 +34,8 @@
 }
 .scrable-content1,
 .scrable-content2,
-.scrable-content3 {
+.scrable-content3,
+.scrable-content4 {
     scroll-behavior: smooth; /* 스크롤이 부드럽게 이동하도록 함 */
     overflow-y: scroll; /* 수직 스크롤만 허용 */
     overflow-x: hidden; /* 수평 스크롤 제거 */
@@ -43,7 +44,8 @@
 /* Webkit 브라우저의 스크롤바 감추기 */
 .scrable-content1::-webkit-scrollbar,
 .scrable-content2::-webkit-scrollbar,
-.scrable-content3::-webkit-scrollbar {
+.scrable-content3::-webkit-scrollbar,
+.scrable-content4::-webkit-scrollbar {
     display: none;
 }
 

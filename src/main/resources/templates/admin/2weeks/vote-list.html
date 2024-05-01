@@ -1,38 +1,97 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="inc/adminlayout">
+    layout:decorate="inc/adminlayout">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/admin/modal.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="/css/modal.css" />
+
     <title>Document</title>
 
     <style>
         .main-container {
-            width: 980px; margin: 0 auto; 
+            width: 980px;
+            margin: 0 auto;
             height: 100%;
-        }   
+        }
     </style>
 </head>
+
 <body>
     <main layout:fragment="main">
         <section class="main-container">
             <h1>2주의영화 후보를 등록해주세요.</h1>
             <section>
-            <form action="" method="post">
-                <div>
-                    <select name="" id="">
-                        <option value="y=?">연도</option>
-                        <option value="j=?">장르</option>
-                        <option value="fd=-?">영화사</option>
-                    </select>
-                    <input type="text" name="" id="">
-                </div>
-                <div>
-                    <button class="n-btn">등록</button>
-                </div>
-            </form>
+                <form action="" method="post">
+                    <div>다음 2주의 영화 테마 제목</div>
+                    <input type="text">
+                    <div>
+                        <label for="">
+                            <div class="">연도</div>
+                            <input class="n-toggle n-toggle-type:check-box n-toggle-size:1" type="checkbox" name="" id="" value="">
+                            <select name="pets" id="pet-select">
+                                <option value="">고전</option>
+                                <option value="dog">2000년대</option>
+                                <option value="cat">2010</option>
+                                <option value="hamster">2020</option>
+                              </select>
+                    </div>
+                    <div>
+                        <label for="">장르
+                            <input class="n-toggle n-toggle-type:check-box n-toggle-size:1" type="checkbox" name="" id="" value="">
+                            <select name="pets" id="pet-select">
+                                <option value="">고전</option>
+                                <option value="dog">2000년대</option>
+                                <option value="cat">2010</option>
+                                <option value="hamster">2020</option>
+                              </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="">영화사
+                            <input class="n-toggle n-toggle-type:check-box n-toggle-size:1" type="checkbox" name="" id="" value="">
+                            <select name="pets" id="pet-select">
+                                <option value="">고전</option>
+                                <option value="dog">2000년대</option>
+                                <option value="cat">2010</option>
+                                <option value="hamster">2020</option>
+                              </select>
+                        </label>
+                    </div>
+                    <div class="d:flex">
+                    </div>
+                    <div>
+                        <button class="n-btn">등록</button>
+                    </div>
+                </form>
+            </section>
+            <button id="modal-btn" type="button" class="n-btn">모달 열기</button>
+            <section id="modal" class="n-modal d:none" tabindex="-1">
+                <h1 class="n-font:h3 font-weight:3">신청 안내</h1>
+                <form>
+                  <div class="my:5">
+                    <label>
+                      이름
+                      <input type="text" class="n-textbox n-textbox-label:top w:5" />
+                    </label>
+                  </div>
+                  <div class="my:5">
+                    <label>
+                      이메일
+                      <input type="text" class="n-textbox n-textbox-label:top w:5" />
+                    </label>
+                  </div>
+                  <div class="d:flex jc:flex-end gap:2 mt:8">
+                    <button type="button" class="n-btn n-btn:outline">취소</button>
+                    <button type="submit" class="n-btn">신청</button>
+                  </div>
+                </form>
+            </section>
+            <div id="modal-backdrop" class="backdrop d:none"></div>
         </section>
-    </section>
     </main>
 </body>
+
 </html>
