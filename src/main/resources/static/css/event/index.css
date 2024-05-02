@@ -54,6 +54,7 @@ main{
 .event-card-img_block{
     grid-row:1;
     overflow: hidden;
+    border-bottom: solid 2px #cccccc;
 }
 
 .event-card-img_block img{

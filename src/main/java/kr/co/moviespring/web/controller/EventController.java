@@ -13,4 +13,10 @@ public class EventController {
 
         return "event/main";
     }
+
+    @GetMapping("detail")
+    public String detail(){
+
+        return "event/detail";
+    }
 }
