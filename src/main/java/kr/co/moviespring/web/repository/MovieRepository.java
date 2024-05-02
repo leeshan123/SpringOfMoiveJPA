@@ -14,9 +14,10 @@ public interface MovieRepository {
     Long save(Movie movie);
 
     Movie findById(Long id);
-
     Movie findByTMDBId(String id);
+    Movie findByKobisId(String id);
 
     // 검색값으로 영화목록 가져오기//
     List<Movie> findAllByName(String query);
+
 }

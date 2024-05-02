@@ -26,6 +26,11 @@
 		where tmdb_id=#{id}
 	</select>
 
+	<select id="findByKobisId" resultType="Movie">
+		select * from movie
+		where kobis_id=#{id}
+	</select>
+
 	<!-- 영화 등록 (임시) -->
 	<insert id="save" parameterType="Movie" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO movie (tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, logo_url, main_img_url, trailer_url, release_nation, genre)

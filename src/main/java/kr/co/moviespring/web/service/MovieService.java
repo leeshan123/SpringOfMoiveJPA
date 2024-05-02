@@ -9,5 +9,6 @@ public interface MovieService {
     List <Movie> getListByName(String query);
     Movie getById(Long id);
     Movie getByTMDBId(String id);
+    Movie getByKobisId(String id);
     Long saveMovie(Movie movie);
 }

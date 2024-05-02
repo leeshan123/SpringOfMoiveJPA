@@ -1,9 +1,8 @@
 package kr.co.moviespring.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import kr.co.moviespring.web.entity.*;
-import kr.co.moviespring.web.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +13,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.moviespring.web.config.batch.BatchSchedulerConfig;
 import kr.co.moviespring.web.config.security.CustomUserDetails;
+import kr.co.moviespring.web.entity.Director;
+import kr.co.moviespring.web.entity.Movie;
+import kr.co.moviespring.web.entity.MovieActorView;
+import kr.co.moviespring.web.entity.MovieStillcut;
+import kr.co.moviespring.web.entity.MovieTrailer;
+import kr.co.moviespring.web.entity.OnelineReviewView;
+import kr.co.moviespring.web.movieapi.dto.kobis.KobisDailyBox;
+import kr.co.moviespring.web.service.MovieActorService;
+import kr.co.moviespring.web.service.MovieDirectorService;
+import kr.co.moviespring.web.service.MovieService;
+import kr.co.moviespring.web.service.MovieStillcutService;
+import kr.co.moviespring.web.service.MovieTrailerService;
+import kr.co.moviespring.web.service.OnelineReviewService;
 
 @Controller
 @RequestMapping("movie")
@@ -72,8 +85,20 @@ public class MovieController {
         //     m.setMovieIntro(movieUrl.getOverView());
         //     mlist.add(m);
         // }
-
+        // List<String> sList = BatchSchedulerConfig.getList();
+        // List<Movie> dailyList = new ArrayList<>();
+        // for (String mCode : sList) {
+        //     Movie movie = movieService.getByKobisId(mCode);
+        //     dailyList.add(movie);
+        // }
+        List<Movie> dailyList = BatchSchedulerConfig.getList();
         List<Movie> list = movieService.getList();
+
+        // 서버로 돌면 풀어주기, 일단 그냥 리스트로
+        if(dailyList == null)
+            dailyList = list;
+
+        model.addAttribute("dlist", dailyList);
         model.addAttribute("list", list);
         return "movie/list";
     }

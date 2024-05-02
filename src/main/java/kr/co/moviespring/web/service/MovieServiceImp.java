@@ -39,8 +39,18 @@ public class MovieServiceImp implements MovieService {
     // 요청 id값으로 상세정보가져오기//
     @Override
     public Movie getById(Long id) {
-
         Movie movie = repository.findById(id);
+        return movie;
+    }
+
+    @Override
+    public Movie getByTMDBId(String id) {
+        Movie movie = repository.findByTMDBId(id);
+        return movie;
+    }
+    @Override
+    public Movie getByKobisId(String id) {
+        Movie movie = repository.findByKobisId(id);
         return movie;
     }
 
@@ -50,12 +60,6 @@ public class MovieServiceImp implements MovieService {
         repository.save(movie);
         Long movieId = movie.getId();
         return movieId;
-    }
-
-    @Override
-    public Movie getByTMDBId(String id) {
-        Movie movie = repository.findByTMDBId(id);
-        return movie;
     }
 
 }

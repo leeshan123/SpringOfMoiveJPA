@@ -128,8 +128,15 @@
             <artifactId>spring-security-core</artifactId>
         </dependency>
 
-    </dependencies>
+        <!-- 스프링부트 스케줄러 -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-batch -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-batch</artifactId>
+            <version>3.2.5</version>
+        </dependency>
 
+    </dependencies>
 
     <build>
         <plugins>

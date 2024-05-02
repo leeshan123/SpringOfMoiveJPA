@@ -32,7 +32,7 @@ public class KobisMovieAPI {
     // 상수 설정
     //   - 요청(Request) 요청 변수
     private String REQUEST_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
-    private final String AUTH_KEY = "8eebf0d30cb02fd27d0ccede30262ce2";
+    private final String AUTH_KEY = "1e5731730c8946b865535ff457996b63";
  
     //   - 일자 포맷
     private final SimpleDateFormat DATE_FMT = new SimpleDateFormat("yyyyMMdd");
