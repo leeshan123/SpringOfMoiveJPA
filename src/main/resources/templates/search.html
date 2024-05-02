@@ -56,7 +56,7 @@
             <div class="w:10p bg-color d:flex jc:center ai:center mb:3 top-nav-bar">
                 <div class="nav-bar-margin d:flex jc:space-between w:10p">
                     <div>
-                        <span class="fs:5 fw:3 mr:1" th:text="'&quot;'+${query}+'&quot;'">검색어</span>
+                        <span class="fs:5 fw:3 mr:1" th:text="'&quot;'+${{param.query}}+'&quot;'">검색어</span>
                         <span class="fs:5 fw:3 mr:auto">의 검색결과</span>
                     </div>
                     <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
