@@ -141,7 +141,7 @@ public class MovieInsertServiceImp implements MovieInsertService{
 
         // 1부터 10까지 실행(총 100개)
 
-        for (int i = 1; i < 1100; i++) {
+        for (int i = 1; i < 300; i++) {
             try {
                 StringBuilder sb = new StringBuilder();
                 URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=" + key + "&curPage=" + i+"&itemPerPage=100");
@@ -165,7 +165,7 @@ public class MovieInsertServiceImp implements MovieInsertService{
                         Movie2 movie2 = new Movie2();
                         movie2.setMovieCd(movielistinfo.getMovieCd());
                         movie2.setMovieNm(movielistinfo.getMovieNm());
-                        movie2.setPrdtYear(movielistinfo.getPrdtYear());
+                        movie2.setPrdYear(movielistinfo.getPrdYear());
                         movie2.setOpenDt(movielistinfo.getOpenDt());
                         movie2.setRepGenreNm(movielistinfo.getRepGenreNm());
                         movie2.setMovieNmEn(movielistinfo.getMovieNmEn());

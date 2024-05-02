@@ -11,9 +11,21 @@
 		VALUES (#{peopleCd}, #{peopleNm},#{peopleNmEn}, #{repRoleNm}, #{filmoNames})
 	</insert>
 
-	<select id="getPeopleList" resultType="People">
-		SELECT * from people;
+	<select id="getPeopleCd" resultType="String">
+		SELECT people_cd
+		FROM numbered_people
+		WHERE person_number = #{x}
 	</select>
+
+
+	<insert id="saveMoviePeople" parameterType="MoviePeople">
+		INSERT INTO movie_people (people_cd, people_nm, people_nm_en, sex,rep_role_nm, movie_cd, moive_nm, movie_part_nm)
+		SELECT #{peopleCd}, #{peopleNm}, #{peopleNmEn}, #{sex}, #{repRoleNm}, #{movieCd}, #{movieNm}, #{moviePartNm}
+		FROM (SELECT 1) AS dummy
+		WHERE NOT EXISTS (
+		SELECT 1 FROM movie_people WHERE people_cd = #{peopleCd} AND movie_cd = #{movieCd}
+		)
+	</insert>
 
 
 </mapper>
