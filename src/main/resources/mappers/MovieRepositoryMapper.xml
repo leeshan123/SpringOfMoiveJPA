@@ -10,7 +10,9 @@
 
 	<!-- 검색한 영화 목록 -->
 	<select id="findAllByName" resultType="Movie">
-		SELECT * FROM movie WHERE kor_name LIKE '%${query}%'
+		SELECT * FROM movie WHERE kor_name LIKE CONCAT('%', #{query}, '%')
+		OR REPLACE(kor_name, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+		OR LOWER(eng_name) LIKE CONCAT('%', LOWER(#{query}), '%');
 	</select>
 
 	<!-- 영화 상세 페이지 -->

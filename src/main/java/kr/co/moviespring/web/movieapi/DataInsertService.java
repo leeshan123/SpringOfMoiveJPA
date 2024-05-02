@@ -9,15 +9,15 @@ import java.io.IOException;
 
 //영화 넣을떄 쓰자.
 //총 영화배우 + 감독 72439
-// 1691까지
+// 18490까지
 //후보군: fa4a546d896ea6a36a7db5d09bcb80f3(내꺼) (1~2500)
 //후보군: 382938328dd953840168608f3f58b586(내꺼) (2500~5000)
 //후보군: 860589c36cddbbbbd930b4a6aaa53da7(태평이형꺼) (5000~7500)
 //후보군: a131ca3b5ab570fb631f8ca391fb7c74(민석이꺼) (7500~10000)
 //후보군: 92902be4026fea05023b7f31b4324c40(민석이꺼2) (10000 ~ 12500)
-//후보군: e7f6a63edea6295a55b893dcc0071d60(준순이꺼)
-//후보군: 7142d2f276da9b8a161e569423e64ec3(준순이꺼2)
-//후보군: 8eebf0d30cb02fd27d0ccede30262ce2(태평이형꺼2)
+//후보군: e7f6a63edea6295a55b893dcc0071d60(준순이꺼) (12500 ~ 15000)
+//후보군: 7142d2f276da9b8a161e569423e64ec3(준순이꺼2) (15000 ~ 17500)
+//후보군: 8eebf0d30cb02fd27d0ccede30262ce2(태평이형꺼2) 18490
 
 //컴포넌트로 인식
 //어떻게 사용할지 고민해 봐야할듯!
@@ -26,8 +26,8 @@ import java.io.IOException;
 public class DataInsertService {
 
 
-    String key = "92902be4026fea05023b7f31b4324c40";
-    String key2 = "e7f6a63edea6295a55b893dcc0071d60";
+    String key = "e7f6a63edea6295a55b893dcc0071d60";
+//    String key2 = "e7f6a63edea6295a55b893dcc0071d60";
 
     String filePath = "C:/Users/leedw/Desktop/audience.xlsx";
 
@@ -54,7 +54,7 @@ public class DataInsertService {
 
 //        peopleDataUpdate.filmoInsertServie(peopleDataUpdate.getFilmoList(key));
 
-        for(int i =12000; i<12500; i++) {
+        for(int i =12550; i<15000; i++) {
             String peopleCd = peopleDataUpdate.getPeopleCd(i);
             peopleDataUpdate.filmoInsertServie(peopleDataUpdate.getFilmoList(key,peopleCd));
         }

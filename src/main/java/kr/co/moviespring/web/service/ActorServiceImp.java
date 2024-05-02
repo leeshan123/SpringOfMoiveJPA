@@ -1,5 +1,6 @@
 package kr.co.moviespring.web.service;
 
+import kr.co.moviespring.web.entity.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,14 @@ public class ActorServiceImp implements ActorService{
 
     @Override
     public List<Actor> getListByName(String query) {
-        List<Actor> list = repository.findAllByName(query);
+
+        List<Actor> list;
+        if (query == null || query.trim().isEmpty()) {
+            list = null;
+        } else {
+            list = repository.findAllByName(query);
+        }
+
         return list;
     }
 

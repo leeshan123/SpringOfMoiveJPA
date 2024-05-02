@@ -10,7 +10,9 @@
 	</select>
 
     <select id="findAllByName" resultType="Director">
-        SELECT * FROM director WHERE kor_name LIKE '%${query}%'
+        SELECT * FROM director WHERE kor_name LIKE CONCAT('%', #{query}, '%')
+        OR REPLACE(kor_name, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+        OR LOWER(eng_name) LIKE CONCAT('%', LOWER(#{query}), '%');
     </select>
 
     <insert id="save" parameterType="Director" useGeneratedKeys="true" keyProperty="id">

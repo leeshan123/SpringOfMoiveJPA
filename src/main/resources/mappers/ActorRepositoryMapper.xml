@@ -10,7 +10,10 @@
 	</select>
 
     <select id="findAllByName" resultType="Actor">
-        SELECT * FROM actor WHERE kor_name LIKE '%${query}%'
+        SELECT * FROM actor WHERE kor_name LIKE CONCAT('%', #{query}, '%')
+        OR REPLACE(kor_name, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+        OR LOWER(eng_name) LIKE CONCAT('%', LOWER(#{query}), '%');
+
     </select>
 
     <insert id="save" parameterType="Actor" useGeneratedKeys="true" keyProperty="id">

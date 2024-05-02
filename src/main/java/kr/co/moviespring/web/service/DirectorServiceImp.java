@@ -1,5 +1,6 @@
 package kr.co.moviespring.web.service;
 
+import kr.co.moviespring.web.entity.Actor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,14 @@ public class DirectorServiceImp implements DirectorService{
 
     @Override
     public List<Director> getListByName(String query) {
-        List<Director> list = repository.findAllByName(query);
+
+        List<Director> list;
+        if (query == null || query.trim().isEmpty()) {
+            list = null;
+        } else {
+            list = repository.findAllByName(query);
+        }
+
         return list;
     }
 
