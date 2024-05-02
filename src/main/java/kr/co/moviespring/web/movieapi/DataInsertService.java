@@ -22,7 +22,7 @@ import java.io.IOException;
 //컴포넌트로 인식
 //어떻게 사용할지 고민해 봐야할듯!
 
-@Component
+//@Component
 public class DataInsertService {
 
 
@@ -34,12 +34,12 @@ public class DataInsertService {
 //    @Autowired
     private MovieDataUpdate movieDataUpdate;
 
-    @Autowired
+//    @Autowired
     private PeopleDataUpdate peopleDataUpdate;
 
     //메서드를 자동으로 실행
     //의존성 주입이 완료 된 후에 딱 한번만 실행.
-    @PostConstruct
+//    @PostConstruct
     public void executeAfterStartup() throws IOException {
         //영화 목록을 가져와서 영화 리스트를 업데이트함.
 //        movieDataUpdate.movieListUpdate(movieDataUpdate.getMovieList(key));
