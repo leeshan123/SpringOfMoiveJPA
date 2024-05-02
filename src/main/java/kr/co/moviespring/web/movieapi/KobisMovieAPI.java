@@ -23,9 +23,6 @@ import kr.co.moviespring.web.movieapi.dto.kobis.sub.Actors;
 import kr.co.moviespring.web.movieapi.dto.kobis.sub.Audits;
 import kr.co.moviespring.web.movieapi.dto.kobis.sub.Companys;
 import kr.co.moviespring.web.movieapi.dto.kobis.sub.Directors;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class KobisMovieAPI {
 
