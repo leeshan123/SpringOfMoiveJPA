@@ -62,4 +62,23 @@ public class MovieServiceImp implements MovieService {
         return movieId;
     }
 
+    //카테고리별 영화검색후 등록(2주의영화 관리자)
+    public void findByGenre(String childSelectValue) {
+        repository.getByGenre(childSelectValue);
+    }
+    @Override
+    public void findByReleseDate(String childSelectValue) {
+        repository.getByReleseDate(childSelectValue);
+
+    }
+    @Override
+    public void findByDistributor(String childSelectValue) {
+        repository.getByDistributor(childSelectValue);
+    }
+    @Override
+    public  List<Movie>  findAllEditedList() {
+        List<Movie>  movieWeeks = repository.getEditedList();
+        return movieWeeks;
+    }
+
 }
