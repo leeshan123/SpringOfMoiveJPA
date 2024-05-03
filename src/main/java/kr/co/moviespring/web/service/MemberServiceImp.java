@@ -55,4 +55,9 @@ public class MemberServiceImp implements MemberService {
         memberRepository.regist(data);
     }
 
+    @Override
+    public void changeUserInfo(String nickname, String password, String email) {
+        
+    }
+
 }

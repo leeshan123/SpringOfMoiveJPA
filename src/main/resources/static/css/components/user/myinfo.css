@@ -44,3 +44,46 @@ main h1{
 .n-btn{
     margin-right: 0;
 }
+
+
+/* 여기부터 모달 */
+/* CSS */
+.n-modal {
+    transition: transform 0.13s, opacity 0.13s;
+  }
+  
+  .modal-fade-in {
+    animation: modal-fade-in 0.13s forwards;
+  }
+  
+  .modal-fade-out {
+    animation: modal-fade-out 0.13s forwards;
+  }
+  
+  @keyframes modal-fade-in {
+    from {
+      opacity: 0;
+      transform: translate(50%, -48%) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translate(50%, -50%) scale(1);
+    }
+  }
+  
+  @keyframes modal-fade-out {
+    from {
+      opacity: 1;
+      transform: translate(50%, -50%) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translate(50%, -48%) scale(0.97);
+    }
+  }
+  
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+  }

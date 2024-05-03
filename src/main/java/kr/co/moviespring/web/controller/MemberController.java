@@ -132,6 +132,26 @@ public class MemberController {
         return "user/myinfo";
     }
 
+    @PostMapping("myinfo")
+    public String myinfo(
+        String nickname,
+        String password,
+        String email
+    ){
+        if(nickname != null){
+            System.out.println("닉네임");
+        }
+        else if(password != null){
+            System.out.println("패스워드");
+        }
+        else if(email != null){
+            System.out.println("이메일");
+        }
+
+
+        return "redirect:/user/myinfo";
+    }
+
 
 
 }
