@@ -15,4 +15,20 @@
         values (#{username},#{password},#{name},#{nickname},#{age},#{email},#{role});
   </insert>
 
+  <update id="update" parameterType="member">
+        update member
+        <set>
+          <if test="nickname != null">
+            nickname = #{nickname}
+          </if>
+          <if test="email != null">
+            email = #{email}
+          </if>
+          <if test="password != null">
+            password = #{password}
+          </if>
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>

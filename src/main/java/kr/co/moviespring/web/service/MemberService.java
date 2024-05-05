@@ -1,6 +1,9 @@
 package kr.co.moviespring.web.service;
 
 
+import java.util.List;
+
+import kr.co.moviespring.web.entity.CommunityBoardView;
 import kr.co.moviespring.web.entity.Member;
 
 public interface MemberService {
@@ -9,9 +12,9 @@ public interface MemberService {
 
     //회원가입//
     void regist(Member member);
-//    String userId, String pwd, String nickname, String name, int age, String email
 
     //회원정보 변경
-     void changeUserInfo(String nickname, String password, String email);
+    void changeUserInfo(Long id, String nickname, String password, String email);
+    List<CommunityBoardView> getMyBoard(Long memberId); // 내 게시글 조회
     
 }

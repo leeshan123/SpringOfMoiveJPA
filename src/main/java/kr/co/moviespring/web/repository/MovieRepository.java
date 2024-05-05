@@ -20,4 +20,15 @@ public interface MovieRepository {
     // 검색값으로 영화목록 가져오기//
     List<Movie> findAllByName(String query);
 
+
+    //테마별 영화 2주의영화에 등록
+    void getByGenre(String childSelectValue);
+
+    void getByReleseDate(String childSelectValue);
+
+    void getByDistributor(String childSelectValue);
+
+    List<Movie> getEditedList();
+
+
 }

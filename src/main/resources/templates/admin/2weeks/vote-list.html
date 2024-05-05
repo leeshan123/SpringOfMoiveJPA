@@ -26,70 +26,86 @@
         <section class="main-container">
             <h1>2주의영화 후보를 등록해주세요.</h1>
             <section>
-                <select id="parentSelect" class="w:3 of:hidden">
-                    <option value="">테마를 정해주세요</option>
-                    <option value="1">개봉년도</option>
-                    <option value="2">장르</option>
-                    <option value="3">영화사(광고이벤트가 들어온다면 말이지 . . 모두를 구원하겠어 ㅡ "에렌예거")</option>
-                </select>
-                <select id="childSelect">
-                    <!-- 자식 select 요소는 JavaScript를 통해 동적으로 생성됩니다 -->
-                </select>
-            
-                <script>
-                    const parentSelect = document.getElementById('parentSelect');
-                    const childSelect = document.getElementById('childSelect');
-            
-                    // 부모 select 요소의 선택이 변경될 때마다 자식 select 요소를 업데이트합니다.
-                    parentSelect.addEventListener('change', function() {
-                        // 이전 자식 option 요소들을 모두 제거합니다.
-                        childSelect.innerHTML = '';
-            
-                        // 선택된 부모 option 요소의 값을 가져옵니다.
-                        const selectedValue = parentSelect.value;
-            
-                        // 선택된 부모 option 값에 따라 자식 option 요소를 생성합니다.
-                        switch (selectedValue) {
-                            case '1':
-                                childSelect.add(new Option('2000년 이전'));
-                                childSelect.add(new Option('2000년~2010년'));
-                                childSelect.add(new Option('2010년~2020년'));
-                                childSelect.add(new Option('2020년~현재'));
-                                break;
-                            case '2':
-                                childSelect.add(new Option('SF',"SF"));
-                                childSelect.add(new Option('가족',"가족"));
-                                childSelect.add(new Option('공연',"공연"));
-                                childSelect.add(new Option('공포(호러)',"공포(호러)"));
-                                childSelect.add(new Option('기타',"기타"));
-                                childSelect.add(new Option('다큐멘터리',"다큐멘터리"));
-                                childSelect.add(new Option('드라마',"드라마"));
-                                childSelect.add(new Option('멜로/로맨스',"멜로/로맨스"));
-                                childSelect.add(new Option('뮤지컬',"뮤지컬"));
-                                childSelect.add(new Option('미스터리',"미스터리"));
-                                childSelect.add(new Option('범죄',"범죄"));
-                                childSelect.add(new Option('사극',"사극"));
-                                childSelect.add(new Option('서부극(웨스턴)',"서부극(웨스턴)"));
-                                childSelect.add(new Option('스릴러',"스릴러"));
-                                childSelect.add(new Option('애니메이션',"애니메이션"));
-                                childSelect.add(new Option('액션',"액션"));
-                                childSelect.add(new Option('어드벤처',"어드벤처"));
-                                childSelect.add(new Option('전쟁',"전쟁"));
-                                childSelect.add(new Option('코미디',"코미디"));
-                                childSelect.add(new Option('판타지',"판타지"));
+                <form action="vote-list" method="post">
 
-                                break;
-                            case '3':
-                                childSelect.add(new Option('롯데시네마','롯데시네마'));
-                                childSelect.add(new Option('CGV','CGV'));
-                                childSelect.add(new Option('메가박스','메가박스'));
-                                break;
-                            default:
-                                // 기본적으로 아무 옵션도 추가하지 않습니다.
-                                break;
-                        }
-                    });
-                </script>
+                    <select id="parentSelect" class="w:3" name="pS">
+                        <option value="">테마를 정해주세요</option>
+                        <option value="1" name="1">개봉년도</option>
+                        <option value="2" name="2">장르</option>
+                        <option value="3" name="3">영화사(이벤트테마)</option>
+                    </select>
+                    <select id="childSelect" name="cS">
+                    </select>
+                    <button type="button" class="n-btn submit-button">등록</button>
+                </form>
+                <button id="modal-btn" type="button" class="n-btn">등록정보 확인</button>
+
+                <section id="modal" class="n-modal d:none" tabindex="-1">
+                  <h1 class="n-font:subtitle text-align:center">반갑습니다 신이시여. 등록정보를 확인 하십시오👋</h1></h1>
+
+                  <div class="mt:4">
+                    <button id="close-btn" type="button" class="n-btn w:5">닫기</button>
+                  </div>
+                </section>
+                <div id="modal-backdrop" class="backdrop d:none"></div>
+
+                <div class="movieListContainer"></div>
+
+                    <script>
+                        const parentSelect = document.getElementById('parentSelect');
+                        const childSelect = document.getElementById('childSelect');
+
+
+                        // 부모 select 요소가 변경될 때마다 자식 select 요소를 업데이트
+                        parentSelect.addEventListener('change', function () {
+                            childSelect.innerHTML = '';
+
+                            const selectedValue = parentSelect.value;
+
+                            switch (selectedValue) {
+                                case '1':
+                                    childSelect.add(new Option('2018','2018'));
+                                    childSelect.add(new Option('2019','2019'));
+                                    childSelect.add(new Option('2020','2020'));
+                                    childSelect.add(new Option('2021','2021'));
+                                    childSelect.add(new Option('2022','2022'));
+                                    childSelect.add(new Option('2023','2023'));
+                                    childSelect.add(new Option('2024','2024'));
+                                    break;
+                                case '2':
+                                    childSelect.add(new Option('SF', "SF"));
+                                    childSelect.add(new Option('가족', "가족"));
+                                    childSelect.add(new Option('공연', "공연"));
+                                    childSelect.add(new Option('공포(호러)', "공포(호러)"));
+                                    childSelect.add(new Option('기타', "기타"));
+                                    childSelect.add(new Option('다큐멘터리', "다큐멘터리"));
+                                    childSelect.add(new Option('드라마', "드라마"));
+                                    childSelect.add(new Option('멜로/로맨스', "멜로/로맨스"));
+                                    childSelect.add(new Option('뮤지컬', "뮤지컬"));
+                                    childSelect.add(new Option('미스터리', "미스터리"));
+                                    childSelect.add(new Option('범죄', "범죄"));
+                                    childSelect.add(new Option('사극', "사극"));
+                                    childSelect.add(new Option('서부극(웨스턴)', "서부극(웨스턴)"));
+                                    childSelect.add(new Option('스릴러', "스릴러"));
+                                    childSelect.add(new Option('애니메이션', "애니메이션"));
+                                    childSelect.add(new Option('액션', "액션"));
+                                    childSelect.add(new Option('어드벤처', "어드벤처"));
+                                    childSelect.add(new Option('전쟁', "전쟁"));
+                                    childSelect.add(new Option('코미디', "코미디"));
+                                    childSelect.add(new Option('판타지', "판타지"));
+
+                                    break;
+                                case '3':
+                                    childSelect.add(new Option('롯데시네마', '롯데시네마'));
+                                    childSelect.add(new Option('CGV', 'CGV'));
+                                    childSelect.add(new Option('메가박스', '메가박스'));
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        });
+                    </script>
             </section>
             <div id="modal-backdrop" class="backdrop d:none"></div>
         </section>

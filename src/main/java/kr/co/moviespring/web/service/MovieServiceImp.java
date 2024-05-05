@@ -1,11 +1,16 @@
 package kr.co.moviespring.web.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.annotation.PostConstruct;
+import kr.co.moviespring.web.config.batch.BatchSchedulerConfig;
 import kr.co.moviespring.web.entity.Movie;
+import kr.co.moviespring.web.movieapi.KobisMovieAPI;
+import kr.co.moviespring.web.movieapi.dto.kobis.KobisDailyBox;
 import kr.co.moviespring.web.repository.MovieRepository;
 
 @Service
@@ -14,6 +19,19 @@ public class MovieServiceImp implements MovieService {
     // 모든 목록 가져오기//
     @Autowired
     MovieRepository repository;
+
+    // 프로젝트 로드시 한번 실행되는 어노테이션
+    @PostConstruct
+    public void movieInit() {
+        List<Movie> list = new ArrayList<>();
+        KobisMovieAPI api = new KobisMovieAPI();
+        List<KobisDailyBox> koList = api.searchDailyBoxOfficeList();
+        for (KobisDailyBox kobisDailyBox : koList) {
+            Movie movie = this.getByKobisId(kobisDailyBox.getMovieCd());
+            list.add(movie);
+        }
+        BatchSchedulerConfig.setList(list);
+    }
 
     @Override
     public List<Movie> getList() {
@@ -60,6 +78,25 @@ public class MovieServiceImp implements MovieService {
         repository.save(movie);
         Long movieId = movie.getId();
         return movieId;
+    }
+
+    //카테고리별 영화검색후 등록(2주의영화 관리자)
+    public void findByGenre(String childSelectValue) {
+        repository.getByGenre(childSelectValue);
+    }
+    @Override
+    public void findByReleseDate(String childSelectValue) {
+        repository.getByReleseDate(childSelectValue);
+
+    }
+    @Override
+    public void findByDistributor(String childSelectValue) {
+        repository.getByDistributor(childSelectValue);
+    }
+    @Override
+    public  List<Movie>  findAllEditedList() {
+        List<Movie>  movieWeeks = repository.getEditedList();
+        return movieWeeks;
     }
 
 }
