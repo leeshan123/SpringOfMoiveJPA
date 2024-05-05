@@ -3,7 +3,7 @@
       layout:decorate="inc/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>영화의봄</title>
     <link rel="stylesheet" type="text/css" href="/css/index.css" />
     <link rel="stylesheet" type="text/css" href="/css/desktop.css" />
     <script src="/js/movie/list.js" defer></script>
@@ -27,6 +27,7 @@
         .line-height {
             line-height: 28px;
         }
+
     </style>
 </head>
 <body>
@@ -77,7 +78,7 @@
                                  class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
                                 <div class="position:relative display:inline-block bd-color:base-10 ">
                                     <a href="detail" th:href="@{movie/detail(movieid=${m.id})}"><img class="bd-radius:1"
-                                                                                               src="" th:src="${m.getPosterUrl()}" alt="/" height="363px"></a>
+                                                                                               src="" th:src="${m.getPosterUrl()}" alt="/" width="247.69px" height="361.54px"></a>
                                     <span
                                             class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
                                             th:text="${mCount.count}">1</span>
@@ -138,7 +139,7 @@
                                  class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
                                 <div class="position:relative display:inline-block bd-color:base-10 ">
                                     <a href="detail" th:href="@{movie/detail(movieid=${m.id})}"><img class="bd-radius:1"
-                                                                                               src="" th:src="${m.getPosterUrl()}" alt="/" height="363px"></a>
+                                                                                               src="" th:src="${m.getPosterUrl()}" alt="/" width="247.69px" height="361.54px"></a>
                                     <span
                                             class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
                                             th:text="${mCount.count}">1</span>

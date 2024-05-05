@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="inc/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${{param.query}}+' - '+영화의봄">Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/desktop.css" />
+    <script src="/js/movie/list.js" defer></script>
+    <link rel="stylesheet" href="/css/components/movie/list.css">
+    <style>
+        .icon-size {
+            width: 28px;
+            height: 28px;
+        }
+
+        .icon-position {
+            position: absolute;
+            bottom: 8px;
+            left: 4px;
+            z-index: 1;
+        }
+
+        .watch-grade-position {
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            z-index: 1;
+        }
+
+        .line-height {
+            line-height: 28px;
+        }
+
+        .bg-color {
+            background-color: rgba(249, 249, 249, 0.87);
+        }
+        .nav-bar-margin {
+            max-width: 1320px;
+            /*margin-left: 52px;*/
+            /*margin-right: 52px;*/
+            padding-right: 12px;
+            padding-left: 12px;
+        }
+        .top-nav-bar {
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <main layout:fragment="main">
+        <section>
+            <h1 class="d:none">검색 목록</h1>
+
+            <div class="w:10p bg-color d:flex jc:center ai:center mb:3 top-nav-bar">
+                <div class="nav-bar-margin d:flex jc:space-between w:10p">
+                    <div>
+                        <span class="fs:5 fw:3 mr:1" th:text="'&quot;'+${{param.query}}+'&quot;'">검색어</span>
+                        <span class="fs:5 fw:3 mr:auto">의 검색결과</span>
+                    </div>
+                    <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
+                        <li class="p-right:3">
+                            <a th:href="@{/search(query=${{param.query}})}" href="" class="">전체검색</a>
+                        </li>
+                        <li class="p-right:3">
+                            <a th:href="@{movies(query=${{param.query}})}" href="">영화</a>
+                        </li>
+
+                        <li class="">
+                            <a th:href="@{people(query=${{param.query}})}" href="" class="fs:3 color:base-10">인물</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <section class="main-header">
+                <section class="media color:base-10">
+                    <section class="media-sect mx:10">
+                        <div style="display: none;"></div>
+
+                        <!--감독 목록-->
+                        <section class="section-margin">
+                            <h1 class="d:flex jc:space-between m-bottom:3 fs:6 fw:3 mt:4">인물</h1>
+                            <section class="d:flex">
+                                <h1 class="d:none">스크롤버튼</h1>
+
+                                <section class="of:scroll of-y:hidden scrable-content1">
+                                    <div class="display:flex padding:2">
+                                        <ul class="d:flex width:10p fl-wrap:nowrap gap:5">
+                                            <!-- directors 리스트를 먼저 반복 -->
+                                            <li th:if="${dList} != null" th:each="director : ${dList}" class="d:flex">
+                                                <!-- 감독 정보를 출력 -->
+                                                <a th:href="@{/people/info(id=${director.tmdbId},name=${director.korName})}" href="">
+                                                    <div class="display:flex margin-right:4">
+                                                        <img class="bd-radius:1 obj-fit:cover" th:src="${director.imgUrl != null ? director.imgUrl : '/image/unknown_person.jpg'}"
+                                                             src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
+                                                             width="100px" height="150px" alt="">
+                                                    </div>
+                                                    <div class="padding:1 fs:3">
+                                                        <div>
+                                                            <span th:text="${director.korName} ?: ${director.engName}">감독 이름</span>
+                                                        </div>
+
+                                                        <div>
+                                                            <span class="fs:2 color:base-6">감독</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li th:if="${dList == null or #lists.isEmpty(dList)}">
+                                                <div>
+                                                    <span>검색된 감독 없음</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </section>
+
+                            </section>
+                            <!--배우목록-->
+                            <section class="d:flex">
+                                <h1 class="d:none">스크롤버튼</h1>
+
+                                <section class="of:scroll of-y:hidden scrable-content1">
+                                    <div class="display:flex padding:2">
+                                        <ul class="d:flex width:10p fl-wrap:nowrap gap:5">
+                                            <li th:if="${aList} != null" th:each="actor : ${aList}" class="d:flex">
+                                                <a th:href="@{/people/info(id=${actor.tmdbId},name=${actor.korName})}" href="">
+                                                    <div class="display:flex margin-right:4">
+                                                        <img class="bd-radius:1 obj-fit:cover" th:src="${actor.imgUrl != null ? actor.imgUrl : '/image/unknown_person.jpg'}"
+                                                             src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
+                                                             width="100px" height="150px" alt="">
+                                                    </div>
+                                                    <div class="padding:1 fs:3">
+                                                        <div>
+                                                            <span th:text="${actor.korName} ?: ${actor.engName}">정우성</span>
+                                                        </div>
+                                                        <div>
+                                                <span class="fs:2 color:base-6"
+                                                      th:text="${actor.EngName}">이태신</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li th:if="${aList == null or #lists.isEmpty(aList)}">
+                                                <div>
+                                                    <span>검색된 배우 없음</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </section>
+
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </main>
+</body>
+
+</html>

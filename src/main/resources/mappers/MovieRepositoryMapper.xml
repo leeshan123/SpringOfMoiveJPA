@@ -5,7 +5,7 @@
 <mapper namespace="kr.co.moviespring.web.repository.MovieRepository">
 	<!-- 영화 목록 -->
 	<select id="findAll" resultType="Movie">
-		select * from movie limit 10;
+		select * from movie limit 20;
     </select>
 
 	<!-- 검색한 영화 목록 -->
