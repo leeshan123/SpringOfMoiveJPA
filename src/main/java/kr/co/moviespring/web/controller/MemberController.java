@@ -1,5 +1,7 @@
 package kr.co.moviespring.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.moviespring.web.config.security.CustomUserDetailService;
 import kr.co.moviespring.web.config.security.CustomUserDetails;
+import kr.co.moviespring.web.entity.Category;
+import kr.co.moviespring.web.entity.CommunityBoardView;
 import kr.co.moviespring.web.entity.Member;
+import kr.co.moviespring.web.service.CategoryService;
 import kr.co.moviespring.web.service.MemberService;
 
 @Controller
@@ -20,6 +25,9 @@ public class MemberController {
     // 로그인 공사중//
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    CategoryService cService;
 
     @Autowired
     private CustomUserDetailService customUserDetailsService;
@@ -125,10 +133,18 @@ public class MemberController {
         return "user/mybet";
     }
     @GetMapping("myboard")
-    public String myboard() {
-
+    public String myboard(
+        @AuthenticationPrincipal CustomUserDetails userDetails
+        ,Model model
+    ) {
+        
+        List<CommunityBoardView> list = memberService.getMyBoard(userDetails.getId());
+        List<Category> clist = cService.getList();
+        model.addAttribute("list", list);
+        model.addAttribute("clist", clist);
         return "user/myboard";
     }
+
     @GetMapping("mycomment")
     public String mycomment() {
 
