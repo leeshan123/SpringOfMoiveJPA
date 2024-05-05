@@ -12,6 +12,6 @@ public interface MemberService {
 //    String userId, String pwd, String nickname, String name, int age, String email
 
     //회원정보 변경
-     void changeUserInfo(String nickname, String password, String email);
+     void changeUserInfo(Long id, String nickname, String password, String email);
     
 }

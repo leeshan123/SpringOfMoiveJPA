@@ -56,8 +56,13 @@ public class MemberServiceImp implements MemberService {
     }
 
     @Override
-    public void changeUserInfo(String nickname, String password, String email) {
-        
+    public void changeUserInfo(Long id, String nickname, String password, String email) {
+        Member member = new Member();
+        member.setId(id);
+        member.setNickname(nickname);
+        member.setPassword(bCryptPasswordEncoder.encode(password));
+        member.setEmail(email);
+        memberRepository.update(member);
     }
 
 }

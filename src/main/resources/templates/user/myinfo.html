@@ -25,23 +25,23 @@
             <h1 class="d:none">회원정보</h1>
             <div>
                 <div>ID</div>
-                <span sec:authentication="principal.username">12345</span>
+                <span th:text="${user.username}">12345</span>
             </div>
             <div>
                 <div>이름</div>
-                <span sec:authentication="principal.name">홍길동</span>
+                <span th:text="${user.name}">홍길동</span>
             </div>
             <div class="pb:8 bd-bottom border-width:2">
                 <div>나이</div>
-                <span sec:authentication="principal.age">30</span>
+                <span th:text="${user.age}">30</span>
             </div>
             <div class="test">
                 <div class="d:flex jc:space-between">닉네임<button id="btn-nick" type="button" class="n-btn n-btn-size:1">수정</button></div>
-                <span sec:authentication="principal.nickname">nickname</span>
+                <span th:text="${user.nickname}">nickname</span>
             </div>
             <div class="test">
                 <div class="d:flex jc:space-between">이메일<button id="btn-email" type="button" class="n-btn n-btn-size:1">수정</button></div>
-                <span sec:authentication="principal.email">example@example.com</span>
+                <span th:text="${user.email}">example@example.com</span>
             </div>
             <div class="test">
                 <div class="d:flex jc:space-between">비밀번호<button id="btn-pwd" type="button" class="n-btn n-btn-size:1">수정</button></div>
