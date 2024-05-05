@@ -19,7 +19,7 @@
     .media-sect{
         width: 100%;
         /*max-width: 980px; !*커뮤니티 및 기타*!*/
-        max-width: 1333px; /*영화 리스트, 디테일 페이지*/
+        max-width: 1333px; /*영화 리스트, 디테일 페이지 1333px 검색페이지 사이즈 맞춤 수정x */
         justify-content:  space-around;
     }
 
