@@ -23,11 +23,15 @@ public class BatchSchedulerConfig {
         return list;
     }
 
+    public static void setList(List<Movie> list) {
+        BatchSchedulerConfig.list = list;
+    }
+
     @Autowired
     MovieService service;
 
     //초, 분, 시간, 일, 월, 요일
-    @Scheduled(cron = "0 21 18 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void performBatchJob() {
         list = new ArrayList<>();
         KobisMovieAPI api = new KobisMovieAPI();
