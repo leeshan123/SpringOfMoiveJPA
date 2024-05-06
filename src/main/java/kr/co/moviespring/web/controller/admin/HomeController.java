@@ -11,13 +11,13 @@ public class HomeController {
     @GetMapping("index")
     public String index() {
 
-    return "admin/index";
+        return "admin/index";
     }
 
     @GetMapping("main")
     public String main() {
 
-    return "admin/main";
+        return "admin/main";
     }
 
 

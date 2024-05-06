@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class MovieActorView {
 
     private Long actorId;
+    private String tmdbId;
     private String korName;
     private String engName;
     private String castEngName;

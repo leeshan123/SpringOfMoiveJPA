@@ -1,12 +1,22 @@
 package kr.co.moviespring.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.moviespring.web.config.security.CustomUserDetailService;
+import kr.co.moviespring.web.config.security.CustomUserDetails;
+import kr.co.moviespring.web.entity.Category;
+import kr.co.moviespring.web.entity.CommunityBoardView;
 import kr.co.moviespring.web.entity.Member;
+import kr.co.moviespring.web.service.CategoryService;
 import kr.co.moviespring.web.service.MemberService;
 
 @Controller
@@ -15,6 +25,12 @@ public class MemberController {
     // 로그인 공사중//
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    CategoryService cService;
+
+    @Autowired
+    private CustomUserDetailService customUserDetailsService;
 
     @GetMapping("mypage")
     public String main(){
@@ -117,19 +133,55 @@ public class MemberController {
         return "user/mybet";
     }
     @GetMapping("myboard")
-    public String myboard() {
-
+    public String myboard(
+        @AuthenticationPrincipal CustomUserDetails userDetails
+        ,Model model
+    ) {
+        
+        List<CommunityBoardView> list = memberService.getMyBoard(userDetails.getId());
+        List<Category> clist = cService.getList();
+        model.addAttribute("list", list);
+        model.addAttribute("clist", clist);
         return "user/myboard";
     }
+
     @GetMapping("mycomment")
     public String mycomment() {
 
         return "user/mycomment";
     }
     @GetMapping("myinfo")
-    public String myinfo() {
-
+    public String myinfo(
+        @AuthenticationPrincipal CustomUserDetails userDetails,
+        Model model
+    ) {
+        CustomUserDetails refreshedUserDetails = (CustomUserDetails)customUserDetailsService.loadUserByUsername(userDetails.getUsername());
+        model.addAttribute("user", refreshedUserDetails);
         return "user/myinfo";
+    }
+
+    @PostMapping("myinfo")
+    public String myinfo(
+        String nickname,
+        String password,
+        String email,
+        @AuthenticationPrincipal CustomUserDetails userDetails
+    ){
+        if(nickname != null){
+            System.out.println("닉네임");
+            memberService.changeUserInfo(userDetails.getId(), nickname, null, null);
+        }
+        else if(password != null){
+            System.out.println("패스워드");
+            memberService.changeUserInfo(userDetails.getId(), null, password, null);
+        }
+        else if(email != null){
+            System.out.println("이메일");
+            memberService.changeUserInfo(userDetails.getId(), null, null, email);
+        }
+        
+
+        return "redirect:/user/myinfo";
     }
 
 

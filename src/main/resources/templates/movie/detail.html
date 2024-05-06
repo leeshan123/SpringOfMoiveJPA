@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title th:text="${movie.korName}+' - '+영화의봄">Document</title>
     <link rel="stylesheet" type="text/css" href="/css/components/movie/detail.css">
     <link rel="stylesheet" href="/css/components/movie/list.css">
     <script src="/js/movie/list.js" defer></script>
@@ -54,6 +54,15 @@
 
         .gradient-overlay:hover+.main-img {
             transform: scale(1.1);
+        }
+
+        .empty-contents-box-size{
+            height: 290px;
+            /*margin-bottom: 8px;*/
+            width:100%;
+            /*폰트 설정*/
+            font-weight: bold;
+            font-size: 140px;
         }
     </style>
     <!--    <script>-->
@@ -149,8 +158,8 @@
                 <div class="padding-left:2 padding-right:2 display:flex fl-dir:column gap:2">
                     <!--                <span class="margin-right:auto icon icon-size:5 icon:hand_coins">아이콘</span>-->
                     <!--                <span class="fs:6 fw:3">감정가</span>-->
-                    <div class="fs:6 fw:3 color:accent-3">30,000원
-                        <span class="fs:3 fw:2 color:base-10">(3,426리뷰)</span>
+                    <div class="fs:6 fw:3 color:accent-3" th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}">30,000원
+                        <span class="fs:3 fw:2 color:base-10" th:text="${'('+formattedSize+' 개의 평가)'}">(3,426리뷰)</span>
                     </div>
                     <div>
                         <span th:text="${#dates.format(movie.releaseDate, 'yyyy')+' · '}">2023 · </span>
@@ -190,12 +199,12 @@
                         </button>
                     </div>
                     <section class="of:scroll of-y:hidden scrable-content1">
-                        <div class="display:flex padding:2">
+                        <div class="display:flex">
                             <ul class="d:flex width:10p fl-wrap:nowrap gap:5">
                                 <!-- directors 리스트를 먼저 반복 -->
                                 <li th:each="director : ${directors}" class="d:flex">
                                     <!-- 감독 정보를 출력 -->
-                                    <a href="">
+                                    <a href="" th:href="@{/people/info(id=${director.tmdbId},name=${director.korName != null ? director.korName : director.engName })}" class="w:2">
                                         <div class="display:flex margin-right:4">
                                             <img class="bd-radius:1 obj-fit:cover" th:src="${director.imgUrl != null ? director.imgUrl : '/image/unknown_person.jpg'}"
                                                 src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
@@ -213,7 +222,7 @@
                                     </a>
                                 </li>
                                 <li th:each="actor : ${actors}" class="d:flex">
-                                    <a href="">
+                                    <a href="" th:href="@{/people/info(id=${actor.tmdbId},name=${actor.korName != null ? actor.korName : actor.engName })}" class="w:2">
                                         <div class="display:flex margin-right:4">
                                             <img class="bd-radius:1 obj-fit:cover" th:src="${actor.imgUrl != null ? actor.imgUrl : '/image/unknown_person.jpg'}"
                                                 src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
@@ -267,6 +276,10 @@
                             </button>
                         </div>
                     </section>
+                    <!--트레일러 없을시 출력되는 창-->
+                    <div th:if="${trailers == null or #lists.isEmpty(trailers)}" class="empty-contents-box-size d:flex w:100p jc:center ai:center">
+                        <span class="color:base-6">텅..</span>
+                    </div>
                 </section>
 
 
@@ -296,12 +309,16 @@
                             </button>
                         </div>
                     </section>
+                    <!--스틸컷 없을시 출력되는 창-->
+                    <div th:if="${stillcuts == null or #lists.isEmpty(stillcuts)}" class="empty-contents-box-size d:flex w:100p jc:center ai:center">
+                        <span class="color:base-6">텅..</span>
+                    </div>
                 </section>
 
                 <section class="section-margin">
                     <div class="d:flex mb:5">
-                        <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3 mr:auto">한줄 평
-                            <span class="fs:3 fw:2 color:base-10">(3,426리뷰)</span>
+                        <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3 mr:auto" th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}">한줄 평
+                            <span class="fs:3 fw:2 color:base-10" th:text="${'('+formattedSize+' 개)'}">(3,426리뷰)</span>
                         </h1>
                         <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
                             <li class="p-right:3 fs:3 color:base-10">
@@ -336,6 +353,10 @@
                                     <button class="ml:2">좋아요</button>
                                 </div>
                             </div>
+                        </li>
+                        <!--리뷰 없을시 출력되는 창-->
+                        <li th:if="${reviews == null or #lists.isEmpty(reviews)}" class="empty-contents-box-size d:flex w:100p jc:center ai:center">
+                            <span class="color:base-6">텅..</span>
                         </li>
                     </ul>
                 </section>

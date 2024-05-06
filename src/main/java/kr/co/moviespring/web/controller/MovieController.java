@@ -53,8 +53,8 @@ public class MovieController {
 
 
     // 영화 목록//
-    @GetMapping("list")
-    public String list(Model model) {
+    @GetMapping("main")
+    public String main(Model model) {
 
         //영화 받아오기 테스트
         // List <Movie> mlist = new ArrayList<>();
@@ -102,7 +102,9 @@ public class MovieController {
         model.addAttribute("dlist", dailyList);
         model.addAttribute("list", list);
         model.addAttribute("listAfter", listAfter);
-        return "movie/list";
+        return "movie/main";
+        
+        
     }
 
     // 영화 상세//
@@ -149,10 +151,10 @@ public class MovieController {
         return "redirect:/movie/detail?movieid=" + movieId;
     }
 
-    @GetMapping("actor")
-    public String actor() {
-
-        return "movie/actor";
-    }
+//    @GetMapping("actor")
+//    public String actor() {
+//
+//        return "movie/people";
+//    }
 
 }

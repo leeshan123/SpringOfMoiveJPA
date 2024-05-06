@@ -38,11 +38,11 @@ public class WebSecurityConfig {
                .formLogin((form) -> form
                        .loginPage("/user/signin")
                        .loginProcessingUrl("/user/signin")
-                       .defaultSuccessUrl("/index")
+                       .defaultSuccessUrl("/")
                        .permitAll())
        .logout((logout) -> logout
        .logoutUrl("/user/signout")
-       .logoutSuccessUrl("/index")
+       .logoutSuccessUrl("/")
        .permitAll());
 
        return http.build();

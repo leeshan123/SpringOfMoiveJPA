@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -74,16 +73,15 @@ public class HomeController {
     MovieTrailerService trailerService;
 
 
-    @GetMapping("index")
-    public String index(Model model) {
-        //개봉영화
+    @GetMapping("")
+    public String main(Model model) {
         List<Movie> list = movieService.getList();
         model.addAttribute("list", list);
         //개봉예정영화
         List<Movie> listAfter = movieService.getListAfter();
         model.addAttribute("listAfter", listAfter);
 
-        return "index";
+        return "main";
     }
 
     //게시글 검색페이지 요청
@@ -93,12 +91,42 @@ public class HomeController {
         List<Actor> aList = actorService.getListByName(query);
         List<Director> dList = directorService.getListByName(query);
 
-        model.addAttribute("query", query);
+//        model.addAttribute("query", query);
         model.addAttribute("mList", mList);
         model.addAttribute(("dList"), dList);
         model.addAttribute(("aList"), aList);
 
         return "search";
+    }
+
+    //영화 검색 더보기페이지 요청
+    @GetMapping("search/movies")
+    public String searchMovie(@RequestParam(name="query",required = false)String query, Model model) {
+        List<Movie> mList = movieService.getListByName(query);
+//        List<Actor> aList = actorService.getListByName(query);
+//        List<Director> dList = directorService.getListByName(query);
+//
+////        model.addAttribute("query", query);
+        model.addAttribute("mList", mList);
+//        model.addAttribute(("dList"), dList);
+//        model.addAttribute(("aList"), aList);
+
+        return "search-movie";
+    }
+
+    //인물 검색 더보기페이지 요청
+    @GetMapping("search/people")
+    public String searchPeople(@RequestParam(name="query",required = false)String query, Model model) {
+//        List<Movie> mList = movieService.getListByName(query);
+        List<Actor> aList = actorService.getListByName(query);
+        List<Director> dList = directorService.getListByName(query);
+//
+////        model.addAttribute("query", query);
+//        model.addAttribute("mList", mList);
+        model.addAttribute(("dList"), dList);
+        model.addAttribute(("aList"), aList);
+
+        return "search-people";
     }
 
     @PostMapping("test")
@@ -137,7 +165,7 @@ public class HomeController {
                     md = api.movieDetail(movieCode);
                 else{
                     System.out.println("이미 존재하는 영화");
-                    return "index";
+                    return "main";
                 }
             }
             else{
@@ -317,7 +345,7 @@ public class HomeController {
         }
 
         
-        return "index";
+        return "main";
     }
 
 }

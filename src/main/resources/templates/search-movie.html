@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="inc/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${{param.query}}+' - '+영화의봄">Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/desktop.css"/>
+    <script src="/js/movie/list.js" defer></script>
+    <link rel="stylesheet" href="/css/components/movie/list.css">
+    <style>
+        .icon-size {
+            width: 28px;
+            height: 28px;
+        }
+
+        .icon-position {
+            position: absolute;
+            bottom: 8px;
+            left: 4px;
+            z-index: 1;
+        }
+
+        .watch-grade-position {
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            z-index: 1;
+        }
+
+        .line-height {
+            line-height: 28px;
+        }
+
+        .bg-color {
+            background-color: rgba(249, 249, 249, 0.87);
+        }
+
+        .nav-bar-margin {
+            max-width: 1320px;
+            /*margin-left: 52px;*/
+            /*margin-right: 52px;*/
+            padding-right: 12px;
+            padding-left: 12px;
+        }
+
+        .top-nav-bar {
+            height: 40px;
+        }
+        .contents-box-size{
+            width: 261.69px;
+            margin-bottom: 20px;
+        }
+        .empty-contents-box-size{
+            height: 461.53px;
+            margin-bottom: 8px;
+            width:100%;
+            /*폰트 설정*/
+            font-weight: bold;
+            font-size: 140px;
+        }
+    </style>
+</head>
+
+<body>
+<main layout:fragment="main">
+    <section>
+        <h1 class="d:none">검색 목록</h1>
+
+        <div class="w:10p bg-color d:flex jc:center ai:center mb:3 top-nav-bar">
+            <div class="nav-bar-margin d:flex jc:space-between w:10p">
+                <div>
+                    <span class="fs:5 fw:3 mr:1" th:text="'&quot;'+${{param.query}}+'&quot;'">검색어</span>
+                    <span class="fs:5 fw:3 mr:auto">의 검색결과</span>
+                </div>
+                <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
+                    <li class="p-right:3">
+                        <a th:href="@{/search(query=${{param.query}})}" href="">전체검색</a>
+                    </li>
+                    <li class="p-right:3 fs:3 color:base-10">
+                        <a th:href="@{movies(query=${{param.query}})}" href="">영화</a>
+                    </li>
+
+                    <li class="">
+                        <a th:href="@{people(query=${{param.query}})}" href="">인물</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <section class="main-header">
+            <section class="media color:base-10">
+                <section class="media-sect mx:10">
+                    <div style="display: none;"></div>
+                    <section class="m-left:3 mr:3 m-top:4 m-bottom:10">
+                        <h1 class="d:none">영화목록</h1>
+                        <div class="m-bottom:3 fs:6 fw:3">영화</div>
+                        <section class="d:flex"> <!-- 스크롤 버튼 section-->
+
+                            <section class="d:flex flex-wrap:wrap media-pading of:scroll of-y:hidden scrable-content1">
+                                <h1 class="d:none ">컨텐츠</h1>
+                                <div th:each="m,mCount : ${mList}"
+                                     class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3 contents-box-size">
+                                    <div th:switch="${m.watchGrade}"
+                                         class="position:relative display:inline-block bd-color:base-10 ">
+                                        <a href="detail" th:href="@{/movie/detail(movieid=${m.id})}"><img
+                                                class="bd-radius:1" src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" alt="/"
+                                                width="247.69px" height="361.54px"></a>
+                                        <!--                                            <span-->
+                                        <!--                                                class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"-->
+                                        <!--                                                th:text="${mCount.count}">1</span>-->
+                                        <span><svg class="watch-grade-position" width="30px" height="30px"
+                                                    th:case="'전체관람가'" xmlns="http://www.w3.org/2000/svg"
+                                                    xml:space="preserve" x="0px" y="0px"
+                                                    style="enable-background:new 0 0 500 500" viewBox="0 0 500 500">
+                                                    <path
+                                                            d="M443.642 500H56.38C25.256 500 0 474.764 0 443.632V56.368C0 25.235 25.256 0 56.379 0h387.263C474.775 0 500 25.235 500 56.368v387.264C500 474.764 474.775 500 443.642 500"
+                                                            style="fill:#00964b"/>
+                                                    <path
+                                                            d="m144.95 378.216-6.064-38.323-44.366.01-6.064 38.292-57.17.02v-.687l54.138-256.2h62.527l54.138 256.22.02.668h-57.16zm-28.257-174.19-14.129 87.439h28.247l-14.118-87.439zM212.167 378.213V121.316h57.17v205.447h67.246v51.45zM348.693 378.199V121.312l57.17.01-.03 205.447h67.277v51.461z"
+                                                            style="fill:#fff"/>
+                                                </svg></span>
+                                        <span><svg class="watch-grade-position" width="30px" height="30px"
+                                                    th:case="'12세이상관람가'" xmlns="http://www.w3.org/2000/svg"
+                                                    xml:space="preserve" x="0px" y="0px"
+                                                    style="enable-background:new 0 0 500 500" viewBox="0 0 500 500">
+                                                    <path
+                                                            d="M443.617 500H56.373C25.24 500 0 474.77 0 443.648V56.373C0 25.24 25.241 0 56.373 0h387.244C474.738 0 500 25.241 500 56.373v387.275C500 474.769 474.738 500 443.617 500"
+                                                            style="fill:#eabc00"/>
+                                                    <path
+                                                            d="M108.175 422.27V173.766H80.664l35.629-96.046h69.009v344.55zM407.596 77.719H219.137a7.695 7.695 0 0 0-7.695 7.695v104.143h75.332v-46.903H340v41.477l-131.272 187.18v50.535h205.686v-67.224H304.372l96.045-134.841c3.012-4.22 5.405-7.891 7.22-11.058 1.816-3.157 3.312-6.22 4.519-9.253 1.186-2.992 2.021-6.303 2.465-9.913.464-3.61.67-7.963.67-13.08V85.414a7.689 7.689 0 0 0-7.695-7.695"
+                                                            style="fill:#fff"/>
+                                                </svg></span>
+                                        <span><svg class="watch-grade-position" width="30px" height="30px"
+                                                    th:case="'15세이상관람가'" xmlns="http://www.w3.org/2000/svg"
+                                                    xml:space="preserve" x="0px" y="0px"
+                                                    style="enable-background:new 0 0 500 500" viewBox="0 0 500 500">
+                                                    <path
+                                                            d="M443.638 500H56.352C25.252 500 0 474.759 0 443.638V56.362C0 25.242 25.252 0 56.352 0h387.286C474.768 0 500 25.241 500 56.362v387.276c0 31.12-25.231 56.362-56.362 56.362"
+                                                            style="fill:#dc7317"/>
+                                                    <path
+                                                            d="M107.957 422.277V173.783H80.436l35.619-96.076h69.04v344.57zM407.825 195.418H286.972v-50.514h126.3V77.701H211.217v183.56h129.446v96.055h-54.578v-45.109h-74.868v102.358c0 4.25 3.456 7.695 7.705 7.695H407.825a7.695 7.695 0 0 0 7.695-7.695V203.114a7.695 7.695 0 0 0-7.695-7.696"
+                                                            style="fill:#fff"/>
+                                                </svg></span>
+                                        <span><svg class="watch-grade-position" width="30px" height="30px"
+                                                    th:case="'청소년관람불가'" xmlns="http://www.w3.org/2000/svg"
+                                                    xml:space="preserve" x="0px" y="0px"
+                                                    style="enable-background:new 0 0 500 500" viewBox="0 0 500 500">
+                                                    <path
+                                                            d="M443.62 500H56.35C25.21 500 0 474.79 0 443.65V56.37C0 25.24 25.21 0 56.35 0h387.27c31.13 0 56.36 25.24 56.36 56.37v387.28c0 31.14-25.23 56.35-56.36 56.35"
+                                                            style="fill:#d61d28"/>
+                                                    <path
+                                                            d="M105.917 422.269V173.764h-27.52l35.648-96.051h68.975v344.556zM416.625 281.105c-.588-4.198-1.64-7.818-3.136-10.82a23.291 23.291 0 0 0-6.096-7.674c-2.548-2.104-5.787-4.198-9.686-6.302l-22.992-10.82 22.992-12.193c6.911-4.208 11.8-8.86 14.658-13.976 2.846-5.106 4.26-12.77 4.26-22.992V85.403a7.695 7.695 0 0 0-7.695-7.695H217.332c-4.25 0-7.705 3.445-7.705 7.695v110.925c0 9.892 1.454 17.504 4.291 22.754 2.857 5.292 7.757 10.006 14.647 14.214l23.002 12.193-23.002 10.82c-7.84 4.198-12.997 9.18-15.555 14.863-2.547 5.735-3.827 14.142-3.827 25.282V414.569c0 4.25 3.456 7.705 7.706 7.705h192.97c4.239 0 7.684-3.456 7.684-7.705V296.454c0-6.024-.31-11.14-.918-15.349m-75.752 69.883c0 4.25-3.456 7.685-7.695 7.685h-39.61c-4.238 0-7.704-3.435-7.704-7.685v-68.954c0-4.25 3.466-7.695 7.705-7.695h39.609c4.24 0 7.695 3.445 7.695 7.695v68.954zm0-141.91c0 4.249-3.456 7.694-7.695 7.694h-39.61c-4.238 0-7.704-3.445-7.704-7.695v-60.3c0-4.24 3.466-7.685 7.705-7.685h39.609c4.24 0 7.695 3.445 7.695 7.685v60.3z"
+                                                            style="fill:#fff"/>
+                                                </svg></span>
+                                    </div>
+                                    <div class="d:flex fl-dir:column gap:2 d:inline-block mt:2">
+                                        <div class="d:flex" th:switch="${m.watchGrade}">
+                                                <span class="fs:3 fw:2 d:inline-block mr:1"
+                                                      th:text="${m.getKorName()}">서울의 봄</span>
+                                            <span class="mr:auto"><svg class="" width="20px" height="20px"
+                                                        th:case="'15세이상관람가'" xmlns="http://www.w3.org/2000/svg"
+                                                        xml:space="preserve" x="0px" y="0px"
+                                                        style="enable-background:new 0 0 500 500" viewBox="0 0 500 500">
+                                                        <path
+                                                                d="M443.638 500H56.352C25.252 500 0 474.759 0 443.638V56.362C0 25.242 25.252 0 56.352 0h387.286C474.768 0 500 25.241 500 56.362v387.276c0 31.12-25.231 56.362-56.362 56.362"
+                                                                style="fill:#dc7317" />
+                                                        <path
+                                                                d="M107.957 422.277V173.783H80.436l35.619-96.076h69.04v344.57zM407.825 195.418H286.972v-50.514h126.3V77.701H211.217v183.56h129.446v96.055h-54.578v-45.109h-74.868v102.358c0 4.25 3.456 7.695 7.705 7.695H407.825a7.695 7.695 0 0 0 7.695-7.695V203.114a7.695 7.695 0 0 0-7.695-7.696"
+                                                                style="fill:#fff" />
+                                                    </svg></span>
+                                            <span class="fs:3 white-space:nowrap fw:600 d:inline-block">13000원
+                                                </span>
+                                        </div>
+                                        <div class="fs:2"
+                                             th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">
+                                            2024 · 한국
+                                        </div>
+                                        <div class="fs:2 color:base-6">누적 관객수 100만명</div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!--영화 검색값 없을시 출력창-->
+                            <div th:if="${mList == null or #lists.isEmpty(mList)}" class="empty-contents-box-size d:flex w:100p jc:center ai:center">
+                                <span class="color:base-6">텅..</span>
+                            </div>
+
+                        </section>
+                    </section>
+
+                </section>
+            </section>
+        </section>
+    </section>
+</main>
+</body>
+
+</html>

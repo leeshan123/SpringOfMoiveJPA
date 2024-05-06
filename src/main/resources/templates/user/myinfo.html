@@ -16,6 +16,7 @@
             border-bottom: solid 2px green;
         }
     </style>
+    <script src="/js/user/myinfo.js"></script>
 </head>
 <body>
     <main layout:fragment="main">
@@ -24,33 +25,82 @@
             <h1 class="d:none">회원정보</h1>
             <div>
                 <div>ID</div>
-                <span sec:authentication="principal.username">12345</span>
+                <span th:text="${user.username}">12345</span>
             </div>
             <div>
                 <div>이름</div>
-                <span sec:authentication="principal.name">홍길동</span>
+                <span th:text="${user.name}">홍길동</span>
             </div>
             <div class="pb:8 bd-bottom border-width:2">
                 <div>나이</div>
-                <span sec:authentication="principal.age">30</span>
+                <span th:text="${user.age}">30</span>
             </div>
             <div class="test">
-                <div class="d:flex jc:space-between">닉네임<button type="button" class="n-btn n-btn-size:1">수정</button></div>
-                <span sec:authentication="principal.nickname">nickname</span>
-                
+                <div class="d:flex jc:space-between">닉네임<button id="btn-nick" type="button" class="n-btn n-btn-size:1">수정</button></div>
+                <span th:text="${user.nickname}">nickname</span>
             </div>
             <div class="test">
-                <div class="d:flex jc:space-between">이메일<button type="button" class="n-btn n-btn-size:1">수정</button></div>
-                <span sec:authentication="principal.email">example@example.com</span>
+                <div class="d:flex jc:space-between">이메일<button id="btn-email" type="button" class="n-btn n-btn-size:1">수정</button></div>
+                <span th:text="${user.email}">example@example.com</span>
             </div>
             <div class="test">
-                <div class="d:flex jc:space-between">비밀번호<button type="button" class="n-btn n-btn-size:1">수정</button></div>
+                <div class="d:flex jc:space-between">비밀번호<button id="btn-pwd" type="button" class="n-btn n-btn-size:1">수정</button></div>
                 <!-- <span sec:authentication="principal.password">********</span> 비번은 숨기는걸로...-->
             </div>
             <div class="txt-al:right">
                 <button type="button" class="n-btn n-btn:outline">회원탈퇴</button>
             </div>
         </section>
+
+        <section id="modal-chg-nick" class="n-modal d:none" tabindex="-1">
+            <h1 class="n-font:h3 font-weight:3">닉네임 변경</h1>
+            <form action="myinfo" method="post">
+                <div class="my:5">
+                    <label>
+                        변경할 닉네임을 입력하세요.
+                        <input type="text" name="nickname" class="n-textbox n-textbox-label:top w:5" />
+                    </label>
+                </div>
+                <div class="d:flex jc:flex-end gap:2 mt:8">
+                    <button id="close-btn-nick" type="button" class="close-btn n-btn n-btn:outline">취소</button>
+                    <button type="submit" class="n-btn">확인</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="modal-chg-email" class="n-modal d:none" tabindex="-1">
+            <h1 class="n-font:h3 font-weight:3">이메일 변경</h1>
+            <form action="myinfo" method="post">
+                <div class="my:5">
+                    <label>
+                        변경할 이메일을 입력하세요.
+                        <input type="text" name="email" class="n-textbox n-textbox-label:top w:5" />
+                    </label>
+                </div>
+                <div class="d:flex jc:flex-end gap:2 mt:8">
+                    <button id="close-btn-email" type="button" class="close-btn n-btn n-btn:outline">취소</button>
+                    <button type="submit" class="n-btn">확인</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="modal-chg-pwd" class="n-modal d:none" tabindex="-1">
+            <h1 class="n-font:h3 font-weight:3">비밀번호 변경</h1>
+            <form action="myinfo" method="post">
+                <div class="my:5">
+                    <label>
+                        변경할 비밀번호를 입력하세요.
+                        <input type="text" name="password" class="n-textbox n-textbox-label:top w:5" />
+                    </label>
+                </div>
+                <div class="d:flex jc:flex-end gap:2 mt:8">
+                    <button id="close-btn-pwd" type="button" class="close-btn n-btn n-btn:outline">취소</button>
+                    <button type="submit" class="n-btn">확인</button>
+                </div>
+            </form>
+        </section>
+
+        <div id="modal-backdrop" class="backdrop d:none"></div>
     </main>
 </body>
 </html>

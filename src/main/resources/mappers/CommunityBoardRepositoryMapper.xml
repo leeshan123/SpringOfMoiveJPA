@@ -44,6 +44,13 @@
         WHERE id=#{id}
     </select>
 
+    <!--게시글 상세-->
+    <select id="findByMemberId" resultType="CommunityBoardView">
+        SELECT * FROM community_board_view
+        WHERE member_id=#{memberId}
+        ORDER BY reg_date DESC
+    </select>
+
     <!-- 게시글 등록 -->
     <insert id="saveContents">
         INSERT INTO community_board (title,contents,member_id,category_id)

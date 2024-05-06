@@ -32,6 +32,8 @@ public interface CommunityBoardRepository {
     //nickname 붙여서 게시글등록
     void saveContents(Long memberId, String title, String contents, Long categoryId);
 
+    // 아이디별 조회
+    List<CommunityBoardView> findByMemberId(Long memberId);
 
 //    List<GeneralBoard> findAll();
 

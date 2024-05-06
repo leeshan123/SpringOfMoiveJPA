@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>documents</title>
+    <title>영화 - 영화의봄</title>
     <link rel="stylesheet" type="text/css" href="/css/desktop.css" />
     <script src="/js/movie/list.js" defer></script>
     <link rel="stylesheet" href="/css/components/movie/list.css">
@@ -83,7 +83,7 @@
                                     class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
                                     <div th:switch="${m.watchGrade}" class="position:relative display:inline-block bd-color:base-10 ">
                                         <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1"
-                                                src="" th:src="${m.getPosterUrl()}" alt="/" height="363px"></a>
+                                                src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" alt="/" width="247.69px" height="361.54px"></a>
                                         <span
                                             class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
                                             th:text="${mCount.count}">1</span>
@@ -148,7 +148,7 @@
                                     class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
                                     <div class="position:relative display:inline-block bd-color:base-10 ">
                                         <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1"
-                                                src="" th:src="${m.getPosterUrl()}" alt="/" height="363px"></a>
+                                                src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" alt="/" width="247.69px" height="361.54px"></a>
                                         <span
                                             class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
                                             th:text="${mCount.count}">1</span>
@@ -214,7 +214,7 @@
                                     class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
                                     <div class="position:relative display:inline-block bd-color:base-10 ">
                                         <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1"
-                                                src="" th:src="${m.getPosterUrl()}" alt="/" height="363px"></a>
+                                                src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" alt="/" width="247.69px" height="361.54px"></a>
                                         <span
                                             class="icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
                                             th:text="${mCount.count}">1</span>
