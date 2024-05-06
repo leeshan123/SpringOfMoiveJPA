@@ -26,7 +26,7 @@ import java.io.IOException;
 public class DataInsertService {
 
 
-    String key = "e7f6a63edea6295a55b893dcc0071d60";
+    String key = "fa4a546d896ea6a36a7db5d09bcb80f3";
 //    String key2 = "e7f6a63edea6295a55b893dcc0071d60";
 
     String filePath = "C:/Users/leedw/Desktop/audience.xlsx";
@@ -54,7 +54,7 @@ public class DataInsertService {
 
 //        peopleDataUpdate.filmoInsertServie(peopleDataUpdate.getFilmoList(key));
 
-        for(int i =12550; i<15000; i++) {
+        for(int i =19800; i<20000; i++) {
             String peopleCd = peopleDataUpdate.getPeopleCd(i);
             peopleDataUpdate.filmoInsertServie(peopleDataUpdate.getFilmoList(key,peopleCd));
         }

@@ -76,8 +76,12 @@ public class HomeController {
 
     @GetMapping("index")
     public String index(Model model) {
+        //개봉영화
         List<Movie> list = movieService.getList();
         model.addAttribute("list", list);
+        //개봉예정영화
+        List<Movie> listAfter = movieService.getListAfter();
+        model.addAttribute("listAfter", listAfter);
 
         return "index";
     }
