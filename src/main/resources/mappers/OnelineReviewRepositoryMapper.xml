@@ -14,6 +14,11 @@
   <select id="getlist" resultType="OnelineReviewView">
         select * from one_line_review_view where movie_id = ${movieId};
   </select>
+
+  <select id="getByMemberId" resultType="OnelineReviewMovieView">
+    select * from oneline_review_movie_view
+    where member_id = #{id};
+  </select>
   
 <!--  사용자 고유 id(Long)에서 member의 nickname를 찾아야함
 추후 로그인 기능 구현후에 생각합시다 -->

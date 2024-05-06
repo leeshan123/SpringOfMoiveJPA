@@ -23,46 +23,18 @@
         <section class="movie-list">
             <h1 class="d:none">내 영화 리스트</h1>
             <ul>
-                <li>
+                <li th:each="menu:${list}">
                     <section>
                         <h1 class="d:none">내 영화 정보</h1>
                         <div class="movie-info">
-                            <img src="" alt="" style="width: 150px; height: 200px; background-color: aquamarine;">
+                            <img th:src="${menu.url}" alt="" style="width: 150px; height: 200px; background-color: aquamarine;">
                             <span>12000원</span>
-                            <span>서울의봄</span>
+                            <span th:text="${menu.title}">서울의봄</span>
                         </div>
                         <article class="w:10p">
-                            <div class="bd-bottom border-width:2 fs:7 mb:2 pb:1">평점: <span>30000</span>원</div>
+                            <div class="bd-bottom border-width:2 fs:7 mb:2 pb:1">평점: <span th:text="${menu.memberRate}">30000</span>원</div>
                             <div class="fs:7 mb:1">COMMENT</div>
-                            <p>전장군님 나라를 이끌어주셈여</p>
-                        </article>
-                    </section>
-                </li>
-                <li>
-                    <section>
-                        <div class="movie-info">
-                            <img src="" alt="" style="width: 150px; height: 200px; background-color: aquamarine;">
-                            <span>12000원</span>
-                            <span>서울의봄</span>
-                        </div>
-                        <article class="w:10p">
-                            <div class="bd-bottom border-width:2 fs:7 mb:2 pb:1">평점: <span>30000</span>원</div>
-                            <div class="fs:7 mb:1">COMMENT</div>
-                            <p>전장군님 나라를 이끌어주셈여</p>
-                        </article>
-                    </section>
-                </li>
-                <li>
-                    <section>
-                        <div class="movie-info">
-                            <img src="" alt="" style="width: 150px; height: 200px; background-color: aquamarine;">
-                            <span>12000원</span>
-                            <span>서울의봄</span>
-                        </div>
-                        <article class="w:10p">
-                            <div class="bd-bottom border-width:2 fs:7 mb:2 pb:1">평점: <span>30000</span>원</div>
-                            <div class="fs:7 mb:1">COMMENT</div>
-                            <p>슈니슈니슈니슈니 쥰슈니슈니슈니슈니 쥰슈니슈니슈니슈니 <br>쥰슈니슈닛</p>
+                            <p th:text="${menu.comments}">전장군님 나라를 이끌어주셈여</p>
                         </article>
                     </section>
                 </li>

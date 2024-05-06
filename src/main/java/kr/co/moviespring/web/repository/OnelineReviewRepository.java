@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.moviespring.web.entity.OnelineReview;
+import kr.co.moviespring.web.entity.OnelineReviewMovieView;
 import kr.co.moviespring.web.entity.OnelineReviewView;
 
 @Mapper
@@ -14,5 +15,7 @@ public interface OnelineReviewRepository {
 
     // 한줄평 목록//
     List<OnelineReviewView> getlist(Long movieId);
+
+    List<OnelineReviewMovieView> getByMemberId(Long id);
 
 }

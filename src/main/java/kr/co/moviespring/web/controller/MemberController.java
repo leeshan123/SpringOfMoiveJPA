@@ -16,8 +16,11 @@ import kr.co.moviespring.web.config.security.CustomUserDetails;
 import kr.co.moviespring.web.entity.Category;
 import kr.co.moviespring.web.entity.CommunityBoardView;
 import kr.co.moviespring.web.entity.Member;
+import kr.co.moviespring.web.entity.OnelineReview;
+import kr.co.moviespring.web.entity.OnelineReviewMovieView;
 import kr.co.moviespring.web.service.CategoryService;
 import kr.co.moviespring.web.service.MemberService;
+import kr.co.moviespring.web.service.OnelineReviewService;
 
 @Controller
 @RequestMapping("user")
@@ -28,6 +31,9 @@ public class MemberController {
 
     @Autowired
     CategoryService cService;
+
+    @Autowired
+    OnelineReviewService orService;
 
     @Autowired
     private CustomUserDetailService customUserDetailsService;
@@ -123,8 +129,13 @@ public class MemberController {
     }
     
     @GetMapping("mymovie")
-    public String mymovie() {
-
+    public String mymovie(
+        Model model
+        ,@AuthenticationPrincipal CustomUserDetails userDetails
+    ) {
+        
+        List<OnelineReviewMovieView> list = orService.getByMemberId(userDetails.getId());
+        model.addAttribute("list", list);
         return "user/mymovie";
     }
     @GetMapping("mybet")
