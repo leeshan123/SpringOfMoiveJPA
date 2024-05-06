@@ -48,8 +48,8 @@
                 <tbody>
                 <tr th:each="movie:${list}">
                     <td class="txt-al:center py:1">
-                                    <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
-                                          th:text="${#dates.format(movie.releaseDate, 'yyyy')}">개봉일</span>
+                                <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
+                                      th:text="${#dates.format(movie.releaseDate, 'yyyy')}">개봉일</span>
                     </td>
                     <td class="txt-al:start py:1 white-space:normal">
                         <a href="" th:href="@{/movie/detail(movieid=${movie.id})}" th:text="${movie.korName}">영화 제목</a>
