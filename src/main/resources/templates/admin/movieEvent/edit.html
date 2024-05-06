@@ -19,10 +19,10 @@ layout:decorate="inc/adminlayout">
     <main layout:fragment="main">
         <div class="bg-color:base-3 h:1">
             <div class="main-container fs:5 fw:3
-                d:flex align-items:center">이벤트 및 할인 게시글 등록</div>
+                d:flex align-items:center">이벤트 및 할인 게시글 수정</div>
         </div>
         
-        <form class="main-container mt:5" action="reg" method="post">
+        <form class="main-container mt:5" action="edit" method="post">
             <div class="h:1 bd bd-w:1 bd-color:base-5">CGV 할인 정보</div>
 
             <div class="h:1 bd bd-w:1 bd-color:base-5">
@@ -31,13 +31,14 @@ layout:decorate="inc/adminlayout">
             </div>
 
             <div>
-                <textarea  class="w:10p h:1 bd bd-w:1 bd-color:base-5" name="title" id="editor" placeholder="리뷰 제목을 입력해주세요"></textarea>
+                <textarea th:text="${menu.title}" class="w:10p h:1 bd bd-w:1 bd-color:base-5" name="title" id="editor" placeholder="리뷰 제목을 입력해주세요"></textarea>
             </div>
 
             <div>
                 <!--textarea 작성줄 길어져도 줄넘김해서 쓰지 말것 입력창에 공백생김-->
-                <textarea  class="w:10p h:6 bd bd-w:1 bd-color:base-5" name="contents" id="editor" placeholder="내용을 입력해주세요"></textarea>
+                <textarea th:text="${menu.contents}" class="w:10p h:6 bd bd-w:1 bd-color:base-5" name="contents" id="editor" placeholder="내용을 입력해주세요"></textarea>
             </div>
+            <input type="hidden" name="id" th:value="${menu.id}"/>
 
             <div class="p:3 d:flex jc:center">
                 <button class="n-btn" type="submit">등록</button>

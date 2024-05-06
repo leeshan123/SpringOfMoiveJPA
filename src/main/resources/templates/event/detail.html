@@ -24,39 +24,23 @@ layout:decorate="inc/layout">
         <section class="media-sect-for-commu">
             <h1 class="fw:bold fs:7 pb:1 mb:10 color:main-3">EVENT</h1>
             <section class="p:2 border-bottom">
-                <h1 class="fs:5 margin-bottom:1">이벤트 제목이 나타날 위치입니다</h1>
+                <h1 th:text="${menu.title}" class="fs:5 margin-bottom:1">이벤트 제목이 나타날 위치입니다</h1>
                 <div class="d:flex ai:center gap:3 margin-bottom:1 mt:5">
                     <div class="margin-right:auto">
                         <span class="icon icon:bone">아이콘</span>
-                        <span class="fw:bold">작성자</span>
+                        <span class="fw:bold">관리자</span>
                         <span class="d:inline-block">
-                            <span class="fs:2 color:base-6" >2024.04.08</span>
-                            <span class="fs:2 color:base-6" >11:35</span>
+                            <span th:text="${#dates.format(menu.regDate, 'yyyy.MM.dd')}" class="fs:2 color:base-6" >2024.04.08</span>
+                            <span th:text="${#dates.format(menu.regDate, 'HH:mm')}" class="fs:2 color:base-6" >11:35</span>
                         </span>
                     </div>
-                    <span class="fs:2 color:base-6">조회수<span class="fw:bold margin-left:1 color:base-10" >1004</span></span>
+                    <span th:text="${menu.hit}" class="fs:2 color:base-6">조회수<span class="fw:bold margin-left:1 color:base-10" >1004</span></span>
                 </div>
                 <div class="padding-y:3 border-top margin-bottom:10">
                     <span><img src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>
                     <!--th:utext는 html태그를 해석해서 출력해줌-->
-                    <p>작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다</p>
+                    <p th:text="${menu.contents}">작성글 내용이 담길 위치입니다</p>
                 </div>
-                <!-- <div class="d:flex jc:center">
-                    <div class="d:flex gap:3">
-                        <div class="d:flex flex-direction:column ai:center border border-radius:1 p:1 vote-box gap:1">
-                            <span class="fw:2 color:base-10">14</span>
-                            <span class="icon icon:thumbs_up icon-color:accent-1">아이콘</span>
-                        </div>
-                        <div class="d:flex flex-direction:column ai:center border border border-radius:1 p:1 vote-box gap:1">
-                            <span class="fw:2 color:base-10">3</span>
-                            <span class="icon icon:thumbs_down icon-color:sub-1">아이콘</span>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- <div class="text-align:end fs:5 fw:bold color:main-3">
-                    <a>수정</a>
-                    <a>삭제</a>
-                </div> -->
             </section>
             <!-- <section class="padding-y:1 padding-left:2 padding-right:1 border-bottom d:flex flex-direction:column gap:1">
                 <h1 class="d:none">댓글창</h1>
@@ -106,7 +90,7 @@ layout:decorate="inc/layout">
                 </div>
             </div>
             <div class="text-align:center">
-                <a href="main" class="fs:5 fw:bold color:main-3">목록</a>
+                <a href="list" class="fs:5 fw:bold color:main-3">목록</a>
             </div>
         </section>
     </main>

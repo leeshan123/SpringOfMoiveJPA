@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.moviespring.web.repository.EventPageRepository">
+    <select id="findAll" resultType="EventPage">
+		select * from event_page
+	</select>
+
+    <select id="findById" resultType="EventPage">
+        select * from event_page
+        where id = #{id}
+    </select>
+
+    <insert id="save">
+        insert into event_page(title, contents, image_url, member_id)
+        values(#{title},#{contents},#{imageUrl},#{memberId})
+    </insert>
+
+    <update id="update" parameterType="EventPage">
+        update event_page
+        set
+            title=#{title},
+            contents=#{contents},
+            image_url=#{imageUrl}
+        where
+            id = #{id}
+    </update>
+
+</mapper>

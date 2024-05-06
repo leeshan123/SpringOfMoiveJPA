@@ -1,22 +1,40 @@
 package kr.co.moviespring.web.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import kr.co.moviespring.web.entity.EventPage;
+import kr.co.moviespring.web.service.EventPageService;
 
 @Controller
 @RequestMapping("event")
 public class EventController {
 
-    @GetMapping("main")
-    public String main(){
+    @Autowired
+    EventPageService eventPageService;
 
-        return "event/main";
+    @GetMapping("list")
+    public String list(
+        Model model
+    ){
+        List<EventPage> list = eventPageService.getList();
+        model.addAttribute("list", list);
+        return "event/list";
     }
 
     @GetMapping("detail")
-    public String detail(){
-
+    public String detail(
+        @RequestParam("id") Long id
+        ,Model model
+    ){
+        EventPage ep = eventPageService.getById(id);
+        model.addAttribute("menu", ep);
         return "event/detail";
     }
 }

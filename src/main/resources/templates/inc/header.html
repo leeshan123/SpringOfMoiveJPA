@@ -46,7 +46,7 @@
 <!--                        현재 url의 모든 하위루트에 같은 설정을 적용-->
 <!--                        추후에 카테고리가 추가될 경우를 대비해 반복문 처리 해야 할듯? -->
                         <li th:classappend="${url != null && url.startsWith('/movie/') ? 'active' : ''}"><a class="tabbar-height fs:2" href="/movie/main">영화</a></li>
-                        <li th:classappend="${url != null && url.startsWith('/event/') ? 'active' : ''}"><a class="tabbar-height fs:2" href="/event/main">이벤트</a></li>
+                        <li th:classappend="${url != null && url.startsWith('/event/') ? 'active' : ''}"><a class="tabbar-height fs:2" href="/event/list">이벤트</a></li>
                         <li th:classappend="${url != null && url.startsWith('/2weeks/') ? 'active' : ''}"><a class="tabbar-height fs:2" href="/2weeks/movie">2주의 영화</a></li>
                         <li th:classappend="${url != null && url.startsWith('/community/') ? 'active' : ''}"><a class="tabbar-height fs:2" href="/community/main">커뮤니티</a></li>
                         <li th:classappend="${url != null && url.startsWith('/playground/') ? 'active' : ''}"><a class="tabbar-height fs:2" href="/playground/main">관객놀이터</a></li>
