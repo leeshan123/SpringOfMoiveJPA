@@ -66,4 +66,12 @@ public class MovieEventController {
         eventPageService.edit(eventPage);
         return "redirect:/admin/movieEvent/list";
     }
+
+    @GetMapping("delete")
+    public String movieEventDelete(
+        @RequestParam("id") Long id
+    ){
+        eventPageService.deleteById(id);
+        return "redirect:/admin/movieEvent/list";
+    }
 }

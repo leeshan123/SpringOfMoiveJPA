@@ -27,4 +27,9 @@
             id = #{id}
     </update>
 
+    <delete id="delete">
+        delete from event_page
+        where id = #{id}
+    </delete>
+
 </mapper>

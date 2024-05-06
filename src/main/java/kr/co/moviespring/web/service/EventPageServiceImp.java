@@ -34,5 +34,10 @@ public class EventPageServiceImp implements EventPageService{
     public void edit(EventPage eventPage) {
         repository.update(eventPage);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        repository.delete(id);
+    }
     
 }

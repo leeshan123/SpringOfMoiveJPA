@@ -12,4 +12,5 @@ public interface EventPageRepository {
     EventPage findById(Long id);
     Long save(String title, String contents, String imageUrl, Long memberId);
     void update(EventPage eventPage);
+    void delete(Long id);
 }

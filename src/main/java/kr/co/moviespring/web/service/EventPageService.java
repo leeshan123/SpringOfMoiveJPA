@@ -10,4 +10,5 @@ public interface EventPageService {
     
     Long reg(String title, String contents, String imageUrl, Long memberId);
     void edit(EventPage eventPage);
+    void deleteById(Long id);
 }
