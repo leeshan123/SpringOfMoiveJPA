@@ -45,6 +45,18 @@
         .top-nav-bar {
             height: 40px;
         }
+        .contents-box-size{
+            width: 261.69px;
+            margin-bottom: 8px;
+        }
+        .empty-contents-box-size{
+            height: 461.53px;
+            margin-bottom: 8px;
+            width:100%;
+            /*폰트 설정*/
+            font-weight: bold;
+            font-size: 140px;
+        }
     </style>
 </head>
 
@@ -97,12 +109,12 @@
                                 </div>
                                 <section class="d:flex media-pading of:scroll of-y:hidden scrable-content1">
                                     <h1 class="d:none ">컨텐츠</h1>
-                                    <div th:if="${mList} != null" th:each="m,mCount : ${mList}"
-                                        class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
+                                    <div th:each="m,mCount : ${mList}"
+                                        class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3 contents-box-size">
                                         <div th:switch="${m.watchGrade}"
                                             class="position:relative display:inline-block bd-color:base-10 ">
                                             <a href="detail" th:href="@{movie/detail(movieid=${m.id})}"><img
-                                                    class="bd-radius:1" src="" th:src="${m.getPosterUrl()}" alt="/"
+                                                    class="bd-radius:1" src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" alt="/"
                                                     width="247.69px" height="361.54px"></a>
 <!--                                            <span-->
 <!--                                                class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"-->
@@ -177,9 +189,6 @@
                                             <div class="fs:2 color:base-6">누적 관객수 100만명</div>
                                         </div>
                                     </div>
-                                        <div th:if="${mList == null or #lists.isEmpty(mList)}">
-                                            <span>검색된 영화 없음</span>
-                                        </div>
                                 </section>
                                 <!-- 스크롤버튼 -->
                                 <div class="right-div d:flex jc:center ai:center d:inline-block">
@@ -195,10 +204,14 @@
                                     </svg> -->
                                     </button>
                                 </div>
+                                <!--영화 검색값 없을시 출력창-->
+                                <div th:if="${mList == null or #lists.isEmpty(mList)}" class="empty-contents-box-size d:flex w:100p jc:center ai:center">
+                                    <span class="color:base-6">텅..</span>
+                                </div>
                             </section>
                         </section>
                         <!--감독 목록-->
-                        <section class="section-margin">
+                        <section class="section-margin m-left:3 mr:3 m-top:4 m-bottom:10">
                             <div class="d:flex jc:space-between m-bottom:3">
                             <h1 class="fs:6 fw:3">인물</h1>
                                 <span class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
@@ -215,12 +228,12 @@
                                     </button>
                                 </div>
                                 <section class="of:scroll of-y:hidden scrable-content2">
-                                    <div class="display:flex padding:2">
+                                    <div class="display:flex">
                                         <ul class="d:flex width:10p fl-wrap:nowrap gap:5">
                                             <!-- directors 리스트를 먼저 반복 -->
-                                            <li th:each="director : ${dList}" class="d:flex">
+                                            <li th:each="director : ${dList}" class="d:flex mb:4">
                                                 <!-- 감독 정보를 출력 -->
-                                                <a href="">
+                                                <a href="" th:href="@{/people/info(id=${director.tmdbId},name=${director.korName != null ? director.korName : director.engName })}" class="w:2">
                                                     <div class="display:flex margin-right:4">
                                                         <img class="bd-radius:1 obj-fit:cover" th:src="${director.imgUrl != null ? director.imgUrl : '/image/unknown_person.jpg'}"
                                                              src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
@@ -237,11 +250,11 @@
                                                     </div>
                                                 </a>
                                             </li>
-                                            <li th:if="${dList == null or #lists.isEmpty(dList)}">
-                                                <div>
-                                                    <span>검색된 감독 없음</span>
-                                                </div>
-                                            </li>
+<!--                                            <li th:if="${dList == null or #lists.isEmpty(dList)}">-->
+<!--                                                <div>-->
+<!--                                                    <span>검색된 감독 없음</span>-->
+<!--                                                </div>-->
+<!--                                            </li>-->
                                         </ul>
                                     </div>
                                 </section>
@@ -253,7 +266,7 @@
                                 </div>
                             </section>
                             <!--배우목록-->
-                            <section th:if="${aList != null or #lists.isNotEmpty(aList)}" class="d:flex">
+                            <section th:if="${aList != null or #lists.isEmpty(aList)}" class="d:flex">
                                 <h1 class="d:none">스크롤버튼</h1>
                                 <!-- left button -->
                                 <div class="left-div d:flex jc:center ai:center d:inline-block">
@@ -263,10 +276,11 @@
                                     </button>
                                 </div>
                                 <section class="of:scroll of-y:hidden scrable-content3">
-                                    <div class="display:flex padding:2">
+                                    <div class="display:flex">
                                         <ul class="d:flex width:10p fl-wrap:nowrap gap:5">
-                                            <li th:each="actor : ${aList}" class="d:flex">
-                                                <a href="">
+                                            <li th:each="actor : ${aList}" class="d:flex mb:4">
+                                                <a href="" th:href="@{/people/info(id=${actor.tmdbId},name=${actor.korName != null ? actor.korName : actor.engName })}" class="w:2"
+                                                >
                                                     <div class="display:flex margin-right:4">
                                                         <img class="bd-radius:1 obj-fit:cover" th:src="${actor.imgUrl != null ? actor.imgUrl : '/image/unknown_person.jpg'}"
                                                              src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
@@ -294,10 +308,14 @@
                                     </button>
                                 </div>
                             </section>
-                            <div th:if="${aList == null or #lists.isEmpty(aList)}">
-                                <div>
-                                    <span>검색된 배우 없음</span>
-                                </div>
+<!--                            <div th:if="${aList == null or #lists.isEmpty(aList)}">-->
+<!--                                <div>-->
+<!--                                    <span>검색된 배우 없음</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <!--감독,배우 둘다 검색값 없을시 출력창-->
+                            <div th:if="${(aList == null && dList == null) or (#lists.isEmpty(aList) && #lists.isEmpty(dList))}" class="empty-contents-box-size d:flex w:100p jc:center ai:center">
+                                <span class="color:base-6">텅..</span>
                             </div>
                         </section>
                     </section>

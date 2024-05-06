@@ -16,11 +16,11 @@
         <section class="media-sect">
             <div class="d:flex gap:5">
             <div>
-                <img th:src="${people.imgUrl}" src="https://i.namu.wiki/i/y4KFt0ysuURf9XfTQFQONTqLMYXAX3w0Kauenq6wxjiDJaE-6ePOnSPR9E0DvJgD7X_uEPrjWlPo6ZA01YWnsxwscN9U9Atc8uf973nycoQxaTfqJNn8_a2KzRqnodDU2j0qlm5w9jIiWgDadqO-Kw.webp"
-                class="bd-radius:3" alt="" width="180" height="">
+                <img th:src="${people.imgUrl != null ? people.imgUrl : '/image/unknown_person.jpg'}" src="https://i.namu.wiki/i/y4KFt0ysuURf9XfTQFQONTqLMYXAX3w0Kauenq6wxjiDJaE-6ePOnSPR9E0DvJgD7X_uEPrjWlPo6ZA01YWnsxwscN9U9Atc8uf973nycoQxaTfqJNn8_a2KzRqnodDU2j0qlm5w9jIiWgDadqO-Kw.webp"
+                class="bd-radius:3 object-fit:cover" alt="" width="180" height="270">
             </div>
             <div class="d:flex flex-direction:column gap:5">
-            <p class="fs:8" th:text="${people.korName}">김성수</p>
+            <p class="fs:8" th:text="${people.korName != null ? people.korName : people.engName}">김성수</p>
 <!--            <p class="fs:5 color:base-6">대한민국의 감독,작가</p>-->
             </div>
             </div>

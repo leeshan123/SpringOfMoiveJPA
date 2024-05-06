@@ -49,7 +49,15 @@
         }
         .contents-box-size{
             width: 261.69px;
+            margin-bottom: 20px;
+        }
+        .empty-contents-box-size{
+            height: 461.53px;
             margin-bottom: 8px;
+            width:100%;
+            /*폰트 설정*/
+            font-weight: bold;
+            font-size: 140px;
         }
     </style>
 </head>
@@ -91,12 +99,12 @@
 
                             <section class="d:flex flex-wrap:wrap media-pading of:scroll of-y:hidden scrable-content1">
                                 <h1 class="d:none ">컨텐츠</h1>
-                                <div th:if="${mList} != null" th:each="m,mCount : ${mList}"
+                                <div th:each="m,mCount : ${mList}"
                                      class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3 contents-box-size">
                                     <div th:switch="${m.watchGrade}"
                                          class="position:relative display:inline-block bd-color:base-10 ">
                                         <a href="detail" th:href="@{/movie/detail(movieid=${m.id})}"><img
-                                                class="bd-radius:1" src="" th:src="${m.getPosterUrl()}" alt="/"
+                                                class="bd-radius:1" src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" alt="/"
                                                 width="247.69px" height="361.54px"></a>
                                         <!--                                            <span-->
                                         <!--                                                class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"-->
@@ -171,10 +179,11 @@
                                         <div class="fs:2 color:base-6">누적 관객수 100만명</div>
                                     </div>
                                 </div>
-                                <div th:if="${mList == null or #lists.isEmpty(mList)}">
-                                    <span>검색된 영화 없음</span>
-                                </div>
                             </section>
+                            <!--영화 검색값 없을시 출력창-->
+                            <div th:if="${mList == null or #lists.isEmpty(mList)}" class="empty-contents-box-size d:flex w:100p jc:center ai:center">
+                                <span class="color:base-6">텅..</span>
+                            </div>
 
                         </section>
                     </section>

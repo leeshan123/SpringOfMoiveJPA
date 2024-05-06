@@ -10,7 +10,10 @@
                 </div>
                 <div>
                     <span>내 누적 관객수 : </span>
-                    <span th:text="${#numbers.formatInteger(#authentication.getPrincipal().getPoint(),3,'COMMA')}"></span>
+                    <span
+                        th:with="userPoint=${#authentication.getPrincipal().getPoint()},
+                                 formattedPoint=${userPoint > 999 ? #numbers.formatInteger(userPoint,3,'COMMA') : userPoint}"
+                        th:text="${formattedPoint}"></span>
                     <span>명</span>
                     <span class="icon icon:info">설명 아이콘</span>
                     <p class="n-item n-item-type:shadow p:2  color:base-6 ishover">'영화의봄'은 회원의 포인트를 관객수로 표현하고 있습니다,<br>천만영화의 꿈을 이뤄보세요!</p>
