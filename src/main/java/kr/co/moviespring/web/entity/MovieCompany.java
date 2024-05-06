@@ -14,6 +14,6 @@ public class MovieCompany {
     String companyCd;
     String movieCd;
     String movieNm;
-    String company_part_nm;
+    String companyPratNm;
 
 }
