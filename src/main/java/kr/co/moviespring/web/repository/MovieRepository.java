@@ -33,5 +33,6 @@ public interface MovieRepository {
 
     List<Movie> getEditedList();
 
-
+    //인물별 필모리스트
+    List<Movie> findAllByPeopleId(Long id);
 }

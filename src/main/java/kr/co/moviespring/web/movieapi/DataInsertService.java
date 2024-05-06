@@ -26,7 +26,7 @@ import java.io.IOException;
 public class DataInsertService {
 
 
-    String key = "fa4a546d896ea6a36a7db5d09bcb80f3";
+    String key = "e7f6a63edea6295a55b893dcc0071d60";
 //    String key2 = "e7f6a63edea6295a55b893dcc0071d60";
 
     String filePath = "C:/Users/leedw/Desktop/audience.xlsx";
@@ -36,6 +36,9 @@ public class DataInsertService {
 
 //    @Autowired
     private PeopleDataUpdate peopleDataUpdate;
+
+//    @Autowired
+    private CompanyDataUpdate companyDataUpdate;
 
     //메서드를 자동으로 실행
     //의존성 주입이 완료 된 후에 딱 한번만 실행.
@@ -54,10 +57,12 @@ public class DataInsertService {
 
 //        peopleDataUpdate.filmoInsertServie(peopleDataUpdate.getFilmoList(key));
 
-        for(int i =19800; i<20000; i++) {
-            String peopleCd = peopleDataUpdate.getPeopleCd(i);
-            peopleDataUpdate.filmoInsertServie(peopleDataUpdate.getFilmoList(key,peopleCd));
-        }
+//        for(int i =19800; i<20000; i++) {
+//            String peopleCd = peopleDataUpdate.getPeopleCd(i);
+//            peopleDataUpdate.filmoInsertServie(peopleDataUpdate.getFilmoList(key,peopleCd));
+//        }
+
+//       companyDataUpdate.insertMovieCompanyData(companyDataUpdate.getCompanyMovieList(key,20141469));
 
         System.out.println("executeAfterStartup종료");
     }

@@ -46,18 +46,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="board:${list}">
+                <tr th:each="movie:${list}">
                     <td class="txt-al:center py:1">
-                                    <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
-                                          th:text="${c.name}">카테고리 이름</span>
+                                <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
+                                      th:text="${#dates.format(movie.releaseDate, 'yyyy')}">개봉일</span>
                     </td>
                     <td class="txt-al:start py:1 white-space:normal">
-                        <a href="" th:href="@{detail(c=${c.engName},id=${board.id})}" th:text="${board.title}">게시글 제목</a>
+                        <a href="" th:href="@{/movie/detail(movieid=${movie.id})}" th:text="${movie.korName}">영화 제목</a>
                     </td>
-                    <td th:text="${board.nickname}" class="txt-al:start py:1">작성자</td>
-                    <td th:text="${board.hit}" class="txt-al:center py:1">조회수</td>
-                    <td class="txt-al:center py:1">123</td>
-                    <td class="txt-al:center py:1" th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}">작성일
+                    <td class="txt-al:start py:1">배우</td>
+                    <td class="txt-al:center py:1">30000원</td>
                     </td>
                 </tr>
                 </tbody>

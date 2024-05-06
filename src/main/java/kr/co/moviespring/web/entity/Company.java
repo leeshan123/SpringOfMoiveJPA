@@ -13,7 +13,7 @@ public class Company {
     String companyCd;
     String companyNm;
     String companyNmEn;
-    String companyPartName;
+    String companyPartNames;
 
 
 }
