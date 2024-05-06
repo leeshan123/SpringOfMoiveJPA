@@ -7,6 +7,9 @@ import kr.co.moviespring.web.entity.Movie;
 public interface MovieService {
     List <Movie> getList();
     List <Movie> getListByName(String query);
+    //인물별 필모리스트
+    List <Movie> getListByPeopleId(Long id);
+
     Movie getById(Long id);
     Movie getByTMDBId(String id);
     Movie getByKobisId(String id);

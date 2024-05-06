@@ -54,6 +54,13 @@ public class MovieServiceImp implements MovieService {
         return list;
     }
 
+    //인물별 필모리스트
+    @Override
+    public List<Movie> getListByPeopleId(Long id) {
+        List<Movie> list = repository.findAllByPeopleId(id);
+        return list;
+    }
+
     // 요청 id값으로 상세정보가져오기//
     @Override
     public Movie getById(Long id) {
