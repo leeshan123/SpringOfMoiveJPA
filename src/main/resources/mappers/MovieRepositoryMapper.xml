@@ -5,8 +5,21 @@
 <mapper namespace="kr.co.moviespring.web.repository.MovieRepository">
 	<!-- 영화 목록 -->
 	<select id="findAll" resultType="Movie">
-		select * from movie limit 20;
+		SELECT movie.*, movie3.audi_acc
+		FROM movie
+		INNER JOIN movie3
+		ON movie.kobis_id = movie3.movie_cd
+		WHERE DATE_FORMAT(movie.release_date, '%Y') = '2024'
+		ORDER BY audi_acc desc
+		limit 10;
     </select>
+
+	<select id="findAllAfter" resultType="Movie">
+		SELECT *
+		FROM movie
+		WHERE release_date > CURDATE() order by release_date
+		limit 10;
+	</select>
 
 	<!-- 검색한 영화 목록 -->
 	<select id="findAllByName" resultType="Movie">

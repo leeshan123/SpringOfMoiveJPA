@@ -77,6 +77,9 @@ public class HomeController {
     public String main(Model model) {
         List<Movie> list = movieService.getList();
         model.addAttribute("list", list);
+        //개봉예정영화
+        List<Movie> listAfter = movieService.getListAfter();
+        model.addAttribute("listAfter", listAfter);
 
         return "main";
     }

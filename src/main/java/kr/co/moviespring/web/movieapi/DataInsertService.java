@@ -37,6 +37,9 @@ public class DataInsertService {
 //    @Autowired
     private PeopleDataUpdate peopleDataUpdate;
 
+//    @Autowired
+    private CompanyDataUpdate companyDataUpdate;
+
     //메서드를 자동으로 실행
     //의존성 주입이 완료 된 후에 딱 한번만 실행.
 //    @PostConstruct
@@ -54,10 +57,12 @@ public class DataInsertService {
 
 //        peopleDataUpdate.filmoInsertServie(peopleDataUpdate.getFilmoList(key));
 
-        for(int i =12550; i<15000; i++) {
-            String peopleCd = peopleDataUpdate.getPeopleCd(i);
-            peopleDataUpdate.filmoInsertServie(peopleDataUpdate.getFilmoList(key,peopleCd));
-        }
+//        for(int i =19800; i<20000; i++) {
+//            String peopleCd = peopleDataUpdate.getPeopleCd(i);
+//            peopleDataUpdate.filmoInsertServie(peopleDataUpdate.getFilmoList(key,peopleCd));
+//        }
+
+//       companyDataUpdate.insertMovieCompanyData(companyDataUpdate.getCompanyMovieList(key,20141469));
 
         System.out.println("executeAfterStartup종료");
     }

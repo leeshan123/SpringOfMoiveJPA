@@ -93,6 +93,7 @@ public class MovieController {
         // }
         List<Movie> dailyList = BatchSchedulerConfig.getList();
         List<Movie> list = movieService.getList();
+        List<Movie> listAfter = movieService.getListAfter();
 
         // 서버로 돌면 풀어주기, 일단 그냥 리스트로
         if(dailyList == null)
@@ -100,7 +101,10 @@ public class MovieController {
 
         model.addAttribute("dlist", dailyList);
         model.addAttribute("list", list);
+        model.addAttribute("listAfter", listAfter);
         return "movie/main";
+        
+        
     }
 
     // 영화 상세//

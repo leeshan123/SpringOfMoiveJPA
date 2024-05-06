@@ -144,7 +144,7 @@
                             </div>
                             <section class="d:flex media-pading of:scroll of-y:hidden scrable-content2">
                                 <h1 class="d:none ">컨텐츠</h1>
-                                <div th:each="m,mCount : ${list}"
+                                <div th:each="m,mCount : ${listAfter}"
                                     class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
                                     <div class="position:relative display:inline-block bd-color:base-10 ">
                                         <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1"
