@@ -105,6 +105,24 @@
     height: 40px;
 }
 
+/* 관리자 헤더 추가 */
+.nav-test>div{
+    box-sizing: content-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border-left: dashed 2px #9A9A9A;
+
+    :last-child{
+        width: 100%;
+    }
+}
+
+.nav-test>div:last-child{
+    border-right: dashed 2px #9A9A9A;
+}
+
 /*유저 헤더 추가 부분*/
   .user-welcome{
       /*max-width: 680px;*/
