@@ -10,20 +10,7 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/translations/ko.js"></script>
 <!--    <script src="/ckeditor/ckeditor.js"></script>-->
 <!--    <script src="/ckeditor/translations/ko.js"></script>-->
-    <script>
-        window.addEventListener("load", function (e) {
 
-                ClassicEditor.create( document.querySelector( '#editor' ), {
-
-                language: "ko",
-                ckfinder: {
-                    uploadUrl: "/image/upload",
-                    withCredentials: true
-                }
-            });
-
-        })
-    </script>
     <style>
         /*.ck-editor__editable {*/
         /*    height: 400px;*/
@@ -71,6 +58,18 @@
                     <button type="submit" class="n-btn n-btn-color:main-1 n-btn-size:2">작성완료</button>
                 </div>
             </form>
+            <script>
+
+                    ClassicEditor.create( document.querySelector( '#editor' ), {
+
+                        language: "ko",
+                        ckfinder: {
+                            uploadUrl: "/image/upload",
+                            withCredentials: true
+                        }
+                    });
+
+            </script>
         </section>
     </main>
 </body>

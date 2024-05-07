@@ -60,6 +60,7 @@
                                 </td>
                                 <td class="txt-al:start py:1 white-space:normal">
                                     <a href="" th:href="@{detail(c=${c.engName},id=${board.id})}" th:text="${board.title}">게시글 제목</a>
+                                    <span class=" color:base-6 fs:2" th:text="${board.commentCount > 0 ? '['+board.commentCount+']' :''}">[12]</span>
                                 </td>
                                 <td th:text="${board.nickname}" class="txt-al:start py:1">작성자</td>
                                 <td th:text="${board.hit}" class="txt-al:center py:1">조회수</td>

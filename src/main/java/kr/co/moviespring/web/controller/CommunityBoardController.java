@@ -2,7 +2,9 @@ package kr.co.moviespring.web.controller;
 
 import java.util.List;
 
-import kr.co.moviespring.web.entity.CommunityBoardView;
+import kr.co.moviespring.web.entity.*;
+import kr.co.moviespring.web.repository.CommunityBoardRepository;
+import kr.co.moviespring.web.service.CommunityBoardCommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import kr.co.moviespring.web.config.security.CustomUserDetails;
-import kr.co.moviespring.web.entity.Category;
-import kr.co.moviespring.web.entity.CommunityBoard;
 import kr.co.moviespring.web.service.CategoryService;
 import kr.co.moviespring.web.service.CommunityBoardService;
 
@@ -24,7 +24,12 @@ public class CommunityBoardController {
     @Autowired
     CommunityBoardService communityBoardService;
     @Autowired
+    CommunityBoardCommentsService communityBoardCommentsService;
+    @Autowired
+    CommunityBoardRepository communityBoardRepository;
+    @Autowired
     CategoryService categoryService;
+
 
     // 커뮤니티 메인페이지 요청//
     @GetMapping("main")
@@ -81,11 +86,14 @@ public class CommunityBoardController {
         memberId= userDetails.getId();
 
         CommunityBoardView board1 = communityBoardService.getById(boardId);
+        List<CommunityBoardCommentsView> list = communityBoardCommentsService.getListById(boardId);
+        communityBoardRepository.updateHit(boardId); //게시글 조회시마다 조회수 1증가 로직, 서비스단이 필요없는것같아 리포지토리 바로 호출
         // CommunityBoard board = communityBoardService.getById(boardId); 예전버전
         Category category = categoryService.getByName(categoryName);
 
-        model.addAttribute("userId", memberId);
+        model.addAttribute("memberId", memberId);
         model.addAttribute("board", board1);
+        model.addAttribute("list", list);
         model.addAttribute("category", category);
 
         return "community/board/detail";
@@ -114,8 +122,14 @@ public class CommunityBoardController {
     // 게시글 댓글 등록//
     @PostMapping("board/detail")
     public String regComment(String contents,@RequestParam(name="c",required = false)String categoryName,
-                                             @RequestParam(name="id",required = false)Long boardId){
+                                             @RequestParam(name="id",required = false)Long boardId,
+                                             @RequestParam(name="memberId",required = false)Long memberId,
+                                             @RequestParam(name="content",required = false)String content){
 //        communityBoardService.write(contents,categoryId);
+//        String cName = categoryName;
+//        System.out.printf("%s %d %d %s",categoryName,boardId,memberId,content);
+//        return "redirect:/community/main";
+        communityBoardCommentsService.write(boardId,memberId,content);
         return "redirect:/community/board/detail?c="+categoryName+"&id="+boardId;
     }
 

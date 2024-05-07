@@ -19,7 +19,7 @@ public interface CommunityBoardRepository {
     void edit(Long id, String title, String contents);
 
     // 카테고리별 게시글 목록
-    List<CommunityBoardView> findAll(Long categoryId, String query, int offset, int size);
+    List<CommunityBoardView> findAllByCategoryId(Long categoryId, String query, int offset, int size);
 
     //게시글 디테일페이지
     // CommunityBoard findById(Long id);
@@ -34,6 +34,8 @@ public interface CommunityBoardRepository {
 
     // 아이디별 조회
     List<CommunityBoardView> findByMemberId(Long memberId);
+    // 게시글 조회시마다 조회수 업데이트
+    void updateHit(Long boardId);
 
 //    List<GeneralBoard> findAll();
 

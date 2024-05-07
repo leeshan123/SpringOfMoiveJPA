@@ -12,7 +12,7 @@
 <!--    </select>-->
 
     <!-- 카테고리별 게시글 목록view -->
-    <select id="findAll" resultType="CommunityBoardView">
+    <select id="findAllByCategoryId" resultType="CommunityBoardView">
 <!--        SELECT c.*, m.nickname AS nickname-->
 <!--        FROM community_board c-->
 <!--        JOIN member m ON c.member_id = m.id where category_id = #{categoryId}-->
@@ -50,6 +50,13 @@
         WHERE member_id=#{memberId}
         ORDER BY reg_date DESC
     </select>
+
+    <!--게시글 조회시 조회수 증가-->
+    <update id="updateHit">
+        UPDATE community_board
+        SET hit = hit + 1
+        WHERE id = #{boardId}
+    </update>
 
     <!-- 게시글 등록 -->
     <insert id="saveContents">

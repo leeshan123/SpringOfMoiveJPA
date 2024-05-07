@@ -14,6 +14,9 @@ layout:decorate="inc/layout">
             height: 24px;
             line-height: 28px;
         }
+        .writer-comment-bgc {
+            background-color: ghostwhite;
+        }
     </style>
 </head>
 <body>
@@ -33,7 +36,7 @@ layout:decorate="inc/layout">
                     </div>
                     <span class="fs:2 color:base-6">조회수<span class="fw:bold margin-left:1 color:base-10" th:text="${board.hit}">1004</span></span>
                     <span class="fs:2 color:base-6">좋아요<span class="fw:bold margin-left:1 color:base-10">18</span></span>
-                    <span class="fs:2 color:base-6">댓글<span class="fw:bold margin-left:1 color:base-10">28</span></span>
+                    <span class="fs:2 color:base-6">댓글<span class="fw:bold margin-left:1 color:base-10" th:text="${board.commentCount}">28</span></span>
                 </div>
                 <div class="padding-y:3 border-top margin-bottom:10">
                     <span><img src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>
@@ -52,19 +55,19 @@ layout:decorate="inc/layout">
                         </div>
                     </div>
                 </div>
-                <div class="text-align:end fs:5 fw:bold color:main-3" th:if="${userId eq board.memberId}">
+                <div class="text-align:end fs:5 fw:bold color:main-3" th:if="${memberId eq board.memberId}">
                     <a th:href="@{'edit/'+${board.id}(c=${category.engName})}">수정</a>
                     <a th:href="@{'delete/'+${board.id}(c=${category.engName})}">삭제</a>
                 </div>
             </section>
-            <section class="padding-y:1 padding-left:2 padding-right:1 border-bottom d:flex flex-direction:column gap:1">
+            <section th:each="list : ${list}" th:classappend="${board.nickname eq list.nickname ? 'writer-comment-bgc' : ''}" class="padding-y:1 padding-left:2 padding-right:1 border-bottom d:flex flex-direction:column gap:1">
                 <h1 class="d:none">댓글창</h1>
                 <div class="d:flex ai:center gap:4">
                     <div class="margin-right:auto">
                         <span class="icon icon:bone">아이콘</span>
-                        <span class="fw:bold">작성자</span>
-                        <span class="fs:2 color:base-6">2024.04.08</span>
-                        <span class="fs:2 color:base-6">11:35</span>
+                        <span th:text="${list.nickname}" th:class="${board.nickname eq list.nickname ? 'fw:bold' : ''}">작성자</span>
+                        <span class="fs:2 color:base-6" th:text="${#temporals.format(list.regDate, 'yyyy.MM.dd')}">2024.04.08</span>
+                        <span class="fs:2 color:base-6" th:text="${#temporals.format(list.regDate, 'HH:mm')}">11:35</span>
                     </div>
                     <span class="d:flex">
                         <span class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_up margin-right:2">13</span>
@@ -74,9 +77,9 @@ layout:decorate="inc/layout">
                         <span class="deco deco-size:2 icon-size:4 deco-ml:1 deco-position:right icon:chat_circle_text fs:2 fw:bold color:main-3">댓글</span>
                     </span>
                 </div>
-                <p>댓글 내용이 출력될 장소입니다</p>
+                <p th:text="${list.contents}">댓글 내용이 출력될 장소입니다</p>
             </section>
-            <form action="" class="padding-y:1 padding-left:2 padding-right:1">
+            <form action="detail" method="post" class="padding-y:1 padding-left:2 padding-right:1">
                 <div>
                     <span sec:authorize="isAuthenticated()" class="icon icon:bone">아이콘</span>
                     <span sec:authorize="isAuthenticated()"
@@ -89,9 +92,13 @@ layout:decorate="inc/layout">
                 <div class="d:flex">
                     <div class="p:5 w:10p">
                         <textarea sec:authorize="isAuthenticated()" name="content" id="" placeholder="댓글 내용 입력" class="w:10p n-textbox"></textarea>
+                        <input sec:authorize="isAuthenticated()" name="memberId" th:value="${memberId}" id="" placeholder="댓글 내용 입력" class="d:none">
+                        <input sec:authorize="isAuthenticated()" name="id" th:value="${board.id}" id="" placeholder="댓글 내용 입력" class="d:none">
+                        <input sec:authorize="isAuthenticated()" name="c" th:value="${category.engName}" id="" placeholder="댓글 내용 입력" class="d:none">
+                        <!--비로그인 댓글 금지-->
                         <textarea sec:authorize="isAnonymous()" disabled name="content" id="" placeholder="댓글 내용 입력" class="n-textbox-status:disabled w:10p n-textbox"></textarea>
                     </div>
-                    <button class="fs:5 fw:bold color:main-3 w:1">등록</button>
+                        <button class="fs:5 fw:bold color:main-3 w:1">등록</button>
                 </div>
             </form>
             <div class="text-align:center">
