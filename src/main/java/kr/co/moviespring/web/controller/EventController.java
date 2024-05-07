@@ -34,6 +34,21 @@ public class EventController {
         ,Model model
     ){
         EventPage ep = eventPageService.getById(id);
+        EventPage nextEp = eventPageService.getByNextId(id);
+        EventPage preEp = eventPageService.getByPreId(id);
+
+        if(nextEp == null){
+            nextEp = new EventPage();
+            nextEp.setTitle("다음 글 없음");
+        }
+
+        if(preEp == null){
+            preEp = new EventPage();
+            preEp.setTitle("이전 글 없음");
+        }
+
+        model.addAttribute("premenu", preEp);
+        model.addAttribute("nextmenu", nextEp);
         model.addAttribute("menu", ep);
         return "event/detail";
     }

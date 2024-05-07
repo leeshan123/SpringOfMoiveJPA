@@ -12,6 +12,20 @@
         where id = #{id}
     </select>
 
+    <select id="findByNextId" resultType="EventPage">
+        SELECT * FROM event_page
+        WHERE id &gt; #{id}
+        ORDER BY id ASC
+        LIMIT 1;
+    </select>
+
+    <select id="findByPreId" resultType="EventPage">
+        SELECT * FROM event_page
+        WHERE id &lt; #{id}
+        ORDER BY id DESC
+        LIMIT 1;
+    </select>
+
     <insert id="save" parameterType="map">
         insert into event_page(title, contents, start_date, end_date, image_url, member_id)
         values(#{eventPage.title},#{eventPage.contents},#{eventPage.startDate},#{eventPage.endDate},#{eventPage.imageUrl},#{memberId})

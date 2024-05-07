@@ -31,6 +31,18 @@ public class EventPageServiceImp implements EventPageService{
     }
 
     @Override
+    public EventPage getByNextId(Long id) {
+        EventPage ep = repository.findByNextId(id);
+        return ep;
+    }
+
+    @Override
+    public EventPage getByPreId(Long id) {
+        EventPage ep = repository.findByPreId(id);
+        return ep;    
+    }
+
+    @Override
     public void edit(EventPage eventPage) {
         repository.update(eventPage);
     }

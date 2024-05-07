@@ -82,11 +82,22 @@ layout:decorate="inc/layout">
             <div class="text-align:left">
                 <div class="p:2">
                     <span class="fs:4 fw:bold color:main-3 mr:2">이전글</span>
-                    <a href="" class="fs:4 color:main-3">얄리얄리얄랴셩</a>
+                    <th:block th:if="${premenu.id != NULL}">
+                        <a th:text="${premenu.title}" th:href="@{detail(id=${premenu.id})}" href="">이전글제목</a>
+                    </th:block>
+                    <th:block th:if="${premenu.id == NULL}">
+                        <a th:text="${premenu.title}" class="fs:4 color:main-3" >이전글없음</a>
+                    </th:block>
+                    <!-- <a href="" th:text="${premenu.title}" class="fs:4 color:main-3">이전글제목</a> -->
                 </div>
                 <div class="p:2">
                     <span class="fs:4 fw:bold color:main-3 mr:2">다음글</span>
-                    <a href="" class="fs:4 color:main-3">얄랴리 얄라</a>
+                    <th:block th:if="${nextmenu.id != NULL}">
+                        <a th:text="${nextmenu.title}" th:href="@{detail(id=${nextmenu.id})}"  class="fs:4 color:main-3" href="">다음글제목</a>
+                    </th:block>
+                    <th:block th:if="${nextmenu.id == NULL}">
+                        <a th:text="${nextmenu.title}" class="fs:4 color:main-3">다음글없음</a>
+                    </th:block>
                 </div>
             </div>
             <div class="text-align:center">
