@@ -93,7 +93,8 @@
                                     <div class="fs:2"
                                          th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">
                                         2024 · 한국</div>
-                                    <div class="fs:2 color:base-6">누적 관객수 100만명</div>
+                                    <div class="fs:2 color:base-6"
+                                    th:text="' 누적 관객수 '+ ${#numbers.formatInteger(m.getAudiAcc() / 10000, 2)} + ' 만명'">누적 관객수 100만명</div>
                                 </div>
                             </div>
                         </section>
@@ -154,7 +155,7 @@
                                     <div class="fs:2"
                                          th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">
                                         2024 · 한국</div>
-                                    <div class="fs:2 color:base-6">누적 관객수 100만명</div>
+                                    <div class="fs:2 color:base-6">누적 관객수 0만명</div>
                                 </div>
                             </div>
                         </section>

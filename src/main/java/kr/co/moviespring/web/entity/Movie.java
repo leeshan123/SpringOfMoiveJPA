@@ -34,5 +34,5 @@ public class Movie {
 //    private int dailyAudience;//영화상세정보(하루관객수)
     private String releaseNation;//영화상세정보(제작국가) > nations/nationNm
     private String genre;//영화상세정보(장르)> genres/genreNm 장르는 코비스에 있는거 그냥 문자열로 넣기로함
-    private int audi_acc;
+    private int audiAcc; //영화 누적 관객수
 }
