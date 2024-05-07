@@ -12,9 +12,9 @@
         where id = #{id}
     </select>
 
-    <insert id="save">
-        insert into event_page(title, contents, image_url, member_id)
-        values(#{title},#{contents},#{imageUrl},#{memberId})
+    <insert id="save" parameterType="map">
+        insert into event_page(title, contents, start_date, end_date, image_url, member_id)
+        values(#{eventPage.title},#{eventPage.contents},#{eventPage.startDate},#{eventPage.endDate},#{eventPage.imageUrl},#{memberId})
     </insert>
 
     <update id="update" parameterType="EventPage">

@@ -10,7 +10,7 @@ import kr.co.moviespring.web.entity.EventPage;
 public interface EventPageRepository {
     List<EventPage> findAll();
     EventPage findById(Long id);
-    Long save(String title, String contents, String imageUrl, Long memberId);
+    Long save(EventPage eventPage, Long memberId);
     void update(EventPage eventPage);
     void delete(Long id);
 }

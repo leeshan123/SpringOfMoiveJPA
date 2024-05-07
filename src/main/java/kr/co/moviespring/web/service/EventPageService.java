@@ -8,7 +8,7 @@ public interface EventPageService {
     List<EventPage> getList();
     EventPage getById(Long id);
     
-    Long reg(String title, String contents, String imageUrl, Long memberId);
+    Long reg(EventPage eventPage, Long memberId);
     void edit(EventPage eventPage);
     void deleteById(Long id);
 }

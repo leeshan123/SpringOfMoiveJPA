@@ -16,7 +16,10 @@
                     <a th:href="@{detail(id=${menu.id})}">
                         <div class="p:4">
                             <h1 th:text="${menu.title}">여기는 제목이 오는곳이지라 안그랴유</h1>
-                            <div class="event-card-period"><span>2024-04-31</span>~<span>2024-05-22</span></div>
+                            <div class="event-card-period">
+                                <span th:text="${#dates.format(menu.startDate, 'yyyy.MM.dd')}">2024-04-31</span>
+                                ~
+                                <span th:text="${#dates.format(menu.endDate, 'yyyy.MM.dd')}">2024-05-22</span></div>
                         </div>
                         <div class="event-card-img_block">
                             <img src="/image/제목 없음.png" alt="이미지">

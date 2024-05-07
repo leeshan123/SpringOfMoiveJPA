@@ -1,8 +1,10 @@
 package kr.co.moviespring.web.controller.admin;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,11 +44,15 @@ public class MovieEventController {
     @PostMapping("reg")
     public String movieEventReg(
         EventPage ep
+        ,@RequestParam("start-date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date sttDate
+        ,@RequestParam("end-date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate
         ,@AuthenticationPrincipal CustomUserDetails userDetails
     ){
-        eventPageService.reg(ep.getTitle(), ep.getContents(), ep.getImageUrl(), userDetails.getId());
+        ep.setStartDate(sttDate);
+        ep.setEndDate(endDate);
+        eventPageService.reg(ep, userDetails.getId());
 
-        return "/admin/movieEvent/list";
+        return "redirect:/admin/movieEvent/list";
     }
 
     @GetMapping("edit")

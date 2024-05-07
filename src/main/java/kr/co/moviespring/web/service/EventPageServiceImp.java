@@ -15,8 +15,8 @@ public class EventPageServiceImp implements EventPageService{
     EventPageRepository repository;
 
     @Override
-    public Long reg(String title, String contents, String imageUrl, Long memberId) {
-        repository.save(title, contents, imageUrl, memberId);
+    public Long reg(EventPage eventPage, Long memberId) {
+        repository.save(eventPage, memberId);
         return null;
     }
 
