@@ -91,7 +91,6 @@ public class MovieController {
         //     Movie movie = movieService.getByKobisId(mCode);
         //     dailyList.add(movie);
         // }
-        int page = 1;
         List<Movie> dailyList = BatchSchedulerConfig.getList();
         List<Movie> list = movieService.getListByYear();
         List<Movie> listAfter = movieService.getListAfter();

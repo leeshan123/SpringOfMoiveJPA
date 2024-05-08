@@ -9,6 +9,18 @@
 		LIMIT #{offset}, #{size};
     </select>
 
+	<select id="findAllByQuery" resultType="MovieSearchView">
+		SELECT * FROM movie
+		<where>
+			<if test="query != null">
+				kor_name LIKE CONCAT('%', #{query}, '%')
+				OR REPLACE(kor_name, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+				OR LOWER(eng_name) LIKE CONCAT('%', LOWER(#{query}), '%');
+			</if>
+		</where>
+		LIMIT #{offset}, #{size};
+    </select>
+
 
 	<!-- 올해의 영화 -->
 	<select id="findAllByYear" resultType="Movie">

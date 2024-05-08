@@ -3,9 +3,12 @@ package kr.co.moviespring.web.service;
 import java.util.List;
 
 import kr.co.moviespring.web.entity.Movie;
+import kr.co.moviespring.web.entity.MovieSearchView;
 
 public interface MovieService {
     List <Movie> getList(Integer page);
+    List<MovieSearchView> getListView(Integer page);
+    List<MovieSearchView> getListView(Integer page, String query);
 
     List <Movie> getListAfter();
     List <Movie> getListByName(String query);
@@ -26,5 +29,6 @@ public interface MovieService {
 
     //관리자 2주영화 등록데이터 조회 비동기(비둘기x)처리
     List<Movie>  findAllEditedList();
+
 
 }

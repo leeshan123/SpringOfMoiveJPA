@@ -5,11 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.moviespring.web.entity.Movie;
+import kr.co.moviespring.web.entity.MovieSearchView;
 
 @Mapper
 public interface MovieRepository {
 
     List<Movie> findAll(int offset, int size);
+    List<MovieSearchView> findAllByQuery(String query, int offset, int size);
 
     List<Movie> findAllAfter();
 

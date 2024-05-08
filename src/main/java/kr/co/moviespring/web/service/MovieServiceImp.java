@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
 import kr.co.moviespring.web.config.batch.BatchSchedulerConfig;
 import kr.co.moviespring.web.entity.Movie;
+import kr.co.moviespring.web.entity.MovieSearchView;
 import kr.co.moviespring.web.movieapi.KobisMovieAPI;
 import kr.co.moviespring.web.movieapi.dto.kobis.KobisDailyBox;
 import kr.co.moviespring.web.repository.MovieRepository;
@@ -72,6 +73,19 @@ public class MovieServiceImp implements MovieService {
         return list;
     }
 
+    @Override
+    public List<MovieSearchView> getListView(Integer page) {
+        return getListView(page, null);
+    }
+
+    @Override
+    public List<MovieSearchView> getListView(Integer page, String query) {
+        int size = 10;
+        int offset = (page-1);
+        return repository.findAllByQuery(query, offset, size);
+    }
+
+
     // 요청 id값으로 상세정보가져오기//
     @Override
     public Movie getById(Long id) {
@@ -116,7 +130,5 @@ public class MovieServiceImp implements MovieService {
         List<Movie>  movieWeeks = repository.getEditedList();
         return movieWeeks;
     }
-
-   
 
 }
