@@ -5,10 +5,11 @@ import java.util.List;
 import kr.co.moviespring.web.entity.Movie;
 
 public interface MovieService {
-    List <Movie> getList();
+    List <Movie> getList(Integer page);
 
     List <Movie> getListAfter();
     List <Movie> getListByName(String query);
+    List <Movie> getListByYear();
     //인물별 필모리스트
     List <Movie> getListByPeopleId(Long id);
 
@@ -25,4 +26,5 @@ public interface MovieService {
 
     //관리자 2주영화 등록데이터 조회 비동기(비둘기x)처리
     List<Movie>  findAllEditedList();
+
 }

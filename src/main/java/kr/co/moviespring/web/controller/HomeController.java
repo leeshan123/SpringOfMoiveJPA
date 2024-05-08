@@ -75,7 +75,8 @@ public class HomeController {
 
     @GetMapping("")
     public String main(Model model) {
-        List<Movie> list = movieService.getList();
+        // 올해의 영화
+        List<Movie> list = movieService.getListByYear();
         model.addAttribute("list", list);
         //개봉예정영화
         List<Movie> listAfter = movieService.getListAfter();

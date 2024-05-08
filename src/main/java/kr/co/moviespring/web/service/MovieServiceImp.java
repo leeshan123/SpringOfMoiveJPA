@@ -34,8 +34,16 @@ public class MovieServiceImp implements MovieService {
     }
 
     @Override
-    public List<Movie> getList() {
-        List<Movie> list = repository.findAll();
+    public List<Movie> getList(Integer page) {
+        int size = 10;
+        int offset = (page-1);
+        List<Movie> list = repository.findAll(offset, size);
+        return list;
+    }
+
+    @Override
+    public List<Movie> getListByYear() {
+        List<Movie> list = repository.findAllByYear();
         return list;
     }
 
@@ -54,9 +62,6 @@ public class MovieServiceImp implements MovieService {
         } else {
             list = repository.findAllByName(query);
         }
-
-
-
         return list;
     }
 
@@ -111,5 +116,7 @@ public class MovieServiceImp implements MovieService {
         List<Movie>  movieWeeks = repository.getEditedList();
         return movieWeeks;
     }
+
+   
 
 }

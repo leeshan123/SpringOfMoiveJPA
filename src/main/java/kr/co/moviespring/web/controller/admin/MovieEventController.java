@@ -24,7 +24,6 @@ public class MovieEventController {
     @Autowired
     EventPageService eventPageService;
 
-    
     @GetMapping("list")
     public String movieEventList(
         Model model
