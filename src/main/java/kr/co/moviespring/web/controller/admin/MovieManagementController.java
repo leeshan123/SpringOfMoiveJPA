@@ -5,19 +5,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("AdminMovieManagementController") //이름의 중복을 피하기 위해 ioc컨테이너에 담기는 이름을 직접 작성해줄수있다
-@RequestMapping("admin/movieManagement")
+@RequestMapping("admin/movie-management")
 public class MovieManagementController {
     
     @GetMapping("list")
     public String movieManagementList() {
     
-        return "admin/movieManagement/list"; 
+        return "admin/movie-management/list"; 
     }
 
     
     @GetMapping("reg")
     public String movieManagementReg() {
     
-        return "admin/movieManagement/reg"; 
+        return "admin/movie-management/reg"; 
     }
 }

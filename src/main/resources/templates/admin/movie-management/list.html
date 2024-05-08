@@ -19,34 +19,22 @@ layout:decorate="inc/adminlayout">
 <body>
     <main layout:fragment="main">
     <div class="bg-color:base-3 h:1">
-        <div class="main-container fs:5 fw:3
-        d:flex align-items:center">영화관리</div>
+        <div class="main-container fs:5 fw:3 d:flex jc:space-between align-items:center">
+            <span>영화관리</span>
+            <form action="" method="get">
+                <div class="d:flex" >
+                    <input type="text" name="query" value="" placeholder="영화 검색" class="n-textbox">
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
     <section class="main-container">
 
-        <div class="d:flex 
-        bd-bottom bd-color:base-5">
-            <div class="fs:5 fw:bold h:1 d:flex ai:center">캐리비안의 해적</div>
-        </div>
-
-        <div class="d:flex 
-        bd-bottom bd-color:base-5">
-            <div class="fs:5 fw:bold h:1 d:flex ai:center">캐리비안의 해적</div>
-        </div>
-
-        <div class="d:flex 
-        bd-bottom bd-color:base-5">
-            <div class="fs:5 fw:bold h:1 d:flex ai:center">캐리비안의 해적</div>
-        </div>
-
-        <div class="d:flex 
-        bd-bottom bd-color:base-5">
-            <div class="fs:5 fw:bold h:1 d:flex ai:center">캐리비안의 해적</div>
-        </div>
-
-        <div class="d:flex 
-        bd-bottom bd-color:base-5">
-            <div class="fs:5 fw:bold h:1 d:flex ai:center">캐리비안의 해적</div>
+        <div th:each="i:${#numbers.sequence(0,9)}" class="d:flex bd-bottom bd-color:base-5">
+            <div class="fs:4 fw:bold h:1 d:flex ai:center">캐리비안의 해적</div>
         </div>
 
         <div class="h:1 d:flex jc:end ai:center">

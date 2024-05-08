@@ -18,7 +18,7 @@ import kr.co.moviespring.web.entity.EventPage;
 import kr.co.moviespring.web.service.EventPageService;
 
 @Controller("AdminMovieEventController") //이름의 중복을 피하기 위해 ioc컨테이너에 담기는 이름을 직접 작성해줄수있다
-@RequestMapping("admin/movieEvent")
+@RequestMapping("admin/movie-event")
 public class MovieEventController {
 
     @Autowired
@@ -31,14 +31,14 @@ public class MovieEventController {
     ) {
         List<EventPage> list = eventPageService.getList();
         model.addAttribute("list", list);
-        return "/admin/movieEvent/list"; 
+        return "/admin/movie-event/list"; 
     }
 
     @GetMapping("reg")
     public String movieEventReg(
         
     ) {
-        return "admin/movieEvent/reg"; 
+        return "admin/movie-event/reg"; 
     }
 
     @PostMapping("reg")
@@ -52,7 +52,7 @@ public class MovieEventController {
         ep.setEndDate(endDate);
         eventPageService.reg(ep, userDetails.getId());
 
-        return "redirect:/admin/movieEvent/list";
+        return "redirect:/admin/movie-event/list";
     }
 
     @GetMapping("edit")
@@ -62,7 +62,7 @@ public class MovieEventController {
     ){
         EventPage ep = eventPageService.getById(id);
         model.addAttribute("menu", ep);
-        return "/admin/movieEvent/edit";
+        return "/admin/movie-event/edit";
     }
 
     @PostMapping("edit")
@@ -70,7 +70,7 @@ public class MovieEventController {
         EventPage eventPage
     ){
         eventPageService.edit(eventPage);
-        return "redirect:/admin/movieEvent/list";
+        return "redirect:/admin/movie-event/list";
     }
 
     @GetMapping("delete")
@@ -78,6 +78,6 @@ public class MovieEventController {
         @RequestParam("id") Long id
     ){
         eventPageService.deleteById(id);
-        return "redirect:/admin/movieEvent/list";
+        return "redirect:/admin/movie-event/list";
     }
 }
