@@ -10,12 +10,12 @@
     </select>
 
 	<select id="findAllByQuery" resultType="MovieSearchView">
-		SELECT * FROM movie
+		SELECT * FROM movie_search_view
 		<where>
 			<if test="query != null">
 				kor_name LIKE CONCAT('%', #{query}, '%')
 				OR REPLACE(kor_name, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
-				OR LOWER(eng_name) LIKE CONCAT('%', LOWER(#{query}), '%');
+				OR LOWER(eng_name) LIKE CONCAT('%', LOWER(#{query}), '%')
 			</if>
 		</where>
 		LIMIT #{offset}, #{size};

@@ -91,6 +91,8 @@ public class MovieController {
         //     Movie movie = movieService.getByKobisId(mCode);
         //     dailyList.add(movie);
         // }
+        // 슬슬 없는 영화들 나와서 movie3을 채우던지, 없는 영화에 대해 새로 받는 로직을 추가할건지
+        // 일단 일별박스오피스는 올해의 영화로 대체
         List<Movie> dailyList = BatchSchedulerConfig.getList();
         List<Movie> list = movieService.getListByYear();
         List<Movie> listAfter = movieService.getListAfter();
@@ -99,7 +101,7 @@ public class MovieController {
         if(dailyList == null)
             dailyList = list;
 
-        model.addAttribute("dlist", dailyList);
+        model.addAttribute("dlist", list);
         model.addAttribute("list", list);
         model.addAttribute("listAfter", listAfter);
         return "movie/main";
