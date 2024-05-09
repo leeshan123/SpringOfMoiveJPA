@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -36,6 +37,7 @@ public class WebSecurityConfig {
                        .anyRequest().permitAll() //위에서부터 우선순위가 적용됨
                )
                .formLogin((form) -> form
+//                       .successHandler(new CustomAuthenticationSuccessHandler()) //로그인후 유저가 원래 가려던 페이지로 리다이렉트하는 설정
                        .loginPage("/user/signin")
                        .loginProcessingUrl("/user/signin")
                        .defaultSuccessUrl("/")

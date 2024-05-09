@@ -31,13 +31,20 @@ public class OnelineReviewServiceImp implements OnelineReviewService {
 
     // 한줄평 목록//
     @Override
-    public List<OnelineReviewView> getOnelineReviews(Long movieId) {
-        List<OnelineReviewView> onelineReviews = onelineReviewRepository.getlist(movieId);
+    public List<OnelineReviewView> getList(Long movieId) {
+        List<OnelineReviewView> onelineReviews = onelineReviewRepository.findAll(movieId);
         return onelineReviews;
     }
 
     @Override
-    public List<OnelineReviewMovieView> getByMemberId(Long id) {
-        return onelineReviewRepository.getByMemberId(id);
+    public List<OnelineReviewMovieView> getListByMemberId(Long id) {
+        return onelineReviewRepository.findAllByMemberId(id);
+    }
+
+    // 회원이 작성한 리뷰 가져오기
+    @Override
+    public OnelineReview getById(Long movieId, Long memberId) {
+        OnelineReview review = onelineReviewRepository.findById(movieId, memberId);
+        return review;
     }
 }

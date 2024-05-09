@@ -139,7 +139,7 @@ public class MemberController {
         ,@AuthenticationPrincipal CustomUserDetails userDetails
     ) {
         
-        List<OnelineReviewMovieView> list = orService.getByMemberId(userDetails.getId());
+        List<OnelineReviewMovieView> list = orService.getListByMemberId(userDetails.getId());
         model.addAttribute("list", list);
         return "user/mymovie";
     }

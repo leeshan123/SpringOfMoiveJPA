@@ -23,7 +23,7 @@
                         <!-- <span sec:if not="isAnonymous()" th:text="${#authentication.name}">이거 나오면 망함</span> -->
                     </a>
                     <div sec:authorize="isAuthenticated()" class="white-space:nowrap ml:1 fs:2">
-                        <a sec:authentication="principal.username" href="/user/mypage" class="vt-align:sub"></a>
+                        <a sec:authentication="principal.nickname" href="/user/mypage" class="vt-align:sub"></a>
                         <!-- <a href="/user/mypage" th:text="${#authentication.name}">캐망했따</a> -->
                         <!-- <a th:text="${user.nickname}" href="/user/mypage" class="vt-align:sub"></a> -->
                         <!--                        th:text="${user.nickname}"-->

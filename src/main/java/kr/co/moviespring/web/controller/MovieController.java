@@ -3,6 +3,7 @@ package kr.co.moviespring.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.moviespring.web.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,12 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.moviespring.web.config.batch.BatchSchedulerConfig;
 import kr.co.moviespring.web.config.security.CustomUserDetails;
-import kr.co.moviespring.web.entity.Director;
-import kr.co.moviespring.web.entity.Movie;
-import kr.co.moviespring.web.entity.MovieActorView;
-import kr.co.moviespring.web.entity.MovieStillcut;
-import kr.co.moviespring.web.entity.MovieTrailer;
-import kr.co.moviespring.web.entity.OnelineReviewView;
 import kr.co.moviespring.web.movieapi.dto.kobis.KobisDailyBox;
 import kr.co.moviespring.web.service.MovieActorService;
 import kr.co.moviespring.web.service.MovieDirectorService;
@@ -120,7 +115,14 @@ public class MovieController {
         List<MovieStillcut> stillcuts = movieStillcutService.getById(movieId);
         List<MovieTrailer> trailers = movieTrailerService.getById(movieId);
         // 리뷰목록//
-        List<OnelineReviewView> onelineReviews = onelineReviewService.getOnelineReviews(movieId);
+        List<OnelineReviewView> onelineReviews = onelineReviewService.getList(movieId);
+        // 로그인한 회원이 쓴 리뷰가 있을경우
+        if (userDetails != null) {
+        Long memberId = userDetails.getId();
+            OnelineReview review = onelineReviewService.getById(movieId, memberId);
+            if (review != null)
+            model.addAttribute("myReview", review);
+        }
 
         model.addAttribute("movie", movie);
         model.addAttribute("actors", actors);

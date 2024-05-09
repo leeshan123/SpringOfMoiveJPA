@@ -14,8 +14,10 @@ public interface OnelineReviewRepository {
     void save(Long id, String comments, int rate, Long movieId);
 
     // 한줄평 목록//
-    List<OnelineReviewView> getlist(Long movieId);
+    List<OnelineReviewView> findAll(Long movieId);
 
-    List<OnelineReviewMovieView> getByMemberId(Long id);
+    List<OnelineReviewMovieView> findAllByMemberId(Long id);
 
+    // 회원이 작성한 리뷰 가져오기
+    OnelineReview findById(Long movieId, Long memberId);
 }

@@ -11,15 +11,18 @@
   </insert>
 
   <!-- 한줄평 목록 -->
-  <select id="getlist" resultType="OnelineReviewView">
-        select * from one_line_review_view where movie_id = ${movieId};
+  <select id="findAll" resultType="OnelineReviewView">
+        select * from one_line_review_view where movie_id = #{movieId};
   </select>
 
-  <select id="getByMemberId" resultType="OnelineReviewMovieView">
+    <!--회원이 작성한 리뷰 가져오기-->
+    <select id="findById" resultType="OnelineReview">
+        select * from oneline_review where movie_id = #{movieId} AND member_id = #{memberId};
+    </select>
+
+  <select id="findAllByMemberId" resultType="OnelineReviewMovieView">
     select * from oneline_review_movie_view
     where member_id = #{id};
   </select>
   
-<!--  사용자 고유 id(Long)에서 member의 nickname를 찾아야함
-추후 로그인 기능 구현후에 생각합시다 -->
 </mapper>

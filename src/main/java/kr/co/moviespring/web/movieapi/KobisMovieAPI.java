@@ -26,6 +26,15 @@ import kr.co.moviespring.web.movieapi.dto.kobis.sub.Directors;
 
 public class KobisMovieAPI {
 
+    //후보군: fa4a546d896ea6a36a7db5d09bcb80f3(내꺼) (1~2500)
+    //후보군: 382938328dd953840168608f3f58b586(내꺼) (2500~5000)
+    //후보군: 860589c36cddbbbbd930b4a6aaa53da7(태평이형꺼) (5000~7500)
+    //후보군: a131ca3b5ab570fb631f8ca391fb7c74(민석이꺼) (7500~10000)
+    //후보군: 92902be4026fea05023b7f31b4324c40(민석이꺼2) (10000 ~ 12500)
+    //후보군: e7f6a63edea6295a55b893dcc0071d60(준순이꺼) (12500 ~ 15000)
+    //후보군: 7142d2f276da9b8a161e569423e64ec3(준순이꺼2) (15000 ~ 17500)
+    //후보군: 8eebf0d30cb02fd27d0ccede30262ce2(태평이형꺼2) 18490
+
     // 상수 설정
     //   - 요청(Request) 요청 변수
     private String REQUEST_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";

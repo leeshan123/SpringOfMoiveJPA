@@ -135,9 +135,17 @@ public class CommunityBoardController {
 
     // 게시글 등록 수정페이지 요청//
     @GetMapping("board/edit/{id}")
-    public String edit(@PathVariable Long id,@RequestParam(name="c",required = false)String categoryName, Model model) {
+    public String edit(@PathVariable Long id,@RequestParam(name="c",required = false)String categoryName,
+                       @AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
         // CommunityBoard board = communityBoardService.getById(id);
+        //비회원이 수정링크 요청시 해당 게시글페이지로 리다이렉트
+        if (userDetails == null)
+            return "redirect:/community/board/detail?c="+categoryName+"&id="+id;
+//        userDetails
+        //글작성자가 아닌 회원이 수정링크 요청시 해당 게시글페이지로 리다이렉트
         CommunityBoardView board = communityBoardService.getById(id);
+        if (userDetails.getId() != board.getMemberId())
+            return "redirect:/community/board/detail?c="+categoryName+"&id="+id;
 
         model.addAttribute("board", board);
         model.addAttribute("cName", categoryName);
