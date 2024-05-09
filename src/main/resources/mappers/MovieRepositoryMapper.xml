@@ -21,6 +21,17 @@
 		LIMIT #{offset}, #{size};
     </select>
 
+	<select id="getCount" resultType="Integer">
+		SELECT COUNT(*) FROM movie_search_view
+		<where>
+			<if test="query != null">
+				kor_name LIKE CONCAT('%', #{query}, '%')
+				OR REPLACE(kor_name, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+				OR LOWER(eng_name) LIKE CONCAT('%', LOWER(#{query}), '%')
+			</if>
+		</where>
+	</select>
+
 
 	<!-- 올해의 영화 -->
 	<select id="findAllByYear" resultType="Movie">

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MovieSearchView {
-    private Long id;
+    private Long movieId;
     private String korName; //영화상세정보(한글이름) > movieNm
     private String engName; //영화상세정보(영문) > movieNmEn
     private Integer reviewCount;

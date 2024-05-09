@@ -38,4 +38,5 @@ public interface MovieRepository {
 
     //인물별 필모리스트
     List<Movie> findAllByPeopleId(Long id);
+    int getCount(String query);
 }

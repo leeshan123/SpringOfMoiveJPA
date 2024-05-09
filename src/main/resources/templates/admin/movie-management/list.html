@@ -21,9 +21,9 @@ layout:decorate="inc/adminlayout">
     <div class="bg-color:base-3 h:1">
         <div class="main-container fs:5 fw:3 d:flex jc:space-between align-items:center">
             <span>영화관리</span>
-            <form action="search" method="get">
+            <form action="list" method="get">
                 <div class="d:flex" >
-                    <input type="text" name="query" value="" placeholder="영화 검색" class="n-textbox">
+                    <input type="text" name="q" th:value="${searchQuery}" placeholder="영화 검색" class="n-textbox">
                     <button type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
@@ -33,14 +33,51 @@ layout:decorate="inc/adminlayout">
     </div>
     <section class="main-container">
 
-        <div th:each="m: ${list}" class="d:flex bd-bottom bd-color:base-5">
-            <div th:text="${m.korName}" class="fs:4 fw:bold h:1 d:flex ai:center">캐리비안의 해적</div>
+        <div th:each="m: ${list}" class="w:10p bd-bottom bd-color:base-5">
+            <section class="w:10p h:1 d:flex ai:center jc:space-between">
+
+                <h1 class="fs:4 fw:bold" th:text="${m.korName}">캐리비안의 해적</h1>
+
+                <div>
+                    <span class="fw:bold" th:text="${(m.averageRate == NULL && m.reviewCount==0) ? '15,000' : #numbers.formatInteger(m.averageRate, 1, 'DEFAULT')}">평점 가격</span>원
+                    <span class="ml:3 fw:bold" th:text="${m.reviewCount}">리뷰 개수</span>개
+                    <input class="ml:3" type="checkbox" name="">
+                </div>
+            </section>
         </div>
 
         <div class="h:1 d:flex jc:end ai:center">
             <button type="button" class="deco deco-position:right deco-size:3 icon:trash 
             icon-color:base-1 n-btn n-btn-type:filled n-btn-color:accent">삭제</button>
         </div>
+
+        <section class="">
+            <h1 class="d:none">페이저</h1>
+            <!-- <div th:text="${param.p} eq null ? 0:${param.p}">1</div> -->
+            <ul class="n-pager"
+                style="display:flex; justify-content:center; font-size: 20px;"
+                th:with="page=${param.p} eq null ? 1 : ${{param.p}}
+                        ,floatnum=(${page}-1)/5
+                        ,startnum=${T(java.lang.Math).floor(floatnum)} * 5 + 1
+                        ,lastnum=${count} mod 6 > 0 ? ${count div 6}+1 : ${count div 6}"
+                        >
+                <!-- <li th:text="${startnum}">aa</li> -->
+                <li>
+                    <span style="color: rgb(189, 189, 189)" th:if="${page} lt 6">이전</span><!-- 현재 페이지가 6 미만인 경우 -->
+                    <a th:if="${page} ge 6" th:href="@{list(p=${startnum-1}, q=${searchQuery})}" href="list?p=1">이전</a><!-- 현재 페이지가 6 이상인 경우 -->
+                </li>
+                <li th:class="${page} == ${n} ? 'active' : ''"  th:each="n : ${#numbers.sequence(startnum, startnum+4)}">
+                    <!-- 각 페이지 번호에 대한 링크를 생성합니다 -->
+                    <!-- <a th:href="@{'list?p=' + ${n}}" th:text="${n}"></a> -->
+                    <a th:if="${n} le ${lastnum}" href="list?p=1" th:href="@{list(p=${n}, q=${searchQuery})}" th:text="${n}">1</a>
+                    <span style="color: rgb(189, 189, 189)" th:if="${n} gt ${lastnum}" th:text="${n}"></span>
+                </li>
+                <li>
+                    <span style="color: rgb(189, 189, 189)" th:if="${startnum}+4 gt ${lastnum}">다음</span> <!--  현재 페이지의 끝이 lastnum 초과인 경우 -->
+                    <a th:if="${startnum}+4 le ${lastnum}" th:href="@{list(p=${startnum+5}, q=${searchQuery})}">다음</a><!-- 현재 페이지의 끝이 lastnum 이하인 경우 -->
+                </li>
+            </ul>
+        </section>
 
         <div class="h:2 d:flex jc:center ai:center">
             <div><a href="reg" class="n-btn">게시글 등록</a></div>

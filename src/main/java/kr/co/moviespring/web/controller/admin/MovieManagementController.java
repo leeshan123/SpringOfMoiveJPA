@@ -29,11 +29,23 @@ public class MovieManagementController {
     
     @GetMapping("list")
     public String list(
-        Model model
+        @RequestParam(name="q",required = false)String query
+        , @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
+        , Model model
     ) {
-        int page = 1;
-        List<MovieSearchView> list = movieService.getListView(page);
+        List<MovieSearchView> list = new ArrayList<>();
+        int cnt = 0;
+        if(query != null){
+            list = movieService.getListView(page, query);
+            cnt = movieService.getCount(query);
+        } else {
+            list = movieService.getListView(page);
+            cnt = movieService.getCount();
+        }
+
+        model.addAttribute("searchQuery", query);
         model.addAttribute("list", list);
+        model.addAttribute("count", cnt);
         return "admin/movie-management/list"; 
     }
 
@@ -44,14 +56,18 @@ public class MovieManagementController {
         , Model model
     ) {
         List<MovieSearchView> list = new ArrayList<>();
+        int cnt = 0;
         if(query != null){
             list = movieService.getListView(page, query);
+            cnt = movieService.getCount(query);
         } else {
             list = movieService.getListView(page);
+            cnt = movieService.getCount();
         }
 
-        //model.addAttribute("query", query);
+        model.addAttribute("searchQuery", query);
         model.addAttribute("list", list);
+        model.addAttribute("count", cnt);
 
         return "admin/movie-management/list";
     }

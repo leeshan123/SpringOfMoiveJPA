@@ -13,6 +13,11 @@ public interface MovieService {
     List <Movie> getListAfter();
     List <Movie> getListByName(String query);
     List <Movie> getListByYear();
+    
+    //영화 리스트 개수
+    int getCount();
+    int getCount(String query);
+    
     //인물별 필모리스트
     List <Movie> getListByPeopleId(Long id);
 

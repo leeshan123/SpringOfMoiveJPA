@@ -193,4 +193,14 @@ public class MovieServiceImp implements MovieService {
         return movieWeeks;
     }
 
+    @Override
+    public int getCount() {
+        return repository.getCount(null);
+    }
+
+    @Override
+    public int getCount(String query){
+        return repository.getCount(query);
+    }
+
 }
