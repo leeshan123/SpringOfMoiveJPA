@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.co.moviespring.web.config.security.CustomUserDetailService;
 import kr.co.moviespring.web.config.security.CustomUserDetails;
 import kr.co.moviespring.web.entity.Category;
+import kr.co.moviespring.web.entity.CommunityBoardCommentsView;
 import kr.co.moviespring.web.entity.CommunityBoardView;
 import kr.co.moviespring.web.entity.Member;
 import kr.co.moviespring.web.entity.OnelineReview;
 import kr.co.moviespring.web.entity.OnelineReviewMovieView;
 import kr.co.moviespring.web.service.CategoryService;
+import kr.co.moviespring.web.service.CommunityBoardCommentsService;
 import kr.co.moviespring.web.service.MemberService;
 import kr.co.moviespring.web.service.OnelineReviewService;
 
@@ -34,6 +36,9 @@ public class MemberController {
 
     @Autowired
     OnelineReviewService orService;
+
+    @Autowired
+    CommunityBoardCommentsService cbcService;
 
     @Autowired
     private CustomUserDetailService customUserDetailsService;
@@ -157,8 +162,13 @@ public class MemberController {
     }
 
     @GetMapping("mycomment")
-    public String mycomment() {
-
+    public String mycomment(
+        @AuthenticationPrincipal CustomUserDetails userDetails,
+        Model model
+    ) {
+        List<CommunityBoardCommentsView> cbcList = cbcService.getListByMemberId(userDetails.getId());
+        
+        model.addAttribute("cbclist", cbcList);
         return "user/mycomment";
     }
     @GetMapping("myinfo")

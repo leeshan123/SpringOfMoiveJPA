@@ -27,4 +27,9 @@ public class CommunityBoardCommentsServiceImp implements CommunityBoardCommentsS
         List<CommunityBoardCommentsView> list = repository.findAllById(boardId);
         return list;
     }
+
+    @Override
+    public List<CommunityBoardCommentsView> getListByMemberId(Long id) {
+        return repository.findAllByMemberId(id);
+    }
 }

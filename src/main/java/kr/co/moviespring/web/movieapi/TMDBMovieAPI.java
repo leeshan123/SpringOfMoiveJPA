@@ -344,6 +344,13 @@ public class TMDBMovieAPI {
         // API 객체 생성
         TMDBMovieAPI api = new TMDBMovieAPI();
 
+        // 년도 스트링형으로 받아서 -테스트
+        String str = "2022";
+        int num = Integer.parseInt(str);
+        num--;
+        str = Integer.toString(num);
+        System.out.println(str);
+
         // 사람 디테일 마동석:1024395, 티모시:1190668, 
         // TMDBPersonDetails personDetails = new TMDBPersonDetails();
         // personDetails = api.personDetails("1190668");
@@ -355,17 +362,17 @@ public class TMDBMovieAPI {
         // System.out.println(movieCode);
 
         // 아래는 영화이름하고 년도 쓰면 오버뷰 나오게 함. 영화명은 한글 영문 모두 가능
-        while(true){
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            String movieName = br.readLine();
-            String movieYear = br.readLine();
-            Long movieCode = api.serchMovie(movieName, movieYear);
-            TMDBMovieDetail entity = api.movieDetail(movieCode);
-            if(entity != null)
-                System.out.println(entity.getOverview());
-            else
-                System.out.println("영화 없음");
-        }
+        // while(true){
+        //     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        //     String movieName = br.readLine();
+        //     String movieYear = br.readLine();
+        //     Long movieCode = api.serchMovie(movieName, movieYear);
+        //     TMDBMovieDetail entity = api.movieDetail(movieCode);
+        //     if(entity != null)
+        //         System.out.println(entity.getOverview());
+        //     else
+        //         System.out.println("영화 없음");
+        // }
 
 
         // API 요청

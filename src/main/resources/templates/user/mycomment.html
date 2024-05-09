@@ -18,19 +18,23 @@
         main>h1{
             font-size: 25px;
         }
+
+        .icon\:share_fat_fill{
+            transform: scaleY(-1) translateY(+3px);
+        }
     </style>
 </head>
 <body>
     <main layout:fragment="main">
         <h1>내 댓글</h1>
         <ul class="comment-list fw:3">
-            <li class="bd-bottom border-width:2 pb:2 mb:2">
-                <span class="fs:2">작성일: <span >2024.02.08</span></span>
+            <li th:each="menu:${cbclist}" class="bd-bottom border-width:2 pb:2 mb:2">
                 <div class="mt:2">
-                    <span class="fs:5">서울의봄 재밌다</span>
+                    <span th:text="${menu.communityBoardTitle}" class="fs:5">서울의봄 재밌다</span>
                 </div>
-                <div class="mt:2">
-                    <span class="deco icon:chat_circle_text">웹 퍼블리싱 테스트</span>
+                <div class="mt:2 d:flex ai:center ml:5">
+                    <span class="icon icon:share_fat_fill"></span><span th:text="${menu.contents}" class="ml:2">댓글 내용이 들어갈 위치입니다.</span>
+                    <span th:text="${menu.regDate}" class="fs:2 fw:2 color:base-5 ml:3">2024.02.08</span>
                 </div>
             </li>
         </ul>

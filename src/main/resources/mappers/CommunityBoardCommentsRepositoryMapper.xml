@@ -18,4 +18,9 @@
         WHERE cbc.community_board_id = #{boardId}
     </select>
 
+    <select id="findAllByMemberId" resultType="CommunityBoardCommentsView">
+        SELECT * FROM community_board_comments_view
+        WHERE member_id = #{id}
+    </select>
+
 </mapper>

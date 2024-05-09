@@ -16,6 +16,7 @@ public class CommunityBoardCommentsView {
  private Long id;
  private Long memberId;
  private Long communityBoardId;
+ private String communityBoardTitle;
  private String contents;
  private String nickname;
  private LocalDateTime regDate;

@@ -13,4 +13,5 @@ public interface CommunityBoardCommentsRepository {
     void saveContent(Long boardId, Long memberId, String content);
     //댓글 목록 불러오기
     List<CommunityBoardCommentsView> findAllById(Long boardId);
+    List<CommunityBoardCommentsView> findAllByMemberId(Long id);
 }

@@ -11,4 +11,6 @@ public interface CommunityBoardCommentsService {
     void write(Long boardId, Long memberId, String content);
 
     List<CommunityBoardCommentsView> getListById(Long boardId);
+
+    List<CommunityBoardCommentsView> getListByMemberId(Long id);
 }
