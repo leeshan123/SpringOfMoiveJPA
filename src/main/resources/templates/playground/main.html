@@ -4,54 +4,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="../js/playground/playground.js"></script>
 <title>관객놀이터 - 영화의봄</title>
+    <style>
+        .sec_container {
+            max-width: 980px;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            color: #262F45;
+        }
+
+        .icon-size {
+            width: 28px;
+            height: 28px;
+        }
+
+        .line-height {
+            line-height: 28px;
+        }
+    </style>
 </head>
 
+
 <body>
-    <main layout:fragment="main">
-            <section>
+    <main layout:fragment="main" class="media">
+            <section class="sec_container">
                 <h1 class="d:none">베팅리스트</h1>
-                <section th:each="c : ${#numbers.sequence(1,5)}">
+                <section th:each="c,cCount : ${#numbers.sequence(1,5)}" class="mb:4 h:5">
                     <h1 class="d:none">베팅내용</h1>
-                    <div th:text="${c}+위">순위</div>
-                    <div class="d:flex">
-                        <div><img class="bd-radius:2" src="http://image.tmdb.org/t/p/original/ukVVnY9ovwl78WE5KndcpA6SnAm.jpg" height="200px" alt=""></div>
-                        <div class="d:flex flex-direction:column ai:center p:2">
-                            <div class="fw:bold fs:4">"서울의 봄" 천만관객수 돌파 가능!?</div>
-                            <div class="color:base-6">
+                    <div class="d:flex ">
+                        <div><img class="bd-radius:2" src="http://image.tmdb.org/t/p/original/ukVVnY9ovwl78WE5KndcpA6SnAm.jpg" height="250px" alt=""></div>
+                        <div class="d:flex flex-direction:column ai:center fl-grow:1 gap:2">
+                            <div class="d:flex ai:center jc:center gap:2">
+                            <div
+                                    class="icon-size d:inline-block bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
+                                    th:text="${cCount.count}">1</div>
+                            <div class="fw:bold fs:4">"서울의 봄" 천만 돌파 가능!?</div>
+                                <div class="color:accent-2">투표 마감: 24.05.09까지</div>
+                            </div>
+                            <div class="d:flex color:base-6 ai:center gap:2">
                                 <span class="icon icon:user">아이콘</span>
-                                <span th:text="200명">참여인원</span>
-                                <span>참여중</span>
+                                <span th:text="'200명'+' 참여중'">참여인원</span>
                             </div>
-                            <div class="w:10p d:flex jc:space-between fw:bold">
-                                <span>1000만 이하</span>
-                                <span>VS</span>
-                                <span>1000만 이상</span>
+                            <div class="w:10p d:flex jc:space-between fw:bold ">
+                                <div class="ml:2">1000만 이하</div>
+                                <div>VS</div>
+                                <div class="mr:2">1000만 이상</div>
                             </div>
-                            <div class="n-progress height:1 bd-radius:4">
-                                <div style="width: 35%;" class="">35%</div>
-                                <span class="d:flex ai:center ml:auto">65%</span>
+                            <div class="n-progress bd-radius:4">
+                                <div style="width: 35%;" class=""></div>
+                                <span class="d:flex ai:center ml:auto"></span>
                             </div>
-                            <div class="w:10p d:flex jc:space-between fw:bold">
-                                <span>2.522</span>
-                                <span>:</span>
-                                <span>1.35</span>
+                            <div class="w:10p d:flex jc:space-between fw:bold mr:2">
+                                <div class="ml:5">2.522</div>
+                                <div>누적 포인트 123,456,789</div>
+                                <div class="mr:5">1.35</div>
                             </div>
-                            <div class="w:10p d:flex jc:center color:base-6">
-                                <span class="mr:1">누적 포인트</span>
-                                <span class="fw:bold">123,456,789</span>
-                            </div>
-                        </div>
-                        <div class="d:flex fl-dir:column jc:end">
-                            <button class="n-btn">베팅 참여하기</button>
-                            <div class="d:flex fl-dir:column color:base-6">
-                                <span>~2024.02.28 투표마감</span>
-                                <span>~2024.03.10 집계마감</span>
+                            <div class="w:10p d:flex flex-direction:column jc:center ai:center color:base-6 fl-grow:1 gap:2">
+                                    <button class="n-btn n-btn-size:3 w:2" id="betting-btn">참여하기</button>
+                                <div class=" color:base-6">
+                                        24.05.29 집계마감
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </section>
             </section>
+
+            <!--          모달 나오게 하기  -->
+            <section id="modal" class=" n-modal d:none" tabindex="-1">
+                <h1 class="n-font:h3 font-weight:3">배팅 하시겠습니까? ^^</h1>
+                <form>
+                    <div class="my:5">
+                        <label>
+                            배팅 금액
+                            <input type="text" class="n-textbox n-textbox-label:top w:5" />
+                        </label>
+                    </div>
+                    <div class="d:flex jc:flex-end gap:2 mt:8">
+                        <button id ="submit-btn" type="submit" class="n-btn">배팅</button>
+                        <button id ="close-btn" type="button" class="n-btn n-btn:outline">취소</button>
+                    </div>
+                </form>
+            </section>
+            <div id="modal-backdrop" class="backdrop d:none"></div>
     </main>
 </body>
 

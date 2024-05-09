@@ -47,7 +47,7 @@ public class DataInsertService {
         //영화 목록을 가져와서 영화 리스트를 업데이트함.
 //        movieDataUpdate.movieListUpdate(movieDataUpdate.getMovieList(key));
         //영화 목록을 가져와서 영화 목록 중 없는 것만 데이터를 저장해줌.
-//        movieDataUpdate.movieListInsert(movieDataUpdate.getMovieList(key));
+        movieDataUpdate.movieListInsert(movieDataUpdate.getMovieList(key));
 
         //이제 다 넣어서 안쓸 것 같긴한데 엑셀에서 데이터를 가져와서 데이터를 삽입해줌.
 //        movieDataUpdate.excelDataInsert(movieDataUpdate.getExcelData(filePath));
