@@ -15,13 +15,16 @@
             color: green;
             border-bottom: solid 2px green;
         }
+        main>h1{
+            font-size: 25px;
+        }
     </style>
 </head>
 <body>
     <main layout:fragment="main">
         <h1>내 게시물</h1>
         <ul class="board-list fw:3">
-            <li th:each="m : ${list}" class="bd-bottom border-width:2 pb:4 mb:3">
+            <li th:each="m : ${list}" class="bd-bottom border-width:2 pb:2 mb:2">
                 <span class="fs:2">작성일: <span th:text="${#dates.format(m.regDate, 'yyyy.MM.dd')}">2024.02.08</span></span>
                 <div class="mt:2">
                     <a class="fs:5" th:href="'/community/board/detail?c=' + ${clist.get(m.categoryId-1).engName} + '&amp;id=' + ${m.id}" th:text="${m.title}">서울의봄 재밌다</a>

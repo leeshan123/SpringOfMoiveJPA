@@ -76,8 +76,8 @@ layout:decorate="inc/adminlayout">
                     >
             <!-- <li th:text="${startnum}">aa</li> -->
             <li>
-                <span style="color: rgb(189, 189, 189)" th:if="${page} lt 10">이전</span><!-- 현재 페이지가 10 미만인 경우 -->
-                <a th:if="${page} ge 10" th:href="@{list(p=${startnum-1}, q=${searchQuery})}" href="list?p=1">이전</a><!-- 현재 페이지가 10 이상인 경우 -->
+                <span style="color: rgb(189, 189, 189)" th:if="${page} lt 6">이전</span><!-- 현재 페이지가 6 미만인 경우 -->
+                <a th:if="${page} ge 6" th:href="@{list(p=${startnum-1}, q=${searchQuery})}" href="list?p=1">이전</a><!-- 현재 페이지가 6 이상인 경우 -->
             </li>
             <li th:class="${page} == ${n} ? 'active' : ''"  th:each="n : ${#numbers.sequence(startnum, startnum+4)}">
                 <!-- 각 페이지 번호에 대한 링크를 생성합니다 -->

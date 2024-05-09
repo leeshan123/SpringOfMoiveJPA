@@ -15,6 +15,10 @@
             color: green;
             border-bottom: solid 2px green;
         }
+
+        main>h1{
+            font-size: 25px;
+        }
     </style>
 </head>
 <body>
@@ -28,8 +32,8 @@
                         <h1 class="d:none">내 영화 정보</h1>
                         <div class="movie-info">
                             <img th:src="${menu.url}" alt="" style="width: 150px; height: 200px; background-color: aquamarine;">
-                            <span>12000원</span>
-                            <span th:text="${menu.title}">서울의봄</span>
+                            <!-- <span>12000원</span> -->
+                            <span class="fs:5 mt:2" th:text="${menu.title}">서울의봄</span>
                         </div>
                         <article class="w:10p">
                             <div class="bd-bottom border-width:2 fs:7 mb:2 pb:1">평점: <span th:text="${menu.memberRate}">30000</span>원</div>
