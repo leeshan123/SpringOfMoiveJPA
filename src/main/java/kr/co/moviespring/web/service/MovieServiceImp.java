@@ -143,7 +143,7 @@ public class MovieServiceImp implements MovieService {
     @Override
     public List<MovieSearchView> getListView(Integer page, String query) {
         int size = 10;
-        int offset = (page-1);
+        int offset = (page-1) * size;
         return repository.findAllByQuery(query, offset, size);
     }
 
