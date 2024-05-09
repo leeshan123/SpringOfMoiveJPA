@@ -20,7 +20,9 @@ public class TwoWeeksMovieController {
 
     @Autowired
     MovieService movieService;
+    @Autowired
     TwoWeeksMovieService TWMovieService;
+
     @GetMapping("movie")
     public String movie (Model model){
         // Movie movie = movieService.getById(513L);
@@ -34,11 +36,13 @@ public class TwoWeeksMovieController {
     public String list (Model model){
         
         List<TwoWeeksMovie> TWMovie = TWMovieService.findByMovieCd();
+        String genre = TWMovieService.findGenreName();
         // // System.out.println(TWMovie.toString());
         if(TWMovie == null)
         System.out.println("조회할 정보가 없습니다");
     
         model.addAttribute("Tm", TWMovie);
+        model.addAttribute("g", genre);
         return "2weeks/list";
     }
 }

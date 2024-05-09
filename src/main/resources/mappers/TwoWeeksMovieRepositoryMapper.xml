@@ -4,11 +4,13 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.moviespring.web.repository.TwoWeeksMovieRepository">
 
-    <select id="getByMovieCd" resultType="List"> 
+    <select id="getByMovieCd"> 
 	SELECT * from twoweek_movie_vote_list;
 	</select>
 
-
+    <select id="getGenre"> 
+	SELECT genre from twoweek_movie_vote_list LIMIT 1;
+	</select>
     <!-- admin -->
 
 

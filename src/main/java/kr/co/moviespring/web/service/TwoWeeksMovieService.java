@@ -9,7 +9,9 @@ public interface TwoWeeksMovieService {
 
     List<TwoWeeksMovie> findByMovieCd();
 
-     //admin 장르별 관객수 순위6위까지 검색
+    String findGenreName();
+    
+    //admin 장르별 관객수 순위6위까지 검색
      void findByGenre(String childSelectValue);
      //년도별 6위까지검색
      void findByReleseDate(String childSelectValue);
@@ -18,4 +20,5 @@ public interface TwoWeeksMovieService {
  
      //관리자 2주영화 등록데이터 조회 비동기(비둘기x)처리
      List<Movie>  findAllEditedList();
+    
 }

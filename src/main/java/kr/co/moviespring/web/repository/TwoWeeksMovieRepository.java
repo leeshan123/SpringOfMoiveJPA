@@ -12,6 +12,7 @@ public interface TwoWeeksMovieRepository {
 
     List<TwoWeeksMovie> getByMovieCd();
 
+    String getGenre();
 
     //admin
     void getByGenre(String childSelectValue);
@@ -21,4 +22,6 @@ public interface TwoWeeksMovieRepository {
     void getByDistributor(String childSelectValue);
 
     List<Movie> getEditedList();
+
+
 }

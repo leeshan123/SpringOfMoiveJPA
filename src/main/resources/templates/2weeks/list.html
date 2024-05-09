@@ -14,49 +14,61 @@
         <section class="media-sect media-mobile">
             <h1 class="d:none">메인</h1>
             <section class="">
-                <h1 class="fw:3 fs:6 txt-al:center n-font">다음 2주의영화 후보 TOP6</h1>
-                <section class="bd bd-radius:3 bd-color:base-2 box-shadow:4 p:2">
+            <h2 class="fw:3 fs:6 txt-al:center  n-font bg-color:base-2" th:text="'다음 2주의영화 테마는 '+${g}+'영화 입니다!!!'">테마</h2>
+            <section class="d:flex fl-wrap:wrap	jc:space-between">
+                <h1 class="d:none">컨텐츠</h1>
+                <section th:each="m:${Tm}" class="py:6 mx:6 p:2 ">
                     <h1 class="d:none">영화목록</h1>
-                    <div class="d:flex">
+                    <div class="d:flex ">
                         <div class="m-right:2 w:5">
-                            <img src="" alt="이미지" width="200px">
+                            <img class="bd-radius:1 box-shadow:1"
+                            src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" 
+                            alt="/" width="247.69px" height="361.54px">
                         </div>
-                        <div class="w:100p">
-                            <div class="">
+                        <div class="max-w:10 ">
+                            <div class="w:6 d:flex ai:center">
                                 <h2 class="d:none">영화정보</h2>
-                                <div class="fw:3">1위 파묘</div>
-                                <div>감독 장재현</div>
-                                <div class="d:flex">
-                                    <p>최민식</p><p>유해진</p><p>김고은</p><p>이도현</p>
+                                <div class="d:flex fl-wrap:wrap ">
+                                    <div class="fw:3 fs:7 " th:text="${m.korName}" >영화제목</div>
+                                </div>
+                                <div th:switch="${m.watchGrade}" class="ai:center position:relative display:inline-block bd-color:base-10  m-left:1">
+                                        <span><svg class="watch-grade-position" width="27px" height="27px" th:case="'전체관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.642 500H56.38C25.256 500 0 474.764 0 443.632V56.368C0 25.235 25.256 0 56.379 0h387.263C474.775 0 500 25.235 500 56.368v387.264C500 474.764 474.775 500 443.642 500" style="fill:#00964b"/><path d="m144.95 378.216-6.064-38.323-44.366.01-6.064 38.292-57.17.02v-.687l54.138-256.2h62.527l54.138 256.22.02.668h-57.16zm-28.257-174.19-14.129 87.439h28.247l-14.118-87.439zM212.167 378.213V121.316h57.17v205.447h67.246v51.45zM348.693 378.199V121.312l57.17.01-.03 205.447h67.277v51.461z" style="fill:#fff"/></svg></span>
+                                        <span><svg class="watch-grade-position" width="27px" height="27px" th:case="'12세이상관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.617 500H56.373C25.24 500 0 474.77 0 443.648V56.373C0 25.24 25.241 0 56.373 0h387.244C474.738 0 500 25.241 500 56.373v387.275C500 474.769 474.738 500 443.617 500" style="fill:#eabc00"/><path d="M108.175 422.27V173.766H80.664l35.629-96.046h69.009v344.55zM407.596 77.719H219.137a7.695 7.695 0 0 0-7.695 7.695v104.143h75.332v-46.903H340v41.477l-131.272 187.18v50.535h205.686v-67.224H304.372l96.045-134.841c3.012-4.22 5.405-7.891 7.22-11.058 1.816-3.157 3.312-6.22 4.519-9.253 1.186-2.992 2.021-6.303 2.465-9.913.464-3.61.67-7.963.67-13.08V85.414a7.689 7.689 0 0 0-7.695-7.695" style="fill:#fff"/></svg></span>
+                                        <span><svg class="watch-grade-position" width="27px" height="27px" th:case="'15세이상관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.638 500H56.352C25.252 500 0 474.759 0 443.638V56.362C0 25.242 25.252 0 56.352 0h387.286C474.768 0 500 25.241 500 56.362v387.276c0 31.12-25.231 56.362-56.362 56.362" style="fill:#dc7317"/><path d="M107.957 422.277V173.783H80.436l35.619-96.076h69.04v344.57zM407.825 195.418H286.972v-50.514h126.3V77.701H211.217v183.56h129.446v96.055h-54.578v-45.109h-74.868v102.358c0 4.25 3.456 7.695 7.705 7.695H407.825a7.695 7.695 0 0 0 7.695-7.695V203.114a7.695 7.695 0 0 0-7.695-7.696" style="fill:#fff"/></svg></span>
+                                        <span><svg class="watch-grade-position" width="27px" height="27px" th:case="'청소년관람불가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.62 500H56.35C25.21 500 0 474.79 0 443.65V56.37C0 25.24 25.21 0 56.35 0h387.27c31.13 0 56.36 25.24 56.36 56.37v387.28c0 31.14-25.23 56.35-56.36 56.35" style="fill:#d61d28"/><path d="M105.917 422.269V173.764h-27.52l35.648-96.051h68.975v344.556zM416.625 281.105c-.588-4.198-1.64-7.818-3.136-10.82a23.291 23.291 0 0 0-6.096-7.674c-2.548-2.104-5.787-4.198-9.686-6.302l-22.992-10.82 22.992-12.193c6.911-4.208 11.8-8.86 14.658-13.976 2.846-5.106 4.26-12.77 4.26-22.992V85.403a7.695 7.695 0 0 0-7.695-7.695H217.332c-4.25 0-7.705 3.445-7.705 7.695v110.925c0 9.892 1.454 17.504 4.291 22.754 2.857 5.292 7.757 10.006 14.647 14.214l23.002 12.193-23.002 10.82c-7.84 4.198-12.997 9.18-15.555 14.863-2.547 5.735-3.827 14.142-3.827 25.282V414.569c0 4.25 3.456 7.705 7.706 7.705h192.97c4.239 0 7.684-3.456 7.684-7.705V296.454c0-6.024-.31-11.14-.918-15.349m-75.752 69.883c0 4.25-3.456 7.685-7.695 7.685h-39.61c-4.238 0-7.704-3.435-7.704-7.685v-68.954c0-4.25 3.466-7.695 7.705-7.695h39.609c4.24 0 7.695 3.445 7.695 7.695v68.954zm0-141.91c0 4.249-3.456 7.694-7.695 7.694h-39.61c-4.238 0-7.704-3.445-7.704-7.695v-60.3c0-4.24 3.466-7.685 7.705-7.685h39.609c4.24 0 7.695 3.445 7.695 7.685v60.3z" style="fill:#fff"/></svg></span>
                                 </div>
                             </div>
-                            <div>
-                                <div class="n-progress n-progress-color:main txt-al:center color:base-1 " role="progressbar w:10">
-                                    <div style="width: 10%; text-wrap: nowrap" class="text-wrap: nowrap">53표</div>
-                                    <span class="m:auto">
-                                        47표
-                                    </span>
+                            <div class="m-top:4">
+                                <div>
+                                    <div th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">개봉일</div>
                                 </div>
                                 <div>
-                                    <span class="icon icon-deco">100표</span>
+                                    <div th:text="'상영시간 '+${m.runningTime}+' 분'"></div>
                                 </div>
                             </div>
-                        </div>
+                                <div class="" style="margin-top:160px;">
+                                    <div class="n-progress n-progress-color:main txt-al:center color:base-1 w:auto h:1" role="progressbar w:10">
+                                        <div style="width: 10%; text-wrap: nowrap" class="ai:center text-wrap: nowrap">53표</div>
+                                    </div>
+                                </div>
+                            <div class="d:flex jc:end m-top:6">
+                                <button class="modal-btn n-btn n-btn:outline">투표하기!</button>
+                            
+                                <section class="modal n-modal d:none" tabindex="-1">
+                                    <span class="n-font:subtitle text-align:center" th:text="'영화 &quot;'+${m.korName}+'&quot; 추천하시겠습니까이?'">👋</span>
+                                    <div class="mt:4">
+                                        <button class="close-btn n-btn w:5">좀더 고민할래요..</button>
+                                        <button class="close-btn n-btn w:5">추천!!</button>
+                                    </div>
+                                </section>
+                                <div class="modal-backdrop backdrop d:none"></div>
+                            </div>
+                       </div>
                     </div>
                 </section>
-                <div class="d:flex jc:center m-top:4" >
-                        <button id="modal-btn" type="button" class="n-btn">나만의 영화 추천하기</button>
-
-                        <section id="modal" class="n-modal d:none" tabindex="-1">
-                            <button class="n-font:subtitle text-align:center">영화검색👋</button>
-                            <div class="mt:4">
-                              <button id="close-btn" type="button" class="n-btn w:5">좀더 고민할래요..</button>
-                              <button id="close-btn" type="button" class="n-btn w:5">추천!!</button>
-                            </div>
-                          </section>
-                          <div id="modal-backdrop" class="backdrop d:none"></div>
-               </div>
             </section>
+        </section>
+
         </section>
     </main>
 </body>

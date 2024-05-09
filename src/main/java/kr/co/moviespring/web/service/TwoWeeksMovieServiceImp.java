@@ -41,5 +41,12 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
         List<Movie>  movieWeeks = TWMovieRepository.getEditedList();
         return movieWeeks;
     }
+
+
+    @Override
+    public String findGenreName() {
+        String genre = TWMovieRepository.getGenre();
+        return genre;
+    }
     
 }
