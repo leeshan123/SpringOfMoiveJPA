@@ -12,13 +12,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class TwoWeeksMovie {
-    
-    private Long id;
-    private String title;
-    private String content;
-    private Date regDate; 
-    private int hit;
-    private int vote;
-    private int adminId;
 
+    private Long id;
+    private String tmdbId;
+    private String kobisId;
+    private String movieCd;
+    private int total;
+    private Date regDate;
+    private String korName;
+    private String engName;
+    private String sponsor;
+    private Date releaseDate;
+    private int runningTime;
+    private String watchGrade;
+    private String movieIntro;
+    private String posterUrl;
+    private String logoUrl;
+    private String mainImgUrl;
+    private String releaseNation;
+    private String genre;
 }

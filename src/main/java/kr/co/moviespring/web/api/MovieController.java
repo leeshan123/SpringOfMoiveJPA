@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.OnelineReview;
 import kr.co.moviespring.web.service.MovieService;
+import kr.co.moviespring.web.service.TwoWeeksMovieService;
     
 @RestController("apiTwoWeeksMovieController")
 @RequestMapping("api/movie")
 public class MovieController {
     
     @Autowired
-    MovieService movieService;
+    TwoWeeksMovieService TwoWeeksMovie;
 
     @GetMapping("vote-list")
     public List<Movie> voteListReg(@RequestParam("pS") String parentSelectValue,
@@ -32,16 +33,16 @@ public class MovieController {
 
         if(psv==1){
             
-            movieService.findByReleseDate(childSelectValue);
-            movieWeeks = movieService.findAllEditedList();
+            TwoWeeksMovie.findByReleseDate(childSelectValue);
+            movieWeeks = TwoWeeksMovie.findAllEditedList();
         }
         else if(psv==2){
             
-            movieService.findByGenre(childSelectValue);
+            TwoWeeksMovie.findByGenre(childSelectValue);
         }
         else if(psv==3){
             
-            movieService.findByDistributor(childSelectValue);
+            TwoWeeksMovie.findByDistributor(childSelectValue);
         }
 
         return movieWeeks;

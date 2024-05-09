@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.service.MovieService;
+import kr.co.moviespring.web.service.TwoWeeksMovieService;
 
 
 @Controller("AdminTwoWeeksMovieController")
@@ -18,7 +19,8 @@ public class TwoWeeksMovieController {
     // TwoweeksMovieService twoweeksMovieService;
 
     @Autowired
-    MovieService movieService;
+        TwoWeeksMovieService TWMovieServie;
+
     @GetMapping("vote-list")
     public String voteList () {
         return "admin/2weeks/vote-list";
@@ -35,16 +37,15 @@ public class TwoWeeksMovieController {
         
         if(psv==1){
             
-            movieService.findByReleseDate(childSelectValue);
-        //    Movie movieWeeks = movieService.findAllEditedList();
+            TWMovieServie.findByReleseDate(childSelectValue);
         }
         else if(psv==2){
             
-            movieService.findByGenre(childSelectValue);
+            TWMovieServie.findByGenre(childSelectValue);
         }
         else if(psv==3){
             
-            movieService.findByDistributor(childSelectValue);
+            TWMovieServie.findByDistributor(childSelectValue);
         }
 
 
