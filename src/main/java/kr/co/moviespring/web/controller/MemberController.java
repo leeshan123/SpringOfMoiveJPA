@@ -167,8 +167,9 @@ public class MemberController {
         Model model
     ) {
         List<CommunityBoardCommentsView> cbcList = cbcService.getListByMemberId(userDetails.getId());
-        
+        List<Category> clist = cService.getList();
         model.addAttribute("cbclist", cbcList);
+        model.addAttribute("clist", clist);
         return "user/mycomment";
     }
     @GetMapping("myinfo")

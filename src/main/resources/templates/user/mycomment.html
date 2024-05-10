@@ -30,7 +30,8 @@
         <ul class="comment-list fw:3">
             <li th:each="menu:${cbclist}" class="bd-bottom border-width:2 pb:2 mb:2">
                 <div class="mt:2">
-                    <span th:text="${menu.communityBoardTitle}" class="fs:5">서울의봄 재밌다</span>
+                    <a th:href="'/community/board/detail?c=' + ${clist.get(menu.communityBoardCategoryId-1).engName} + '&amp;id=' + ${menu.communityBoardId}" th:text="${menu.communityBoardTitle}" class="fs:5">서울의봄 재밌다</a>
+                    <span class="fw:2 color:base-7" th:text="'('+${clist.get(menu.communityBoardCategoryId-1).name}+' 게시판)'"></span>
                 </div>
                 <div class="mt:2 d:flex ai:center ml:5">
                     <span class="icon icon:share_fat_fill"></span><span th:text="${menu.contents}" class="ml:2">댓글 내용이 들어갈 위치입니다.</span>
