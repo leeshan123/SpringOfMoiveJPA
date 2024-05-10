@@ -1,5 +1,6 @@
 package kr.co.moviespring.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,13 @@ import kr.co.moviespring.web.entity.Category;
 import kr.co.moviespring.web.entity.CommunityBoardCommentsView;
 import kr.co.moviespring.web.entity.CommunityBoardView;
 import kr.co.moviespring.web.entity.Member;
+import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.OnelineReview;
 import kr.co.moviespring.web.entity.OnelineReviewMovieView;
 import kr.co.moviespring.web.service.CategoryService;
 import kr.co.moviespring.web.service.CommunityBoardCommentsService;
 import kr.co.moviespring.web.service.MemberService;
+import kr.co.moviespring.web.service.MovieService;
 import kr.co.moviespring.web.service.OnelineReviewService;
 
 @Controller
@@ -30,6 +33,9 @@ public class MemberController {
     // 로그인 공사중//
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    MovieService movieService;
 
     @Autowired
     CategoryService cService;
@@ -139,8 +145,15 @@ public class MemberController {
         ,@AuthenticationPrincipal CustomUserDetails userDetails
     ) {
         
-        List<OnelineReviewMovieView> list = orService.getListByMemberId(userDetails.getId());
-        model.addAttribute("list", list);
+        List<OnelineReviewMovieView> reviewList = orService.getListByMemberId(userDetails.getId());
+        List<Movie> movieList = new ArrayList<>();
+        for (OnelineReviewMovieView onelineReviewMovieView : reviewList) {
+            Movie movie = movieService.getById(onelineReviewMovieView.getMovieId());
+            movieList.add(movie);
+        }
+
+        model.addAttribute("rlist", reviewList);
+        model.addAttribute("mlist", movieList);
         return "user/mymovie";
     }
     @GetMapping("mybet")
