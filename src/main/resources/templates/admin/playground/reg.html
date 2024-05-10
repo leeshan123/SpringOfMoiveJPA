@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="inc/adminlayout">
+<head>
+    <meta charset="UTF-8">
+    <script type="module" src="/js/admin/playground.js" defer></script>
+    <title>Title</title>
+
+    <style>
+        .sec_container {
+            max-width: 980px;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            color: #262F45;
+        }
+
+    </style>
+</head>
+<body>
+  <main layout:fragment="main">
+      <section class="sec_container my:5">
+          <form class="n-form">
+              <h1 class="n-font:h3 font-weight:3 fs:7">베팅 작성 💰</h1>
+              <div>
+                  <label>
+                      <span>제목</span>
+                      <input type="text" placeholder="제목 입력해주세요." />
+                  </label>
+              </div>
+              <div>
+                  <label>
+                      <span>영화</span>
+                      <input type="text" placeholder="영화를 찾아주세요." />
+                  </label>
+              </div>
+              <div>
+                  <label>
+                      <span>베팅 주제</span>
+                      <input type="text" placeholder="베팅 주제를 입력해주세요" />
+                  </label>
+              </div>
+              <div>
+                  <div>투표 마감 기한입력</div>
+                  <fieldset class="d:flex gap:4">
+                      <label class="flex-direction:row ai:center gap:3">
+                          <input type="radio" name="satisfaction" class="n-toggle n-toggle:dot" />
+                          <span>1</span>
+                      </label>
+                      <label class="flex-direction:row ai:center gap:3">
+                          <input type="radio" name="satisfaction" class="n-toggle n-toggle:dot" />
+                          <span>3</span>
+                      </label>
+                      <label class="flex-direction:row ai:center gap:3">
+                          <input type="radio" name="satisfaction" class="n-toggle n-toggle:dot" />
+                          <span>5</span>
+                      </label>
+                      <label class="flex-direction:row ai:center gap:3">
+                          <input type="radio" name="satisfaction" class="n-toggle n-toggle:dot" />
+                          <span>7</span>
+                      </label>
+                      <label class="flex-direction:row ai:center gap:3">
+                          <input
+                                  type="radio"
+                                  name="satisfaction"
+                                  class="n-toggle n-toggle:dot"
+                                  checked />
+                          <span>9</span>
+                      </label>
+                  </fieldset>
+              </div>
+              <div>
+                  <div>집계 마감 기한입력</div>
+                  <fieldset class="d:flex gap:4">
+                      <label class="flex-direction:row ai:center gap:3">
+                          <input type="radio" name="satisfaction1" class="n-toggle n-toggle:dot" />
+                          <span>1</span>
+                      </label>
+                      <label class="flex-direction:row ai:center gap:3">
+                          <input type="radio" name="satisfaction1" class="n-toggle n-toggle:dot" />
+                          <span>7</span>
+                      </label>
+                      <label class="flex-direction:row ai:center gap:3">
+                          <input type="radio" name="satisfaction1" class="n-toggle n-toggle:dot" />
+                          <span>14</span>
+                      </label>
+                      <label class="flex-direction:row ai:center gap:3">
+                          <input type="radio" name="satisfaction1" class="n-toggle n-toggle:dot" />
+                          <span>21</span>
+                      </label>
+                      <label class="flex-direction:row ai:center gap:3">
+                          <input
+                                  type="radio"
+                                  name="satisfaction1"
+                                  class="n-toggle n-toggle:dot"
+                                  checked />
+                          <span>28</span>
+                      </label>
+                  </fieldset>
+              </div>
+              <div class="d:flex gap:2 fl-dir:row jc:center">
+                  <button type="button" class="n-btn w:2">등록</button>
+                  <button id="back-btn" type="button" class="n-btn n-btn:outline w:2">취소</button>
+              </div>
+          </form>
+
+      </section>
+
+  </main>
+
+</body>
+</html>
