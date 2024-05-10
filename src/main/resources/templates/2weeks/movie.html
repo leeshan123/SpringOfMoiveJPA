@@ -11,7 +11,28 @@
     <main layout:fragment="main" class="media">
         <section class="media-sect media-mobile">
             <h1 class="d:none">메인</h1>
-            <section class="">
+            <section>
+                <button id="playButton" class="n-btn">음악 재생</button>
+                <audio id="myAudio">
+                    <source src="/media/movieSong.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <script>
+                    // 페이지가 로드될 때 실행되는 함수
+window.onload = function() {
+    // 오디오 요소 가져오기
+    var audio = document.getElementById("myAudio");
+    
+    // 사용자 상호 작용을 유도하기 위해 버튼 클릭 이벤트를 설정
+    var playButton = document.getElementById("playButton");
+    playButton.addEventListener("click", function() {
+        // 음악 재생
+        audio.play();
+    });
+};
+
+                </script>
+            <section class="my:9">
                 <div class="txt-al:center">
                     <h1 class="fw:3 fs:8">🎖️2주의 영화</h1>
                 </div>
@@ -110,6 +131,7 @@
                  </a>
             </div>
         </section>
+    </section>
     </main>
 </body>
 </html>

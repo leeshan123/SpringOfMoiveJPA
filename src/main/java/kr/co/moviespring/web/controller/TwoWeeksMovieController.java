@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -44,5 +45,10 @@ public class TwoWeeksMovieController {
         model.addAttribute("Tm", TWMovie);
         model.addAttribute("g", genre);
         return "2weeks/list";
+    }
+
+     @GetMapping("vote")
+    public void vote(@RequestParam(name = "vote", required = false) String vote) {
+        if ("vote".equals(vote));
     }
 }
