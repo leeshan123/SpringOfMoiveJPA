@@ -204,6 +204,7 @@ public class MemberController {
     ){
         if(nickname != null){
             System.out.println("닉네임");
+            userDetails.setNickname(nickname);
             memberService.changeUserInfo(userDetails.getId(), nickname, null, null);
         }
         else if(password != null){
