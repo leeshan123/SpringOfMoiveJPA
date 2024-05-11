@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.TwoWeeksMovie;
+import kr.co.moviespring.web.entity.VoteMemberList;
 
 @Mapper
 public interface TwoWeeksMovieRepository {
@@ -22,6 +23,8 @@ public interface TwoWeeksMovieRepository {
     void getByDistributor(String childSelectValue);
 
     List<Movie> getEditedList();
+
+    VoteMemberList addVoteToMovieList(Long memberId,Integer movieId);
 
 
 }

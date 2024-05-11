@@ -13,6 +13,11 @@
 	</select>
     <!-- admin -->
 
+	
+	<insert id="addVoteToMovieList">
+	INSERT INTO vote_member_list (member_id,movie_id)
+	VALUES (#{memberId}, #{movieId})
+	</insert>
 
     <!-- 장르별 영화등록 -->
     <insert id="getByGenre">

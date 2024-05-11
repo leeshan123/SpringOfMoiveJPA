@@ -4,13 +4,16 @@ import java.util.List;
 
 import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.TwoWeeksMovie;
+import kr.co.moviespring.web.entity.VoteMemberList;
 
 public interface TwoWeeksMovieService {
 
     List<TwoWeeksMovie> findByMovieCd();
 
     String findGenreName();
-    
+    //2주의 영화 투표
+    VoteMemberList vote(Long memberId,Integer movieId);
+
     //admin 장르별 관객수 순위6위까지 검색
      void findByGenre(String childSelectValue);
      //년도별 6위까지검색
@@ -20,5 +23,7 @@ public interface TwoWeeksMovieService {
  
      //관리자 2주영화 등록데이터 조회 비동기(비둘기x)처리
      List<Movie>  findAllEditedList();
+
+     
     
 }

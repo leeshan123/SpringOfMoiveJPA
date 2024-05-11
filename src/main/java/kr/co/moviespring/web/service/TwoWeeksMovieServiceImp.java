@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.TwoWeeksMovie;
+import kr.co.moviespring.web.entity.VoteMemberList;
 import kr.co.moviespring.web.repository.TwoWeeksMovieRepository;
 @Service
 public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
@@ -47,6 +48,13 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
     public String findGenreName() {
         String genre = TWMovieRepository.getGenre();
         return genre;
+    }
+
+
+    @Override
+    public VoteMemberList vote(Long memberId,Integer movieId) {
+        VoteMemberList voteMember = TWMovieRepository.addVoteToMovieList(memberId,movieId);
+        return voteMember;
     }
     
 }
