@@ -5,15 +5,19 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.moviespring.web.entity.Movie;
-import kr.co.moviespring.web.entity.TwoWeeksMovie;
 import kr.co.moviespring.web.entity.VoteMemberList;
+import kr.co.moviespring.web.entity.totalVoteView;
 
 @Mapper
 public interface TwoWeeksMovieRepository {
 
-    List<TwoWeeksMovie> getByMovieCd();
-
+    //2주의영화 목록가져오기(투표수포함)
+    List<totalVoteView> getByMovieCd();
+    //테마 이름가져오기
     String getGenre();
+    //총 투표수가져오기
+    Long getVoteCount();
+
 
     //admin
     void getByGenre(String childSelectValue);
@@ -25,6 +29,7 @@ public interface TwoWeeksMovieRepository {
     List<Movie> getEditedList();
 
     VoteMemberList addVoteToMovieList(Long memberId,Integer movieId);
+
 
 
 }

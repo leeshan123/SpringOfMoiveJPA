@@ -11,13 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TwoWeeksMovie {
+public class totalVoteView {
 
     private Long id;
     private String tmdbId;
     private String kobisId;
     private String movieCd;
-    private int total;
     private Date regDate;
     private String korName;
     private String engName;
@@ -31,4 +30,7 @@ public class TwoWeeksMovie {
     private String mainImgUrl;
     private String releaseNation;
     private String genre;
+    private Long voteCount;
+    
+    
 }

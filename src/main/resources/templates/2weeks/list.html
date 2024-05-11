@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="inc/layout">
 
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,13 +14,15 @@
         <section class="media-sect media-mobile">
             <h1 class="d:none">메인</h1>
             <section class="">
+                
             <h1 class="fw:3 fs:6 txt-al:center  n-font " th:text="'다음주 테마는 '+${g}+'영화 입니다이'">테마</h1>
             <div  th:if="${param.error}">
             </div>
+
             <script th:if="${param.error}">
-                // 페이지 로드 후 오류가 있을 경우 alert 표시
                 alert("더이상 투표할수 없습니다. 다음주 영화를 기대해주세요!");
             </script>
+
             <section class="d:flex fl-wrap:wrap	jc:space-between my:9 bd-top">
                 <h1 class="d:none">컨텐츠</h1>
                 <section th:each="m:${Tm}" class="py:6 mx:6 p:2 ">
@@ -53,9 +56,10 @@
                             </div>
                                 <div class="" style="margin-top:160px;">
                                     <div class="n-progress n-progress-color:main txt-al:center color:base-1 w:auto h:1  box-shadow:1" role="progressbar w:10">
-                                        <div style="width: 10%; text-wrap: nowrap" class="ai:center text-wrap: nowrap">1표</div>
+                                        <div th:style="'width: ' + (${m.voteCount} * 100 / ${v}) + '%; text-wrap: nowrap;'" class="ai:center text-wrap: nowrap" th:text="${m.voteCount}+표">1표</div>
                                     </div>
                                 </div>
+                                
                             <div class="d:flex jc:end m-top:6">
                                 <button sec:authorize="isAuthenticated()" class="modal-btn n-btn n-btn:outline  box-shadow:1">투표하기!</button>
                                 <button sec:authorize="isAnonymous()" class="modal-btn n-btn n-btn  box-shadow:1">투표하기!</button>
@@ -70,11 +74,6 @@
                                         <div class="m:2 d:flex">
                                             <button class="close-btn n-btn ">좀더 고민할래요..</button>
                                         </div>
-                                        <!-- <form action="list" method="GET">
-                                            <div class="m:2">
-                                                <button name="vote" class="submit-btn n-btn w:5">추천합니다이!!</button>
-                                            </div>
-                                        </form> -->
                                         <div class="m:2 d:flex">
                                             <form action="list" method="POST">
                                                 <input type="hidden" name="movieId" th:value="${m.id}" />

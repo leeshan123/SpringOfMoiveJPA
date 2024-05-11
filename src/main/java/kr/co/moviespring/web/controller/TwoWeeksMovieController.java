@@ -1,12 +1,5 @@
 package kr.co.moviespring.web.controller;
 
-import kr.co.moviespring.web.entity.Movie;
-import kr.co.moviespring.web.entity.TwoWeeksMovie;
-import kr.co.moviespring.web.entity.VoteMemberList;
-import kr.co.moviespring.web.service.MovieService;
-import kr.co.moviespring.web.service.TwoWeeksMovieService;
-
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import kr.co.moviespring.web.entity.VoteMemberList;
+import kr.co.moviespring.web.entity.totalVoteView;
+import kr.co.moviespring.web.service.MovieService;
+import kr.co.moviespring.web.service.TwoWeeksMovieService;
 
 @Controller
 @RequestMapping("2weeks")
@@ -37,15 +34,19 @@ public class TwoWeeksMovieController {
 
     @GetMapping("list")
     public String list(Model model) {
-
-        List<TwoWeeksMovie> TWMovie = TWMovieService.findByMovieCd();
+        //2주영화 목록
+        List<totalVoteView> TWMovie = TWMovieService.findByMovieCd();
+        //테마이름
         String genre = TWMovieService.findGenreName();
-        // // System.out.println(TWMovie.toString());
-        if (TWMovie == null)
-            System.out.println("조회할 정보가 없습니다");
+        //투표합계
+        Long totalVote =TWMovieService.findTotalVote();
+
+        // if (TWMovie == null)
+        //     System.out.println("조회할 정보가 없습니다");
 
         model.addAttribute("Tm", TWMovie);
         model.addAttribute("g", genre);
+        model.addAttribute("v", totalVote);
         return "2weeks/list";
     }
 

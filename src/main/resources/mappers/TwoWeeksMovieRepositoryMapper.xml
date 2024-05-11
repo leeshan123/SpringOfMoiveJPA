@@ -5,7 +5,11 @@
 <mapper namespace="kr.co.moviespring.web.repository.TwoWeeksMovieRepository">
 
     <select id="getByMovieCd"> 
-	SELECT * from twoweek_movie_vote_list;
+	SELECT * from total_vote_view;
+	</select>
+
+	<select id="getVoteCount"> 
+	SELECT SUM(vote_count) AS total_votes FROM total_vote_view;
 	</select>
 
     <select id="getGenre"> 
