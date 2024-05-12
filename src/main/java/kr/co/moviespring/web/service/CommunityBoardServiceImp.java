@@ -18,7 +18,7 @@ public class CommunityBoardServiceImp implements CommunityBoardService {
     // 게시글 등록//
     @Override
     public void write(Long memberId,String title, String contents,Long categoryId) {
-        communityBoardRepository.saveContents(memberId,title,contents,categoryId);
+        communityBoardRepository.save(memberId,title,contents,categoryId);
     }
     
     // 게시글 삭제//
@@ -31,7 +31,7 @@ public class CommunityBoardServiceImp implements CommunityBoardService {
     // 게시글 수정
     @Override
     public void editById(Long id, String title, String contents) {
-        communityBoardRepository.edit(id, title, contents);
+        communityBoardRepository.update(id, title, contents);
     }
 
 

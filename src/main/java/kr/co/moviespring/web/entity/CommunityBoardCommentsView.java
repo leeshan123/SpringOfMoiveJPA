@@ -21,6 +21,6 @@ public class CommunityBoardCommentsView {
  private String communityBoardTitle;
  private String contents;
  private String nickname;
- private Date regDate;
+ private LocalDateTime regDate;
 
 }

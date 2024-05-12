@@ -85,7 +85,10 @@
                                 </fieldset>
                             </form>
                         </section>
-                        <a th:href="@{reg(c=${c.engName})}" href="reg">
+                        <!--비회원이 요청시-->
+                        <button sec:authorize="isAnonymous()" disabled type="button" class="n-btn box-shadow:1">로그인후 작성</button>
+                        <!--회원이 요청시-->
+                        <a sec:authorize="isAuthenticated()" th:href="@{reg(c=${c.engName})}" href="reg">
                             <button type="button" class="n-btn box-shadow:1">게시글 작성</button>
                         </a>
                     </div>

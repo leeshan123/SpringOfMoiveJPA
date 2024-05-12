@@ -3,9 +3,9 @@ function toggleContent() {
   if (content.classList.contains("toggle-off")) {
     content.classList.remove("toggle-off");
 
-    setTimeout(()=>{
+    // setTimeout(()=>{
       content.classList.add("toggle-on") //img 객체를 넣는것과 슬라이드 클래스를 넣어주는 코드 사이에 간극이 너무 짧아서 제대로 동작하지 않을수있기에 지연시간을 넣어준다 
-  },1000);
+  // },1000);
 
     // content.classList.add("toggle-on")
     // "style.display === "none") {
@@ -13,9 +13,9 @@ function toggleContent() {
   } else {
   content.classList.remove("toggle-on");
   
-  setTimeout(()=>{
+  // setTimeout(()=>{
     content.classList.add("toggle-off") 
-},1000);
+// },1000);
   // content.classList.add("toggle-off");
   }
   // if (content.classList.contains("toggle-on")) {

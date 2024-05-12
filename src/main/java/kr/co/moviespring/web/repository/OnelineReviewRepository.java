@@ -10,10 +10,13 @@ import kr.co.moviespring.web.entity.OnelineReviewView;
 
 @Mapper
 public interface OnelineReviewRepository {
-    // 한줄평 등록//
-    void save(Long id, String comments, int rate, Long movieId);
+    // 한줄평 등록
+    void save(Long memberId, String comments, int rate, Long movieId);
 
-    // 한줄평 목록//
+    // 한줄평 수정
+    void update(Long memberId, String comments, int rate, Long movieId);
+
+    // 한줄평 목록
     List<OnelineReviewView> findAll(Long movieId);
 
     List<OnelineReviewMovieView> findAllByMemberId(Long id);

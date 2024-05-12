@@ -9,10 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import kr.co.moviespring.web.config.batch.BatchSchedulerConfig;
 import kr.co.moviespring.web.config.security.CustomUserDetails;
@@ -144,14 +141,23 @@ public class MovieController {
     // }
     // 한줄평 등록//
     @PostMapping("comment")
-    public String comment(String comments, int rate, @RequestParam("movieid") Long movieId) {
+    public String comment(String comments, int rate, @RequestParam("movieid") Long movieId,
+                          @AuthenticationPrincipal CustomUserDetails userDetails) {
 
-        String id = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println(id);
+        Long memberId = userDetails.getId();
+        onelineReviewService.saveComment(memberId, comments, rate, movieId);
 
-        onelineReviewService.saveComment(id, comments, rate, movieId);
+        return "redirect:/movie/detail?movieid=" + movieId;
+    }
 
-        System.out.println("댓글작성");
+    // 한줄평 수정// //put으로 바꿔야함
+    @PostMapping("comment/edit/{movieid}")
+    public String edit(String comments , int rate, @PathVariable("movieid") Long movieId,
+                       @AuthenticationPrincipal CustomUserDetails userDetails) {
+
+        Long memberId = userDetails.getId();
+        onelineReviewService.editComment(memberId, comments, rate, movieId);
+
         return "redirect:/movie/detail?movieid=" + movieId;
     }
 

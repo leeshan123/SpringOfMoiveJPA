@@ -15,7 +15,7 @@
         FROM movie_actor
         INNER JOIN actor ON movie_actor.actor_id = actor.id
         WHERE movie_actor.movie_id = #{movieId}
-        ORDER BY popularity DESC
+        ORDER BY movie_actor.cast_order
     </select>
 
 </mapper>

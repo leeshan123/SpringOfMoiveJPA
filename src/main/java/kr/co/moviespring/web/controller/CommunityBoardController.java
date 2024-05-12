@@ -100,7 +100,13 @@ public class CommunityBoardController {
     }
     // 게시글 등록페이지 요청//
     @GetMapping("board/reg")
-    public String reg(@RequestParam(name="c",required = false)String categoryName, Model model) {
+    public String reg(@RequestParam(name="c",required = false)String categoryName,
+                      @AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+
+        //비회원이 게시글 등록링크 요청시 해당 게시글리스트로 리다이렉트
+        if (userDetails == null)
+            return "redirect:/community/board/list?c="+categoryName;
+
         model.addAttribute("cName", categoryName);
         return "community/board/reg";
     }
@@ -162,9 +168,19 @@ public class CommunityBoardController {
 
     // 게시글 삭제// //delete로 바꿔야함
     @GetMapping("board/delete/{id}")
-    public String delete(@PathVariable Long id,@RequestParam(name="c",required = false)String categoryName ) {
-        int result = communityBoardService.deleteById(id);
+    public String delete(@PathVariable Long id,@RequestParam(name="c",required = false)String categoryName,
+                         @AuthenticationPrincipal CustomUserDetails userDetails) {
 
+        //비회원이 삭제 요청시 해당 게시글페이지로 리다이렉트
+        if (userDetails == null)
+            return "redirect:/community/board/detail?c="+categoryName+"&id="+id;
+//        userDetails
+        //글작성자가 아닌 회원이 삭제 요청시 해당 게시글페이지로 리다이렉트
+        CommunityBoardView board = communityBoardService.getById(id);
+        if (userDetails.getId() != board.getMemberId())
+            return "redirect:/community/board/detail?c="+categoryName+"&id="+id;
+
+        int result = communityBoardService.deleteById(id);
         return "redirect:/community/board/list?c="+categoryName;
     }
 }

@@ -13,15 +13,15 @@
     <style>
         .toggle-on {
             display: block;
-            transform: translateY(30px);
-            transition: transform 2s;
+            /*transform: translateY(30px);*/
+            /*transition: transform 2s;*/
 
         }
 
         .toggle-off {
             display: none;
-            transform: translateY(-200px);
-            transition: transform 2s;
+            /*transform: translateY(-200px);*/
+            /*transition: transform 2s;*/
         }
 
         .logo-position {
@@ -68,6 +68,21 @@
             font-size: 20px;
             text-align: center;
             line-height: 80px;
+        }
+
+        .review-btn {
+            margin-right: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+
+            color: darkorange;
+            background-color: rgb(246,246,246);
+            /*box-shadow: #9A9A9A;*/
+            width: 120px;
+            height: 32px;
+            border-radius: 8px;
+
         }
     </style>
     <!--    <script>-->
@@ -127,8 +142,8 @@
                         </div>
                     </div>
                     <div>
-                        <button onclick="toggleContent()" th:text="${myReview != null ? '수정하기' : '평가하기'}" class="fs:3 color:base-5 toggle"
-                            style="text-decoration: underline;">평가하기
+                        <button onclick="toggleContent()" th:text="${myReview != null ? '리뷰 수정하기' : '리뷰 남기기'}" class="review-btn toggle"
+                            >평가하기
                         </button>
                     </div>
 
@@ -137,7 +152,7 @@
                     <div class="txt-al:center fs:5 fw:3 mb:3">
                         <span>한줄평을 남겨주세요!</span>
                     </div>
-                    <form action="comment" method="POST">
+                    <form th:action="${myReview != null ? 'comment/edit/'+movie.id : 'comment'}" action="comment" method="POST">
                         <div class="display:flex justify-content:space-between fs:4">
                             <input type="text" name="movieid" th:value="${movie.id}" class="d:none">
                             <!-- <span class="icon icon-size:5 icon:hand_coins">아이콘</span> -->
@@ -159,15 +174,13 @@
                                       class="anonymous-font-size width:10p height:2 p:2 n-textbox n-textbox-status:success" type="text"
                                       placeholder="로그인후 이용하실수 있습니다."></textarea>
 
-                            <button sec:authorize="isAnonymous()" style="cursor: not-allowed" type="button" class="n-btn n-btn-type:filled m:2 submit-button">평가완료</button>
+                            <button sec:authorize="isAnonymous()" disabled style="cursor: not-allowed" type="button" class="n-btn n-btn-type:filled m:2 submit-button">평가완료</button>
                             <!--회원 접속시-->
                             <textarea sec:authorize="isAuthenticated()" th:text="${myReview != null ? myReview.comments : ''}" id="comments" name="comments"
                                 class="width:10p height:2 p:2 n-textbox n-textbox-status:success" type="text"
                                 placeholder="내용을 입력해주세요."></textarea>
 
-                            <button sec:authorize="isAuthenticated()" type="submit" th:text="${myReview != null ? '수정하기' : '평가하기'}" class="n-btn n-btn-type:filled m:2 submit-button">평가하기</button>
-                            <!--회원이 기존에 작성한 리뷰가 있을시 수정버튼-->
-<!--                            <button sec:authorize="isAuthenticated()" th:text="${myReview != null}" type="submit" class="n-btn n-btn-type:filled m:2 submit-button">수정하기</button>-->
+                            <button sec:authorize="isAuthenticated()" type="submit" th:text="${myReview != null ? '수정완료' : '평가완료'}" class="n-btn n-btn-type:filled m:2 submit-button">평가하기</button>
                         </div>
                     </form>
                 </div>

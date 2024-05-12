@@ -59,13 +59,13 @@
     </update>
 
     <!-- 게시글 등록 -->
-    <insert id="saveContents">
+    <insert id="save">
         INSERT INTO community_board (title,contents,member_id,category_id)
         VALUES (#{title},#{contents},#{memberId},#{categoryId});
     </insert>
 
     <!-- 게시글 수정 -->
-    <update id="edit">
+    <update id="update">
         UPDATE community_board SET title=#{title}, contents=#{contents} WHERE id=#{id};
     </update>
 

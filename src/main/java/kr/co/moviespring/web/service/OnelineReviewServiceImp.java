@@ -22,11 +22,17 @@ public class OnelineReviewServiceImp implements OnelineReviewService {
     @Autowired
     MemberRepository memberRepository;
 
-    // 한줄평 등록//
+    // 한줄평 등록
     @Override
-    public void saveComment(String id, String comments, int rate, Long movieId) {
-        Member member = memberRepository.findByMembername(id);
-        onelineReviewRepository.save(member.getId(), comments, rate, movieId);
+    public void saveComment(Long memberId, String comments, int rate, Long movieId) {
+//        Member member = memberRepository.findByMembername(id); // 필요없어짐, 혹시모르니 임시보관
+        onelineReviewRepository.save(memberId, comments, rate, movieId);
+    }
+
+    // 한줄평 수정
+    @Override
+    public void editComment(Long memberId, String comments, int rate, Long movieId) {
+        onelineReviewRepository.update(memberId, comments, rate, movieId);
     }
 
     // 한줄평 목록//
