@@ -47,9 +47,9 @@ public class CommunityBoardController {
     }
 
 
-    //게시글 목록 요청//
+//    게시글 목록 요청//
     @GetMapping("board/list")
-    public String board(@RequestParam(name = "c",required = false) String categoryName,
+    public String list(@RequestParam(name = "c",required = false) String categoryName,
                         @RequestParam(name = "q",required = false) String query,
                         @RequestParam(name = "p",required = false, defaultValue = "1") Integer page,
                         Model model){
@@ -72,6 +72,33 @@ public class CommunityBoardController {
         model.addAttribute("ctgList", categories);
 
         return "community/board/list";
+    }
+
+    //    게시글 목록 요청 연습용 임시코드//
+    @GetMapping("board/list-vue")
+    public String listVue(@RequestParam(name = "c",required = false) String categoryName,
+                        @RequestParam(name = "q",required = false) String query,
+                        @RequestParam(name = "p",required = false, defaultValue = "1") Integer page,
+                        Model model){
+        Category category = categoryService.getByName(categoryName);
+        Long categoryId = category.getId();
+        List <CommunityBoardView> list = communityBoardService.getList(categoryId, page, 20);
+        int count = 0;
+        count = communityBoardService.getCount(categoryId);
+
+
+        if (query != null) {
+            list = communityBoardService.getList(categoryId, page, 20, query);
+            count = communityBoardService.getCount(categoryId, query);
+        }
+
+        List<Category> categories = categoryService.getList();
+        model.addAttribute("list", list);
+        model.addAttribute("count", count);
+        model.addAttribute("c", category);
+        model.addAttribute("ctgList", categories);
+
+        return "community/board/list-vue";
     }
 
     //게시글 상세페이지 요청//
