@@ -94,7 +94,7 @@ scrollContents.forEach(item => {
 
   // 버튼 초기 숨김
   item.leftBtn.style.display = 'none';
-  item.rightBtn.style.display = 'none';
+  item.rightBtn.style.display = 'block';
 });
 
 // 스크롤 상태 업데이트 함수

@@ -15,17 +15,14 @@
 
 }
 
-.left-div{
+.left-div,
+.right-div {
     z-index: 1;
     height: auto;
     width: 1px;
+    padding-bottom: 80px;
 }
-.right-div{
-    z-index: 1;
-    height: auto;
-    width: 1px;
 
-}
 .scr-btn-left{
     position: absolute;
 }
