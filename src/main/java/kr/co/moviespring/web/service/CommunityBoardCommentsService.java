@@ -13,4 +13,6 @@ public interface CommunityBoardCommentsService {
     List<CommunityBoardCommentsView> getListById(Long boardId);
 
     List<CommunityBoardCommentsView> getListByMemberId(Long id);
+
+    List<CommunityBoardCommentsView> getList(Integer page, int size);
 }

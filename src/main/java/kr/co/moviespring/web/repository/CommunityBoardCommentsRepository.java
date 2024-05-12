@@ -14,4 +14,5 @@ public interface CommunityBoardCommentsRepository {
     //댓글 목록 불러오기
     List<CommunityBoardCommentsView> findAllById(Long boardId);
     List<CommunityBoardCommentsView> findAllByMemberId(Long id);
+    List<CommunityBoardCommentsView> findAll(int offset, int size);
 }

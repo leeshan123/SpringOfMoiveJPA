@@ -6,6 +6,10 @@
     <title>Title</title>
     <script src="/js/admin/playground.js" defer></script>
     <style>
+      .main-container {
+        width: 980px; margin: 0 auto; 
+        height: 100%;
+      } 
       .sec_container {
         max-width: 980px;
         width: 100%;
@@ -20,6 +24,10 @@
 </head>
 <body>
   <main layout:fragment="main">
+    <div class="bg-color:base-3 h:1">
+      <div class="main-container fs:5 fw:3 
+      d:flex align-items:center">놀이터 관리</div>
+    </div>
     <section class="sec_container">
       <h1 class="d:none">관객수 놀이터 관리자 페이지</h1>
         <div class="d:flex jc:center">

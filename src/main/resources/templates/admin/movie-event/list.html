@@ -2,48 +2,47 @@
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="inc/adminlayout">
+    layout:decorate="inc/adminlayout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이벤트 - 영화의봄</title>
 <style>
-.main-container {
-    width: 980px; margin: 0 auto; 
-    height: 100%;
-        
+    .main-container {
+        width: 980px; margin: 0 auto; 
+        height: 100%;
     }   
         
 </style>
 </head>
 <body>
     <main layout:fragment="main">
-    <div class="bg-color:base-3 h:1">
-        <div class="main-container fs:5 fw:3
-        d:flex align-items:center">이벤트 및 할인 관리</div>
-    </div>
-    <section class="main-container">
-
-        <div th:each="menu:${list}" class="d:flex bd-bottom bd-color:base-5 ai:center gap:1">
-            <div class="fs:4 fw:bold h:1 d:flex ai:center flex-grow:1">
-                <a th:href="@{/event/detail(id = ${menu.id})}" th:text="${menu.title}">롯데시네마 할인정보</a>
-            </div>
-            <div>
-                <a th:href="@{edit(id = ${menu.id})}" class="n-btn n-btn-size:1">수정</a>
-            </div>
-            <div>
-                <a th:href="@{delete(id = ${menu.id})}" class="deco deco-position:right deco-size:2 icon:trash 
-                icon-color:base-1 n-btn n-btn-type:filled n-btn-size:1 n-btn-color:accent">삭제</a>
-            </div>
+        <div class="bg-color:base-3 h:1">
+            <div class="main-container fs:5 fw:3
+            d:flex align-items:center">이벤트 및 할인 관리</div>
         </div>
+        <section class="main-container">
 
-    
-   
-        <div class="h:2 d:flex jc:center ai:center">
-            <div><a href="reg" class="n-btn">게시글 등록</a></div>
-        </div>
+            <div th:each="menu:${list}" class="d:flex bd-bottom bd-color:base-5 ai:center gap:1">
+                <div class="fs:4 fw:bold h:1 d:flex ai:center flex-grow:1">
+                    <a th:href="@{/event/detail(id = ${menu.id})}" th:text="${menu.title}">롯데시네마 할인정보</a>
+                </div>
+                <div>
+                    <a th:href="@{edit(id = ${menu.id})}" class="n-btn n-btn-size:1">수정</a>
+                </div>
+                <div>
+                    <a th:href="@{delete(id = ${menu.id})}" class="deco deco-position:right deco-size:2 icon:trash 
+                    icon-color:base-1 n-btn n-btn-type:filled n-btn-size:1 n-btn-color:accent">삭제</a>
+                </div>
+            </div>
+
         
-    </section>
+    
+            <div class="h:2 d:flex jc:center ai:center">
+                <div><a href="reg" class="n-btn">게시글 등록</a></div>
+            </div>
+            
+        </section>
 
 
     </main>

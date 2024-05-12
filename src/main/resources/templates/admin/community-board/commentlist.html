@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="inc/adminlayout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <style>
+        .main-container{
+            width: 980px; margin: 0 auto; 
+            height: 100%;
+        } 
+
+        .main-contents{
+            width: 980px; margin: 0 auto; 
+            height: 100%;
+        }
+
+        .nav-contents{
+            width: 980px; margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+    <main layout:fragment="main">
+        <div class="bg-color:base-3 h:1">
+            <div class="main-container fs:5 fw:3 
+            d:flex align-items:center">커뮤니티 게시판 관리</div>
+        </div>
+        <nav class="nav-contents mt:4 mb:1">
+            <ul class="d:flex col-gap:1 jc:flex-end">
+                <li>
+                    <a href="boardlist">게시글 목록</a> |
+                </li>
+                <li>
+                    <a href="">댓글 목록</a>
+                </li>
+            </ul>
+        </nav>
+        <section class="main-contents mb:5">
+            <h1 class="d:none">커뮤니티 게시글 목록</h1>
+            <table class="mb:4 n-table n-table-hover n-table-border n-table-border-radius:3 fw:3">
+                <colgroup>
+                    <col style="width: 119px;"> <!--119-->
+                    <col style="width: 447px;"> <!--447-->
+                    <col style="width: 160px;"> <!--160-->
+                    <col style="width: 60px;"> <!--60-->
+                    <col style="width: 136px;"> <!--116-->
+                    <col style="width: 50px;"> <!--116-->
+                    <!-- 추가적인 열에 대한 너비 설정 -->
+                </colgroup>
+                <thead class="">
+                    <tr class="jc:space-around">
+                        <th class="txt-al:center">분류</th>
+                        <th class="txt-al:center">제목</th>
+                        <th class="txt-al:center">작성자</th>
+                        <th class="txt-al:center">추천</th>
+                        <th class="txt-al:center">작성일</th>
+                        <th class="txt-al:center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="comment:${list}">
+                        <td class="txt-al:center py:1">
+                            <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
+                                th:text="${clist.get(comment.communityBoardCategoryId-1).name}">카테고리 이름</span>
+                        </td>
+                        <td class="txt-al:start py:1 white-space:normal">
+                            <a href="" th:href="@{/community/board/detail(c=${clist.get(comment.communityBoardCategoryId-1).engName},id=${comment.id})}" th:text="${comment.communityBoardTitle}">게시글 제목</a>
+                        </td>
+                        <td th:text="${comment.nickname}" class="txt-al:start py:1">작성자</td>
+                        <td class="txt-al:center py:1">123</td>
+                        <td class="txt-al:center py:1" th:text="${#dates.format(comment.regDate, 'yyyy.MM.dd')}">작성일</td>
+                        <td class="txt-al:center py:1" ><input type="checkbox" name="" value=""></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d:flex jc:flex-end">
+                <button class="n-btn n-btn-color:accent" onclick="deleteSelected()">삭제</button>
+            </div>
+            
+            
+        </section>
+    </main>
+
+</body>
+</html>

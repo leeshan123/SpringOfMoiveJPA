@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -20,6 +21,6 @@ public class CommunityBoardCommentsView {
  private String communityBoardTitle;
  private String contents;
  private String nickname;
- private LocalDateTime regDate;
+ private Date regDate;
 
 }

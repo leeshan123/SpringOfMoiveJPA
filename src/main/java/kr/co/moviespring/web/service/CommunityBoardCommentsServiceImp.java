@@ -32,4 +32,10 @@ public class CommunityBoardCommentsServiceImp implements CommunityBoardCommentsS
     public List<CommunityBoardCommentsView> getListByMemberId(Long id) {
         return repository.findAllByMemberId(id);
     }
+
+    @Override
+    public List<CommunityBoardCommentsView> getList(Integer page, int size) {
+        int offset = (page-1) * size;
+        return repository.findAll(offset, size);
+    }
 }
