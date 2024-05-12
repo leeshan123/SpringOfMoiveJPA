@@ -35,12 +35,15 @@ public class CommunityBoardController {
         @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
         , Model model
     ){
-        
-        List<CommunityBoardView> list = communityBoardService.getList(null, 1, 10);
+        int cnt = 0;
+
+        List<CommunityBoardView> list = communityBoardService.getList(null, page, 10);
+        cnt = communityBoardService.getCount(null);
         List<Category> clist = cService.getList();
         
         model.addAttribute("list", list);
         model.addAttribute("clist", clist);
+        model.addAttribute("count", cnt);
         
         return "admin/community-board/boardlist";
     }
@@ -50,12 +53,16 @@ public class CommunityBoardController {
         @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
         , Model model
     ){
-        
+        int cnt = 0;
+
         List<CommunityBoardCommentsView> list = commentsService.getList(page, 10);
+        cnt = commentsService.getCount();
+        
         List<Category> clist = cService.getList();
         
         model.addAttribute("list", list);
         model.addAttribute("clist", clist);
+        model.addAttribute("count", cnt);
         
         return "admin/community-board/commentlist";
     }

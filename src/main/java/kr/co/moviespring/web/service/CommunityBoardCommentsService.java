@@ -15,4 +15,6 @@ public interface CommunityBoardCommentsService {
     List<CommunityBoardCommentsView> getListByMemberId(Long id);
 
     List<CommunityBoardCommentsView> getList(Integer page, int size);
+
+    int getCount();
 }

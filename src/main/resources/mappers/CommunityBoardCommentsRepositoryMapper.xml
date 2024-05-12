@@ -5,7 +5,8 @@
 <mapper namespace="kr.co.moviespring.web.repository.CommunityBoardCommentsRepository">
 
     <select id="findAll" resultType="CommunityBoardCommentsView">
-        SELECT * FROM community_board_comments_view
+        SELECT * FROM community_board_comments_view       
+        ORDER BY reg_date DESC
 		LIMIT #{offset}, #{size};
     </select>
 
@@ -26,6 +27,19 @@
     <select id="findAllByMemberId" resultType="CommunityBoardCommentsView">
         SELECT * FROM community_board_comments_view
         WHERE member_id = #{id}
+    </select>
+
+    <!--페이징을 위한 댓글 갯수 카운팅-->
+    <select id="getCount" resultType="Integer">
+        SELECT COUNT(*) FROM community_board_comments_view
+        <where>
+            <if test="categoryId != null">
+                category_id = #{categoryId}
+            </if>
+            <if test="query != null">
+                AND title LIKE '%${query}%'
+            </if>
+        </where>
     </select>
 
 </mapper>

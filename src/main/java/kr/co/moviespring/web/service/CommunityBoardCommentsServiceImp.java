@@ -38,4 +38,9 @@ public class CommunityBoardCommentsServiceImp implements CommunityBoardCommentsS
         int offset = (page-1) * size;
         return repository.findAll(offset, size);
     }
+
+    @Override
+    public int getCount() {
+        return repository.getCount();
+    }
 }

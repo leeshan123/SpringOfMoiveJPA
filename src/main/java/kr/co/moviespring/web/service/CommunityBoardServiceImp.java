@@ -38,7 +38,7 @@ public class CommunityBoardServiceImp implements CommunityBoardService {
     //카테고리별+검색쿼리값 게시글 목록//
     @Override
     public List<CommunityBoardView> getList(Long categoryId, Integer page, Integer size, String query) {
-//        int size = 20;
+        //int size = 20;
         int offset = (page-1)*size;
         List<CommunityBoardView> list = communityBoardRepository.findAllByCategoryId(categoryId, query, offset, size);
         return list;

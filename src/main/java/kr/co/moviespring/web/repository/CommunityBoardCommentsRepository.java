@@ -15,4 +15,5 @@ public interface CommunityBoardCommentsRepository {
     List<CommunityBoardCommentsView> findAllById(Long boardId);
     List<CommunityBoardCommentsView> findAllByMemberId(Long id);
     List<CommunityBoardCommentsView> findAll(int offset, int size);
+    int getCount();
 }

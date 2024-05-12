@@ -13,7 +13,7 @@
 
         .main-contents{
             width: 980px; margin: 0 auto; 
-            height: 100%;
+            min-height: 500px;
         }
 
         .nav-contents{
@@ -31,7 +31,7 @@
         <nav class="nav-contents mt:4 mb:1">
             <ul class="d:flex col-gap:1 jc:flex-end">
                 <li>
-                    <a href="">게시글 목록</a> |
+                    <a href="" class="fw:bold">게시글 목록</a> |
                 </li>
                 <li>
                     <a href="commentlist">댓글 목록</a>
@@ -75,20 +75,6 @@
                         <td class="txt-al:center py:1" th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}">작성일</td>
                         <td class="txt-al:center py:1" ><input type="checkbox" name="" value=""></td>
                     </tr>
-                    <tr>
-                        <td class="txt-al:center py:1">
-                            <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
-                                >카테고리 이름</span>
-                        </td>
-                        <td class="txt-al:start py:1 white-space:normal">
-                            <a href="" >게시글 제목</a>
-                            <span class=" color:base-6 fs:2" >[12]</span>
-                        </td>
-                        <td class="txt-al:start py:1">작성자</td>
-                        <td class="txt-al:center py:1">123</td>
-                        <td class="txt-al:center py:1" >2024/05/12</td>
-                        <td class="txt-al:center py:1" ><input type="checkbox" name="" value=""></td>
-                    </tr>
                 </tbody>
             </table>
             <div class="d:flex jc:flex-end">
@@ -96,6 +82,34 @@
             </div>
             
             
+        </section>
+
+        <section class="mb:10">
+            <h1 class="d:none">페이저</h1>
+            <!-- <div th:text="${param.p} eq null ? 0:${param.p}">1</div> -->
+            <ul class="n-pager"
+                style="display:flex; justify-content:center; font-size: 20px;"
+                th:with="page=${param.p} eq null ? 1 : ${{param.p}}
+                        ,floatnum=(${page}-1)/5
+                        ,startnum=${T(java.lang.Math).floor(floatnum)} * 5 + 1
+                        ,lastnum=${count} mod 10 > 0 ? ${count div 10}+1 : ${count div 10}"
+                        >
+                <!-- <li th:text="${startnum}">aa</li> -->
+                <li>
+                    <span style="color: rgb(189, 189, 189)" th:if="${page} lt 6">이전</span><!-- 현재 페이지가 6 미만인 경우 -->
+                    <a th:if="${page} ge 6" th:href="@{boardlist(p=${startnum-1}, q=${searchQuery})}" href="boardlist?p=1">이전</a><!-- 현재 페이지가 6 이상인 경우 -->
+                </li>
+                <li th:class="${page} == ${n} ? 'active' : ''"  th:each="n : ${#numbers.sequence(startnum, startnum+4)}">
+                    <!-- 각 페이지 번호에 대한 링크를 생성합니다 -->
+                    <!-- <a th:href="@{'list?p=' + ${n}}" th:text="${n}"></a> -->
+                    <a th:if="${n} le ${lastnum}" href="boardlist?p=1" th:href="@{boardlist(p=${n}, q=${searchQuery})}" th:text="${n}">1</a>
+                    <span style="color: rgb(189, 189, 189)" th:if="${n} gt ${lastnum}" th:text="${n}"></span>
+                </li>
+                <li>
+                    <span style="color: rgb(189, 189, 189)" th:if="${startnum}+4 gt ${lastnum}">다음</span> <!--  현재 페이지의 끝이 lastnum 초과인 경우 -->
+                    <a th:if="${startnum}+4 le ${lastnum}" th:href="@{boardlist(p=${startnum+5}, q=${searchQuery})}">다음</a><!-- 현재 페이지의 끝이 lastnum 이하인 경우 -->
+                </li>
+            </ul>
         </section>
     </main>
 
