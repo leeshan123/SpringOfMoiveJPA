@@ -6,14 +6,11 @@ window.addEventListener('load', function () {
     backButton.addEventListener('click', () => handleButtonClick('http://localhost/admin/playground/main'));
 
 
-    });
+});
 
-    function handleButtonClick(url) {
+function handleButtonClick(url) {
     window.location.href = url;
-    }
-
-
-
+}
 
 
 
