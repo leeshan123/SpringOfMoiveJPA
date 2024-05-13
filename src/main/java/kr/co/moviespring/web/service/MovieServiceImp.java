@@ -130,8 +130,8 @@ public class MovieServiceImp implements MovieService {
 
     //인물별 필모리스트
     @Override
-    public List<Movie> getListByPeopleId(Long id) {
-        List<Movie> list = repository.findAllByPeopleId(id);
+    public List<Movie> getListByPeopleId(Long id, String type) {
+        List<Movie> list = repository.findAllByPeopleId(id, type);
         return list;
     }
 

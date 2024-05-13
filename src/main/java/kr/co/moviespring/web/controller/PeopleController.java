@@ -26,25 +26,27 @@ public class PeopleController {
     MovieService movieService;
 
     @GetMapping("info")
-    public String info(@RequestParam(name="name",required = false)String name,
+    public String info(@RequestParam(name="type",required = false)String type,
+                       @RequestParam(name="name",required = false)String name,
                        @RequestParam(name="people-id",required = false)Long peopleId,
-                        @RequestParam(name="id",required = false)String tmdbId,
+                       @RequestParam(name="id",required = false)String tmdbId,
                          Model model) {
-//        th:href="@{/people(id=${director.id},name=${director.korName})}"
-//        List<Movie> mList = movieService.getListByName(query);
-        Actor actor = actorService.getByTMDBId(tmdbId);
-        model.addAttribute("people", actor);
-        if (actor == null) {
-        Director director = directorService.getByTMDBId(tmdbId);
+
+        List<Movie> list = null;
+
+        if ("actor".equals(type)) {
+            Actor actor = actorService.getByTMDBId(tmdbId);
+            model.addAttribute("people", actor);
+            list = movieService.getListByPeopleId(peopleId, type);
+        }
+        if ("director".equals(type)) {
+            Director director = directorService.getByTMDBId(tmdbId);
             model.addAttribute("people", director);
+            list = movieService.getListByPeopleId(peopleId, type);
         }
 
-        List<Movie> list = movieService.getListByPeopleId(peopleId);
         model.addAttribute("list", list);
 
-////        model.addAttribute("query", query);
-//        model.addAttribute(("dList"), dList);
-//        model.addAttribute(("aList"), aList);
         return "people/info";
     }
 }
