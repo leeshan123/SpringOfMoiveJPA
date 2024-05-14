@@ -55,25 +55,25 @@
               <div class="fs:5 fw:bold
               bd-bottom bd-color:base-5 mb:3">나이대 통계</div>
 
-              <div th:text="'0~20대 '+${ageRangeList[0]}+'명'" class="mb:2"> ~20대</div>
+              <div th:text="'0~20대 '+${ageRangeList[0]}+'명'+'('+${percentList[0]}+'%)'" class="mb:2"> ~20대</div>
               <div th:with="test=${ageRangeList[0]}" class="mb:10 n-progress n-progress-color:main" role="progressbar">
-                  <div th:style="'width: ' + ${persentList[0]} + '%'" ></div>
+                  <div th:style="'width: ' + ${percentList[0]} + '%'" ></div>
               </div>
 
 
-              <div th:text="'20~40대 '+${ageRangeList[1]}+'명'" class="mb:2"> 20~40대</div>
+              <div th:text="'20~40대 '+${ageRangeList[1]}+'명'+'('+${percentList[1]}+'%)'" class="mb:2"> 20~40대</div>
               <div class="mb:10 n-progress n-progress-color:sub" role="progressbar">
-                  <div th:style="'width: ' + ${persentList[1]} + '%'" ></div>
+                  <div th:style="'width: ' + ${percentList[1]} + '%'" ></div>
               </div>
 
-              <div th:text="'40~60대 '+${ageRangeList[2]}+'명'" class="mb:2"> 40~60대</div>
+              <div th:text="'40~60대 '+${ageRangeList[2]}+'명'+'('+${percentList[2]}+'%)'" class="mb:2"> 40~60대</div>
               <div class="mb:10 n-progress n-progress-color:accent" role="progressbar">
-                  <div th:style="'width: ' + ${persentList[2]} + '%'" ></div>
+                  <div th:style="'width: ' + ${percentList[2]} + '%'" ></div>
               </div>
 
-              <div th:text="'60대~ 황혼기에 접어든 중년리뷰어 김봉식과 함꼐하는 특별한 밤 '+${ageRangeList[3]}+'명'" class="mb:2"> 60대 이상</div>
+              <div th:text="'60대~ 황혼기에 접어든 중년리뷰어 김봉식과 함께하는 특별한 밤 '+${ageRangeList[3]}+'명'+'('+${percentList[3]}+'%)'" class="mb:2"> 60대 이상</div>
               <div class="mb:10 n-progress n-progress-color:base" role="progressbar">
-                  <div th:style="'width: ' + ${persentList[3]} + '%'" ></div>
+                  <div th:style="'width: ' + ${percentList[3]} + '%'" ></div>
               </div>
           </section>
       </section>

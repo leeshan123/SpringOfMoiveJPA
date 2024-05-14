@@ -3,7 +3,7 @@
       layout:decorate="inc/adminlayout">
 <head>
     <meta charset="UTF-8">
-    <script type="module" src="/js/admin/playground.js" defer></script>
+    <script type="module" src="/js/admin/playgroundreg.js" defer></script>
     <title>Title</title>
 
     <style>
@@ -20,7 +20,7 @@
 <body>
   <main layout:fragment="main">
       <section class="sec_container my:5">
-          <form class="n-form">
+          <form class="n-form" method="post">
               <h1 class="n-font:h3 font-weight:3 fs:7">베팅 작성 💰</h1>
               <div>
                   <label>
@@ -31,7 +31,8 @@
               <div>
                   <label>
                       <span>영화</span>
-                      <input type="text" placeholder="영화를 찾아주세요." />
+                      <input type="text" id="movie_query" name="movie_query" placeholder="영화를 찾아주세요." />
+                      <button id="search-btn" type="button" class="n-btn n-btn-size:1">찾기</button>
                   </label>
               </div>
               <div>
@@ -42,61 +43,11 @@
               </div>
               <div>
                   <div>투표 마감 기한입력</div>
-                  <fieldset class="d:flex gap:4">
-                      <label class="flex-direction:row ai:center gap:3">
-                          <input type="radio" name="deadLine" class="n-toggle n-toggle:dot" />
-                          <span>1</span>
-                      </label>
-                      <label class="flex-direction:row ai:center gap:3">
-                          <input type="radio" name="deadLine" class="n-toggle n-toggle:dot" />
-                          <span>3</span>
-                      </label>
-                      <label class="flex-direction:row ai:center gap:3">
-                          <input type="radio" name="deadLine" class="n-toggle n-toggle:dot" />
-                          <span>5</span>
-                      </label>
-                      <label class="flex-direction:row ai:center gap:3">
-                          <input type="radio" name="deadLine" class="n-toggle n-toggle:dot" />
-                          <span>7</span>
-                      </label>
-                      <label class="flex-direction:row ai:center gap:3">
-                          <input
-                                  type="radio"
-                                  name="deadLine"
-                                  class="n-toggle n-toggle:dot"
-                                  checked />
-                          <span>9</span>
-                      </label>
-                  </fieldset>
+                  <input class="mr:10" type="date" name="reg_date"/>
               </div>
               <div>
                   <div>집계 마감 기한입력</div>
-                  <fieldset class="d:flex gap:4">
-                      <label class="flex-direction:row ai:center gap:3">
-                          <input type="radio" name="regDate" class="n-toggle n-toggle:dot" />
-                          <span>1</span>
-                      </label>
-                      <label class="flex-direction:row ai:center gap:3">
-                          <input type="radio" name="regDate" class="n-toggle n-toggle:dot" />
-                          <span>7</span>
-                      </label>
-                      <label class="flex-direction:row ai:center gap:3">
-                          <input type="radio" name="regDate" class="n-toggle n-toggle:dot" />
-                          <span>14</span>
-                      </label>
-                      <label class="flex-direction:row ai:center gap:3">
-                          <input type="radio" name="regDate" class="n-toggle n-toggle:dot" />
-                          <span>21</span>
-                      </label>
-                      <label class="flex-direction:row ai:center gap:3">
-                          <input
-                                  type="radio"
-                                  name="regDate"
-                                  class="n-toggle n-toggle:dot"
-                                  checked />
-                          <span>28</span>
-                      </label>
-                  </fieldset>
+                  <input class="mr:10" type="date" name="dead_line_date"/>
               </div>
               <div class="d:flex gap:2 fl-dir:row jc:center">
                   <button type="button" class="n-btn w:2">등록</button>
