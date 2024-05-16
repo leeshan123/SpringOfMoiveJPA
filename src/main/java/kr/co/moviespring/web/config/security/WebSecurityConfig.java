@@ -1,5 +1,6 @@
 package kr.co.moviespring.web.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,10 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+
+    @Autowired
+    private WebOAuth2UserDetailsService webOAuth2UserDetailsService;
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
 
@@ -42,10 +47,13 @@ public class WebSecurityConfig {
                        .loginProcessingUrl("/user/signin")
                        .defaultSuccessUrl("/")
                        .permitAll())
-       .logout((logout) -> logout
-       .logoutUrl("/user/signout")
-       .logoutSuccessUrl("/")
-       .permitAll());
+               .oauth2Login(config->config //구글 소셜 로그인 설정
+                       .userInfoEndpoint(userInf->userInf
+                               .userService(webOAuth2UserDetailsService)))
+               .logout((logout) -> logout
+               .logoutUrl("/user/signout")
+               .logoutSuccessUrl("/")
+               .permitAll());
 
        return http.build();
    }
