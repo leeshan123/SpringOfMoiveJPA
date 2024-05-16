@@ -5,6 +5,7 @@ layout:decorate="inc/layout">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${board.title}+' - '+영화의봄">Document</title>
+    <script src="/js/community-board/detail.js" defer></script>
     <style>
         .vote-box {
             width: 56px;
@@ -45,15 +46,15 @@ layout:decorate="inc/layout">
                     <p th:utext="${board.contents}">작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다</p>
                 </div>
                 <div class="d:flex jc:center">
-                    <div class="d:flex gap:3">
-                        <div th:data="1" class="d:flex flex-direction:column ai:center border border-radius:1 p:1 vote-box gap:1">
+                    <div id="vote-box" class="d:flex gap:3">
+                        <button class="d:flex flex-direction:column ai:center border border-radius:1 p:1 vote-box gap:1 like-box">
                             <span class="fw:2 color:base-10">14</span>
                             <span class="icon icon:thumbs_up icon-color:accent-1">아이콘</span>
-                        </div>
-                        <div th:data="2" class="d:flex flex-direction:column ai:center border border border-radius:1 p:1 vote-box gap:1">
+                        </button>
+                        <button class="d:flex flex-direction:column ai:center border border border-radius:1 p:1 vote-box gap:1 dislike-box">
                             <span class="fw:2 color:base-10">3</span>
                             <span class="icon icon:thumbs_down icon-color:sub-1">아이콘</span>
-                        </div>
+                        </button>
                     </div>
                 </div>
                 <div class="text-align:end fs:5 fw:bold color:main-3" th:if="${memberId eq board.memberId}">

@@ -4,7 +4,7 @@ import kr.co.moviespring.web.entity.CommunityBoardLike;
 
 public interface CommunityBoardLikeService {
 
-//    CommunityBoardLike like(MenuLike menuLike);
-//    String cancel(MenuLike menuLike);
+    int like(Long boardId, Long userId, int status);
+    int disLike(Long boardId, Long userId, int status);
 
 }
