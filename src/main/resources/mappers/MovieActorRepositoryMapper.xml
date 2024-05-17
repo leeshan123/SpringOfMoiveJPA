@@ -18,4 +18,11 @@
         ORDER BY movie_actor.cast_order
     </select>
 
+    <!--영화아이디별 배우목록-->
+    <select id="checkId" resultType="Boolean">
+        SELECT count(*) &gt; 0
+        from movie_actor
+        where movie_id = #{movieId} and actor_id = #{actorId}
+    </select>
+
 </mapper>

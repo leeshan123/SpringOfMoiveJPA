@@ -14,4 +14,5 @@ public interface MovieActorRepository {
     int delete(MovieActor movieActor);
     /*영화아이디별 배우목록*/
     List<MovieActorView> findAllById(Long movieId);
+    boolean checkId(MovieActor movieActor);
 }

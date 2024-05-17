@@ -29,6 +29,7 @@ import kr.co.moviespring.web.entity.MovieTrailer;
 import kr.co.moviespring.web.movieapi.KobisMovieAPI;
 import kr.co.moviespring.web.movieapi.TMDBMovieAPI;
 import kr.co.moviespring.web.movieapi.dto.kobis.KobisMovieInfo;
+import kr.co.moviespring.web.movieapi.dto.kobis.sub.Audits;
 import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBMovieDetail;
 import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBPersonDetails;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Cast;
@@ -131,29 +132,76 @@ public class HomeController {
     }
 
     @PostMapping("test")
-    public String test(String nyear) throws IOException, ParseException{
+    public String test(String nyear) throws IOException, ParseException, InterruptedException{
 
         // 일단 위에거 안쓰고 데이터 저장용 테스트
         TMDBMovieAPI api = new TMDBMovieAPI();
         KobisMovieAPI kobisApi = new KobisMovieAPI();
         String movieName = "THE ROUNDUP : PUNISHMENT";
         String year = "2024";
+        String nation = "";
 
         // Movie3 목록 불러오기(년도수만큼 불러오기)
-        List<Movie3> list = serviceTest.getMovie3List(year);
+        // List<Movie3> list = serviceTest.getMovie3List(nyear);
 
-        for (Movie3 movie3 : list) {
+        //list 개수 저장=====================================================================
+
+        // String dirPath = "C:/Newlec/test_csv/"; // 폴더 경로
+        // String fileNm = "list_cnt.csv";
+        int movieCnt = 0;
+        int kobisNullMovieDetail = 0;
+        StringBuilder sb = new StringBuilder();
+        // // 폴더가 존재하지 않으면 폴더를 생성.
+        // Path path2 = Paths.get(dirPath);
+        // if (!Files.exists(path2)) {
+        //     try {
+        //         Files.createDirectories(path2);
+        //         System.out.println("폴더가 생성되었습니다: " + path2);
+        //     } catch (IOException e) {
+        //         System.err.println("폴더 생성 중 오류가 발생하였습니다: " + e.getMessage());
+        //     }
+        // }
+        // // 파일 경로
+        // String filePath2 = dirPath + "/" + fileNm;
+        // BufferedWriter writer2 = new BufferedWriter(new FileWriter(filePath2, true));
+        // writer2.write(list.size());
+        // writer2.close();
+
+        // ===================================================================================
+        
+        //10년치
+        for(int i = 0; i < 30; i++){
+
+            // Movie3 목록 불러오기(년도수만큼 불러오기)
+            List<Movie3> list = serviceTest.getMovie3List(nyear);
+
+           for (Movie3 movie3 : list) {
+            movieCnt++;
             // 제목이랑 개봉일자(년도만 추출) 저장해서 영화정보 불러오기
-            movieName = movie3.getMovieNmEn();
-            year = movie3.getOpenDt().substring(0, 4); 
+            // movieName = movie3.getMovieNm();
+            year = movie3.getOpenDt().substring(0, 4);
+            nation = movie3.getNationAlt(); 
 
+            Long movieCode;
             // TMDB에서 이름 년도로 영화 정보를 불러옴
-            // 영어이름으로 요청 후 없으면 한글이름으로 다시 요청
-            Long movieCode = api.serchMovie(movieName, year);
-            if(movieCode == null){
+            // 한국영화인지 확인 후 순서 다르게
+            if(nation.contains("한국")){
                 movieName = movie3.getMovieNm();
                 movieCode = api.serchMovie(movieName, year);
+                if(movieCode == null){
+                    movieName = movie3.getMovieNmEn();
+                    movieCode = api.serchMovie(movieName, year);
+                }
             }
+            else{
+                movieName = movie3.getMovieNmEn();
+                movieCode = api.serchMovie(movieName, year);
+                if(movieCode == null){
+                    movieName = movie3.getMovieNm();
+                    movieCode = api.serchMovie(movieName, year);
+                }
+            }
+
 
             // movieCode가 null이 아니면 중복체크 후 저장, 아니면 리턴
             TMDBMovieDetail md = new TMDBMovieDetail();
@@ -166,7 +214,10 @@ public class HomeController {
                     md = api.movieDetail(movieCode);
                 else{
                     System.out.println("이미 존재하는 영화");
-                    return "main";
+                    System.out.println("현재 저장 개수: " + movieCnt);
+                    Thread.sleep(100);
+                    continue;
+                    // return "index";
                 }
             }
             else{
@@ -175,7 +226,8 @@ public class HomeController {
                 String movieString = movie3.toString();
 
                 String directoryPath = "C:/Newlec/test_csv/"; // 폴더 경로
-                String fileName = "not_save_movie.csv";
+                // String fileName = "not_save_movie.csv";
+                String fileName = String.format("not_save_movie_%s.csv", year);
 
                 // 폴더가 존재하지 않으면 폴더를 생성.
                 Path path = Paths.get(directoryPath);
@@ -230,9 +282,25 @@ public class HomeController {
 
             // kobis 영화디테일에서 채움
             KobisMovieInfo mi = kobisApi.searchMovieInfo(movie.getKobisId());
-            movie.setWatchGrade(mi.getAudits().get(0).getWatchGradeNm());
-            movie.setSponsor(mi.getCompanys().get(0).getCompanyNm());
 
+            if(mi == null){
+                kobisNullMovieDetail++;
+                sb.append(movie.getKorName()).append("/n");
+                continue;
+            }
+
+            List<Audits> audits = mi.getAudits();
+            if (audits == null || audits.isEmpty()) {
+                // audits가 null이 아니고 비어있으면 처리할 작업을 수행한다
+                kobisNullMovieDetail++;
+                sb.append(movie.getKorName()).append("/n");
+                continue;
+            } 
+
+
+            movie.setWatchGrade((mi.getAudits().isEmpty() || mi.getAudits() == null) ? null : mi.getAudits().get(0).getWatchGradeNm());
+            movie.setSponsor((mi.getCompanys().isEmpty() || mi.getCompanys() == null) ? null : mi.getCompanys().get(0).getCompanyNm());
+            
             // tmdb에서 채움
             movie.setTmdbId(md.getId());
             movie.setMovieIntro(md.getOverview());
@@ -262,6 +330,7 @@ public class HomeController {
             for (String strUrl : md.getStillCuts()) {
                 stillcut.setUrl(strUrl);
                 stillcutService.add(stillcut);   
+                Thread.sleep(100);
             }
 
             // actor 테이블 저장
@@ -289,6 +358,8 @@ public class HomeController {
                 }
                 else
                     actorId = actor.getId();
+                Thread.sleep(150);
+
 
                 // movieActor 테이블 저장
                 {
@@ -301,15 +372,20 @@ public class HomeController {
 
                     // 리스트에 저장할 필요가 있나?
                     // movieActors.add(movieActor);
+                    // 저장 전에 중복 체크
+                    boolean isExist = movieActorService.checkMovieActor(movieActor);
 
                     //db에 저장
-                    movieActorService.add(movieActor);
+                    if(!isExist)
+                        movieActorService.add(movieActor);
                 }
+                Thread.sleep(120);
             }
 
             // director 테이블 저장
             List<Crew> crews = md.getCrews();
             for (Crew crew : crews) {
+                Thread.sleep(150);
                 String tmdbId = crew.getId();
 
                 // db에 tmdbId가 있는지 체크 후 저장하거나 배우ID 가져오기
@@ -341,12 +417,21 @@ public class HomeController {
                     // db에 저장
                     movieDirectorService.add(movieDirector);
                 }
+                Thread.sleep(100);
+            }
+            System.out.println(sb);
+            System.out.println("영진위 영화 디테일 값 없음: " + kobisNullMovieDetail);
+            System.out.println("현재 저장 개수: " + movieCnt);
+            System.out.println("총 개수: " + list.size());
+            Thread.sleep(1100);
             }
 
+            int num = Integer.parseInt(nyear);
+            num--;
+            nyear = Integer.toString(num);
+            movieCnt = 0;
         }
-
-        
-        return "main";
+        return "index";
     }
 
 }

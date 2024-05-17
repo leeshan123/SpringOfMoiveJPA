@@ -34,4 +34,9 @@ public class MovieActorServiceImp implements MovieActorService{
         return list;
     }
 
+    @Override
+    public boolean checkMovieActor(MovieActor movieActor) {
+        return repository.checkId(movieActor);
+    }
+
 }
