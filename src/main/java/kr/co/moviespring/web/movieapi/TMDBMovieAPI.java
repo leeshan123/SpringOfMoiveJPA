@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -77,7 +78,7 @@ public class TMDBMovieAPI {
     
 
     // 전달받은 코드로 movie-detatil에서 검색, 검색된 결과가 없으면 null을 반환
-    public TMDBMovieDetail movieDetail(Long movieCode) throws IOException{
+    public TMDBMovieDetail movieDetail(Long movieCode) throws IOException, InterruptedException{
 
         //반환할 데이터 객체 생성
         TMDBMovieDetail movieDetail = new TMDBMovieDetail();
@@ -206,7 +207,7 @@ public class TMDBMovieAPI {
 
         }
 
-
+        Thread.sleep(100);
         // 비디오 없으면 다시 받아오기
         if(movieDetail.getResults().size() == 0)
         {
@@ -243,6 +244,7 @@ public class TMDBMovieAPI {
             movieDetail.setResults(resultList);
         }
 
+        Thread.sleep(100);
         // 스틸컷
         {
             String reqUrl = String.format("https://api.themoviedb.org/3/movie/%d/images", movieCode);
@@ -299,7 +301,13 @@ public class TMDBMovieAPI {
         // 채울 데이터
         TMDBPersonDetails personDetails = new TMDBPersonDetails();
 
-        OkHttpClient client = new OkHttpClient();
+        // SocketTimeoutException: timeout 때문에 빌더에서 다시 설정, 되려나?
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                                    .connectTimeout(100, TimeUnit.SECONDS)
+                                    .readTimeout(100, TimeUnit.SECONDS)
+                                    .writeTimeout(100, TimeUnit.SECONDS)
+                                    .build();
+
         Request request = new Request.Builder()
         .url("https://api.themoviedb.org/3/person/"+personId+"?language=ko-KR")
         .get()
@@ -340,7 +348,7 @@ public class TMDBMovieAPI {
     }
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         // API 객체 생성
         TMDBMovieAPI api = new TMDBMovieAPI();
 
@@ -362,17 +370,17 @@ public class TMDBMovieAPI {
         // System.out.println(movieCode);
 
         // 아래는 영화이름하고 년도 쓰면 오버뷰 나오게 함. 영화명은 한글 영문 모두 가능
-        // while(true){
-        //     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        //     String movieName = br.readLine();
-        //     String movieYear = br.readLine();
-        //     Long movieCode = api.serchMovie(movieName, movieYear);
-        //     TMDBMovieDetail entity = api.movieDetail(movieCode);
-        //     if(entity != null)
-        //         System.out.println(entity.getOverview());
-        //     else
-        //         System.out.println("영화 없음");
-        // }
+        while(true){
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String movieName = br.readLine();
+            String movieYear = br.readLine();
+            Long movieCode = api.serchMovie(movieName, movieYear);
+            TMDBMovieDetail entity = api.movieDetail(movieCode);
+            if(entity != null)
+                System.out.println(entity.getOverview());
+            else
+                System.out.println("영화 없음");
+        }
 
 
         // API 요청

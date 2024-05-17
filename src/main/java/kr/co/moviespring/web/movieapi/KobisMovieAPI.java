@@ -176,6 +176,10 @@ public class KobisMovieAPI {
  
             // JSON 객체로  변환
             JSONObject responseBody = new JSONObject(response.toString());
+
+            // 예외처리
+            if(!responseBody.has("movieInfoResult"))
+                return null;
  
             // 데이터 추출
             JSONObject movieInfoResult = responseBody.getJSONObject("movieInfoResult").getJSONObject("movieInfo");
