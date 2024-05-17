@@ -74,6 +74,7 @@ voteBox.onclick = function(e) {
                     break;
                 case 1:
                     alert("좋아요 성공");
+                    likeButtonBox.classList.add()
                     // 현재 값 가져오기
                     let currentLikeCount = Number(likeCount.innerText);
                     // 값 증가
