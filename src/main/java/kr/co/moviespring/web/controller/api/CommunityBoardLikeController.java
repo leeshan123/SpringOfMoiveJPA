@@ -23,7 +23,6 @@ public class CommunityBoardLikeController {
         Long userId = userDetails.getId();
         int status = service.like(boardId, userId, 1); //좋아요는 status값으로 1을 전송하고 1을 리턴 받음
 
-//        System.out.printf("게시글 아이디 좋아요: %d ",boardId);
         return status;
     }
 

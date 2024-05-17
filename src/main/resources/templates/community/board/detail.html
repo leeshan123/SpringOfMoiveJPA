@@ -37,7 +37,7 @@ layout:decorate="inc/layout">
                         </span>
                     </div>
                     <span class="fs:2 color:base-6">조회수<span class="fw:bold margin-left:1 color:base-10" th:text="${board.hit}">1004</span></span>
-                    <span class="fs:2 color:base-6">좋아요<span class="fw:bold margin-left:1 color:base-10">18</span></span>
+                    <span class="fs:2 color:base-6">좋아요<span class="fw:bold margin-left:1 color:base-10" th:text="${board.likeCount}">18</span></span>
                     <span class="fs:2 color:base-6">댓글<span class="fw:bold margin-left:1 color:base-10" th:text="${board.commentCount}">28</span></span>
                 </div>
                 <div class="padding-y:3 border-top margin-bottom:10">
@@ -46,13 +46,13 @@ layout:decorate="inc/layout">
                     <p th:utext="${board.contents}">작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다</p>
                 </div>
                 <div class="d:flex jc:center">
-                    <div id="vote-box" class="d:flex gap:3">
+                    <div th:data-boardid="${board.id}" id="vote-box" class="d:flex gap:3">
                         <button class="d:flex flex-direction:column ai:center border border-radius:1 p:1 vote-box gap:1 like-box">
-                            <span class="fw:2 color:base-10">14</span>
+                            <span class="fw:2 color:base-10" th:text="${board.likeCount}">좋아요 수</span>
                             <span class="icon icon:thumbs_up icon-color:accent-1">아이콘</span>
                         </button>
                         <button class="d:flex flex-direction:column ai:center border border border-radius:1 p:1 vote-box gap:1 dislike-box">
-                            <span class="fw:2 color:base-10">3</span>
+                            <span class="fw:2 color:base-10" th:text="${disLikeCount}">싫어요 수</span>
                             <span class="icon icon:thumbs_down icon-color:sub-1">아이콘</span>
                         </button>
                     </div>

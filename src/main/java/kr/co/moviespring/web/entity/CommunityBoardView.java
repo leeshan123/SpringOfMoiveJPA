@@ -23,5 +23,6 @@ public class CommunityBoardView {
  private Long categoryId;
  private String nickname;
  private Long commentCount;
+ private Long likeCount;
 
 }

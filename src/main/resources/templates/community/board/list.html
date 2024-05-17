@@ -64,7 +64,7 @@
                                 </td>
                                 <td th:text="${board.nickname}" class="txt-al:start py:1">작성자</td>
                                 <td th:text="${board.hit}" class="txt-al:center py:1">조회수</td>
-                                <td class="txt-al:center py:1">123</td>
+                                <td th:text="${board.likeCount}" class="txt-al:center py:1">123</td>
                                 <td class="txt-al:center py:1" th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}">작성일
                                 </td>
                             </tr>
