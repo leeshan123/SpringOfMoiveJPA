@@ -285,7 +285,7 @@ public class HomeController {
 
             if(mi == null){
                 kobisNullMovieDetail++;
-                sb.append(movie.getKorName()).append("/n");
+                sb.append(movie.getKorName()).append("\n");
                 continue;
             }
 
@@ -293,7 +293,7 @@ public class HomeController {
             if (audits == null || audits.isEmpty()) {
                 // audits가 null이 아니고 비어있으면 처리할 작업을 수행한다
                 kobisNullMovieDetail++;
-                sb.append(movie.getKorName()).append("/n");
+                sb.append(movie.getKorName()).append("\n");
                 continue;
             } 
 
