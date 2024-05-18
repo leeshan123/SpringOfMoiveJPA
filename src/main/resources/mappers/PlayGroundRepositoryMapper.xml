@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.moviespring.web.repository.PlayGroundRepository">
+
+	<insert id="save" parameterType="PlayGroundBoard">
+		INSERT INTO play_ground_board (title, movie_id, betting_title, vote_end_date, dead_line_date, admin_id)
+		VALUES (#{title}, #{movieId},#{bettingTitle}, #{voteEndDate}, #{deadLineDate}, #{adminId})
+	</insert>
+
+	<select id="findAll" resultType="PlayGroundBoard">
+		select * from play_ground_board order by dead_line_date
+
+	</select>
+
+	<delete id="delete">
+		delete from play_ground_board
+		where id = #{id}
+	</delete>
+
+
+
+</mapper>
+

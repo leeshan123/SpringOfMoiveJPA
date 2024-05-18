@@ -9,35 +9,53 @@
       .main-container {
         width: 980px; margin: 0 auto; 
         height: 100%;
-      } 
-      .sec_container {
-        max-width: 980px;
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
-        color: #262F45;
       }
+
 
     </style>
 
 
 </head>
 <body>
-  <main layout:fragment="main">
+  <main layout:fragment="main" >
+
+
     <div class="bg-color:base-3 h:1">
       <div class="main-container fs:5 fw:3 
       d:flex align-items:center">놀이터 관리</div>
     </div>
-    <section class="sec_container">
-      <h1 class="d:none">관객수 놀이터 관리자 페이지</h1>
-        <div class="d:flex jc:center">
-              <div class="d:flex">
-                  <button id="reg-btn" type="button" class="n-btn n-btn-size:2 w:3">
-                      놀이터 글 등록
-                  </button>
-              </div>
-        </div>
-    </section>
+        <section class="main-container">
+
+            <div th:each="pgbList:${pgbList}" class="d:flex bd-bottom bd-color:base-5 ai:center gap:1">
+                        <div class="fs:4 fw:bold h:1 d:flex ai:center flex-grow:1">
+                            <a th:href="@{/event/detail(id = ${pgbList.id})}">롯데시네마 할인정보</a>
+                        </div>
+                        <div>
+                            <button type="button" class="n-btn n-btn-color:main">수정</button>
+                        </div>
+                        <div>
+                            <button type="button" class="n-btn n-btn-color:accent delete-btn" th:attr="data-id=${pgbList.id}">삭제</button>
+                        </div>
+                    </div>
+
+                    <div class="d:flex jc:center mt:3">
+                  <div class="d:flex">
+                      <button id="reg-btn" type="button" class="n-btn n-btn-size:2 w:3">
+                          놀이터 글 등록
+                      </button>
+                  </div>
+            </div>
+        </section>
+        <!--삭제를 위한 Modal-->
+      <section id="modal" class="n-modal d:none" tabindex="-1">
+          <h1 class="n-font:subtitle text-align:center">삭제하시겠습니까?</h1>
+          <div class="mt:4">
+              <button id="close-btn" type="button" class="n-btn n-btn:outline w:2">뒤로가기</button>
+              <button id="real-delete-btn" type="button" class="n-btn n-btn-color:accent w:2">삭제</button>
+
+          </div>
+      </section>
+      <div id="modal-backdrop" class="backdrop d:none"></div>
 
   </main>
 

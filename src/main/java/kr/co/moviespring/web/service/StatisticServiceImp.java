@@ -1,6 +1,6 @@
-package kr.co.moviespring.web.service.admin;
+package kr.co.moviespring.web.service;
 
-import kr.co.moviespring.web.repository.admin.StatisticRepository;
+import kr.co.moviespring.web.repository.StatisticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class StatisticServiceImp implements StatisticService{
+public class StatisticServiceImp implements StatisticService {
 
     @Autowired
     StatisticRepository repository;

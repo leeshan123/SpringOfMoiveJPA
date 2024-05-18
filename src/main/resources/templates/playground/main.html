@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="inc/layout">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="subject" content="영화의 봄" />
+<meta name="description" content="영화 관련 배팅 사이트 입니다." />
+<meta name="keywords" content="백앤드 개발자, 영화 페이지, 웹사이트 만들기">
+<meta name="author" content="이승환, 서민석, 반준순, 이택평" />
+    <title>관객놀이터 - 영화의봄</title>
     <script type="module" src="../js/playground/playground.js"></script>
-<title>관객놀이터 - 영화의봄</title>
+
     <style>
         .sec_container {
-            max-width: 980px;
-            width: 100%;
+            min-width: 780px;
             height: 100%;
-            margin: 0 auto;
+            margin: 20px auto 50px auto;
             color: #262F45;
         }
 
@@ -23,6 +27,33 @@
         .line-height {
             line-height: 28px;
         }
+        .betting_wrap{
+            width:100%;
+            margin-bottom: 30px;
+            box-sizing: border-box;
+        }
+        .betting_wrap .flex-box{
+            width:980px;
+            justify-content: space-between;
+        }
+        .betting_wrap .text-box{
+            width:780px;
+            box-sizing: border-box;
+        }
+        .betting_wrap .title-box,
+        .betting_wrap .icon2_box{
+            margin-bottom: 15px;
+        }
+        .betting_wrap .icon_num{
+            margin-right: 15px;
+        }
+        .betting_wrap .title-box div:nth-child(3){
+            margin-left:10px;
+        }
+        .date_box,
+        .button_box{
+            margin-top:15px;
+        }
     </style>
 </head>
 
@@ -31,39 +62,39 @@
     <main layout:fragment="main" class="media">
             <section class="sec_container">
                 <h1 class="d:none">베팅리스트</h1>
-                <section th:each="c,cCount : ${#numbers.sequence(1,5)}" class="mb:4 h:5">
+                <section th:each="c,cCount : ${#numbers.sequence(1,5)}" class="h:5 betting_wrap">
                     <h1 class="d:none">베팅내용</h1>
-                    <div class="d:flex ">
-                        <div><img class="bd-radius:2" src="http://image.tmdb.org/t/p/original/ukVVnY9ovwl78WE5KndcpA6SnAm.jpg" height="250px" alt=""></div>
-                        <div class="d:flex flex-direction:column ai:center fl-grow:1 gap:2">
-                            <div class="d:flex ai:center jc:center gap:2">
+                    <div class="d:flex flex-box">
+                        <div class="img_box"><img class="bd-radius:2" src="http://image.tmdb.org/t/p/original/ukVVnY9ovwl78WE5KndcpA6SnAm.jpg" height="250px" alt=""></div>
+                        <div class="d:flex flex-direction:column text-box">
+                            <div class="d:flex title-box">
                             <div
-                                    class="icon-size d:inline-block bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
+                                    class="icon-size d:inline-block bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold icon_num"
                                     th:text="${cCount.count}">1</div>
                             <div class="fw:bold fs:4">"서울의 봄" 천만 돌파 가능!?</div>
                                 <div class="color:accent-2">투표 마감: 24.05.09까지</div>
                             </div>
-                            <div class="d:flex color:base-6 ai:center gap:2">
+                            <div class="d:flex color:base-6 gap:2 icon2_box">
                                 <span class="icon icon:user">아이콘</span>
                                 <span th:text="'200명'+' 참여중'">참여인원</span>
                             </div>
-                            <div class="w:10p d:flex jc:space-between fw:bold ">
-                                <div class="ml:2">1000만 이하</div>
-                                <div>VS</div>
-                                <div class="mr:2">1000만 이상</div>
-                            </div>
+                            <ul class="w:10p d:flex jc:space-between fw:bold ">
+                                <li class="ml:2">1000만 이하</li>
+                                <li>VS</li>
+                                <li class="mr:2">1000만 이상</li>
+                            </ul>
                             <div class="n-progress bd-radius:4">
                                 <div style="width: 35%;" class=""></div>
-                                <span class="d:flex ai:center ml:auto"></span>
+                                <span class="d:flex ml:auto"></span>
                             </div>
-                            <div class="w:10p d:flex jc:space-between fw:bold mr:2">
-                                <div class="ml:5">2.522</div>
-                                <div>누적 포인트 123,456,789</div>
-                                <div class="mr:5">1.35</div>
-                            </div>
-                            <div class="w:10p d:flex flex-direction:column jc:center ai:center color:base-6 fl-grow:1 gap:2">
+                            <ul class="w:10p d:flex jc:space-between fw:bold mr:2">
+                                <li class="ml:5">2.522</li>
+                                <li>누적 포인트 123,456,789</li>
+                                <li class="mr:5">1.35</li>
+                            </ul>
+                            <div class="w:10p d:flex flex-direction:column color:base-6 fl-grow:1 gap:2 button_box">
                                     <button class="n-btn n-btn-size:3 w:2" id="betting-btn">참여하기</button>
-                                <div class=" color:base-6">
+                                <div class=" color:base-6 date_box">
                                         24.05.29 집계마감
                                 </div>
                             </div>

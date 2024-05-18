@@ -2,6 +2,7 @@ package kr.co.moviespring.web.controller;
 
 import java.util.List;
 
+import org.codehaus.groovy.transform.SourceURIASTTransformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,6 +58,7 @@ public class TwoWeeksMovieController {
             VoteMemberList voteMember = TWMovieService.vote(memberId, movieId);
             return "redirect:/2weeks/list";
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return "redirect:/2weeks/list?error=unknown";
         }
 
