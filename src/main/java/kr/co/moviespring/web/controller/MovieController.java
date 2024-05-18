@@ -141,7 +141,7 @@ public class MovieController {
     // }
     // 한줄평 등록//
     @PostMapping("comment")
-    public String comment(String comments, int rate, @RequestParam("movieid") Long movieId,
+    public String comment(String comments, @RequestParam(value = "rate", defaultValue = "15000") int rate, @RequestParam("movieid") Long movieId,
                           @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         Long memberId = userDetails.getId();

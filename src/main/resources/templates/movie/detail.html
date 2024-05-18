@@ -158,7 +158,7 @@
                         <div class="display:flex justify-content:space-between fs:4">
                             <input type="text" name="movieid" th:value="${movie.id}" class="d:none">
                             <!-- <span class="icon icon-size:5 icon:hand_coins">아이콘</span> -->
-                            <select class="n-select" id="rate" name="rate">
+                            <select class="n-select" id="rate" name="rate" type="">
 <!--                                <option selected value="0" >적정가격을 골라주세요</option>-->
                                 <option disabled selected value="15000">적정가격을 골라주세요</option>
                                 <option th:selected="${myReview != null and myReview.memberRate == 0}" value="0">0원</option>

@@ -18,8 +18,11 @@ public class CommunityBoardLikeServiceImp implements CommunityBoardLikeService {
     }
 
     @Override
-    public int getByMemberId(Long boardId, Long memberId) {
-        return 0;
+    public Integer getStatusById(Long boardId, Long memberId) {
+        Integer result = repository.getStatusById(boardId, memberId);
+        if (result == null)
+            return 0;
+        return result;
     }
 
     @Override

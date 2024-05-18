@@ -10,12 +10,17 @@
         VALUES (#{boardId},#{memberId},#{status});
     </insert>
 
-    <!--좋아요/싫어요/총 개수-->
+    <!--좋아요/싫어요 개수-->
     <select id="getCount" resultType="Integer">
         SELECT count(*) FROM community_board_like WHERE community_board_id = #{boardId}
             <if test="status != null">
                 AND status = #{status}
             </if>
+    </select>
+
+    <!--멤버의 게시글 좋아요 여부-->
+    <select id="getStatusById" resultType="Integer">
+        SELECT status FROM community_board_like WHERE community_board_id = #{boardId} AND member_id = #{memberId}
     </select>
 
 </mapper>

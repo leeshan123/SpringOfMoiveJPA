@@ -26,12 +26,17 @@ public class CommunityBoardLikeController {
         return status;
     }
 
-    @PostMapping("dislike")
-    public int disLike(@RequestBody String boardId,
+    @PostMapping("{boardId}/dislike")
+    public int disLike(@PathVariable Long boardId,
                        @AuthenticationPrincipal CustomUserDetails userDetails) {
 //        @RequestBody LikeRequest LikeRequest
-        System.out.printf("게시글 아이디 싫어요 : %d ",Long.parseLong(boardId));
-        return 200;
+        if (userDetails == null)
+            return 100; //로그인하지 않은 유저가 좋아요 누를시 100 전송
+
+        Long userId = userDetails.getId();
+        int status = service.disLike(boardId, userId, -1); //싫어요는 status값으로 -1을 전송하고 -1을 리턴 받음
+
+        return status;
     }
 
 }

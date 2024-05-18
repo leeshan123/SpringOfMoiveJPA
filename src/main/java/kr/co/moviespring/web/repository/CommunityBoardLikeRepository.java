@@ -12,4 +12,6 @@ public interface CommunityBoardLikeRepository {
     void save(Long boardId, Long memberId, int status);
     //좋아요/싫어요/총 개수
     Integer getCount(Long boardId, int status);
+    //멤버의 게시글 좋아요 여부
+    Integer getStatusById(Long boardId, Long memberId);
 }

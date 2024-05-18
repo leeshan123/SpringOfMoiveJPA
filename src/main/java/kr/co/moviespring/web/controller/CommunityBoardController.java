@@ -120,8 +120,11 @@ public class CommunityBoardController {
         communityBoardRepository.updateHit(boardId); //게시글 조회시마다 조회수 1증가 로직, 서비스단이 필요없는것같아 리포지토리 바로 호출
         // CommunityBoard board = communityBoardService.getById(boardId); 예전버전
         Category category = categoryService.getByName(categoryName);
-//        Integer likeCount = communityBoardLikeService.getCount(boardId, 1); //2번째 인자값 => 1 = 좋아요 개수 / 2 = 싫어요 개수 / 생략 = 총 개수
+//        Integer likeCount = communityBoardLikeService.getCount(boardId, 1); //2번째 인자값 => 1 = 좋아요 개수 / 2 = 싫어요 개수
         Integer disLikeCount = communityBoardLikeService.getCount(boardId, -1);
+        Integer status = communityBoardLikeService.getStatusById(boardId, memberId); //유저의 좋아요 여부 / 1 = 좋아요 , -1 = 싫어요 , 0 = 투표안함
+        System.out.println(status);
+
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("board", board);
@@ -129,6 +132,7 @@ public class CommunityBoardController {
         model.addAttribute("category", category);
 //        model.addAttribute("likeCount", likeCount); //보드view에 좋아요 개수가 담겨서 오므로 필요 없어짐
         model.addAttribute("disLikeCount", disLikeCount);
+        model.addAttribute("status", status);
 
         return "community/board/detail";
     }
