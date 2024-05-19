@@ -10,4 +10,10 @@ public interface PlayGroundService {
     List<PlayGroundBoard> getBoardList();
 
     void deleteById(Long id);
+
+    PlayGroundBoard getById(Long id);
+
+    void EditBoard(PlayGroundBoard playGroundBoard);
+
+    List<PlayGroundBoard> getBoardMovieList();
 }

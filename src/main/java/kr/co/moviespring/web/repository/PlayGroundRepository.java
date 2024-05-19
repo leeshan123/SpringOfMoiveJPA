@@ -13,4 +13,10 @@ public interface PlayGroundRepository {
     List<PlayGroundBoard> findAll();
 
     void delete(Long id);
+
+    PlayGroundBoard findById(Long id);
+
+    void update(PlayGroundBoard playGroundBoard);
+
+    List<PlayGroundBoard> findAllPlusMovie();
 }

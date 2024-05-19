@@ -9,7 +9,7 @@
 <meta name="keywords" content="백앤드 개발자, 영화 페이지, 웹사이트 만들기">
 <meta name="author" content="이승환, 서민석, 반준순, 이택평" />
     <title>관객놀이터 - 영화의봄</title>
-    <script type="module" src="../js/playground/playground.js"></script>
+    <script type="module" src="../js/playground/playground.js" defer></script>
 
     <style>
         .sec_container {
@@ -61,27 +61,29 @@
 <body>
     <main layout:fragment="main" class="media">
             <section class="sec_container">
-                <h1 class="d:none">베팅리스트</h1>
-                <section th:each="c,cCount : ${#numbers.sequence(1,5)}" class="h:5 betting_wrap">
-                    <h1 class="d:none">베팅내용</h1>
+                <h1 class="d:none ">베팅리스트</h1>
+                <section  th:each="pbg,pgbList:${pgbList}" th:count="true" class="h:5 betting_wrap">
+                    <h1 class="d:none" >베팅내용</h1>
                     <div class="d:flex flex-box">
-                        <div class="img_box"><img class="bd-radius:2" src="http://image.tmdb.org/t/p/original/ukVVnY9ovwl78WE5KndcpA6SnAm.jpg" height="250px" alt=""></div>
+                        <div class="img_box"><img class="bd-radius:2"
+                                                  th:src="${pbg.posterUrl}"
+                                                  src="http://image.tmdb.org/t/p/original/ukVVnY9ovwl78WE5KndcpA6SnAm.jpg" height="250px" alt=""></div>
                         <div class="d:flex flex-direction:column text-box">
                             <div class="d:flex title-box">
                             <div
                                     class="icon-size d:inline-block bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold icon_num"
-                                    th:text="${cCount.count}">1</div>
-                            <div class="fw:bold fs:4">"서울의 봄" 천만 돌파 가능!?</div>
-                                <div class="color:accent-2">투표 마감: 24.05.09까지</div>
+                                    th:text="${pgbList.count}">1</div>
+                            <div class="fw:bold fs:4" th:text="${pbg.title}">"서울의 봄" 천만 돌파 가능!?</div>
+                                <div class="color:accent-2" th:text="${pbg.voteEndDate}">투표 마감: 24.05.09까지</div>
                             </div>
                             <div class="d:flex color:base-6 gap:2 icon2_box">
                                 <span class="icon icon:user">아이콘</span>
                                 <span th:text="'200명'+' 참여중'">참여인원</span>
                             </div>
                             <ul class="w:10p d:flex jc:space-between fw:bold ">
-                                <li class="ml:2">1000만 이하</li>
+                                <li class="ml:2" th:text="${pbg.bettingTitle}+ ' 이상'">1000만 이하</li>
                                 <li>VS</li>
-                                <li class="mr:2">1000만 이상</li>
+                                <li class="mr:2" th:text="${pbg.bettingTitle}+ ' 이하'">1000만 이상</li>
                             </ul>
                             <div class="n-progress bd-radius:4">
                                 <div style="width: 35%;" class=""></div>
@@ -94,7 +96,7 @@
                             </ul>
                             <div class="w:10p d:flex flex-direction:column color:base-6 fl-grow:1 gap:2 button_box">
                                     <button class="n-btn n-btn-size:3 w:2" id="betting-btn">참여하기</button>
-                                <div class=" color:base-6 date_box">
+                                <div class=" color:base-6 date_box" th:text="${pbg.deadLineDate}">
                                         24.05.29 집계마감
                                 </div>
                             </div>

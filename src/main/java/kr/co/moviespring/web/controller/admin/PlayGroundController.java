@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -69,10 +70,14 @@ public class PlayGroundController {
             @AuthenticationPrincipal CustomUserDetails userDetails
     ){
 
+        String MovieId = "";
 
+        if(moiveQuery.indexOf("(") != -1 && moiveQuery.indexOf(")") != -1) {
+            MovieId = moiveQuery.substring(moiveQuery.lastIndexOf("(") + 1, moiveQuery.lastIndexOf(")"));
+        } else {
+            MovieId = moiveQuery;
+        }
 
-
-        String MovieId = moiveQuery.substring(moiveQuery.lastIndexOf("(")+1,moiveQuery.lastIndexOf(")"));
 
 
         // BettingBoard 객체 생성
@@ -110,13 +115,72 @@ public class PlayGroundController {
     }
 
     @GetMapping("edit")
-    public String edit() {
+    public String edit(
+            @RequestParam("id") Long id,
+            Model model
+    ) {
+        PlayGroundBoard playGroundBoard = playGroundService.getById(id);
+        model.addAttribute("pgBoard", playGroundBoard);
+
+        //날짜를 넣기 위한 나의 눈물나는 노력
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String voteEndDateString = dateFormat.format(playGroundBoard.getVoteEndDate());
+        String deadLineDateString = dateFormat.format(playGroundBoard.getDeadLineDate());
+        model.addAttribute("voteEndDateString", voteEndDateString);
+        model.addAttribute("deadLineDateString", deadLineDateString);
+
+
 
 
 
 
         return "admin/playground/edit";
     }
+
+    @PostMapping("edit")
+    public String edit(
+            @RequestParam("id") Long id,
+            @RequestParam("title") String title,
+            @RequestParam("betting_title") String bettingTitle,
+            @RequestParam("movie_query") String moiveQuery,
+            @RequestParam("vote_end_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date voteEndDate,
+            @RequestParam("dead_line_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date deadLineDate,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ){
+
+        String MovieId = "";
+
+        if(moiveQuery.indexOf("(") != -1 && moiveQuery.indexOf(")") != -1) {
+            MovieId = moiveQuery.substring(moiveQuery.lastIndexOf("(") + 1, moiveQuery.lastIndexOf(")"));
+        } else {
+            MovieId = moiveQuery;
+        }
+
+
+        // BettingBoard 객체 생성
+        PlayGroundBoard playGroundBoard = PlayGroundBoard.builder()
+                .title(title)
+                .movieId(MovieId)
+                .bettingTitle(bettingTitle)
+                .voteEndDate(voteEndDate)
+                .deadLineDate(deadLineDate)
+                .adminId(userDetails.getId())
+                .build();
+
+        playGroundBoard.setId(id);
+
+
+
+        playGroundService.EditBoard(playGroundBoard);
+
+
+
+
+
+
+        return "redirect:/admin/playground/main";
+
+        }
 
 
 }

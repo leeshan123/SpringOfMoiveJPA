@@ -7,6 +7,7 @@ window.addEventListener('load', function () {
 
     //베팅 버튼을 눌렀을때
     openButton.addEventListener('click', function () {
+        console.log("betting-btn");
         modal.classList.remove('d:none');
         modalBackdrop.classList.remove('d:none');
         modal.classList.add('modal-fade-in');

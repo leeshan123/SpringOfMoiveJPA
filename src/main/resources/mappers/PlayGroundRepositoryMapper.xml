@@ -4,6 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.moviespring.web.repository.PlayGroundRepository">
 
+
 	<insert id="save" parameterType="PlayGroundBoard">
 		INSERT INTO play_ground_board (title, movie_id, betting_title, vote_end_date, dead_line_date, admin_id)
 		VALUES (#{title}, #{movieId},#{bettingTitle}, #{voteEndDate}, #{deadLineDate}, #{adminId})
@@ -18,6 +19,40 @@
 		delete from play_ground_board
 		where id = #{id}
 	</delete>
+
+	<select id="findById" resultType="PlayGroundBoard">
+		select * from play_ground_board where id = #{id}
+	</select>
+
+	<update id="update" parameterType="PlayGroundBoard">
+		update play_ground_board
+		set title = #{title},
+			movie_id = #{movieId},
+			betting_title = #{bettingTitle},
+			vote_end_date = #{voteEndDate},
+			dead_line_date = #{deadLineDate},
+			admin_id = #{adminId}
+		where id = #{id}
+	</update>
+
+	<resultMap id="PlayGroundBoardResultMap" type="kr.co.moviespring.web.entity.PlayGroundBoard">
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="movie_id" property="movieId"/>
+		<result column="betting_title" property="bettingTitle"/>
+		<result column="vote_end_date" property="voteEndDate"/>
+		<result column="dead_line_date" property="deadLineDate"/>
+		<result column="total_betting_point" property="totalBettingPoint"/>
+		<result column="hit" property="hit"/>
+		<result column="admin_id" property="adminId"/>
+		<result column="poster_url" property="posterUrl"/>
+	</resultMap>
+
+	<select id="findAllPlusMovie" resultMap="PlayGroundBoardResultMap">
+		SELECT p.*, m.poster_url poster_url
+		FROM play_ground_board p
+		JOIN movie m ON p.movie_id = m.id
+	</select>
 
 
 

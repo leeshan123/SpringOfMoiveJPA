@@ -5,6 +5,7 @@ window.addEventListener('load', function () {
     openButton.addEventListener('click', () => handleButtonClick('http://localhost/admin/playground/reg'));
 
     const deleteButtons = document.querySelectorAll('.delete-btn');
+    const editButtons = document.querySelectorAll('.edit-btn');
     const closeButton = document.getElementById('close-btn');
     const modal = document.getElementById('modal');
     const modalBackdrop = document.getElementById('modal-backdrop');
@@ -17,6 +18,14 @@ window.addEventListener('load', function () {
             modal.classList.remove('d:none');
             modalBackdrop.classList.remove('d:none');
             modal.classList.add('modal-fade-in');
+        });
+    });
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            window.location.href = `http://localhost/admin/playground/edit?id=${id}`;
+
         });
     });
 

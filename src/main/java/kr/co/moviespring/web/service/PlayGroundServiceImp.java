@@ -29,4 +29,21 @@ public class PlayGroundServiceImp implements PlayGroundService{
     public void deleteById(Long id) {
         repository.delete(id);
     }
+
+    @Override
+    public PlayGroundBoard getById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public void EditBoard(PlayGroundBoard playGroundBoard) {
+        repository.update(playGroundBoard);
+    }
+
+    @Override
+    public List<PlayGroundBoard> getBoardMovieList() {
+        return repository.findAllPlusMovie();
+    }
+
+
 }
