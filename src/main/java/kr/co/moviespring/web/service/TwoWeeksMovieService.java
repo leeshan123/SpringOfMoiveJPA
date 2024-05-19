@@ -14,7 +14,7 @@ public interface TwoWeeksMovieService {
 
     String findGenreName();
     //2주의 영화 투표
-    VoteMemberList vote(Long memberId,Integer movieId);
+    void vote(Long memberId,Integer movieId);
 
     //admin 장르별 관객수 순위6위까지 검색
      void findByGenre(String childSelectValue);

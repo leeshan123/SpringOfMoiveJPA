@@ -29,6 +29,7 @@ public interface TwoWeeksMovieRepository {
     List<Movie> getEditedList();
 
     VoteMemberList addVoteToMovieList(Long memberId,Integer movieId);
+    VoteMemberList findVotedUser(Long memberId);
 
 
 

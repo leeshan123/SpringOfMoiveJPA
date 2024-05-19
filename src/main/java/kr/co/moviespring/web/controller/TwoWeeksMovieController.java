@@ -1,8 +1,8 @@
 package kr.co.moviespring.web.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-import org.codehaus.groovy.transform.SourceURIASTTransformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,40 +35,35 @@ public class TwoWeeksMovieController {
 
     @GetMapping("list")
     public String list(Model model) {
-        //2주영화 목록
+        // 2주영화 목록
         List<totalVoteView> TWMovie = TWMovieService.findByMovieCd();
-        //테마이름
+        // 테마이름
         String genre = TWMovieService.findGenreName();
-        //투표합계
-        Long totalVote =TWMovieService.findTotalVote();
-
+        // 투표합계
+        Long totalVote = TWMovieService.findTotalVote();
         // if (TWMovie == null)
-        //     System.out.println("조회할 정보가 없습니다");
+        // System.out.println("조회할 정보가 없습니다");
 
         model.addAttribute("Tm", TWMovie);
         model.addAttribute("g", genre);
-        model.addAttribute("v", totalVote);
+        // model.addAttribute("v", totalVote);
+        model.addAttribute("v", totalVote != null ? totalVote : 0);
         return "2weeks/list";
     }
 
+    // public void endVotingAndSelectWeeklyMovie() {
+
+    //     // TWMovieService.findRegDate();
+
+    //     LocalDateTime now = LocalDateTime.now();
+    //     LocalDateTime endOfVotingTime = now.plusDays(7);
+    // }
+
+    // exception 예외처리 투표 안한 아이디로 투표해도 에러뜸
     @PostMapping("list")
     public String voteMovie(@RequestParam("memberId") Long memberId,
-            @RequestParam("movieId") Integer movieId) {
-        try {
-            VoteMemberList voteMember = TWMovieService.vote(memberId, movieId);
-            return "redirect:/2weeks/list";
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return "redirect:/2weeks/list?error=unknown";
+        @RequestParam("movieId") Integer movieId) {
+            TWMovieService.vote(memberId, movieId);
+        return "redirect:/2weeks/list";
         }
-
-    }
-
-    // sql pk중복오류 반환 exception 이름이 뭐임;
-    // public class DuplicateDataException extends
-    //         SQLIntegrityConstraintViolationException {
-    //     public DuplicateDataException(String message) {
-    //         super(message);
-    //     }
-    // }
 }

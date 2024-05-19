@@ -11,13 +11,18 @@
 	<select id="getVoteCount"> 
 	SELECT SUM(vote_count) AS total_votes FROM total_vote_view;
 	</select>
-
+	<select id="findVotedUser"> 
+	SELECT *from vote_member_list where member_id = #{memberId};
+	</select>
     <select id="getGenre"> 
 	SELECT genre from twoweek_movie_vote_list LIMIT 1;
 	</select>
     <!-- admin -->
 
-	
+	<select id="">
+	SELECT reg_date from twoweek_movie_vote_list LIMIT 1;
+	</select>
+
 	<insert id="addVoteToMovieList">
 	INSERT INTO vote_member_list (member_id,movie_id)
 	VALUES (#{memberId}, #{movieId})

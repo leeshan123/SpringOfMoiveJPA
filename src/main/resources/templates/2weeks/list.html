@@ -19,10 +19,11 @@
             <div  th:if="${param.error}">
             </div>
 
-            <script th:if="${param.error}">
-                alert("더이상 투표할수 없습니다. 다음주 영화를 기대해주세요!");
-            </script>
-
+            <div th:if="${error == 'duplicate'}">
+                <script>
+                    alert("더이상 투표할 수 없습니다. 다음주 영화를 기대해주세요!");
+                </script>
+            </div>
             <section class="d:flex fl-wrap:wrap	jc:space-between my:9 bd-top">
                 <h1 class="d:none">컨텐츠</h1>
                 <section th:each="m:${Tm}" class="py:6 mx:6 p:2 ">

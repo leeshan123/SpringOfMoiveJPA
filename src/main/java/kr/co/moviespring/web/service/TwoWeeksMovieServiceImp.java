@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import kr.co.moviespring.web.advice.GlobalExceptionHandler;
 import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.VoteMemberList;
 import kr.co.moviespring.web.entity.totalVoteView;
@@ -57,10 +59,35 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
         return genre;
     }
 
+    // @Override
+    // public void vote(Long memberId, Integer movieId) {
+    //     TWMovieRepository.addVoteToMovieList(memberId, movieId);
+    //     boolean isDuplicate = checkDuplicateVote(memberId, movieId);
+    //     if (isDuplicate) {
+    //         throw new GlobalExceptionHandler.handleDataIntegrityViolationException("Duplicate vote attempt detected.");
+    //     }
+    //     // 투표 처리
+    // }
     @Override
-    public VoteMemberList vote(Long memberId, Integer movieId) {
-        VoteMemberList voteMember = TWMovieRepository.addVoteToMovieList(memberId, movieId);
-        return voteMember;
+    public void vote(Long memberId, Integer movieId) {
+        TWMovieRepository.addVoteToMovieList(memberId, movieId);
+        boolean isDuplicate = checkDuplicateVote(memberId, movieId);
+        if (isDuplicate) {
+            throw new DataIntegrityViolationException("Duplicate vote attempt detected.");
+        }
     }
 
+    private boolean checkDuplicateVote(Long memberId, Integer movieId) {
+
+        boolean voteRecord= true;
+        VoteMemberList isVotable=TWMovieRepository.findVotedUser(memberId);
+        if (isVotable != null){
+            voteRecord = false;
+            System.out.println(voteRecord);
+        }
+        // 사용자아이디를 찾아오면 false 못찾으면 true
+        return voteRecord;
+    }
+    
+    
 }
