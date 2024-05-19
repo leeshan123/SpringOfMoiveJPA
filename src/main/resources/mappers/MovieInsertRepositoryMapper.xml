@@ -12,6 +12,39 @@
 		and 
 			open_dt like '${year}%'
 	</select>
+	
+
+	<select id="getlistByPrd" resultType="Movie3">
+		SELECT * FROM movie3
+		where 
+			rep_genre_nm not like '%에로%' 
+		and 
+			prd_year like '${year}%'
+	</select>
+
+	<select id="findByQuery" resultType="Movie3">
+		SELECT * FROM 
+			movie3
+		<where>
+			<if test="query != null">
+				movie_nm LIKE CONCAT('%', #{query}, '%')
+				OR REPLACE(movie_nm, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+				OR LOWER(movie_nm_en) LIKE CONCAT('%', LOWER(#{query}), '%')
+			</if>
+		</where>
+		LIMIT #{offset}, #{size};
+	</select>
+
+	<select id="getCount" resultType="Integer">
+		SELECT COUNT(*) FROM movie3
+		<where>
+			<if test="query != null">
+				movie_nm LIKE CONCAT('%', #{query}, '%')
+				OR REPLACE(movie_nm, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+				OR LOWER(movie_nm_en) LIKE CONCAT('%', LOWER(#{query}), '%')
+			</if>
+		</where>
+	</select>
 
 
 	<!--	일일 박스오피스 데이터 넣기-->

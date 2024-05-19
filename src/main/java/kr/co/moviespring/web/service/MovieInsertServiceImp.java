@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import kr.co.moviespring.web.entity.Movie2;
 import kr.co.moviespring.web.entity.Movie3;
+import kr.co.moviespring.web.entity.MovieSearchView;
 import kr.co.moviespring.web.repository.MovieInsertRepository;
 
 import org.apache.poi.ss.usermodel.CellType;
@@ -315,6 +316,34 @@ class MovieListInfo {
     public List<Movie3> getMovie3List(String year) {
         List<Movie3> list = repository.getlist(year);
         return list;
+    }
+
+    @Override
+    public List<Movie3> getMovie3ListByPrd(String year) {
+        List<Movie3> list = repository.getlistByPrd(year);
+        return list;
+    }
+    
+    @Override
+    public List<Movie3> getMovie3ListByQuery(Integer page) {
+        return getMovie3ListByQuery(page, null);
+    }
+    
+    @Override
+    public List<Movie3> getMovie3ListByQuery(Integer page, String query) {
+        int size = 10;
+        int offset = (page-1) * size;
+        return repository.findByQuery(query, offset, size);
+    }
+    
+    @Override
+    public int getCount() {
+        return repository.getCount(null);
+    }
+
+    @Override
+    public int getCount(String query) {
+        return repository.getCount(query);
     }
 
 

@@ -1,0 +1,133 @@
+<!-- 가안이 너무 부실함.. -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="inc/adminlayout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    .main-container {
+        width: 980px; 
+        margin: 0 auto; 
+        height: 100%;
+    }   
+
+    .main-contents {
+        width: 90%;
+        max-width: 980px;
+        margin: 0 auto;
+        min-height: 580px;
+    }
+        
+</style>
+</head>
+<body>
+    <main layout:fragment="main">
+    <div class="bg-color:base-3 h:1">
+        <div class="main-container fs:5 fw:3 d:flex jc:space-between align-items:center">
+            <span>영화관리</span>
+            <form action="list-movie3" method="get">
+                <div class="d:flex" >
+                    <input type="text" name="q" th:value="${searchQuery}" placeholder="무비3에서 검색" class="n-textbox fs:3 fw:2">
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <section class="main-contents">
+        <div class="d:flex jc:end">
+            <nav class="nav-contents mt:4 mb:1">
+                <ul class="d:flex col-gap:1 jc:flex-end">
+                    <li>
+                        <a href="list">DB 영화 관리</a> |
+                    </li>
+                    <li>
+                        <a class="fw:bold" href="list-api">API 영화 관리</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div th:each="m: ${list}" class="w:10p bd-bottom bd-color:base-5">
+            <form class="w:10p h:1 d:flex ai:center jc:space-between">
+
+                <h1 class="fs:4 fw:bold w:6" th:text="${m.movieNm}">캐리비안의 해적</h1>
+                <div>
+                    <span th:text="${m.movieNmEn}">a</span>,
+                    <span th:text="${m.openDt}">a</span>,
+                    <span th:text="${m.repGenreNm}">a</span>,
+                    <span th:text="${m.nationAlt}">a</span>
+                </div>
+                <div>
+                    <button class="n-btn" type="submit">TMDB 검색</button>
+                </div>
+            </form>
+        </div>
+
+
+        <!-- 태평: 테스트 나중에 지울거임 -->
+        <div class="d:flex jc:flex-end d:none">
+            <form style="width: 450px;" class="n-form m:4" action="save-opendt" method="post">
+                <h1 class="mb:2">영화 연도별로 저장하기(movie3의 opendt로 검색)</h1>
+                <label class="flex-direction:row ai:center gap:3">
+                    <span>연도 입력</span>
+                    <input type="text" name="nyear" placeholder="여기에 저장할 연도 입력"/>
+                </label>
+                <button class="n-btn" type="button">저장시도</button>
+            </form>
+        </div>
+
+        <div class="d:flex jc:flex-end d:none">
+            <form style="width: 450px;" class="n-form m:4" action="save-prd" method="post">
+                <h1 class="mb:2">영화 연도별로 저장하기(movie3의 Prd Year로 검색)</h1>
+                <label class="flex-direction:row ai:center gap:3">
+                    <span>연도 입력</span>
+                    <input type="text" name="nyear" placeholder="여기에 저장할 연도 입력"/>
+                </label>
+                <button class="n-btn" type="submit">저장시도</button>
+            </form>
+        </div>
+
+        <!-- <div class="h:1 d:flex jc:end ai:center">
+            <div><a href="reg" class="n-btn mr:2">게시글 등록</a></div>
+            <div>
+                <a type="button" class="deco deco-position:right deco-size:3 icon:trash 
+                icon-color:base-1 n-btn n-btn-type:filled n-btn-color:accent">삭제</a>
+            </div>
+        </div> -->
+
+        
+    </section>
+
+    <section class="mb:10">
+        <h1 class="d:none">페이저</h1>
+        <ul class="n-pager"
+            style="display:flex; justify-content:center; font-size: 20px;"
+            th:with="page=${param.p} eq null ? 1 : ${{param.p}}
+                    ,floatnum=(${page}-1)/5
+                    ,startnum=${T(java.lang.Math).floor(floatnum)} * 5 + 1
+                    ,lastnum=${count} mod 10 > 0 ? ${count div 10}+1 : ${count div 10}"
+                    >
+            <li>
+                <span style="color: rgb(189, 189, 189)" th:if="${page} lt 6">이전</span>
+                <a th:if="${page} ge 6" th:href="@{list-movie3(p=${startnum-1}, q=${searchQuery})}" href="list?p=1">이전</a>
+            </li>
+            <li th:class="${page} == ${n} ? 'active' : ''"  th:each="n : ${#numbers.sequence(startnum, startnum+4)}">
+                <a th:if="${n} le ${lastnum}" href="list?p=1" th:href="@{list-movie3(p=${n}, q=${searchQuery})}" th:text="${n}">1</a>
+                <span style="color: rgb(189, 189, 189)" th:if="${n} gt ${lastnum}" th:text="${n}"></span>
+            </li>
+            <li>
+                <span style="color: rgb(189, 189, 189)" th:if="${startnum}+4 gt ${lastnum}">다음</span> 
+                <a th:if="${startnum}+4 le ${lastnum}" th:href="@{list-movie3(p=${startnum+5}, q=${searchQuery})}">다음</a>
+            </li>
+        </ul>
+    </section>
+
+
+    </main>
+    
+</body>
+</html>

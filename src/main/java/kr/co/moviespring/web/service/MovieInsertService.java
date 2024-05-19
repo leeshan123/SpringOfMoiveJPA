@@ -2,6 +2,7 @@ package kr.co.moviespring.web.service;
 
 import kr.co.moviespring.web.entity.Movie2;
 import kr.co.moviespring.web.entity.Movie3;
+import kr.co.moviespring.web.entity.MovieSearchView;
 
 import java.util.List;
 
@@ -25,11 +26,22 @@ public interface MovieInsertService {
     // 태평, 영화3 목록 가져오기 테스트
     List<Movie3> getMovie3List(String year);
 
+    // 태평, 영화3 목록 가져오기 테스트
+    List<Movie3> getMovie3ListByPrd(String year);
+
     //엑셀에서 가져온 누적관객수 데이터 넣기.
     void excelDataInsert(List<Movie2> movie2List);
 
     //엑셀 데이터 가져오기.
     List<Movie2> getExcelData(String filePath);
+
+    List<Movie3> getMovie3ListByQuery(Integer page, String query);
+
+    List<Movie3> getMovie3ListByQuery(Integer page);
+
+    int getCount(String query);
+
+    int getCount();
 
 
 

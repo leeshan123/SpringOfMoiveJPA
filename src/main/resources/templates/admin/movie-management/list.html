@@ -25,8 +25,8 @@ layout:decorate="inc/adminlayout">
 </head>
 <body>
     <main layout:fragment="main">
-    <div class="bg-color:base-3 h:1">
-        <div class="main-container fs:5 fw:3 d:flex jc:space-between align-items:center">
+        <div class="bg-color:base-3 h:1">
+            <div class="main-container fs:5 fw:3 d:flex jc:space-between align-items:center">
             <span>영화관리</span>
             <form action="list" method="get">
                 <div class="d:flex" >
@@ -39,6 +39,18 @@ layout:decorate="inc/adminlayout">
         </div>
     </div>
     <section class="main-contents">
+        <div class="d:flex jc:end">
+            <nav class="nav-contents mt:4 mb:1">
+                <ul class="d:flex col-gap:1 jc:flex-end">
+                    <li>
+                        <a class="fw:bold" href="list">DB 영화 관리</a> |
+                    </li>
+                    <li>
+                        <a href="list-api">API 영화 관리</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
         <div th:each="m: ${list}" class="w:10p bd-bottom bd-color:base-5">
             <section class="w:10p h:1 d:flex ai:center jc:space-between">
