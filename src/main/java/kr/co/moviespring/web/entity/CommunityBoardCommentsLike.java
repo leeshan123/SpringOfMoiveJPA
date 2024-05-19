@@ -14,6 +14,6 @@ import java.time.LocalDateTime;
 public class CommunityBoardCommentsLike {
     private Long communityBoardCommentsId;
     private Long memberId;
-    private int like;
+    private int status;
     private LocalDateTime regDate;
 }

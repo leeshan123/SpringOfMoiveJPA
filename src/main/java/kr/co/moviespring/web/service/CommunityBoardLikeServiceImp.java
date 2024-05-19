@@ -1,6 +1,8 @@
 package kr.co.moviespring.web.service;
 
+import kr.co.moviespring.web.repository.CommunityBoardCommentsRepository;
 import kr.co.moviespring.web.repository.CommunityBoardLikeRepository;
+import kr.co.moviespring.web.repository.CommunityBoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class CommunityBoardLikeServiceImp implements CommunityBoardLikeService {
 
     @Autowired
-    CommunityBoardLikeRepository repository;
+    private CommunityBoardLikeRepository repository;
 
     @Override
     public Integer getCount(Long boardId, int status) {
@@ -26,14 +28,15 @@ public class CommunityBoardLikeServiceImp implements CommunityBoardLikeService {
     }
 
     @Override
-    public int like(Long boardId, Long userId, int status) {
-        repository.save(boardId, userId, status);
-        return 1;
+    public int addLikeDisLike(Long id, Long memberId, int status, String type) {
+        repository.save(id, memberId, status, type);
+        return status;
     }
 
-    @Override
-    public int disLike(Long boardId, Long userId, int status) {
-        repository.save(boardId, userId, status);
-        return -1;
-    }
+//    @Override
+//    public int disLike(Long id, Long memberId, int status, String type) {
+//        repository.save(id, memberId, status, type);
+//        return -1;
+//    }
+
 }

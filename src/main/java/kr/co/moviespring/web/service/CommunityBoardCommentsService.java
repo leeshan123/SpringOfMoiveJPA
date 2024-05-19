@@ -10,7 +10,7 @@ public interface CommunityBoardCommentsService {
     //커뮤니티 게시글 댓글달기
     void write(Long boardId, Long memberId, String content);
 
-    List<CommunityBoardCommentsView> getListById(Long boardId);
+    List<CommunityBoardCommentsView> getListById(Long boardId, Long memberId);
 
     List<CommunityBoardCommentsView> getListByMemberId(Long id);
 

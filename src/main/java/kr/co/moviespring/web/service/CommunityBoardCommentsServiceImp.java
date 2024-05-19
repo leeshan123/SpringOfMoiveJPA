@@ -23,8 +23,8 @@ public class CommunityBoardCommentsServiceImp implements CommunityBoardCommentsS
 
     //게시글 댓글 목록
     @Override
-    public List<CommunityBoardCommentsView> getListById(Long boardId) {
-        List<CommunityBoardCommentsView> list = repository.findAllById(boardId);
+    public List<CommunityBoardCommentsView> getListById(Long boardId, Long memberId) {
+        List<CommunityBoardCommentsView> list = repository.findAllById(boardId, memberId);
         return list;
     }
 

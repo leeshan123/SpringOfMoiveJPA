@@ -18,10 +18,16 @@
 
     <!--댓글 목록-->
     <select id="findAllById" resultType="CommunityBoardCommentsView">
-        SELECT cbc.id ,cbc.member_id ,cbc.community_board_id , cbc.contents ,m.nickname ,cbc.reg_date
-        FROM community_board_comments cbc
-        JOIN member m ON cbc.member_id = m.id
-        WHERE cbc.community_board_id = #{boardId}
+<!--        SELECT * FROM community_board_comments_view WHERE community_board_id = #{boardId};-->
+        SELECT v.*,
+        IFNULL(likes.status, 0) AS comment_status
+        FROM community_board_comments_view v
+        LEFT JOIN (
+        SELECT community_board_comments_id, status
+        FROM spring_of_movie_db.community_board_comments_like
+        WHERE member_id = #{memberId}
+        ) likes ON v.id = likes.community_board_comments_id
+        WHERE v.community_board_id = #{boardId}
     </select>
 
     <select id="findAllByMemberId" resultType="CommunityBoardCommentsView">

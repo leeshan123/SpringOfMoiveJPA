@@ -18,6 +18,9 @@ layout:decorate="inc/layout">
         .writer-comment-bgc {
             background-color: ghostwhite;
         }
+        button {
+            cursor: pointer;
+        }
 
     </style>
 </head>
@@ -71,9 +74,9 @@ layout:decorate="inc/layout">
                         <span class="fs:2 color:base-6" th:text="${#temporals.format(list.regDate, 'yyyy.MM.dd')}">2024.04.08</span>
                         <span class="fs:2 color:base-6" th:text="${#temporals.format(list.regDate, 'HH:mm')}">11:35</span>
                     </div>
-                    <span class="d:flex">
-                        <span class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_up margin-right:2">13</span>
-                        <span class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_down">2</span>
+                    <span th:data-commentid="${list.id}" class="d:flex comment-vote-box">
+                        <button th:text="${list.likeCount}" th:classappend="${list.commentStatus} == 1 ? 'icon-color:accent-1':'' " class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_up margin-right:2">0</button>
+                        <button th:text="${list.disLikeCount}" th:classappend="${list.commentStatus} == -1 ? 'icon-color:sub-1':'' " class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_down">0</button>
                     </span>
                     <span>
                         <span class="deco deco-size:2 icon-size:4 deco-ml:1 deco-position:right icon:chat_circle_text fs:2 fw:bold color:main-3">댓글</span>

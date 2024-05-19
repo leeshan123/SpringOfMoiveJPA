@@ -6,8 +6,14 @@
 
     <!--좋아요 , 싫어요 등록-->
     <insert id="save">
-        INSERT INTO community_board_like (community_board_id,member_id,status)
-        VALUES (#{boardId},#{memberId},#{status});
+        <if test="type == 'board'">
+            INSERT INTO community_board_like (community_board_id,member_id,status)
+            VALUES (#{id},#{memberId},#{status});
+        </if>
+        <if test="type == 'comment'">
+            INSERT INTO community_board_comments_like (community_board_comments_id,member_id,status)
+            VALUES (#{id},#{memberId},#{status});
+        </if>
     </insert>
 
     <!--좋아요/싫어요 개수-->
