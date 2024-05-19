@@ -108,4 +108,15 @@ public class PlayGroundController {
         playGroundService.deleteById(id);
         return "redirect:/admin/playground/main";
     }
+
+    @GetMapping("edit")
+    public String edit() {
+
+
+
+
+        return "admin/playground/edit";
+    }
+
+
 }
