@@ -142,3 +142,33 @@ body{
 
     /*scrollbar-gutter: stable;*/
 }
+/*상단 이동버튼*/
+/*.top-nav-btn {*/
+/*    width: 32px;*/
+/*    height: 32px;*/
+/*    position: fixed;*/
+/*    background-color: ghostwhite;*/
+/*    z-index: 100;*/
+/*    right: 20px;*/
+/*    bottom: 40px;*/
+/*}*/
+.top-nav-btn {
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    z-index: 9999;
+    background-color: ghostwhite;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s, visibility 0.5s, opacity 0.5s;
+    opacity: 0; /* 처음에는 투명하게 설정 */
+    visibility: hidden; /* 처음에는 숨김 */
+        &:hover {
+            background-color: #E2E2E2;
+        }
+}
+.top-nav-btn.show {
+    opacity: 1; /* 투명도를 1로 설정하여 나타나게 함 */
+    visibility: visible; /* 표시 여부를 visible로 설정하여 나타나게 함 */
+}

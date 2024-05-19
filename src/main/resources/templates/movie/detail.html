@@ -84,29 +84,7 @@
             border-radius: 8px;
 
         }
-
-
     </style>
-    <!--    <script>-->
-    <!--        document.addEventListener('DOMContentLoaded', function () {-->
-    <!--            document.querySelector('.gradient-overlay').addEventListener('mouseover', function () {-->
-    <!--                document.querySelector('.main-img').style.transform = 'scale(1.1)';-->
-    <!--            });-->
-
-    <!--            document.querySelector('.gradient-overlay').addEventListener('mouseout', function () {-->
-    <!--                document.querySelector('.main-img').style.transform = 'scale(1)';-->
-    <!--            });-->
-    <!--        });-->
-    <!--        document.addEventListener('DOMContentLoaded', function () {-->
-    <!--            document.querySelector('.main-img').addEventListener('mouseover', function () {-->
-    <!--                document.querySelector('.main-img').style.transform = 'scale(1.1)';-->
-    <!--            });-->
-
-    <!--            document.querySelector('.main-img').addEventListener('mouseout', function () {-->
-    <!--                document.querySelector('.main-img').style.transform = 'scale(1)';-->
-    <!--            });-->
-    <!--        });-->
-    <!--    </script>-->
 </head>
 
 <body>
@@ -198,8 +176,14 @@
                 <div class="padding-left:2 padding-right:2 display:flex fl-dir:column gap:2">
                     <!--                <span class="margin-right:auto icon icon-size:5 icon:hand_coins">아이콘</span>-->
                     <!--                <span class="fs:6 fw:3">감정가</span>-->
-                    <div class="fs:6 fw:3 color:accent-3" th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}">30,000원
-                        <span class="fs:3 fw:2 color:base-10" th:text="${'('+formattedSize+' 개의 평가)'}">(3,426리뷰)</span>
+                    <div>
+                        <span th:text="${avgRate}+'원'" class="fs:6 fw:3 color:accent-3">30,000원</span>
+                        <a href="#review">
+                            <span class="fs:3 fw:2 color:base-10"
+                                 th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}"
+                                 th:text="${'('+formattedSize+' 개의 평가)'}">(3,426리뷰)
+                            </span>
+                        </a>
                     </div>
                     <div>
                         <span th:text="${#dates.format(movie.releaseDate, 'yyyy')+' · '}">2023 · </span>
@@ -356,10 +340,13 @@
                     </div>
                 </section>
 
-                <section class="section-margin">
+                <section class="section-margin" id="review">
                     <div class="d:flex mb:5">
-                        <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3 mr:auto" th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}">한줄 평
-                            <span class="fs:3 fw:2 color:base-10" th:text="${'('+formattedSize+' 개)'}">(3,426리뷰)</span>
+                        <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3 mr:auto">한줄 평
+                            <span class="fs:3 fw:2 color:base-10"
+                                  th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}"
+                                  th:text="${'('+formattedSize+' 개)'}">(3,426리뷰)
+                            </span>
                         </h1>
                         <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
                             <li class="p-right:3 fs:3 color:base-10">

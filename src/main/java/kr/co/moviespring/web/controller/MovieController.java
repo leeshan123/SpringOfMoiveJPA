@@ -92,6 +92,28 @@ public class MovieController {
         // 서버로 돌면 풀어주기, 일단 그냥 리스트로
         if(dailyList == null)
             dailyList = list;
+//
+//
+//        List<OnelineReviewView> memberRateList = null;
+//        Long movieId = null;
+//        int total = 15000;
+//        int avg = 0;
+//        for (int i = 0; i < list.size(); i++) {
+//            movieId = list.get(i).getId();
+//            memberRateList = onelineReviewService.getList(movieId);
+//            if (memberRateList.size() == 0) {
+//                total = 15000;
+//                avg = 15000;
+//                model.addAttribute("avgRate"+(i), avg);
+//                continue;
+//            }
+//            for (int j = 0; j < memberRateList.size(); j++) {
+//                total += memberRateList.get(j).getMemberRate();
+//            }
+////            if (memberRateList.size() != 0)
+//            avg = total/ memberRateList.size();
+//            model.addAttribute("avgRate"+(i), avg);
+//        }; //모르겠다 일단 보류
 
         model.addAttribute("dlist", list);
         model.addAttribute("list", list);
@@ -120,6 +142,20 @@ public class MovieController {
             if (review != null)
             model.addAttribute("myReview", review);
         }
+        // 영화 평점 불러오기
+        {
+            model.addAttribute("avgRate", 15000); //리뷰가 없을경우 기본값 전송
+            if (onelineReviews.size() != 0) {
+                int total = 15000;
+                int avg = 0;
+                for (int i = 0; i < onelineReviews.size(); i++) {
+                    total += onelineReviews.get(i).getMemberRate();
+                }
+                avg = total / (onelineReviews.size()+1);
+                model.addAttribute("avgRate", avg); //유저 평점을 기준으로 평균가격 측정
+            }
+        }
+
 
         model.addAttribute("movie", movie);
         model.addAttribute("actors", actors);
@@ -128,6 +164,7 @@ public class MovieController {
         model.addAttribute("stillcuts", stillcuts);
         model.addAttribute("trailers", trailers);
         model.addAttribute("user", userDetails); //유저 정보 객체 넣어줌 테스트중
+        
 
         return "movie/detail";
     }
