@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.moviespring.web.repository.VisitorCountRepository">
+
+    <select id="findByDate" parameterType="java.time.LocalDate" resultType="VisitorCount">
+        SELECT * FROM visitor_count WHERE date = #{date}
+    </select>
+
+    <select id="getTotalVisitors" resultType="Long">
+        SELECT SUM(total_visitors) FROM visitor_count
+    </select>
+
+    <insert id="insertVisitorCount" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO visitor_count (date, total_visitors, today_visitors)
+        VALUES (#{date}, #{totalVisitors}, #{todayVisitors})
+    </insert>
+
+    <update id="updateVisitorCount">
+        UPDATE visitor_count
+        SET total_visitors = #{totalVisitors}, today_visitors = #{todayVisitors}
+        WHERE date = #{date}
+    </update>
+
+</mapper>

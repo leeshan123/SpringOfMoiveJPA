@@ -1,6 +1,7 @@
 package kr.co.moviespring.web.controller.admin;
 
 import kr.co.moviespring.web.service.StatisticService;
+import kr.co.moviespring.web.service.VisitorCountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,9 @@ public class StatisticController {
 
     @Autowired
     private StatisticService statisticService;
+
+    @Autowired
+    private VisitorCountService visitorCountService;
 
     @GetMapping("main")
     public String main(Model model) {
@@ -44,6 +48,16 @@ public class StatisticController {
         for(double dlist : percentList){
             System.out.println(dlist);
         }
+
+        Long totalVisitors = visitorCountService.getTotalVisitors();
+        Long todayVisitors = visitorCountService.getTodayVisitors();
+
+
+
+        model.addAttribute("percentList",percentList);
+        model.addAttribute("totalVisitors",totalVisitors);
+        model.addAttribute("todayVisitors",todayVisitors);
+
 
 
 
