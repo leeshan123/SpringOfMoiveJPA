@@ -28,6 +28,11 @@
         max-width: 980px; /*커뮤니티 및 기타*/
         /*justify-content:  space-around;*/
     }
+    .media-sect-for-2weeks{
+        width: 980px;
+        max-width: 980px; /*커뮤니티 및 기타*/
+        /*justify-content:  space-around;*/
+    }
 
     .content-list{
 

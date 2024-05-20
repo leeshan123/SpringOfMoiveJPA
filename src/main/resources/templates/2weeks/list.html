@@ -24,18 +24,18 @@
                     alert("더이상 투표할 수 없습니다. 다음주 영화를 기대해주세요!");
                 </script>
             </div>
-            <section class="d:flex fl-wrap:wrap	jc:space-between my:9 bd-top">
+            <section class="d:flex fl-wrap:wrap jc:center my:9 bd-top">
                 <h1 class="d:none">컨텐츠</h1>
-                <section th:each="m:${Tm}" class="py:6 mx:6 p:2 ">
+                <section th:each="m:${Tm}" class="py:6 mx:10 p:2 ">
                     <h1 class="d:none">영화목록</h1>
-                    <div class="d:flex ">
-                        <div class="m-right:2 w:5">
+                    <div class="">
+                        <div class=" w:5">
                             <img class="bd-radius:1 box-shadow:1"
                             src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" 
                             alt="/" width="247.69px" height="361.54px">
                         </div>
                         <div class="max-w:10 ">
-                            <div class="w:6 d:flex ai:center">
+                            <div class=" d:flex ai:center">
                                 <h2 class="d:none">영화정보</h2>
                                 <div class="d:flex fl-wrap:wrap ">
                                     <div class="fw:3 fs:7 " th:text="${m.korName}" >영화제목</div>
@@ -55,7 +55,7 @@
                                     <div th:text="'상영시간 '+${m.runningTime}+' 분'"></div>
                                 </div>
                             </div>
-                                <div class="" style="margin-top:160px;">
+                                <div class="">
                                     <div class="n-progress n-progress-color:main txt-al:center color:base-1 w:auto h:1  box-shadow:1" role="progressbar w:10">
                                         <div th:style="'width: ' + (${m.voteCount} * 100 / ${v}) + '%; text-wrap: nowrap;'" class="ai:center text-wrap: nowrap" th:text="${m.voteCount}+표">1표</div>
                                     </div>
@@ -63,8 +63,8 @@
                                 
                                 
                             <div class="d:flex jc:end m-top:6">
-                                <button sec:authorize="isAuthenticated()" class="modal-btn n-btn n-btn:outline  box-shadow:1">투표하기!</button>
-                                <button sec:authorize="isAnonymous()" class="modal-btn n-btn n-btn  box-shadow:1">투표하기!</button>
+                                <button sec:authorize="isAuthenticated()" class="modal-btn n-btn  box-shadow:1">투표하기!</button>
+                                <button sec:authorize="isAnonymous()" class="modal-btn n-btn   n-btn:outline box-shadow:1">투표하기!</button>
                                 <section sec:authorize="isAuthenticated()" class="modal n-modal d:none" tabindex="-1">
                                     <div class="m:4">
                                         <span class="n-font:subtitle text-align:center fs:5" th:text="'영화 &quot;'+${m.korName}+'&quot; 추천하시겠습니까?'">👋</span>

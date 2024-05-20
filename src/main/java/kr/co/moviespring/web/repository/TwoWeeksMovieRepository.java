@@ -22,7 +22,8 @@ public interface TwoWeeksMovieRepository {
     VoteMemberList addVoteToMovieList(Long memberId,Integer movieId);
     //중복투표 예외처리를 위한 이미 투표한 유저id찾기
     VoteMemberList findVotedUser(Long memberId);
-
+    //투표제일많이받은영화
+    totalVoteView getThisWeeksMovie();
 
     //admin
     void getByGenre(String childSelectValue);

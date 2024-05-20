@@ -22,15 +22,18 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
     @Override
     public List<totalVoteView> findByMovieCd() {
         List<totalVoteView> TWMovie = TWMovieRepository.getByMovieCd();
+        System.out.println("투표수 영화목록 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+TWMovie);
+
         return TWMovie;
     }
     //2주의영화 투표수가져오기
     @Override
     public Long findTotalVote() {
         Long totalVoteCount = TWMovieRepository.getVoteCount();
-        if(totalVoteCount == null){
-            totalVoteCount=0L;
-        }
+        System.out.println("투표수 합계 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+totalVoteCount);
+        // if(totalVoteCount == null){
+        //     totalVoteCount=0L;
+        // }
 
         return totalVoteCount;
     }
@@ -65,16 +68,6 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
     }
 
 
-    
-    // @Override
-    // public void vote(Long memberId, Integer movieId) {
-    //     TWMovieRepository.addVoteToMovieList(memberId, movieId);
-    //     boolean isDuplicate = checkDuplicateVote(memberId, movieId);
-    //     if (isDuplicate) {
-    //         throw new GlobalExceptionHandler.handleDataIntegrityViolationException("Duplicate vote attempt detected.");
-    //     }
-    // }
-
     //sql duplicate exception객체 받을수있는 DataIntegrityViolationException로 바꿈
     @Override
     public void vote(Long memberId, Integer movieId) {
@@ -95,6 +88,13 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
         }
         // 사용자아이디를 찾아오면 false 못찾으면 true
         return voteRecord;
+    }
+
+    //당첨된 2주의 영화 찾기
+    @Override
+    public totalVoteView findWinnerMovie() {
+        totalVoteView winner = TWMovieRepository.getThisWeeksMovie();
+        return winner;
     }
     
     

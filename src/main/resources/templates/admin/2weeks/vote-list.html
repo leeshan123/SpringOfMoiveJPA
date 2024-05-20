@@ -28,9 +28,28 @@
             d:flex align-items:center">2주의 영화 관리</div>
         </div>
         <section class="main-container">
-            <h1>2주의영화 후보를 등록해주세요.</h1>
-            <section>
-                <form action="vote-list" method="post">
+            <h1 class="py:4">현재 투표진행중인 영화목록</h1>
+            <section class="d:flex fl-wrap:wrap jc:space-between">
+                <section th:each="m:${movies}" class="py:6 p:2 d:flex">
+                    <h1 class="d:none">컨텐츠</h1>
+                    <div class="max-w:10 ">
+                        <div class="w:6 d:flex ai:center">
+                            <h2 class="d:none">영화정보</h2>
+                            <div class="d:flex fl-wrap:wrap ">
+                                <div class="fw:3 fs:7 " th:text="${m.korName}" >영화제목</div>
+                            </div>
+                        </div>
+                        <div class="my:2">
+                            <div class="n-progress n-progress-color:main txt-al:center color:base-1 w:auto  box-shadow:1" role="progressbar w:10">
+                                <div th:style="'width: ' + (${m.voteCount} * 100 / ${v}) + '%; text-wrap: nowrap;'" class="ai:center text-wrap: nowrap" th:text="${m.voteCount}+표">1표</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <section class="my:4">
+                <h1>다음주 후보를 등록해주세요.</h1>
+                <form action="vote-list" method="post" class="n-form my:2">
 
                     <select id="parentSelect" class="w:3" name="pS">
                         <option value="">테마를 정해주세요</option>
@@ -45,7 +64,7 @@
                 <!-- <button id="modal-btn" type="button" class="n-btn">등록정보 확인</button> -->
 
                 <!-- <section id="modal" class="n-modal d:none" tabindex="-1">
-                  <h1 class="n-font:subtitle text-align:center">반갑습니다 신이시여. 등록정보를 확인 하십시오👋</h1></h1>
+                  <h1 class="n-font:subtitle text-align:center">반갑습니다 신이시여. 등록정보를 확인 하십시오👋</h1>
 
                   <div class="mt:4">
                     <button id="close-btn" type="button" class="n-btn w:5">닫기</button>

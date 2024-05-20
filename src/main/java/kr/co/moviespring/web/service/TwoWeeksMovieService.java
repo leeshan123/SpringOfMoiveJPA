@@ -25,6 +25,7 @@ public interface TwoWeeksMovieService {
  
      //관리자 2주영화 등록데이터 조회 비동기(비둘기x)처리
      List<Movie>  findAllEditedList();
+    totalVoteView findWinnerMovie();
 
 
      
