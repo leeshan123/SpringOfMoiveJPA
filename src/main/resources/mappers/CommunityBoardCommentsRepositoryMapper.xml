@@ -32,7 +32,7 @@
 
     <select id="findAllByMemberId" resultType="CommunityBoardCommentsView">
         SELECT * FROM community_board_comments_view
-        WHERE member_id = #{id}
+        WHERE member_id = #{id} OR community_board_id IS NULL;
     </select>
 
     <!--페이징을 위한 댓글 갯수 카운팅-->
