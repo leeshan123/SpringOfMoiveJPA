@@ -17,19 +17,21 @@ public interface TwoWeeksMovieRepository {
     String getGenre();
     //총 투표수가져오기
     Long getVoteCount();
+    
+    //투표한유저,영화ID 등록
+    VoteMemberList addVoteToMovieList(Long memberId,Integer movieId);
+    //중복투표 예외처리를 위한 이미 투표한 유저id찾기
+    VoteMemberList findVotedUser(Long memberId);
 
 
     //admin
     void getByGenre(String childSelectValue);
 
-    void getByReleseDate(String childSelectValue);
+    void getByReleaseDate(String childSelectValue);
 
     void getByDistributor(String childSelectValue);
 
     List<Movie> getEditedList();
-
-    VoteMemberList addVoteToMovieList(Long memberId,Integer movieId);
-    VoteMemberList findVotedUser(Long memberId);
 
 
 

@@ -28,6 +28,10 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
     @Override
     public Long findTotalVote() {
         Long totalVoteCount = TWMovieRepository.getVoteCount();
+        if(totalVoteCount == null){
+            totalVoteCount=0L;
+        }
+
         return totalVoteCount;
     }
 
@@ -38,7 +42,7 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
 
     @Override
     public void findByReleseDate(String childSelectValue) {
-        TWMovieRepository.getByReleseDate(childSelectValue);
+        TWMovieRepository.getByReleaseDate(childSelectValue);
 
     }
 
@@ -52,6 +56,7 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
         List<Movie> movieWeeks = TWMovieRepository.getEditedList();
         return movieWeeks;
     }
+    
 
     @Override
     public String findGenreName() {
@@ -59,6 +64,8 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
         return genre;
     }
 
+
+    
     // @Override
     // public void vote(Long memberId, Integer movieId) {
     //     TWMovieRepository.addVoteToMovieList(memberId, movieId);
@@ -66,8 +73,9 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
     //     if (isDuplicate) {
     //         throw new GlobalExceptionHandler.handleDataIntegrityViolationException("Duplicate vote attempt detected.");
     //     }
-    //     // 투표 처리
     // }
+
+    //sql duplicate exception객체 받을수있는 DataIntegrityViolationException로 바꿈
     @Override
     public void vote(Long memberId, Integer movieId) {
         TWMovieRepository.addVoteToMovieList(memberId, movieId);

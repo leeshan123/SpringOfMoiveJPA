@@ -1,6 +1,5 @@
 package kr.co.moviespring.web.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.moviespring.web.entity.VoteMemberList;
 import kr.co.moviespring.web.entity.totalVoteView;
 import kr.co.moviespring.web.service.MovieService;
 import kr.co.moviespring.web.service.TwoWeeksMovieService;
@@ -41,13 +39,10 @@ public class TwoWeeksMovieController {
         String genre = TWMovieService.findGenreName();
         // 투표합계
         Long totalVote = TWMovieService.findTotalVote();
-        // if (TWMovie == null)
-        // System.out.println("조회할 정보가 없습니다");
 
         model.addAttribute("Tm", TWMovie);
         model.addAttribute("g", genre);
-        // model.addAttribute("v", totalVote);
-        model.addAttribute("v", totalVote != null ? totalVote : 0);
+        model.addAttribute("v", totalVote);
         return "2weeks/list";
     }
 
@@ -59,11 +54,10 @@ public class TwoWeeksMovieController {
     //     LocalDateTime endOfVotingTime = now.plusDays(7);
     // }
 
-    // exception 예외처리 투표 안한 아이디로 투표해도 에러뜸
     @PostMapping("list")
     public String voteMovie(@RequestParam("memberId") Long memberId,
         @RequestParam("movieId") Integer movieId) {
             TWMovieService.vote(memberId, movieId);
         return "redirect:/2weeks/list";
-        }
+    }
 }

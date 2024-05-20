@@ -26,6 +26,7 @@ public class GlobalExceptionHandler {
         return "redirect:/2weeks/list";
     }
 
+    //모든 exception 객체 받는 핸들러 (나중에 404밸류에러 핸들러로 만들어야함)
     @ExceptionHandler(Exception.class)
     public String handleGeneralException(Exception ex, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("error", "unknown");
@@ -38,4 +39,5 @@ public class GlobalExceptionHandler {
             super(message);
         }
     }
+    
 }
