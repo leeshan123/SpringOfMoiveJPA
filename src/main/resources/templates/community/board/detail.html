@@ -15,7 +15,7 @@ layout:decorate="inc/layout">
             height: 24px;
             line-height: 28px;
         }
-        .writer-comment-bgc {
+        .my-comment-bgc {
             background-color: ghostwhite;
         }
         button {
@@ -65,26 +65,31 @@ layout:decorate="inc/layout">
                     <a th:href="@{'delete/'+${board.id}(c=${category.engName})}">삭제</a>
                 </div>
             </section>
-            <section th:each="list : ${list}" th:classappend="${board.nickname eq list.nickname ? 'writer-comment-bgc' : ''}" class="padding-y:1 padding-left:2 padding-right:1 border-bottom d:flex flex-direction:column gap:1">
+            <section th:each="list : ${list}" th:classappend="${memberId eq list.memberId ? 'my-comment-bgc' : ''}" class="pb:3 pt:2 padding-left:2 padding-right:1 border-bottom d:flex flex-direction:column gap:1 comment-box">
                 <h1 class="d:none">댓글창</h1>
                 <div class="d:flex ai:center gap:4">
                     <div class="margin-right:auto">
                         <span class="icon icon:bone">아이콘</span>
-                        <span th:text="${list.nickname}" th:class="${board.nickname eq list.nickname ? 'fw:bold' : ''}">작성자</span>
+                        <span class="" th:text="${list.nickname}" th:classappend="${board.nickname eq list.nickname ? 'fw:bold' : ''}">작성자</span>
+                        <span class="color:accent-1 bd bd-radius:full fs:1 p:1" th:if="${board.memberId eq list.memberId}">작성자</span>
                         <span class="fs:2 color:base-6" th:text="${#temporals.format(list.regDate, 'yyyy.MM.dd')}">2024.04.08</span>
                         <span class="fs:2 color:base-6" th:text="${#temporals.format(list.regDate, 'HH:mm')}">11:35</span>
                     </div>
-                    <span th:data-commentid="${list.id}" class="d:flex comment-vote-box">
+                    <span th:data-commentid="${list.id}" class="d:flex comment-vote-box mr:3">
                         <button th:text="${list.likeCount}" th:classappend="${list.commentStatus} == 1 ? 'icon-color:accent-1':'' " class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_up margin-right:2">0</button>
                         <button th:text="${list.disLikeCount}" th:classappend="${list.commentStatus} == -1 ? 'icon-color:sub-1':'' " class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_down">0</button>
                     </span>
-                    <span>
-                        <span class="deco deco-size:2 icon-size:4 deco-ml:1 deco-position:right icon:chat_circle_text fs:2 fw:bold color:main-3">댓글</span>
-                    </span>
+<!--                    <span>-->
+<!--                        <span class="deco deco-size:2 icon-size:4 deco-ml:1 deco-position:right icon:chat_circle_text fs:2 fw:bold color:main-3">댓글</span>-->
+<!--                    </span>-->
                 </div>
-                <p th:text="${list.contents}">댓글 내용이 출력될 장소입니다</p>
+                <p th:text="${list.contents}" class="ml:7 mb:2">댓글 내용이 출력될 장소입니다</p>
+                <div class="ml:auto testa">
+                    <button th:if="${memberId eq list.memberId}" class="del-btn mr:3 p:1 bd bd-radius:3 bg-color:base-1 box-shadow:2">삭제</button>
+                    <button th:if="${memberId eq list.memberId}" class="edit-btnsdf mr:1 p:1 bd bd-radius:3 bg-color:base-1 box-shadow:2">수정</button>
+                </div>
             </section>
-            <form action="detail" method="post" class="padding-y:1 padding-left:2 padding-right:1">
+            <form action="detail" method="post" class="padding-y:2 padding-left:2 padding-right:1">
                 <div>
                     <div sec:authorize="isAuthenticated()">
                         <span class="icon icon:bone">아이콘</span>
@@ -97,7 +102,7 @@ layout:decorate="inc/layout">
                 </div>
                 <div class="d:flex">
                     <div class="p:5 w:10p">
-                        <textarea sec:authorize="isAuthenticated()" name="content" id="" placeholder="댓글 내용 입력" class="w:10p n-textbox"></textarea>
+                        <textarea sec:authorize="isAuthenticated()" name="content" id="" placeholder="댓글 내용 입력" class="ml:2 w:10p n-textbox"></textarea>
                         <input sec:authorize="isAuthenticated()" name="memberId" th:value="${memberId}" id="" placeholder="댓글 내용 입력" class="d:none">
                         <input sec:authorize="isAuthenticated()" name="id" th:value="${board.id}" id="" placeholder="댓글 내용 입력" class="d:none">
                         <input sec:authorize="isAuthenticated()" name="c" th:value="${category.engName}" id="" placeholder="댓글 내용 입력" class="d:none">

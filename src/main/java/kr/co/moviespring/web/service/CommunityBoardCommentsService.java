@@ -17,4 +17,8 @@ public interface CommunityBoardCommentsService {
     List<CommunityBoardCommentsView> getList(Integer page, int size);
 
     int getCount();
+    //댓글 수정
+    int editById(Long commentId, Long memberId, String comment);
+    //댓글 삭제
+    int deleteById(Long commentId);
 }

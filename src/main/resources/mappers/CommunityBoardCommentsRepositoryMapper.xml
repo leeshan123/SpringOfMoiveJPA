@@ -16,6 +16,16 @@
         VALUES (#{boardId},#{memberId},#{content})
     </insert>
 
+    <!-- 댓글 수정 -->
+    <update id="edit">
+        UPDATE community_board_comments SET contents=#{comment} WHERE id=#{commentId} AND member_id=#{memberId}
+    </update>
+
+    <!-- 댓글 삭제 -->
+    <delete id="delete">
+        DELETE FROM community_board_comments WHERE id=#{commentId};
+    </delete>
+
     <!--댓글 목록-->
     <select id="findAllById" resultType="CommunityBoardCommentsView">
 <!--        SELECT * FROM community_board_comments_view WHERE community_board_id = #{boardId};-->

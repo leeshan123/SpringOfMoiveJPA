@@ -43,4 +43,17 @@ public class CommunityBoardCommentsServiceImp implements CommunityBoardCommentsS
     public int getCount() {
         return repository.getCount();
     }
+
+    //댓글 수정
+    @Override
+    public int editById(Long commentId, Long memberId, String comment) {
+        int result = repository.edit(commentId, memberId, comment);
+        return result;
+    }
+    //댓글 삭제
+    @Override
+    public int deleteById(Long commentId) {
+        int result = repository.delete(commentId);
+        return result;
+    }
 }

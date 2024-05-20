@@ -119,7 +119,6 @@
     commentVoteBoxes.forEach(function(commentVoteBox) {
         let likeButtonBox = commentVoteBox.querySelector(".icon\\:thumbs_up");
         let disLikeButtonBox = commentVoteBox.querySelector(".icon\\:thumbs_down");
-
         let likeCount = likeButtonBox;
         let disLikeCount = disLikeButtonBox;
         let commentId = Number(commentVoteBox.dataset.commentid);
@@ -223,3 +222,36 @@
         }
     });
 }
+
+// =========================================================================================================
+
+{
+    // //댓글 수정
+    // let commentBoxes = document.querySelectorAll(".comment-box");
+    //
+    // commentBoxes.forEach(function(commentBox) {
+    //     console.log("commentBoxes");
+    //     let testa = commentBox.querySelector(".testa");
+    //     let tt = testa.querySelector(".del-btn");
+    //     let deleteButton = commentBox.querySelector(".del-btn");
+    //     let editButton = commentBox.querySelector(".edit-btnsdf");
+    //     console.log(tt);
+    //     console.log(testa);
+    //     console.log(deleteButton);
+    //     console.log(editButton);
+    //     tt.onclick = function (e) {
+    //         alert("수정");
+    //     };
+    //     // deleteButton.onclick = function (e) {
+    //     //     alert("삭제");
+    //     // };
+    // });
+}
+
+// =========================================================================================================
+
+{
+    //댓글 삭제
+}
+
+
