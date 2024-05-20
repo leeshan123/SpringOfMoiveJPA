@@ -104,7 +104,7 @@ public class MovieManagementController {
 
     @GetMapping("list-movie3")
     public String listMovie3(
-        @RequestParam(name="q",required = false)String query
+        @RequestParam(name="q",required = false) String query
         , @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
         , Model model
     ) {
@@ -125,7 +125,25 @@ public class MovieManagementController {
     }
 
     @GetMapping("list-api")
-    public String listApi(){
+    public String listApi(
+        @RequestParam(name="q",required = false) String query
+        , @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
+        , Model model
+    ){
+        List<Movie3> list = new ArrayList<>();
+        int cnt = 0;
+        if(query != null){
+            list = serviceTest.getMovie3ListByQuery(page, query);
+            cnt = serviceTest.getCount(query);
+        } else {
+            list = serviceTest.getMovie3ListByQuery(page);
+            cnt = serviceTest.getCount();
+        }
+
+        model.addAttribute("searchQuery", query);
+        model.addAttribute("list", list);
+        model.addAttribute("count", cnt);
+        
         return "admin/movie-management/list-api"; 
     }
 

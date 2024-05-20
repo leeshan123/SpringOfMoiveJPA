@@ -24,14 +24,14 @@
 
 	<select id="findByQuery" resultType="Movie3">
 		SELECT * FROM 
-			movie3
-		<where>
-			<if test="query != null">
-				movie_nm LIKE CONCAT('%', #{query}, '%')
-				OR REPLACE(movie_nm, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
-				OR LOWER(movie_nm_en) LIKE CONCAT('%', LOWER(#{query}), '%')
-			</if>
-		</where>
+        	movie3
+		WHERE 
+			rep_genre_nm not like '%에로%' 
+		<if test="query != null">
+			AND (movie_nm LIKE CONCAT('%', #{query}, '%')
+			OR REPLACE(movie_nm, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+			OR LOWER(movie_nm_en) LIKE CONCAT('%', LOWER(#{query}), '%'))
+		</if>
 		LIMIT #{offset}, #{size};
 	</select>
 

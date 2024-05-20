@@ -20,15 +20,68 @@ layout:decorate="inc/adminlayout">
         margin: 0 auto;
         min-height: 580px;
     }
+
+    /* 모달 스타일 */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+    }
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 900px;
+    }
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close-btn:hover,
+    .close-btn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .movie-list{
+        padding-top: 40px;
+        display: grid;
+        /* 그리드 컨테이너의 열을 정의 */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
+    .movie-item{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        row-gap: 8px;
+        justify-content: space-between;
+        border-radius: 15px;
+        box-shadow: 10px 10px 5px 2px #cccccc; /* 확산 반경이 2px */
+        padding-bottom: 10px;
+        max-width: 300px;
+    }
         
 </style>
+<script src="/js/admin/movie-management/list-api.js" defer></script>
 </head>
 <body>
     <main layout:fragment="main">
     <div class="bg-color:base-3 h:1">
         <div class="main-container fs:5 fw:3 d:flex jc:space-between align-items:center">
             <span>영화관리</span>
-            <form action="list-movie3" method="get">
+            <form action="list-api" method="get">
                 <div class="d:flex" >
                     <input type="text" name="q" th:value="${searchQuery}" placeholder="무비3에서 검색" class="n-textbox fs:3 fw:2">
                     <button type="submit">
@@ -51,20 +104,28 @@ layout:decorate="inc/adminlayout">
                 </ul>
             </nav>
         </div>
-        <div th:each="m: ${list}" class="w:10p bd-bottom bd-color:base-5">
-            <form class="w:10p h:1 d:flex ai:center jc:space-between">
+        <div class="w:10p ">
+            <section th:each="m: ${list}" class="w:10p h:1 d:flex ai:center jc:space-between bd-bottom bd-color:base-5">
 
-                <h1 class="fs:4 fw:bold w:6" th:text="${m.movieNm}">캐리비안의 해적</h1>
-                <div>
-                    <span th:text="${m.movieNmEn}">a</span>,
-                    <span th:text="${m.openDt}">a</span>,
-                    <span th:text="${m.repGenreNm}">a</span>,
-                    <span th:text="${m.nationAlt}">a</span>
+                <h1 class="fs:4 fw:bold w:6" th:text="${m.movieNm}">영화제목</h1>
+                <div class="d:flex col-gap:2">
+                    <h2 th:text="${m.movieNmEn}">영어명</h2>,
+                    <span th:text="${m.openDt}+','"> 개봉일</span> 
+                    <span th:text="${m.repGenreNm}+','"> 장르</span>
+                    <span th:text="${m.nationAlt}"> 나라</span>
                 </div>
-                <div>
-                    <button class="n-btn" type="submit">TMDB 검색</button>
-                </div>
-            </form>
+                <button class="n-btn" type="button">
+                    TMDB 검색
+                </button>
+            </section>
+        </div>
+
+        <!-- 모달 구조 -->
+        <div id="movieModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <div id="movie-list" class="movie-list"></div>
+            </div>
         </div>
 
 

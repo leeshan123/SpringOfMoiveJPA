@@ -24,12 +24,58 @@ import kr.co.moviespring.web.movieapi.dto.tmdb.TMDBPersonDetails;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Cast;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Crew;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Genre;
+import kr.co.moviespring.web.movieapi.dto.tmdb.sub.MovieInfo;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Result;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class TMDBMovieAPI {
+
+    public List<MovieInfo> serchMovies(String movieName) throws IOException{
+
+        List<MovieInfo> movies = new ArrayList<>();
+
+        //여기서는 영화 코드, 이름, 이미지만 추출하면 됨.
+        OkHttpClient client = new OkHttpClient();
+        String reqUrl = String.format("https://api.themoviedb.org/3/search/movie?query=%s&include_adult=false&language=ko-KR&page=1", movieName);
+
+        //요청 url
+        Request request = new Request.Builder()
+            .url(reqUrl)
+            .get()
+            .addHeader("accept", "application/json")
+            .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM2U5NWU1MTY0NWUzYjgwZDU0MzQyNGQxYTA5ODg0YSIsInN1YiI6IjY2MDEzYjRmNzcwNzAwMDE2MzBhZjg0MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RFfawiMrE8C2YgpGPdaU5IOcl-R5t-JIquRBN6vaLzU")
+            .build();
+
+        Response response = client.newCall(request).execute();
+
+        // 응답 데이터를 JSON 형식으로 파싱
+        String responseData = response.body().string();
+
+        // JSON 객체로  변환
+        JSONObject responseBody = new JSONObject(responseData.toString());
+
+        // 영화 정보 추출
+        JSONArray arrMovieInfo = responseBody.getJSONArray("results");
+        Iterator<Object> iter = arrMovieInfo.iterator();
+        // 예외처리
+        if(arrMovieInfo.isEmpty())
+            return null;
+
+        while(iter.hasNext()) {
+            JSONObject movieInfo = (JSONObject) iter.next();
+            MovieInfo mi = new MovieInfo();
+            mi.setMovieCode(movieInfo.isNull("id") ? 0 : movieInfo.getLong("id"));
+            mi.setName(movieInfo.isNull("title") ? null :movieInfo.getString("title"));
+            mi.setOriginName(movieInfo.isNull("original_title") ?  null : movieInfo.getString("original_title"));
+            mi.setPosterUrl(movieInfo.isNull("poster_path") ? null : "https://image.tmdb.org/t/p/original" + movieInfo.getString("poster_path"));
+            movies.add(mi);
+        }
+
+
+        return movies;
+    }
 
     // 영화명, 제작년도, 일단 search-movie에서 코드 찾기 
     public Long serchMovie(String movieName, String movieYear) throws IOException{
@@ -40,6 +86,7 @@ public class TMDBMovieAPI {
 
         //search-movie 먼저 여기서는 영화 코드만 추출하면 됨.
         OkHttpClient client = new OkHttpClient();
+        
         
         // 영화 코드만 추출하는 search-movie
         String reqUrl = String.format("https://api.themoviedb.org/3/search/movie?query=%s&include_adult=false&language=ko-KR&page=1&year=%s", strMovieName, strYear);
@@ -353,11 +400,11 @@ public class TMDBMovieAPI {
         TMDBMovieAPI api = new TMDBMovieAPI();
 
         // 년도 스트링형으로 받아서 -테스트
-        String str = "2022";
-        int num = Integer.parseInt(str);
-        num--;
-        str = Integer.toString(num);
-        System.out.println(str);
+        // String str = "2022";
+        // int num = Integer.parseInt(str);
+        // num--;
+        // str = Integer.toString(num);
+        // System.out.println(str);
 
         // 사람 디테일 마동석:1024395, 티모시:1190668, 
         // TMDBPersonDetails personDetails = new TMDBPersonDetails();
@@ -370,21 +417,23 @@ public class TMDBMovieAPI {
         // System.out.println(movieCode);
 
         // 아래는 영화이름하고 년도 쓰면 오버뷰 나오게 함. 영화명은 한글 영문 모두 가능
-        while(true){
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            String movieName = br.readLine();
-            String movieYear = br.readLine();
-            Long movieCode = api.serchMovie(movieName, movieYear);
-            TMDBMovieDetail entity = api.movieDetail(movieCode);
-            if(entity != null)
-                System.out.println(entity.getOverview());
-            else
-                System.out.println("영화 없음");
-        }
+        // while(true){
+        //     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        //     String movieName = br.readLine();
+        //     String movieYear = br.readLine();
+        //     Long movieCode = api.serchMovie(movieName, movieYear);
+        //     TMDBMovieDetail entity = api.movieDetail(movieCode);
+        //     if(entity != null)
+        //         System.out.println(entity.getOverview());
+        //     else
+        //         System.out.println("영화 없음");
+        // }
 
-
-        // API 요청
-        // api.requestAPI();
-        // api.requestBoxDailly();
+        // 이름으로만 검색 테스트
+        // List<MovieInfo> list = new ArrayList<>();
+        // list = api.serchMovies("아바타");
+        // for (MovieInfo movieInfo : list) {
+        //     System.out.println(movieInfo.toString());
+        // }
     }
 }
