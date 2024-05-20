@@ -29,7 +29,7 @@ public class DataInsertService {
     String key = "e7f6a63edea6295a55b893dcc0071d60";
 //    String key2 = "e7f6a63edea6295a55b893dcc0071d60";
 
-    String filePath = "C:/Users/leedw/Desktop/audience.xlsx";
+    String filePath = "C:/Users/LeeSH_10/Desktop/0520.xlsx";
 
 //    @Autowired
     private MovieDataUpdate movieDataUpdate;
@@ -47,10 +47,10 @@ public class DataInsertService {
         //영화 목록을 가져와서 영화 리스트를 업데이트함.
 //        movieDataUpdate.movieListUpdate(movieDataUpdate.getMovieList(key));
         //영화 목록을 가져와서 영화 목록 중 없는 것만 데이터를 저장해줌.
-        movieDataUpdate.movieListInsert(movieDataUpdate.getMovieList(key));
+//        movieDataUpdate.movieListInsert(movieDataUpdate.getMovieList(key));
 
         //이제 다 넣어서 안쓸 것 같긴한데 엑셀에서 데이터를 가져와서 데이터를 삽입해줌.
-//        movieDataUpdate.excelDataInsert(movieDataUpdate.getExcelData(filePath));
+        movieDataUpdate.excelDataInsert(movieDataUpdate.getExcelData(filePath));
 
         //영화 배우랑 감독 데이터 넣기
 //        peopleDataUpdate.peopleInsert(peopleDataUpdate.getActorList(key));

@@ -74,7 +74,7 @@
                                     class="icon-size d:inline-block bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold icon_num"
                                     th:text="${pgbList.count}">1</div>
                             <div class="fw:bold fs:4" th:text="${pbg.title}">"서울의 봄" 천만 돌파 가능!?</div>
-                                <div class="color:accent-2" th:text="${pbg.voteEndDate}">투표 마감: 24.05.09까지</div>
+                                <div class="color:accent-2" th:text="${#dates.format(pbg.voteEndDate, 'yy.MM.dd')}+'까지 투표 마감'">투표 마감: 24.05.09까지</div>
                             </div>
                             <div class="d:flex color:base-6 gap:2 icon2_box">
                                 <span class="icon icon:user">아이콘</span>
@@ -95,8 +95,8 @@
                                 <li class="mr:5">1.35</li>
                             </ul>
                             <div class="w:10p d:flex flex-direction:column color:base-6 fl-grow:1 gap:2 button_box">
-                                    <button class="n-btn n-btn-size:3 w:2" id="betting-btn">참여하기</button>
-                                <div class=" color:base-6 date_box" th:text="${pbg.deadLineDate}">
+                                    <button class="n-btn n-btn-size:3 w:2 betting-btn" th:data-pbg-id="${pbg.id}">참여하기</button>
+                                <div class=" color:base-6 date_box" th:text="${#dates.format(pbg.deadLineDate, 'yy.MM.dd')}+'까지 집계'"}>
                                         24.05.29 집계마감
                                 </div>
                             </div>
@@ -106,14 +106,14 @@
                 </section>
             </section>
 
-            <!--          모달 나오게 하기  -->
-            <section id="modal" class=" n-modal d:none" tabindex="-1">
+            <!--          베팅 모달 나오게 하기 betting-modal -->
+            <section id="betting-modal" class=" n-modal d:none" tabindex="-1">
                 <h1 class="n-font:h3 font-weight:3">배팅 하시겠습니까? ^^</h1>
                 <form>
                     <div class="my:5">
                         <label>
                             배팅 금액
-                            <input type="text" class="n-textbox n-textbox-label:top w:5" />
+                            <input type="text" id="betting-input" class="n-textbox n-textbox-label:top w:5" />
                         </label>
                     </div>
                     <div class="d:flex jc:flex-end gap:2 mt:8">
@@ -123,6 +123,18 @@
                 </form>
             </section>
             <div id="modal-backdrop" class="backdrop d:none"></div>
+
+            <!--          로그인 모달 나오게 하기 login-modal -->
+            <section id="login-modal" class="n-modal d:none" tabindex="-1">
+            <h1 class="n-font:h3 font-weight:3">로그인 후 이용 부탁드립니다!</h1>
+
+            <div class="mt:8 text-a:center">Login Please</div>
+
+            <div class="d:flex fl-direction:column gap:2 mt:8">
+                <button id ="login-btn" type="button" class="n-btn n-btn-size:3">로그인 하러 가기</button>
+                <button id ="close-login-btn" type="button" class="n-btn n-btn:void n-btn-size:3">뒤로 가기</button>
+            </div>
+        </section>
     </main>
 </body>
 
