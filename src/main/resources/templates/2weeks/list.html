@@ -15,7 +15,7 @@
             <h1 class="d:none">메인</h1>
             <section class="">
                 
-            <h1 class="fw:3 fs:6 txt-al:center  n-font " th:text="'다음주 테마는 '+${g}+'영화 입니다이'">테마</h1>
+            <h1 class="fw:3 fs:6 txt-al:center  n-font " th:text="'이번 테마는 '+${g}+'영화 입니다'">테마</h1>
             <div  th:if="${param.error}">
             </div>
 
@@ -26,10 +26,10 @@
             </div>
             <section class="d:flex fl-wrap:wrap jc:center my:9 bd-top">
                 <h1 class="d:none">컨텐츠</h1>
-                <section th:each="m:${Tm}" class="py:6 mx:10 p:2 ">
+                <section th:each="m:${Tm}" class="py:6 mx:10 p:2">
                     <h1 class="d:none">영화목록</h1>
                     <div class="">
-                        <div class=" w:5">
+                        <div class=" w:5 m:2">
                             <img class="bd-radius:1 box-shadow:1"
                             src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" 
                             alt="/" width="247.69px" height="361.54px">
@@ -57,12 +57,12 @@
                             </div>
                                 <div class="">
                                     <div class="n-progress n-progress-color:main txt-al:center color:base-1 w:auto h:1  box-shadow:1" role="progressbar w:10">
-                                        <div th:style="'width: ' + (${m.voteCount} * 100 / ${v}) + '%; text-wrap: nowrap;'" class="ai:center text-wrap: nowrap" th:text="${m.voteCount}+표">1표</div>
+                                        <div th:style="'width: ' + (${m.voteCount} * 100 / ${v}) + '%; text-wrap: nowrap;'" class="ai:center text-wrap: nowrap h:1" th:text="${m.voteCount}+표">1표</div>
                                     </div>
                                 </div>
                                 
                                 
-                            <div class="d:flex jc:end m-top:6">
+                            <div class="d:flex jc:center m-top:4">
                                 <button sec:authorize="isAuthenticated()" class="modal-btn n-btn  box-shadow:1">투표하기!</button>
                                 <button sec:authorize="isAnonymous()" class="modal-btn n-btn   n-btn:outline box-shadow:1">투표하기!</button>
                                 <section sec:authorize="isAuthenticated()" class="modal n-modal d:none" tabindex="-1">
