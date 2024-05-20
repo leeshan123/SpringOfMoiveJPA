@@ -102,7 +102,7 @@ function displayMovies(movies) {
 
   // 각 영화 정보를 반복하여 화면에 표시
   movies.forEach(movie => {
-      const movieItem = document.createElement('div');
+      const movieItem = document.createElement('form');
       movieItem.classList.add('movie-item');
       movieItem.innerHTML = `
           <h3>${movie.name}</h3>
