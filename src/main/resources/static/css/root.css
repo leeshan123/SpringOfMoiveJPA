@@ -122,6 +122,70 @@
   --btn-color-accent: var(--color-base-1);
 }
 
+    /*아이콘*/
+
+    /*카메라 아이콘*/
+    .icon\:camera-reels::before{
+        -webkit-mask-image: url('../image/icon/camera-reels.svg');
+        mask-image: url('../image/icon/camera-reels.svg');
+    }
+
+    .icon\:camera-reels::after{
+        -webkit-mask-image: url('../image/icon/camera-reels.svg');
+        mask-image: url('../image/icon/camera-reels.svg');
+    }
+
+    .icon\:camera-reels-fill::before{
+        -webkit-mask-image: url('../image/icon/camera-reels-fill.svg');
+        mask-image: url('../image/icon/camera-reels-fill.svg');
+    }
+
+    .icon\:camera-reels-fill::after{
+        -webkit-mask-image: url('../image/icon/camera-reels-fill.svg');
+        mask-image: url('../image/icon/camera-reels-fill.svg');
+    }
+
+    /*돈 아이콘들*/
+    .icon\:cash::before{
+        -webkit-mask-image: url('../image/icon/cash.svg');
+        mask-image: url('../image/icon/cash.svg');
+    }
+
+    .icon\:cash::after{
+        -webkit-mask-image: url('../image/icon/cash.svg');
+        mask-image: url('../image/icon/cash.svg');
+    }
+
+    .icon\:cash-stack::before{
+        -webkit-mask-image: url('../image/icon/cash-stack.svg');
+        mask-image: url('../image/icon/cash-stack.svg');
+    }
+
+    .icon\:cash-stack::after{
+        -webkit-mask-image: url('../image/icon/cash-stack.svg');
+        mask-image: url('../image/icon/cash-stack.svg');
+    }
+
+    .icon\:coin::before{
+        -webkit-mask-image: url('../image/icon/coin.svg');
+        mask-image: url('../image/icon/coin.svg');
+    }
+
+    .icon\:coin::after{
+        -webkit-mask-image: url('../image/icon/coin.svg');
+        mask-image: url('../image/icon/coin.svg');
+    }
+
+    .icon\:film::before{
+        -webkit-mask-image: url('../image/icon/film.svg');
+        mask-image: url('../image/icon/film.svg');
+    }
+
+    .icon\:film::after{
+        -webkit-mask-image: url('../image/icon/film.svg');
+        mask-image: url('../image/icon/film.svg');
+    }
+
 }
 
 /* 추가적인 태그별 기본값 세팅 */
@@ -172,3 +236,4 @@ body{
     opacity: 1; /* 투명도를 1로 설정하여 나타나게 함 */
     visibility: visible; /* 표시 여부를 visible로 설정하여 나타나게 함 */
 }
+

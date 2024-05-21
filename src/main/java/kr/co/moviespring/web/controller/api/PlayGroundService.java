@@ -1,7 +1,7 @@
 package kr.co.moviespring.web.controller.api;
 
 import kr.co.moviespring.web.config.security.CustomUserDetails;
-import org.springframework.http.ResponseEntity;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +34,7 @@ public class PlayGroundService {
     }
 
 
-
+    @NoArgsConstructor
     public static class BettingRequest {
         private Long pbgId; // pbgId 필드
         private int bettingAmount; // bettingAmount 필드
