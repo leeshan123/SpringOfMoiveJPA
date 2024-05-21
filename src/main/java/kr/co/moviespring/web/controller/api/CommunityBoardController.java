@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("ApiCommunityBoardCommentsController")
+@RestController("ApiCommunityBoardController")
 @RequestMapping("api/community-board")
-public class CommunityBoardCommentsController {
+public class CommunityBoardController {
 
     @Autowired
     private CommunityBoardCommentsService commentsService;

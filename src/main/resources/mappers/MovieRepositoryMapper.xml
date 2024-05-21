@@ -64,12 +64,13 @@
 		FROM movie m
 		<if test="type == 'director'">
 		INNER JOIN movie_director md ON m.id = md.movie_id
-		WHERE md.director_id = #{id};
+		WHERE md.director_id = #{id}
 		</if>
 		<if test="type == 'actor'">
 		INNER JOIN movie_actor ma ON m.id = ma.movie_id
-		WHERE ma.actor_id = #{id};
+		WHERE ma.actor_id = #{id}
 		</if>
+		ORDER BY release_date DESC
 	</select>
 
 	<!-- 영화 상세 페이지 -->

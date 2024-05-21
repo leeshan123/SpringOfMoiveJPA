@@ -1,3 +1,4 @@
+
 {
 // 게시글 버튼 요소 가져오기
     let voteBox = document.querySelector("#vote-box");
@@ -226,26 +227,127 @@
 // =========================================================================================================
 
 {
-    // //댓글 수정
-    // let commentBoxes = document.querySelectorAll(".comment-box");
-    //
-    // commentBoxes.forEach(function(commentBox) {
-    //     console.log("commentBoxes");
-    //     let testa = commentBox.querySelector(".testa");
-    //     let tt = testa.querySelector(".del-btn");
-    //     let deleteButton = commentBox.querySelector(".del-btn");
-    //     let editButton = commentBox.querySelector(".edit-btnsdf");
-    //     console.log(tt);
-    //     console.log(testa);
-    //     console.log(deleteButton);
-    //     console.log(editButton);
-    //     tt.onclick = function (e) {
-    //         alert("수정");
-    //     };
-    //     // deleteButton.onclick = function (e) {
-    //     //     alert("삭제");
-    //     // };
-    // });
+    //댓글 수정
+    //댓글 수 만큼 코멘트 박스 찾기
+    let commentBoxes = document.querySelectorAll(".comment-box");
+    let url = '/api/community-board/comments/';
+    commentBoxes.forEach(function(commentBox) {
+        //댓글 수 만큼 반복문 돌리는데 그중에 내가 쓴 댓글이라서 수정,삭제 버튼이 존재하는 경우에만 함수 추가,
+        //이렇게 안하면 내가 작성하지 않은(수정,삭제 없는) 코멘트박스에서 버튼 돔객체를 찾지 못해 null값이 저장되어서 오류발생
+        if (commentBox.querySelector(".del-btn") != null){
+            let deleteButton = commentBox.querySelector(".del-btn");
+            let editButton = commentBox.querySelector(".edit-btn");
+            let myComment = commentBox.querySelector("p");
+            let currentText = myComment.textContent;
+            let commentId = Number(deleteButton.dataset.commentid);
+
+            deleteButton.onclick = async function (e) {
+                const choice = await Swal.fire({
+                    title: "정말 삭제하시겠습니까?",
+                    text: "삭제한 후에는 복구가 불가능합니다 🥲",
+                    // icon: "warning",
+                    showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+                    confirmButtonColor: "#d33", //빨간색
+                    cancelButtonColor: "#3085d6", //파란색
+                    confirmButtonText: "삭제",
+                    cancelButtonText: "취소",
+                    reverseButtons: false // 버튼 순서 거꾸로
+                });
+
+                if (choice.isDismissed) {
+                    return;
+                }
+
+                const response = await fetch(url + commentId,
+                    {
+                        method: 'DELETE',
+                        // headers: {
+                        //     'Content-Type': 'text/plain'
+                        // },
+                        // body: boardId
+                    });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const resultText = await response.text(); //결과값을 문자열로 받음
+                const result = parseInt(resultText, 10); //int로 형변환, 두번째 매개변수는 변환할 진법/ 10진수,2,8,16...
+
+                switch (result) {
+                    case 100:
+                        alert("로그인후 이용할수 있습니다");
+                        break;
+                    case 1:
+                        await Swal.fire({
+                            title : "댓글이 삭제되었습니다",
+                            // icon  : "success",
+                            closeOnClickOutside : true,
+                            confirmButtonColor: "#3085d6",
+                            });
+                        window.location.href = 'http://localhost/community/board/detail?c=review&id=81';
+                        break;
+                    default:
+                        alert('예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요');
+                        break;
+                }
+            };
+
+            editButton.onclick = async function (e) {
+
+                // 수정버튼 누를시 텍스트 에이리어 돔 객체를 만듦
+                let textArea = document.createElement("textarea");
+                textArea.classList.add("mx:7","mb:2","n-textbox","my-comment");
+                textArea.value = currentText;
+
+                // 내 댓글창을 텍스트에이리어 창으로 바꾼다
+                myComment.replaceWith(textArea);
+
+                let cancelButton = document.createElement("button");
+                cancelButton.textContent = "취소";
+
+                // Add classes to save button
+                cancelButton.classList.add("mr:3", "p:1" ,"bd" ,"bd-radius:3" ,"bg-color:base-1" ,"box-shadow:2");
+
+                // Add save button after edit button
+                deleteButton.replaceWith(cancelButton);
+
+                cancelButton.onclick = async function (e) {
+                    textArea.replaceWith(myComment);
+                    cancelButton.replaceWith(deleteButton);
+                }
+
+                // const response = await fetch(url + commentId,
+                //     {
+                //         method: 'PUT',
+                //         // headers: {
+                //         //     'Content-Type': 'text/plain'
+                //         // },
+                //         // body: boardId
+                //     });
+                //
+                // if (!response.ok) {
+                //     throw new Error('Network response was not ok');
+                // }
+                //
+                // const resultText = await response.text(); //결과값을 문자열로 받음
+                // const result = parseInt(resultText, 10); //int로 형변환, 두번째 매개변수는 변환할 진법/ 10진수,2,8,16...
+                //
+                // switch (result) {
+                //     case 100:
+                //         alert("로그인후 이용할수 있습니다");
+                //         break;
+                //     case 1:
+                //
+                //         window.location.href = 'http://localhost/community/board/detail?c=review&id=81';
+                //         break;
+                //     default:
+                //         alert('예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요');
+                //         break;
+                // }
+            };
+        }
+    });
 }
 
 // =========================================================================================================

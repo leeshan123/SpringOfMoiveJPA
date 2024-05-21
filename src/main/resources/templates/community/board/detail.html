@@ -5,6 +5,8 @@ layout:decorate="inc/layout">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${board.title}+' - '+영화의봄">Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="/js/community-board/detail.js" defer></script>
     <style>
         .vote-box {
@@ -20,6 +22,9 @@ layout:decorate="inc/layout">
         }
         button {
             cursor: pointer;
+        }
+        .my-comment {
+            width: 910px;
         }
 
     </style>
@@ -83,10 +88,10 @@ layout:decorate="inc/layout">
 <!--                        <span class="deco deco-size:2 icon-size:4 deco-ml:1 deco-position:right icon:chat_circle_text fs:2 fw:bold color:main-3">댓글</span>-->
 <!--                    </span>-->
                 </div>
-                <p th:text="${list.contents}" class="ml:7 mb:2">댓글 내용이 출력될 장소입니다</p>
-                <div class="ml:auto testa">
-                    <button th:if="${memberId eq list.memberId}" class="del-btn mr:3 p:1 bd bd-radius:3 bg-color:base-1 box-shadow:2">삭제</button>
-                    <button th:if="${memberId eq list.memberId}" class="edit-btnsdf mr:1 p:1 bd bd-radius:3 bg-color:base-1 box-shadow:2">수정</button>
+                <p th:text="${list.contents}" class="mx:7 mb:2">댓글 내용이 출력될 장소입니다</p>
+                <div class="ml:auto">
+                    <button th:data-commentid="${list.id}" th:if="${memberId eq list.memberId}" class="del-btn mr:3 p:1 bd bd-radius:3 bg-color:base-1 box-shadow:2">삭제</button>
+                    <button th:if="${memberId eq list.memberId}" class="edit-btn mr:1 p:1 bd bd-radius:3 bg-color:base-1 box-shadow:2">수정</button>
                 </div>
             </section>
             <form action="detail" method="post" class="padding-y:2 padding-left:2 padding-right:1">
