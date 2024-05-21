@@ -194,6 +194,15 @@ window.addEventListener('load', function () {
                         if (bettingPossibleMsg) {
                             bettingPossibleMsg.remove();
                         }
+
+                        bettingModal.classList.replace('modal-fade-in', 'modal-fade-out');
+
+                        setTimeout(() => {
+                            bettingModal.classList.add('d:none');
+                            modalBackdrop.classList.add('d:none');
+                            bettingModal.classList.remove('modal-fade-out');
+                        }, 130);
+
                     } else {
                         bettingInput.classList.remove('n-textbox-status:success');
                         bettingInput.classList.add('n-textbox-status:warning');

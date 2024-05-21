@@ -34,7 +34,7 @@ public class PlayGroundService {
         int bettingPoint = request.getBettingAmount();
         int userPoint = userDetails.getPoint();
 
-        if (bettingPoint <= userPoint) {
+        if (bettingPoint <= userPoint && bettingPoint !=0) {
             return ResponseEntity.ok("베팅 가능합니다.");
         } else {
             return ResponseEntity.ok("베팅할 돈이 없습니다.");
@@ -49,7 +49,9 @@ public class PlayGroundService {
         int bettingPoint = request.getBettingAmount();
         int userPoint = userDetails.getPoint();
 
-        if (bettingPoint <= userPoint) {
+
+
+        if (bettingPoint <= userPoint && bettingPoint !=0) {
 
 
 
