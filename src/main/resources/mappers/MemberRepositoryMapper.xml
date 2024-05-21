@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.moviespring.web.repository.MemberRepository">
 
-  <!-- 로그인 -->
-  <select id="findByMembername" resultType="Member">
-    select * from member where username = #{username};
-  </select>
+    <!-- 로그인 -->
+    <select id="findByMembername" resultType="Member">
+        select * from member where username = #{username};
+    </select>
 
-  <!-- 회원가입 -->
-  <insert id="regist" parameterType="Member"> <!-- 매개변수로 전달받는 값이 객체면 파라미터 타입 속성으로 객체의 타입을 적어준다? -->
+    <!-- 이메일 검증 -->
+    <select id="findByEmail" resultType="Member">
+        select * from member where email = #{email};
+    </select>
+
+    <!-- 회원가입 -->
+    <insert id="regist" parameterType="Member"> <!-- 매개변수로 전달받는 값이 객체면 파라미터 타입 속성으로 객체의 타입을 적어준다? -->
         insert into member(username,password,name,nickname,age,email,role)
         values (#{username},#{password},#{name},#{nickname},#{age},#{email},#{role});
-  </insert>
+    </insert>
 
-  <update id="update" parameterType="member">
+    <update id="update" parameterType="member">
         update member
         <set>
-          <if test="nickname != null">
-            nickname = #{nickname}
-          </if>
-          <if test="email != null">
-            email = #{email}
-          </if>
-          <if test="password != null">
-            password = #{password}
-          </if>
+            <if test="nickname != null">
+                nickname = #{nickname}
+            </if>
+            <if test="email != null">
+                email = #{email}
+            </if>
+            <if test="password != null">
+                password = #{password}
+            </if>
         </set>
         where id = #{id}
     </update>

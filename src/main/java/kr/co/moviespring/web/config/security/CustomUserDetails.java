@@ -97,6 +97,8 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
         return member.getUsername();
     }
 
+    public void setUsername(String username) { this.member.setUsername(username); }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -130,4 +132,6 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
     public void setAttributes(Map<String, Object> attributes) {
         this.attributes = attributes;
     }
+
+
 }

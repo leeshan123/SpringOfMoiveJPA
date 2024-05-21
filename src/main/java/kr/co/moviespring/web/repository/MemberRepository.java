@@ -8,8 +8,11 @@ import kr.co.moviespring.web.entity.Member;
 public interface MemberRepository {
     Member findByMembername(String username);
 
+    Member findByEmail(String email);
+
     void regist(Member member);
     void update(Member member);
+
 //    String username, String password, String name, String nickname, int age, String email
   
 }

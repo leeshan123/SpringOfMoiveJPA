@@ -32,7 +32,7 @@
                 <div class="mt:2">
 
                     <a th:if="${menu.communityBoardCategoryId != null}" th:href="'/community/board/detail?c=' + ${clist.get(menu.communityBoardCategoryId-1).engName} + '&amp;id=' + ${menu.communityBoardId}" th:text="${menu.communityBoardTitle}" class="fs:5">서울의봄 재밌다</a>
-                    <span th:if="${menu.communityBoardId == null }" class="fs:5"><삭제된 게시물입니다></span>
+                    <span th:if="${menu.communityBoardId == null }" class="fs:5 color:base-6">&lt;삭제된 게시물입니다&gt;</span>
                     <span th:if="${menu.communityBoardCategoryId != null}" class="fw:2 color:base-7" th:text="'('+${clist.get(menu.communityBoardCategoryId-1).name}+' 게시판)'"></span>
 <!--                    <span class="fw:2 color:base-7" th:text="'('+${clist.get(menu.communityBoardCategoryId-1).name}+' 게시판)'"></span>-->
                 </div>
