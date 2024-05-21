@@ -7,13 +7,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 각 검색 버튼에 이벤트 리스너 등록
   buttons.forEach(button => {
-      button.addEventListener('click', async function() {
+      button.addEventListener('click', async function(e) {
           // 클릭된 버튼이 속한 섹션 요소 가져오기
           const section = this.closest('section');
           // 섹션 요소에서 영화 이름 가져오기
           const movieName = section.querySelector('h1').innerText;
           const movieNameEn = section.querySelector('h2').innerText;
           console.log(movieName);
+          let movie3Data = {};
+          movie3Data.movieCd = e.target.getAttribute('data-movieCd');
+          movie3Data.movieNm = e.target.getAttribute('data-movieNm');
+          movie3Data.openDt = e.target.getAttribute('data-openDt');
+          movie3Data.repGenreNm = e.target.getAttribute('data-repGenreNm');
+          movie3Data.audiAcc = e.target.getAttribute('data-audiAcc');
+          movie3Data.movieNmEn = e.target.getAttribute('data-movieNmEn');
+          movie3Data.nationAlt = e.target.getAttribute('data-nationAlt');
+          movie3Data.prdYear = e.target.getAttribute('data-prdYear');
+          movie3Data.directorNm = e.target.getAttribute('data-directorNm');
+          movie3Data.companyCd = e.target.getAttribute('data-companyCd');
+
+          console.log(movie3Data);
 
           try {
               // 한글로 검색
@@ -25,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
               if (movies && movies.length > 0) {
                   // 검색된 영화 정보를 모달에 표시
-                  displayMovies(movies);
+                  displayMovies(movies, movie3Data);
                   modal.style.display = 'block'; // 모달 열기
               } else {
                   // 검색된 영화가 없는 경우 경고 표시
@@ -95,7 +108,7 @@ async function searchMovies(movieName) {
 }
 
 // 검색된 영화를 화면에 표시하는 함수
-function displayMovies(movies) {
+function displayMovies(movies, movie3Data) {
   // 영화 목록을 표시할 요소 가져오기
   const movieListDiv = document.getElementById('movie-list');
   movieListDiv.innerHTML = ''; // 이전 내용 지우기
@@ -104,12 +117,31 @@ function displayMovies(movies) {
   movies.forEach(movie => {
       const movieItem = document.createElement('form');
       movieItem.classList.add('movie-item');
+
+      // action과 method 속성 추가
+      movieItem.setAttribute('action', '/api/movie/save');
+      movieItem.setAttribute('method', 'post');
+      
       movieItem.innerHTML = `
           <h3>${movie.name}</h3>
           <p>원제목: ${movie.originName}</p>
           <p>개봉년도: ${movie.releaseDate || '알 수 없음'}</p>
           <img src="${movie.posterUrl}" alt="영화 포스터" style="max-width: 200px;">
-          <button class="n-btn" type="button">선택</button>
+          
+          <input type="hidden" name="tmdbCode" value="${movie.movieCode}"/>
+
+          <input type="hidden" name="movieCd" value="${movie3Data.movieCd}"/>
+          <input type="hidden" name="movieNm" value="${movie3Data.movieNm}"/>
+          <input type="hidden" name="openDt" value="${movie3Data.openDt}"/>
+          <input type="hidden" name="repGenreNm" value="${movie3Data.repGenreNm}"/>
+          <input type="hidden" name="audiAcc" value="${movie3Data.audiAcc}"/>
+          <input type="hidden" name="movieNmEn" value="${movie3Data.movieNmEn}"/>
+          <input type="hidden" name="nationAlt" value="${movie3Data.nationAlt}"/>
+          <input type="hidden" name="prdYear" value="${movie3Data.prdYear}"/>
+          <input type="hidden" name="directorNm" value="${movie3Data.directorNm}"/>
+          <input type="hidden" name="companyCd" value="${movie3Data.companyCd}"/>
+          
+          <button class="n-btn" type="submit">선택</button>
       `;
       movieListDiv.appendChild(movieItem);
   });

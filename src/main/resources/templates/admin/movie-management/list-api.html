@@ -113,8 +113,20 @@ layout:decorate="inc/adminlayout">
                     <span th:text="${m.openDt}+','"> 개봉일</span> 
                     <span th:text="${m.repGenreNm}+','"> 장르</span>
                     <span th:text="${m.nationAlt}"> 나라</span>
+                    <span th:text="${m.directorNm}">감독</span>
                 </div>
-                <button class="n-btn" type="button">
+                <button class="n-btn" type="button"
+                    th:data-movieCd="${m.movieCd}"
+                    th:data-movieNm="${m.movieNm}"
+                    th:data-openDt="${m.openDt}"
+                    th:data-repGenreNm="${m.repGenreNm}"
+                    th:data-audiAcc="${m.audiAcc}"
+                    th:data-movieNmEn="${m.movieNmEn}"
+                    th:data-nationAlt="${m.nationAlt}"
+                    th:data-prdYear="${m.prdYear}"
+                    th:data-directorNm="${m.directorNm}"
+                    th:data-companyCd="${m.companyCd}"
+                >
                     TMDB 검색
                 </button>
             </section>

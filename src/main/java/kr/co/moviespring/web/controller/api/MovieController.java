@@ -1,6 +1,7 @@
 package kr.co.moviespring.web.controller.api;
 
 import java.io.IOException;
+import java.net.URI;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,9 +9,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import kr.co.moviespring.web.entity.Actor;
 import kr.co.moviespring.web.entity.Director;
@@ -66,7 +70,7 @@ public class MovieController {
 
     
     @PostMapping("save")
-    public String save(
+    public ResponseEntity<String> save(
         Movie3 movie3
         , Long tmdbCode
     ) throws IOException, InterruptedException, ParseException{
@@ -81,7 +85,7 @@ public class MovieController {
             
             // 이미 영화가 있다면
             if(movie != null){
-                return "이미 존재하는 영화입니다.";
+                ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재하는 영화입니다.");
             }
         }
             
@@ -229,9 +233,11 @@ public class MovieController {
                 }
                 Thread.sleep(100);
             }
+        // 응답 생성
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                        .buildAndExpand(movieID).toUri();
 
-
-        return "";
+        return ResponseEntity.created(location).body("영화가 성공적으로 저장되었습니다.");
     }
 
     
