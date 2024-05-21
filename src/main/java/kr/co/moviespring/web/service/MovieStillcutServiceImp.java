@@ -27,4 +27,9 @@ public class MovieStillcutServiceImp implements MovieStillcutService{
         return list;
     }
 
+    @Override
+    public void deleteById(Long movieId) {
+        repository.delete(movieId);
+    }
+
 }

@@ -39,4 +39,9 @@ public class MovieActorServiceImp implements MovieActorService{
         return repository.checkId(movieActor);
     }
 
+    @Override
+    public void deleteById(Long movieId) {
+        repository.delete(movieId);
+    }
+
 }

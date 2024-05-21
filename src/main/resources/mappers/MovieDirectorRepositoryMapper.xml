@@ -17,4 +17,8 @@
         WHERE movie_director.movie_id = #{movieId}
         ORDER BY popularity DESC
     </select>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM movie_director WHERE movie_id=#{movieId};
+    </delete>
 </mapper>

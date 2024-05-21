@@ -11,7 +11,7 @@ import java.util.List;
 public interface MovieDirectorRepository {
     int save(MovieDirector movieDirector);
     int update(MovieDirector movieDirector);
-    int delete(MovieDirector movieDirector);
+    void delete(Long movieId);
 
     /*영화코드별 감독리스트*/
     List<Director> findAllById(Long movieId);

@@ -17,4 +17,8 @@
         WHERE movie_id=#{movieId}
     </select>
 
+    <delete id="delete" parameterType="Long">
+        DELETE FROM movie_trailer WHERE movie_id=#{movieId};
+    </delete>
+
 </mapper>

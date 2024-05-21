@@ -25,4 +25,8 @@
         where movie_id = #{movieId} and actor_id = #{actorId}
     </select>
 
+    <delete id="delete" parameterType="Long">
+        DELETE FROM movie_actor WHERE movie_id=#{movieId};
+    </delete>
+
 </mapper>

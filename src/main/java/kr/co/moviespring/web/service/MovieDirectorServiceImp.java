@@ -33,5 +33,10 @@ public class MovieDirectorServiceImp implements MovieDirectorService{
         // 일단 0값
         return 0;
     }
+
+    @Override
+    public void deleteById(Long movieId) {
+        repository.delete(movieId);
+    }
     
 }

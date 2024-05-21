@@ -12,4 +12,5 @@ public interface MovieActorService {
     /*영화아이디별 배우목록*/
     List<MovieActorView> getById(Long movieId);
     boolean checkMovieActor(MovieActor movieActor);
+    void deleteById(Long movieId);
 }

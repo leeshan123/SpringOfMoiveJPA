@@ -22,4 +22,8 @@
         WHERE movie_id=#{movieId}
     </select>
 
+    <delete id="delete" parameterType="Long">
+        DELETE FROM movie_stillcut WHERE movie_id=#{movieId};
+    </delete>
+
 </mapper>

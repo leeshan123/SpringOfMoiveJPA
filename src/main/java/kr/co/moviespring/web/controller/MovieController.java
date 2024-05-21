@@ -115,7 +115,7 @@ public class MovieController {
 //            model.addAttribute("avgRate"+(i), avg);
 //        }; //모르겠다 일단 보류
 
-        model.addAttribute("dlist", list);
+        model.addAttribute("dlist", dailyList);
         model.addAttribute("list", list);
         model.addAttribute("listAfter", listAfter);
         return "movie/main";

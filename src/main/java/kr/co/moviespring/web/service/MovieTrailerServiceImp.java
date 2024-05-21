@@ -25,5 +25,9 @@ public class MovieTrailerServiceImp implements MovieTrailerService{
         List<MovieTrailer> list = repository.findAllById(movieId);
         return list;
     }
+    @Override
+    public void deleteById(Long movieId) {
+        repository.delete(movieId);
+    }
 
 }

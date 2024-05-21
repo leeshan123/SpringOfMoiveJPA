@@ -12,4 +12,6 @@ public interface MovieTrailerRepository {
 
     //영화 아이디별 예고편 가져오기
     List<MovieTrailer> findAllById(Long movieId);
+
+    void delete(Long movieId);
 }

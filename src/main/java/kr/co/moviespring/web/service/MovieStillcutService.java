@@ -9,4 +9,6 @@ public interface MovieStillcutService {
 
     //영화 아이디별 스틸컷 리스트
     List<MovieStillcut> getById(Long movieId);
+
+    void deleteById(Long movieId);
 }

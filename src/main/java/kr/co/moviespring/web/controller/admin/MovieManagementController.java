@@ -54,6 +54,7 @@ public class MovieManagementController {
 
     @Autowired
     MovieService movieService;
+    
     @Autowired
     OnelineReviewService onelineReviewService;
 
@@ -79,7 +80,6 @@ public class MovieManagementController {
     MovieDirectorService movieDirectorService;
 
 
-    
     @GetMapping("list")
     public String list(
         @RequestParam(name="q",required = false)String query
@@ -102,6 +102,7 @@ public class MovieManagementController {
         return "admin/movie-management/list"; 
     }
 
+    // 일단 안씀
     @GetMapping("list-movie3")
     public String listMovie3(
         @RequestParam(name="q",required = false) String query

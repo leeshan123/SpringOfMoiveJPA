@@ -9,4 +9,6 @@ public interface MovieTrailerService {
 
     //영화 아이디별 예고편 가져오기
     List<MovieTrailer> getById(Long movieId);
+
+    void deleteById(Long movieId);
 }

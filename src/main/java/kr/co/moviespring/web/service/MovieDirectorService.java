@@ -11,5 +11,7 @@ public interface MovieDirectorService {
 
     MovieDirector add(MovieDirector movieDirector);
     int remove(Long id);
+
+    void deleteById(Long movieId);
     
 }

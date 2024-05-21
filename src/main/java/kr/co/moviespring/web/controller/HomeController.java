@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.moviespring.web.config.batch.BatchSchedulerConfig;
 import kr.co.moviespring.web.entity.Actor;
 import kr.co.moviespring.web.entity.Director;
 import kr.co.moviespring.web.entity.Movie;
@@ -32,9 +33,10 @@ public class HomeController {
 
     @GetMapping("")
     public String main(Model model) {
+        List<Movie> dList = BatchSchedulerConfig.getList();
         // 올해의 영화
         List<Movie> list = movieService.getListByYear();
-        model.addAttribute("list", list);
+        model.addAttribute("list", dList);
         //개봉예정영화
         List<Movie> listAfter = movieService.getListAfter();
         model.addAttribute("listAfter", listAfter);
