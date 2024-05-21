@@ -143,6 +143,31 @@ function displayMovies(movies, movie3Data) {
           
           <button class="n-btn" type="submit">선택</button>
       `;
+
+      movieItem.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(movieItem);
+
+        fetch(movieItem.getAttribute('action'), {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.status === 409) {
+                return response.text().then(text => {
+                    alert(text); // "이미 존재하는 영화입니다." 메시지 표시
+                });
+            } else if (response.status === 201) {
+                return response.text().then(text => {
+                    alert(text); // "영화가 성공적으로 추가되었습니다." 메시지 표시
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+      });
       movieListDiv.appendChild(movieItem);
   });
 }

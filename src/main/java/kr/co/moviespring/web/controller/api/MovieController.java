@@ -85,7 +85,7 @@ public class MovieController {
             
             // 이미 영화가 있다면
             if(movie != null){
-                ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재하는 영화입니다.");
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재하는 영화입니다.");
             }
         }
             
