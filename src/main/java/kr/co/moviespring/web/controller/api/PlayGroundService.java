@@ -2,6 +2,7 @@ package kr.co.moviespring.web.controller.api;
 
 import kr.co.moviespring.web.config.security.CustomUserDetails;
 import lombok.NoArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +12,9 @@ public class PlayGroundService {
 
     //로그인 상태 체크
     @GetMapping("/checkLogin")
-    public boolean checkLogin(@AuthenticationPrincipal CustomUserDetails userDetails){
+    public boolean checkLogin(@AuthenticationPrincipal CustomUserDetails userDetails) {
 
-        if(userDetails == null)
+        if (userDetails == null)
             return false;
         else
             return true;
@@ -21,7 +22,7 @@ public class PlayGroundService {
     }
 
     @PostMapping("/betting-possible")
-    public void bettingPossible(@RequestBody BettingRequest request, @AuthenticationPrincipal CustomUserDetails userDetails){
+    public ResponseEntity<String> bettingPossible(@RequestBody BettingRequest request, @AuthenticationPrincipal CustomUserDetails userDetails) {
         System.out.println("PBG ID: " + request.getPbgId());
         System.out.println("Betting Amount: " + request.getBettingAmount());
 
@@ -29,6 +30,35 @@ public class PlayGroundService {
         System.out.println("User ID: " + userDetails.getId());
         System.out.println("Username: " + userDetails.getUsername());
         System.out.println("UserPoint: " + userDetails.getPoint());
+
+        int bettingPoint = request.getBettingAmount();
+        int userPoint = userDetails.getPoint();
+
+        if (bettingPoint <= userPoint) {
+            return ResponseEntity.ok("베팅 가능합니다.");
+        } else {
+            return ResponseEntity.ok("베팅할 돈이 없습니다.");
+        }
+
+
+    }
+
+    @PostMapping("/betting")
+    public ResponseEntity<String> betting(@RequestBody BettingRequest request, @AuthenticationPrincipal CustomUserDetails userDetails) {
+
+        int bettingPoint = request.getBettingAmount();
+        int userPoint = userDetails.getPoint();
+
+        if (bettingPoint <= userPoint) {
+
+
+
+
+
+            return ResponseEntity.ok("베팅 성공.");
+        } else {
+            return ResponseEntity.ok("베팅할 돈이 없습니다.");
+        }
 
 
     }

@@ -203,4 +203,9 @@ public class MovieServiceImp implements MovieService {
         return repository.getCount(query);
     }
 
+    @Override
+    public void deleteById(Long id) {
+        repository.delete(id);
+    }
+
 }

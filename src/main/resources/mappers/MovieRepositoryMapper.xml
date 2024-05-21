@@ -170,4 +170,8 @@
 		select movie.* from twoweek_movie_vote_list
 		inner join movie on movie.id = twoweek_movie_vote_list.movie_cd
 	</select>
+
+	<delete id="delete" parameterType="Long">
+        DELETE FROM movie WHERE id=#{id};
+    </delete>
 </mapper>
