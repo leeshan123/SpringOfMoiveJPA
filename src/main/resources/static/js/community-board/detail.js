@@ -230,6 +230,11 @@
     //댓글 수정
     //댓글 수 만큼 코멘트 박스 찾기
     let commentBoxes = document.querySelectorAll(".comment-box");
+    // 현재 URL의 쿼리 문자열 가져오기
+    let params = new URLSearchParams(window.location.search);
+    // 특정 파라미터 값 가져오기 (예: 'c' 파라미터 값)
+    let categoryEngName = params.get('c');
+    let boardId = params.get('id');
     let url = '/api/community-board/comments/';
     commentBoxes.forEach(function(commentBox) {
         //댓글 수 만큼 반복문 돌리는데 그중에 내가 쓴 댓글이라서 수정,삭제 버튼이 존재하는 경우에만 함수 추가,
@@ -285,7 +290,7 @@
                             closeOnClickOutside : true,
                             confirmButtonColor: "#3085d6",
                             });
-                        window.location.href = 'http://localhost/community/board/detail?c=review&id=81';
+                        window.location.href = `http://localhost/community/board/detail?c=${categoryEngName}&id=${boardId}`;
                         break;
                     default:
                         alert('예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요');
