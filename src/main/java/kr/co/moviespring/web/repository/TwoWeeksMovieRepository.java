@@ -1,6 +1,7 @@
 package kr.co.moviespring.web.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -26,6 +27,8 @@ public interface TwoWeeksMovieRepository {
     totalVoteView getThisWeeksMovie();
 
     //admin
+    void getMoviesByDynamicCriteria(String parentSelectValue,String childSelectValue);
+
     void getByGenre(String childSelectValue);
 
     void getByReleaseDate(String childSelectValue);

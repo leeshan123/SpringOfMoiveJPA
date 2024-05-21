@@ -1,7 +1,9 @@
 package kr.co.moviespring.web.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -39,6 +41,13 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
     }
 
     // admin
+    public void findByCriteria(String parentSelectValue, String childSelectValue) {
+        TWMovieRepository.getMoviesByDynamicCriteria(parentSelectValue,childSelectValue);
+        // Map<String, String> params = new HashMap<>();
+        // params.put("parentSelectValue", parentSelectValue);
+        // params.put("childSelectValue", childSelectValue);
+    }
+
     public void findByGenre(String childSelectValue) {
         TWMovieRepository.getByGenre(childSelectValue);
     }

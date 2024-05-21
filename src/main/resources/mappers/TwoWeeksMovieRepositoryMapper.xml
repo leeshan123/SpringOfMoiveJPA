@@ -44,7 +44,7 @@
 	</select> -->
 
     <!-- 장르별 영화등록 -->
-    <insert id="getByGenre">
+    <!-- <insert id="getByGenre">
         INSERT INTO twoweek_movie_vote_list (movie_cd, tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, logo_url, main_img_url, release_nation, genre)
         SELECT movie.id, movie.tmdb_id, movie.kobis_id, movie.kor_name, movie.eng_name, movie.sponsor, movie.release_date, movie.running_time, movie.watch_grade, movie.movie_intro, movie.poster_url, movie.logo_url, movie.main_img_url, movie.release_nation, movie.genre
         FROM movie
@@ -52,7 +52,7 @@
         WHERE movie.genre = #{childSelectValue}
         ORDER BY movie3.audi_acc DESC
         LIMIT 6;
-    </insert>
+    </insert> -->
 
 	<select id="getVoteList1">
 	SELECT movie.*, movie3.audi_acc
@@ -66,7 +66,7 @@
 
 
 	<!-- 년도별 영화등록,조회 -->
-	<insert id="getByReleaseDate">
+	<!-- <insert id="getByReleaseDate">
      INSERT INTO twoweek_movie_vote_list (movie_cd, tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, logo_url, main_img_url, release_nation, genre)
         SELECT movie.id, movie.tmdb_id, movie.kobis_id, movie.kor_name, movie.eng_name, movie.sponsor, movie.release_date, movie.running_time, movie.watch_grade, movie.movie_intro, movie.poster_url, movie.logo_url, movie.main_img_url, movie.release_nation, movie.genre
         FROM movie
@@ -74,7 +74,7 @@
         WHERE YEAR(movie.release_date) = #{childSelectValue}
         ORDER BY movie3.audi_acc DESC
         LIMIT 6;
-	</insert>
+	</insert> -->
 
 	<select id="getVoteList2">
 	SELECT movie.*, movie3.audi_acc
@@ -88,7 +88,7 @@
 
 
 	<!-- 배급사별 영화등록,조회 -->
-	<insert id="getByDistributor">
+	<!-- <insert id="getByDistributor">
 	INSERT INTO twoweek_movie_vote_list (movie_cd)
 	SELECT movie.id
 	FROM movie
@@ -97,7 +97,7 @@
 	ORDER BY movie3.audi_acc DESC
 	LIMIT 6;
     
-	</insert>
+	</insert> -->
 
 	<select id="getVoteList3">
 	SELECT movie.*, movie3.audi_acc
@@ -113,5 +113,33 @@
 	select movie.* from twoweek_movie_vote_list
 	inner join movie on movie.id = twoweek_movie_vote_list.movie_cd
 	</select>
+
+	<!-- 동적쿼리 테스트용 -->
+    <insert id="getMoviesByDynamicCriteria">
+        INSERT INTO twoweek_movie_vote_list 
+        (movie_cd, tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, logo_url, main_img_url, release_nation, genre)
+        SELECT 
+            movie.id, movie.tmdb_id, movie.kobis_id, movie.kor_name, movie.eng_name, movie.sponsor, movie.release_date, movie.running_time, movie.watch_grade, movie.movie_intro, movie.poster_url, movie.logo_url, movie.main_img_url, movie.release_nation, movie.genre
+        FROM 
+            movie
+        INNER JOIN 
+            movie3 ON movie.kobis_id = movie3.movie_cd
+        <where>
+            <choose>
+                <when test="parentSelectValue == 'genre'">
+                    movie.genre = #{childSelectValue}
+                </when>
+                <when test="parentSelectValue == 'releaseDate'">
+                    YEAR(movie.release_date) = #{childSelectValue}
+                </when>
+                <when test="parentSelectValue == 'distributor'">
+                    movie.distributor = #{childSelectValue}
+                </when>
+            </choose>
+        </where>
+        ORDER BY 
+            movie3.audi_acc DESC
+        LIMIT 6
+    </insert>
 </mapper>
 

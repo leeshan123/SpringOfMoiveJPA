@@ -53,9 +53,9 @@
 
                     <select id="parentSelect" class="w:3" name="pS">
                         <option value="">테마를 정해주세요</option>
-                        <option value="1" name="1">개봉년도</option>
-                        <option value="2" name="2">장르</option>
-                        <option value="3" name="3">영화사(이벤트테마)</option>
+                        <option value="releaseDate" name="releaseDate">개봉년도</option>
+                        <option value="genre" name="genre">장르</option>
+                        <option value="distributor" name="distributor">영화사(이벤트테마)</option>
                     </select>
                     <select id="childSelect" name="cS">
                     </select>
@@ -86,7 +86,7 @@
                             const selectedValue = parentSelect.value;
 
                             switch (selectedValue) {
-                                case '1':
+                                case 'releaseDate':
                                     childSelect.add(new Option('2018','2018'));
                                     childSelect.add(new Option('2019','2019'));
                                     childSelect.add(new Option('2020','2020'));
@@ -95,7 +95,7 @@
                                     childSelect.add(new Option('2023','2023'));
                                     childSelect.add(new Option('2024','2024'));
                                     break;
-                                case '2':
+                                case 'genre':
                                     childSelect.add(new Option('SF', "SF"));
                                     childSelect.add(new Option('가족', "가족"));
                                     childSelect.add(new Option('공연', "공연"));
@@ -118,7 +118,7 @@
                                     childSelect.add(new Option('판타지', "판타지"));
 
                                     break;
-                                case '3':
+                                case 'distributor':
                                     childSelect.add(new Option('롯데시네마', '롯데시네마'));
                                     childSelect.add(new Option('CGV', 'CGV'));
                                     childSelect.add(new Option('메가박스', '메가박스'));

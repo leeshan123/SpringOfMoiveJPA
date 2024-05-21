@@ -17,6 +17,7 @@ public interface TwoWeeksMovieService {
     void vote(Long memberId,Integer movieId);
 
     //admin 장르별 관객수 순위6위까지 검색
+    void findByCriteria(String parentSelectValue, String childSelectValue);
      void findByGenre(String childSelectValue);
      //년도별 6위까지검색
      void findByReleseDate(String childSelectValue);

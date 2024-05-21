@@ -40,28 +40,24 @@ public class TwoWeeksMovieController {
     public String voteListReg(@RequestParam("pS") String parentSelectValue,
                                 @RequestParam("cS") String childSelectValue){
         //컨트롤러에 있을 로직이아닌거같음 수정 ㄱㄱ
-        int psv= Integer.parseInt(parentSelectValue);
-
-        System.out.println(psv);
-        System.out.println("자식 select 값: " + childSelectValue);
+        //부모셀렉터도 매퍼에 동적 템플릿레터럴로 넣으면 해결
+        TWMovieService.findByCriteria(parentSelectValue, childSelectValue);
+        // int psv= Integer.parseInt(parentSelectValue);
+        // System.out.println(psv);
+        // System.out.println("자식 select 값: " + childSelectValue);
         
-        if(psv==1){
+        // if(psv==1){
             
-            TWMovieService.findByReleseDate(childSelectValue);
-        }
-        else if(psv==2){
+        //     TWMovieService.findByReleseDate(childSelectValue);
+        // }
+        // else if(psv==2){
             
-            TWMovieService.findByGenre(childSelectValue);
-        }
-        else if(psv==3){
+        //     TWMovieService.findByGenre(childSelectValue);
+        // }
+        // else if(psv==3){
             
-            TWMovieService.findByDistributor(childSelectValue);
-        }
-
-
-
-
-
+        //     TWMovieService.findByDistributor(childSelectValue);
+        // }
         return "admin/2weeks/vote-list";
     }
     
