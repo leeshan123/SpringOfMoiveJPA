@@ -126,7 +126,9 @@ public class MovieController {
         // 날짜 파싱
         String dateString = movie3.getOpenDt();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date releaseDate = dateFormat.parse(dateString);
+        Date releaseDate = new Date();
+        if(!dateString.equals("null"))
+            releaseDate = dateFormat.parse(dateString);
         movie.setReleaseDate(releaseDate);
         movie.setReleaseNation(movie3.getNationAlt());
         movie.setKobisId(movie3.getMovieCd());

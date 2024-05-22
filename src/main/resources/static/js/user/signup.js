@@ -10,6 +10,8 @@ window.addEventListener("load", function() {
             checkUsername(username);
         } else {
             statusSpan.textContent = "4글자 이상 입력해주세요";
+            statusSpan.classList.add("font-color-invalid");
+            statusSpan.classList.remove("font-color-valid");
         }
     })
 
@@ -24,10 +26,15 @@ window.addEventListener("load", function() {
                 // ""을 제외한 모든 문자열은 유효하지 않은 상태임.
                 if (data.isDuplicate) {
                     statusSpan.textContent = "아이디가 중복됩니다.";
+                    statusSpan.classList.add("font-color-invalid");
+                    statusSpan.classList.remove("font-color-valid");
                     usernameInput.setCustomValidity("아이디가 중복됩니다.");
+                    
                     
                 } else {
                     statusSpan.textContent = "사용 가능한 아이디입니다.";
+                    statusSpan.classList.add("font-color-valid");
+                    statusSpan.classList.remove("font-color-invalid");
                     usernameInput.setCustomValidity("");
                 }
             })

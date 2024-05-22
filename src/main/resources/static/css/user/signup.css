@@ -32,3 +32,11 @@ input:invalid{
 .n-form span:has(input:invalid)::after{
     background-color: red;
 }
+
+.font-color-invalid{
+    color: red;
+}
+
+.font-color-valid{
+    color: rgb(68, 188, 68);
+}
