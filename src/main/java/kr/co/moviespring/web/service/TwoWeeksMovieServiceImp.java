@@ -15,6 +15,7 @@ import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.VoteMemberList;
 import kr.co.moviespring.web.entity.totalVoteView;
 import kr.co.moviespring.web.repository.TwoWeeksMovieRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
@@ -42,27 +43,35 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
     }
 
     // admin
-    public void findByCriteria(String parentSelectValue, String childSelectValue) {
-        TWMovieRepository.getMoviesByDynamicCriteria(parentSelectValue,childSelectValue);
-        // Map<String, String> params = new HashMap<>();
-        // params.put("parentSelectValue", parentSelectValue);
-        // params.put("childSelectValue", childSelectValue);
-    }
+    // public void findByCriteria(String parentSelectValue, String childSelectValue) {
+    //     TWMovieRepository.getMoviesByDynamicCriteria(parentSelectValue,childSelectValue);
+    //     // Map<String, String> params = new HashMap<>();
+    //     // params.put("parentSelectValue", parentSelectValue);
+    //     // params.put("childSelectValue", childSelectValue);
+    // }
 
+    @Override
+    @Transactional
+    public void initList(String parentSelectValue, String childSelectValue){
+        TWMovieRepository.deleteAllVoteList();
+        TWMovieRepository.deleteAllMovieList();
+        TWMovieRepository.getMoviesByDynamicCriteria(parentSelectValue,childSelectValue);
+    }
+    
     public void findByGenre(String childSelectValue) {
         TWMovieRepository.getByGenre(childSelectValue);
     }
 
-    @Override
-    public void findByReleseDate(String childSelectValue) {
-        TWMovieRepository.getByReleaseDate(childSelectValue);
+    // @Override
+    // public void findByReleseDate(String childSelectValue) {
+    //     TWMovieRepository.getByReleaseDate(childSelectValue);
 
-    }
+    // }
 
-    @Override
-    public void findByDistributor(String childSelectValue) {
-        TWMovieRepository.getByDistributor(childSelectValue);
-    }
+    // @Override
+    // public void findByDistributor(String childSelectValue) {
+    //     TWMovieRepository.getByDistributor(childSelectValue);
+    // }
 
     @Override
     public List<Movie> findAllEditedList() {

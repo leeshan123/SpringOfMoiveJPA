@@ -21,32 +21,15 @@ public class MovieController {
     @Autowired
     TwoWeeksMovieService TwoWeeksMovie;
 
-    @GetMapping("vote-list")
-    public List<Movie> voteListReg(@RequestParam("pS") String parentSelectValue,
-                                @RequestParam("cS") String childSelectValue){
+    // @GetMapping("vote-list")
+    // public List<Movie> voteListReg(@RequestParam("pS") String parentSelectValue,
+    //                             @RequestParam("cS") String childSelectValue){
 
-        int psv= Integer.parseInt(parentSelectValue);
+    // TWMovieService.findByCriteria(parentSelectValue, childSelectValue);
 
-        System.out.println(psv);
-        System.out.println("자식 select 값: " + childSelectValue);
-                List<Movie> movieWeeks = new ArrayList<>();
 
-        if(psv==1){
-            
-            TwoWeeksMovie.findByReleseDate(childSelectValue);
-            movieWeeks = TwoWeeksMovie.findAllEditedList();
-        }
-        else if(psv==2){
-            
-            TwoWeeksMovie.findByGenre(childSelectValue);
-        }
-        else if(psv==3){
-            
-            TwoWeeksMovie.findByDistributor(childSelectValue);
-        }
-
-        return movieWeeks;
-    }
+    //     return movieWeeks;
+    // }
     //  @Autowired
     // CommentService commentService;
     // @GetMapping("detail")

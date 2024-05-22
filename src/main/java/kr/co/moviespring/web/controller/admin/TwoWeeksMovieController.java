@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class TwoWeeksMovieController {
 
     @Autowired
         TwoWeeksMovieService TWMovieService;
-
+    
     @GetMapping("vote-list")
     public String voteList (Model model) {
         List<totalVoteView> movieList = TWMovieService.findByMovieCd();
@@ -36,28 +37,16 @@ public class TwoWeeksMovieController {
         return "admin/2weeks/vote-list";
     }
     
+    // service에서 구현할것 delete ,insert 쿼리함께실행시 트렌젝션 내부에서 작업하도록 어노테이션 적용해주면됨 5/22
     @PostMapping("vote-list")
+    @Transactional
     public String voteListReg(@RequestParam("pS") String parentSelectValue,
                                 @RequestParam("cS") String childSelectValue){
         //컨트롤러에 있을 로직이아닌거같음 수정 ㄱㄱ
         //부모셀렉터도 매퍼에 동적 템플릿레터럴로 넣으면 해결
-        TWMovieService.findByCriteria(parentSelectValue, childSelectValue);
-        // int psv= Integer.parseInt(parentSelectValue);
-        // System.out.println(psv);
-        // System.out.println("자식 select 값: " + childSelectValue);
+        TWMovieService.initList(parentSelectValue,childSelectValue);
+
         
-        // if(psv==1){
-            
-        //     TWMovieService.findByReleseDate(childSelectValue);
-        // }
-        // else if(psv==2){
-            
-        //     TWMovieService.findByGenre(childSelectValue);
-        // }
-        // else if(psv==3){
-            
-        //     TWMovieService.findByDistributor(childSelectValue);
-        // }
         return "admin/2weeks/vote-list";
     }
     

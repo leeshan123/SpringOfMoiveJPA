@@ -114,8 +114,10 @@
 	inner join movie on movie.id = twoweek_movie_vote_list.movie_cd
 	</select>
 
+
+
 	<!-- 동적쿼리 테스트용 -->
-    <insert id="getMoviesByDynamicCriteria">
+	<insert id="getMoviesByDynamicCriteria">
         INSERT INTO twoweek_movie_vote_list 
         (movie_cd, tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, logo_url, main_img_url, release_nation, genre)
         SELECT 
@@ -141,5 +143,91 @@
             movie3.audi_acc DESC
         LIMIT 6
     </insert>
+
+
+	<delete id="deleteAllMovieList">
+	DELETE FROM twoweek_movie_vote_list;
+	</delete>
+
+	<delete id="deleteAllVoteList">
+	DELETE FROM vote_member_list;
+	</delete>
+    <!-- <UPDATE id="getMoviesByDynamicCriteria">
+
+        UPDATE twoweek_movie_vote_list SET ?
+        (movie_cd, tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, logo_url, main_img_url, release_nation, genre)
+        SELECT 
+            movie.id, movie.tmdb_id, movie.kobis_id, movie.kor_name, movie.eng_name, movie.sponsor, movie.release_date, movie.running_time, movie.watch_grade, movie.movie_intro, movie.poster_url, movie.logo_url, movie.main_img_url, movie.release_nation, movie.genre
+        FROM 
+            movie
+        INNER JOIN 
+            movie3 ON movie.kobis_id = movie3.movie_cd
+        <where>
+            <choose>
+                <when test="parentSelectValue == 'genre'">
+                    movie.genre = #{childSelectValue}
+                </when>
+                <when test="parentSelectValue == 'releaseDate'">
+                    YEAR(movie.release_date) = #{childSelectValue}
+                </when>
+                <when test="parentSelectValue == 'distributor'">
+                    movie.distributor = #{childSelectValue}
+                </when>
+            </choose>
+        </where>
+        ORDER BY 
+            movie3.audi_acc DESC
+        LIMIT 6
+
+		
+    </UPDATE> -->
+
+<!-- <update id="getMoviesByDynamicCriteria">
+UPDATE twoweek_movie_vote_list AS tw
+    INNER JOIN (
+        SELECT 
+            movie.id, movie.tmdb_id, movie.kobis_id, movie.kor_name, movie.eng_name, movie.sponsor, movie.release_date, movie.running_time, movie.watch_grade, movie.movie_intro, movie.poster_url, movie.logo_url, movie.main_img_url, movie.release_nation, movie.genre
+        FROM 
+            movie
+        INNER JOIN 
+            movie3 ON movie.kobis_id = movie3.movie_cd
+        <where>
+            <choose>
+                <when test="parentSelectValue == 'genre'">
+                    AND movie.genre = #{childSelectValue}
+                </when>
+                <when test="parentSelectValue == 'releaseDate'">
+                    AND YEAR(movie.release_date) = #{childSelectValue}
+                </when>
+                <when test="parentSelectValue == 'distributor'">
+                    AND movie.distributor = #{childSelectValue}
+                </when>
+            </choose>
+        </where>
+        ORDER BY 
+            movie3.audi_acc DESC
+        LIMIT 6
+    ) AS m ON tw.id = m.id
+    SET 
+		tw.id = 
+        tw.tmdb_id = m.tmdb_id,
+        tw.kobis_id = m.kobis_id,
+        tw.kor_name = m.kor_name,
+        tw.eng_name = m.eng_name,
+        tw.sponsor = m.sponsor,
+        tw.release_date = m.release_date,
+        tw.running_time = m.running_time,
+        tw.watch_grade = m.watch_grade,
+        tw.movie_intro = m.movie_intro,
+        tw.poster_url = m.poster_url,
+        tw.logo_url = m.logo_url,
+        tw.main_img_url = m.main_img_url,
+        tw.release_nation = m.release_nation,
+        tw.genre = m.genre;
+</update> -->
+
+
+
+
 </mapper>
 

@@ -27,8 +27,11 @@ public interface TwoWeeksMovieRepository {
     totalVoteView getThisWeeksMovie();
 
     //admin
+    void deleteAllVoteList();
+    void deleteAllMovieList();
     void getMoviesByDynamicCriteria(String parentSelectValue,String childSelectValue);
-
+    
+    
     void getByGenre(String childSelectValue);
 
     void getByReleaseDate(String childSelectValue);
