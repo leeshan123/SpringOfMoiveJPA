@@ -16,5 +16,7 @@ public interface MemberService {
     //회원정보 변경
     void changeUserInfo(Long id, String nickname, String password, String email);
     List<CommunityBoardView> getMyBoard(Long memberId); // 내 게시글 조회
+
+    boolean getByUsername(String name);
     
 }

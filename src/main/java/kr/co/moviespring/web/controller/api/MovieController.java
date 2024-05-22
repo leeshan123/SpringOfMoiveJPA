@@ -75,15 +75,14 @@ public class MovieController {
         @RequestBody String[] codeArr
     ){
         for (String movieCode : codeArr) {
-            trailerService.deleteById(Long.parseLong(movieCode));
-            System.out.println("============================ 트레일러 삭제 ===========================");
-            stillcutService.deleteById(Long.parseLong(movieCode));
-            System.out.println("============================ 스틸컷 삭제 ===========================");
-            movieDirectorService.deleteById(Long.parseLong(movieCode));
-            System.out.println("============================ 무비감독 삭제 ===========================");
-            movieActorService.deleteById(Long.parseLong(movieCode));
-            System.out.println("============================ 무비액터 삭제 ===========================");
-            // 여기서부터 다시 시작
+            // trailerService.deleteById(Long.parseLong(movieCode));
+            // System.out.println("============================ 트레일러 삭제 ===========================");
+            // stillcutService.deleteById(Long.parseLong(movieCode));
+            // System.out.println("============================ 스틸컷 삭제 ===========================");
+            // movieDirectorService.deleteById(Long.parseLong(movieCode));
+            // System.out.println("============================ 무비감독 삭제 ===========================");
+            // movieActorService.deleteById(Long.parseLong(movieCode));
+            // System.out.println("============================ 무비액터 삭제 ===========================");
             movieService.deleteById(Long.parseLong(movieCode));
             System.out.println("============================ 영화 삭제 ===========================");
         }

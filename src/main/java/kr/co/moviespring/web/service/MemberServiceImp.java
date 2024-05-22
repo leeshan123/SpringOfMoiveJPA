@@ -77,4 +77,14 @@ public class MemberServiceImp implements MemberService {
         return list;
     }
 
+    @Override
+    public boolean getByUsername(String name) {
+        Member member = memberRepository.findByMembername(name);
+
+        if(member == null)
+            return false;
+
+        return true;
+    }
+
 }

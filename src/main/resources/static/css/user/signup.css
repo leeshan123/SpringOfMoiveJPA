@@ -1,0 +1,34 @@
+.n-form label{
+    margin-bottom: 4px;
+}
+
+.n-form span{
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* 입력 요소(input)가 유효하지 않은 상태일 때, 
+즉 유효성 검사에 실패했을 때 해당 입력 요소의 배경색*/
+input:invalid{
+    background-color: red;
+}
+
+/* 해당 클래스의 span의 뒤에 가상 요소를 추가 */
+.n-form span::after{
+    /* 빈 문자열이라도 줘야 표시가 됨 */
+    content: ""; 
+    /* 너비와 높이, 패딩 등을 가질 수 있게 */
+    display: inline-block; 
+    border-radius: 15px;
+    width: 8px;
+    height: 8px;
+    /* 기본 색 설정 */
+    background-color: rgb(77, 255, 77);
+}
+
+.n-form span:has(input:invalid)::after{
+    background-color: red;
+}
