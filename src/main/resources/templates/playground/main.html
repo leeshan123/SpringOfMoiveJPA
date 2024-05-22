@@ -54,6 +54,38 @@
         .button_box{
             margin-top:15px;
         }
+
+        .n-progress.progress-bg {
+            background-color: #339af0;
+
+        }
+
+        .n-progress>div:first-child {
+            background-color: #ff6b6b;
+        }
+
+        .left-betting-checkbox{
+            --toggle-check-background-color-checked: #ff6b6b;
+        }
+
+        .right-betting-checkbox{
+            --toggle-check-background-color-checked: #339af0;
+
+        }
+
+        .betting-btn,#submit-btn {
+            background-color: #E9C566;
+
+        }
+
+        .betting-btn:hover,#submit-btn {
+            background-color: #D4AF43;
+        }
+
+        .betting-btn:active,#submit-btn {
+            background-color: #C49B32;
+        }
+
     </style>
 </head>
 
@@ -69,14 +101,14 @@
                                                   th:src="${pbg.posterUrl}"
                                                   src="http://image.tmdb.org/t/p/original/ukVVnY9ovwl78WE5KndcpA6SnAm.jpg" height="250px" alt=""></div>
                         <div class="d:flex flex-direction:column text-box">
-                            <div class="d:flex title-box">
+                            <div class="d:flex title-box ai:center">
                             <div
                                     class="icon-size d:inline-block bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold icon_num"
                                     th:text="${pgbList.count}">1</div>
                             <div class="fw:bold fs:4" th:text="${pbg.title}">"서울의 봄" 천만 돌파 가능!?</div>
                                 <div class="color:accent-2" th:text="${#dates.format(pbg.voteEndDate, 'yy.MM.dd')}+'까지 투표 마감'">투표 마감: 24.05.09까지</div>
                             </div>
-                            <div class="d:flex color:base-6 gap:2 icon2_box">
+                            <div class="d:flex color:base-6 gap:2 icon2_box ai:center">
                                 <span class="icon icon:user">아이콘</span>
                                 <span th:text="'200명'+' 참여중'">참여인원</span>
                             </div>
@@ -85,18 +117,44 @@
                                 <li>VS</li>
                                 <li class="mr:2" th:text="${pbg.bettingTitle}+ ' 이하'">1000만 이상</li>
                             </ul>
-                            <div class="n-progress bd-radius:4">
+                            <div class="n-progress bd-radius:4 progress-bg mt:2 mb:2">
                                 <div style="width: 35%;" class=""></div>
                                 <span class="d:flex ml:auto"></span>
                             </div>
-                            <ul class="w:10p d:flex jc:space-between fw:bold mr:2">
-                                <li class="ml:5">2.522</li>
-                                <li>누적 포인트 123,456,789</li>
-                                <li class="mr:5">1.35</li>
-                            </ul>
-                            <div class="w:10p d:flex flex-direction:column color:base-6 fl-grow:1 gap:2 button_box">
-                                    <button class="n-btn n-btn-size:3 w:2 betting-btn" th:data-pbg-id="${pbg.id}">참여하기</button>
-                                <div class=" color:base-6 date_box" th:text="${#dates.format(pbg.deadLineDate, 'yy.MM.dd')}+'까지 집계'"}>
+                            <div class="w:10p d:flex jc:space-between fw:bold mr:2 ">
+                                <div class="d:flex  gap:2 ai:center">
+                                    <div>
+                                    <label>
+                                    <input
+
+                                            type="checkbox"
+                                            value="0"
+                                            id="left-betting-checkbox"
+                                            class="betting-checkbox n-toggle n-toggle-type:check-box n-toggle-size:2 left-betting-checkbox" />
+                                    </label>
+                                    </div>
+                                    <div>
+                                        2.522
+                                    </div>
+                                </div>
+                                <div>누적 포인트 123,456,789</div>
+                                <div class="d:flex ml:5 gap:2 ai:center">
+                                    <div>
+                                        <label>
+                                            <input type="checkbox"
+                                                   value="1"
+                                                   id="right-betting-checkbox"
+                                                    class="betting-checkbox n-toggle n-toggle-type:check-box n-toggle-size:2 right-betting-checkbox" />
+                                        </label>
+                                    </div>
+                                    <div>
+                                        2.522
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w:10p d:flex flex-direction:column color:base-6 fl-grow:1 button_box ">
+                                    <button class="n-btn n-btn-size:3 w:2 betting-btn " th:data-pbg-id="${pbg.id}">참여하기</button>
+                                <div class=" color:base-6 date_box " th:text="${#dates.format(pbg.deadLineDate, 'yy.MM.dd')}+'까지 집계'"}>
                                         24.05.29 집계마감
                                 </div>
                             </div>
@@ -107,7 +165,7 @@
             </section>
 
             <!--          베팅 모달 나오게 하기 betting-modal -->
-            <section id="betting-modal" class=" n-modal d:none w:8 h:5" tabindex="-1">
+            <section id="betting-modal" class=" n-modal d:none w:8 h:6" tabindex="-1">
                 <h1 class="n-font:h3 font-weight:3">배팅 하시겠습니까? ^^</h1>
                 <form>
                     <div class="my:5">
@@ -115,6 +173,7 @@
                             배팅 금액
                             <input type="text" id="betting-input" class="n-textbox n-textbox-label:top w:5" />
                         </label>
+                        <button id ="betting-check-btn" type="submit" class="n-btn mt:2 n-btn-color:base">가능 여부</button>
                     </div>
                     <div id="btn-div" class="d:flex jc:flex-end gap:2 mt:8">
                         <button id ="submit-btn" type="submit" class="n-btn">배팅</button>
@@ -128,13 +187,29 @@
             <section id="login-modal" class="n-modal d:none" tabindex="-1">
             <h1 class="n-font:h3 font-weight:3">로그인 후 이용 부탁드립니다!</h1>
 
-            <div class="mt:8 text-a:center">Login Please</div>
-
             <div class="d:flex fl-direction:column gap:2 mt:8">
                 <button id ="login-btn" type="button" class="n-btn n-btn-size:3">로그인 하러 가기</button>
                 <button id ="close-login-btn" type="button" class="n-btn n-btn:void n-btn-size:3">뒤로 가기</button>
             </div>
         </section>
+
+        <!--        베팅 완료 모달-->
+        <section id="finish-modal" class="n-modal d:none" tabindex="-1">
+            <h1 class="n-font:h1 fw:bold text-align:center">베팅완료! 적중을 기원합니다!👋</h1>
+            <div class="d:flex ai:center jc:center"><img src="/image/jun.jpg" alt="" width="150"></div>
+            <div class="mt:4">
+                <button id="finish-btn" type="button" class="n-btn w:5">닫기</button>
+            </div>
+        </section>
+
+        <!--    체크박스 선택되지 않으면 빠꾸 먹이는 모달-->
+        <section id="checkbox-modal" class="n-modal d:none" tabindex="-1">
+            <h1 class="n-font:h1 fw:bold">투자할 곳을 선택해주세요!</h1>
+            <div class="mt:4 d:flex jc:center">
+                <button id="close-checkbox-btn" type="button" class="n-btn  n-btn-color:base">닫기</button>
+            </div>
+        </section>
+
     </main>
 </body>
 

@@ -18,7 +18,10 @@ public class PlayGroundBoard {
     String bettingTitle;
     Date voteEndDate;
     Date deadLineDate;
-    int totalBettingPoint;
+    int leftBettingPoint;
+    int rightBettingPoint;
+    double leftDividend;
+    double RightDiviend;
     int hit;
     Long adminId;
     String posterUrl;

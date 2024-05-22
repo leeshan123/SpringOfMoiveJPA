@@ -28,14 +28,8 @@ public class PlayGroundController {
             System.out.println("pgbList is null");
         } else if (pgbList.isEmpty()) {
             System.out.println("pgbList is empty");
-        } else {
-            for (PlayGroundBoard list : pgbList) {
-                System.out.println(list.getTitle());
-                System.out.println(list.getPosterUrl());
-                System.out.println(list.getId());
-            }
-
         }
+
 
 
         model.addAttribute("pgbList", pgbList);
