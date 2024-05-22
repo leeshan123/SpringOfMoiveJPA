@@ -6,13 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이벤트 - 영화의봄</title>
     <link rel="stylesheet" href="/css/event/index.css">
+    <!-- Vue용 js 추가 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="/js/event/list.js" defer></script>
+    <style>
+        .font-bold{
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <main layout:fragment="main">
         <section class="event-card-list">
-            <h1 class="fw:bold fs:7 pb:1 mb:10 color:main-3">EVENT</h1>
-            <div class="content">
-                <section th:each="menu:${list}" class="event-card">
+            <h1 class="fw:bold fs:7 pb:1 color:main-3">EVENT</h1>
+            
+            <div class="list1">
+                <!-- <section th:each="menu:${list}" class="event-card">
                     <a th:href="@{detail(id=${menu.id})}">
                         <div class="p:4">
                             <h1 th:text="${menu.title}">여기는 제목이 오는곳이지라 안그랴유</h1>
@@ -25,7 +34,7 @@
                             <img src="/image/제목 없음.png" alt="이미지">
                         </div>
                     </a>
-                </section>
+                </section> -->
             </div>
         </section>
     </main>

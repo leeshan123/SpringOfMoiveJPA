@@ -1,5 +1,7 @@
 package kr.co.moviespring.web.repository;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -15,4 +17,6 @@ public interface EventPageRepository {
     Long save(EventPage eventPage, Long memberId);
     void update(EventPage eventPage);
     void delete(Long id);
+    List<EventPage> ongoingEvents(LocalDate currentDate);
+    List<EventPage> endedEvents(LocalDate currentDate);
 }

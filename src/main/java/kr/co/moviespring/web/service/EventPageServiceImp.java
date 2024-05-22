@@ -1,5 +1,7 @@
 package kr.co.moviespring.web.service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,20 @@ public class EventPageServiceImp implements EventPageService{
     @Override
     public void deleteById(Long id) {
         repository.delete(id);
+    }
+
+    @Override
+    public List<EventPage> getOngoingList() {
+        LocalDate currentDate = LocalDate.now(); // 현재 날짜 가져오기
+        List<EventPage> list = repository.ongoingEvents(currentDate);
+        return list;
+    }
+
+    @Override
+    public List<EventPage> getEndedList() {
+        LocalDate currentDate = LocalDate.now(); // 현재 날짜 가져오기
+        List<EventPage> list = repository.endedEvents(currentDate);
+        return list;
     }
     
 }

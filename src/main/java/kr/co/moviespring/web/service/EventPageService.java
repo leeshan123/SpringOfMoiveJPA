@@ -13,4 +13,6 @@ public interface EventPageService {
     Long reg(EventPage eventPage, Long memberId);
     void edit(EventPage eventPage);
     void deleteById(Long id);
+    List<EventPage> getOngoingList();
+    List<EventPage> getEndedList();
 }

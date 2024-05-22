@@ -26,6 +26,20 @@
         LIMIT 1;
     </select>
 
+    <select id="ongoingEvents" resultType="EventPage">
+        SELECT * FROM 
+            event_page
+        WHERE 
+            end_date &gt;= #{currentDate};
+    </select>
+
+    <select id="endedEvents" resultType="EventPage">
+        SELECT * FROM 
+            event_page
+        WHERE 
+            end_date &lt; #{currentDate};
+    </select>
+
     <insert id="save" parameterType="map">
         insert into event_page(title, contents, start_date, end_date, image_url, member_id)
         values(#{eventPage.title},#{eventPage.contents},#{eventPage.startDate},#{eventPage.endDate},#{eventPage.imageUrl},#{memberId})
