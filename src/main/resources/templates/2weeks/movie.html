@@ -13,7 +13,7 @@
     <main layout:fragment="main" class="media">
         <section class="media-sect-for-2weeks media-mobile">
             <h1 class="d:none">메인</h1>
-            <section class="my:6">
+            <section class="my:6  px:2">
                 <button id="playButton" class="n-btn">음악 재생</button>
                 <audio id="myAudio">
                     <source src="/media/movieSong2.mp3" type="audio/mpeg">
@@ -99,14 +99,13 @@
                         <span class="color:base-6">텅..</span>
                     </li>
                 </ul>
-            </section>
             <section>
                 <h1 class="pl:1 fw:3 fs:5 border-left bd-color:main-2 bd-w:3 mt:5 mb:2">한줄 평</h1>
                 <div id="content" class="toggle-off">
                     <div class="txt-al:center fs:5 fw:3 mb:3">
                         <span>한줄평을 남겨주세요!</span>
                     </div>
-                    <form th:action="${myReview != null ? 'comment/edit/'+movie.id : 'comment'}" action="comment"
+                    <form th:action="${myReview != null ? 'comment/edit/'+movie.movieCd : 'comment'}" action="comment"
                         method="POST">
                         <div class="display:flex justify-content:space-between fs:4">
                             <input type="text" name="movieid" th:value="${movie.movieCd}" class="d:none">
@@ -166,6 +165,8 @@
                     </div>
                 </div>
             </section>
+            </section>
+        </section>
         </section>
     </main>
 </body>

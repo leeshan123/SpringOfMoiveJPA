@@ -63,6 +63,7 @@ public class TwoWeeksMovieController {
         return "2weeks/movie";
     }
 
+
     
     @GetMapping("list")
     public String list(Model model) {
@@ -89,7 +90,7 @@ public class TwoWeeksMovieController {
 
     //2주의영화 한줄평 영화한줄평이랑 동일
     @PostMapping("comment")
-    public String comment(String comments, @RequestParam(value = "rate", defaultValue = "15000") int rate, @RequestParam("movieid") Long movieId,
+    public String comment(String comments, @RequestParam(value = "rate", defaultValue = "15000") int rate, @RequestParam("movieCd") Long movieId,
                           @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         Long memberId = userDetails.getId();
@@ -98,13 +99,13 @@ public class TwoWeeksMovieController {
         return "redirect:/2weeks/list";
     }
 
-    @PostMapping("comment/edit/{movieid}")
-    public String edit(String comments , int rate, @PathVariable("movieid") Long movieId,
+    @PostMapping("comment/edit/{movieCd}")
+    public String edit(String comments , int rate, @PathVariable("movieCd") Long movieId,
                        @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         Long memberId = userDetails.getId();
         onelineReviewService.editComment(memberId, comments, rate, movieId);
 
-        return "redirect:/movie/detail?movieid=" + movieId;
+        return "redirect:/2weeks/movie";
     }
 }

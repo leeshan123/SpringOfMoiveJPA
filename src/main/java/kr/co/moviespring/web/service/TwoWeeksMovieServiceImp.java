@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import kr.co.moviespring.web.advice.GlobalExceptionHandler;
 import kr.co.moviespring.web.entity.Movie;
