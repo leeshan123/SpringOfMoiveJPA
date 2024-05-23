@@ -16,7 +16,8 @@
             border-bottom: solid 2px green;
         }
         main>h1{
-            font-size: 25px;
+            font-size: 22px;
+            font-weight: 500;
         }
 
         .icon\:share_fat_fill{
@@ -31,8 +32,8 @@
             <li th:each="menu:${cbclist}" class="bd-bottom border-width:2 pb:2 mb:2">
                 <div class="mt:2">
 
-                    <a th:if="${menu.communityBoardCategoryId != null}" th:href="'/community/board/detail?c=' + ${clist.get(menu.communityBoardCategoryId-1).engName} + '&amp;id=' + ${menu.communityBoardId}" th:text="${menu.communityBoardTitle}" class="fs:5">서울의봄 재밌다</a>
-                    <span th:if="${menu.communityBoardId == null }" class="fs:5 color:base-6">&lt;삭제된 게시물입니다&gt;</span>
+                    <a th:if="${menu.communityBoardCategoryId != null}" th:href="'/community/board/detail?c=' + ${clist.get(menu.communityBoardCategoryId-1).engName} + '&amp;id=' + ${menu.communityBoardId}" th:text="${menu.communityBoardTitle}" class="fs:4">서울의봄 재밌다</a>
+                    <span th:if="${menu.communityBoardId == null }" class="fs:4 color:base-6">&lt;삭제된 게시물입니다&gt;</span>
                     <span th:if="${menu.communityBoardCategoryId != null}" class="fw:2 color:base-7" th:text="'('+${clist.get(menu.communityBoardCategoryId-1).name}+' 게시판)'"></span>
 <!--                    <span class="fw:2 color:base-7" th:text="'('+${clist.get(menu.communityBoardCategoryId-1).name}+' 게시판)'"></span>-->
                 </div>

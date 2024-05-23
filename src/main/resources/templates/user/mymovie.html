@@ -17,7 +17,8 @@
         }
 
         main>h1{
-            font-size: 25px;
+            font-size: 22px;
+            font-weight: 500;
         }
 
         .content:hover .contetn-title{
@@ -74,7 +75,7 @@
                         </div>
                         <article class="w:10p mt:4">
                             <div class="bd-bottom border-width:2 fs:4 mb:2 pb:1">나의 평가 금액: <span th:text="${review.memberRate}">30000</span>원</div>
-                            <div class="fs:4 mb:3">MY COMMENT</div>           
+                            <div class="fs:4 mb:3 font-style:italic">MY COMMENT</div>           
                             <p class="fs:3 fw:bold" th:text="'&quot;' + ${review.comments} + '&quot;'">전장군님 나라를 이끌어주셈여</p>
                         </article>
                     </section>

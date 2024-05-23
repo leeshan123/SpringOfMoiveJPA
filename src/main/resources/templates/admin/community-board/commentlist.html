@@ -63,11 +63,14 @@
                 <tbody>
                     <tr th:each="comment:${list}">
                         <td class="txt-al:center py:1">
-                            <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
+                            <span th:if="${comment.communityBoardCategoryId != null}" class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
                                 th:text="${clist.get(comment.communityBoardCategoryId-1).name}">카테고리 이름</span>
+                            <span th:if="${comment.communityBoardCategoryId == null}" class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
+                                >삭제 게시물</span>
                         </td>
                         <td class="txt-al:start py:1 white-space:normal">
-                            <a href="" th:href="@{/community/board/detail(c=${clist.get(comment.communityBoardCategoryId-1).engName},id=${comment.communityBoardId})}" th:text="${comment.contents}">댓글 내용</a>
+                            <span th:if="${comment.communityBoardId == null }" class="fs:4 color:base-6" th:text="${comment.contents}">&lt;삭제된 게시물입니다&gt;</span>
+                            <a th:if="${comment.communityBoardCategoryId != null}"  href="" th:href="@{/community/board/detail(c=${clist.get(comment.communityBoardCategoryId-1).engName},id=${comment.communityBoardId})}" th:text="${comment.contents}">댓글 내용</a>
                         </td>
                         <td th:text="${comment.nickname}" class="txt-al:start py:1">작성자</td>
                         <td class="txt-al:center py:1">123</td>
