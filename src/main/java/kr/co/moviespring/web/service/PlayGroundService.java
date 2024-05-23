@@ -19,4 +19,6 @@ public interface PlayGroundService {
 
     int getBettingUserCount(Long id);
 
+    int getCount(Long memberId);
+
 }
