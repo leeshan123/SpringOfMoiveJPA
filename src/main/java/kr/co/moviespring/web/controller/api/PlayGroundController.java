@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-@RestController
+@RestController("ApiPlayGroundController")
 @RequestMapping("api/playground")
 public class PlayGroundController {
 
