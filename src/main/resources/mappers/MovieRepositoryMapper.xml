@@ -35,13 +35,9 @@
 
 	<!-- 올해의 영화 -->
 	<select id="findAllByYear" resultType="Movie">
-		SELECT movie.*, movie3.audi_acc
-		FROM movie
-		INNER JOIN movie3
-		ON movie.kobis_id = movie3.movie_cd
-		WHERE DATE_FORMAT(movie.release_date, '%Y') = '2024'
-		ORDER BY audi_acc desc
-		limit 10;
+		SELECT * FROM movie
+		WHERE YEAR(release_date) = YEAR(CURDATE())
+		ORDER BY audi_acc desc LIMIT 10;
     </select>
 
 	<select id="findAllAfter" resultType="Movie">
