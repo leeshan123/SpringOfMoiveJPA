@@ -29,7 +29,7 @@
             <h1 class="d:none">회원정보</h1>
             <div>
                 <div>ID</div>
-                <span th:text="${user.username}">12345</span>
+                <span th:text="${user.username}">아이디</span>
             </div>
             <div>
                 <div>이름</div>
@@ -38,6 +38,10 @@
             <div class="pb:8 bd-bottom border-width:2">
                 <div>나이</div>
                 <span th:text="${user.age}">30</span>
+            </div>
+            <div>
+                <div class="d:flex jc:space-between">보유포인트</div>
+                <span th:text="${user.point}">1000</span>점
             </div>
             <div class="test">
                 <div class="d:flex jc:space-between">닉네임<button id="btn-nick" type="button" class="n-btn n-btn-size:1">수정</button></div>

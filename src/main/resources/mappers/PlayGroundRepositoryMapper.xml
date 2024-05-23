@@ -71,7 +71,10 @@
 		select count(*) from betting where betting_board_id = #{bettingBoardId}
 	</select>
 
-
+	<select id="getCount" resultType="Integer">
+        select count(*) from betting
+        where member_id = #{memberId};
+    </select>
 
 </mapper>
 

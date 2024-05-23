@@ -94,7 +94,7 @@ Vue.createApp({
                 </div>
             </div>
             <div class="event-card-img_block">
-                <img src="/image/제목 없음.png" alt="이미지">
+                <img :src="menu.imageUrl" alt="이미지">
             </div>
         </a>
         </section>
