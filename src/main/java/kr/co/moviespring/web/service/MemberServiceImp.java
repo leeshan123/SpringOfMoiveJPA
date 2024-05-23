@@ -92,4 +92,19 @@ public class MemberServiceImp implements MemberService {
         memberRepository.delete(id);
     }
 
+    @Override
+    public List<Member> getList(Integer page) {
+        int size = 10;
+        int offset = (page-1) * size;
+
+        List<Member> list = memberRepository.findAll(offset, size);
+        return list;
+    }
+
+    @Override
+    public int getCount() {
+        int cnt = memberRepository.getCount();
+        return cnt;
+    }
+
 }

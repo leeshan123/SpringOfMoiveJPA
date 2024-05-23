@@ -1,5 +1,7 @@
 package kr.co.moviespring.web.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.moviespring.web.entity.Member;
@@ -16,6 +18,10 @@ public interface MemberRepository {
     void updatePoint(Member member);
 
     void delete(Long id);
+
+    List<Member> findAll(int offset, int size);
+
+    int getCount();
 
 //    String username, String password, String name, String nickname, int age, String email
   

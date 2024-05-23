@@ -20,5 +20,9 @@ public interface MemberService {
     boolean getByUsername(String name);
 
     void removeById(Long id);
+
+    List<Member> getList(Integer page);
+
+    int getCount();
     
 }
