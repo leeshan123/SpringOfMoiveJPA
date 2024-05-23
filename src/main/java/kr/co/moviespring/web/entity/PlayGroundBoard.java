@@ -21,7 +21,7 @@ public class PlayGroundBoard {
     int leftBettingPoint;
     int rightBettingPoint;
     double leftDividend;
-    double RightDiviend;
+    double RightDividend;
     int hit;
     Long adminId;
     String posterUrl;

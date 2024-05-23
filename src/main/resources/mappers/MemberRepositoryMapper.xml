@@ -36,4 +36,8 @@
         where id = #{id}
     </update>
 
+    <update id="updatePoint" parameterType="member">
+        update member set point = #{point} where id = #{id}
+    </update>
+
 </mapper>

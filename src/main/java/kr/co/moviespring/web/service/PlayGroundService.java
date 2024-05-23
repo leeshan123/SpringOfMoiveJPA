@@ -16,4 +16,7 @@ public interface PlayGroundService {
     void EditBoard(PlayGroundBoard playGroundBoard);
 
     List<PlayGroundBoard> getBoardMovieList();
+
+    int getBettingUserCount(Long id);
+
 }

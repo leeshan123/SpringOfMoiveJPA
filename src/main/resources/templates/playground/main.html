@@ -94,7 +94,7 @@
     <main layout:fragment="main" class="media">
             <section class="sec_container">
                 <h1 class="d:none ">베팅리스트</h1>
-                <section  th:each="pbg,pgbList:${pgbList}" th:count="true" class="h:5 betting_wrap">
+                <section  th:each="pbg,count:${pgbList}" th:count="true" class="h:5 betting_wrap" >
                     <h1 class="d:none" >베팅내용</h1>
                     <div class="d:flex flex-box">
                         <div class="img_box"><img class="bd-radius:2"
@@ -104,13 +104,13 @@
                             <div class="d:flex title-box ai:center">
                             <div
                                     class="icon-size d:inline-block bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold icon_num"
-                                    th:text="${pgbList.count}">1</div>
+                                    th:text="${count.count}">1</div>
                             <div class="fw:bold fs:4" th:text="${pbg.title}">"서울의 봄" 천만 돌파 가능!?</div>
                                 <div class="color:accent-2" th:text="${#dates.format(pbg.voteEndDate, 'yy.MM.dd')}+'까지 투표 마감'">투표 마감: 24.05.09까지</div>
                             </div>
                             <div class="d:flex color:base-6 gap:2 icon2_box ai:center">
                                 <span class="icon icon:user">아이콘</span>
-                                <span th:text="'200명'+' 참여중'">참여인원</span>
+                                <span th:text="${countList.get(count.index)}+'명'">참여인원</span>
                             </div>
                             <ul class="w:10p d:flex jc:space-between fw:bold ">
                                 <li class="ml:2" th:text="${pbg.bettingTitle}+ ' 이상'">1000만 이하</li>
@@ -118,7 +118,7 @@
                                 <li class="mr:2" th:text="${pbg.bettingTitle}+ ' 이하'">1000만 이상</li>
                             </ul>
                             <div class="n-progress bd-radius:4 progress-bg mt:2 mb:2">
-                                <div style="width: 35%;" class=""></div>
+                                <div th:style="'width:' +${percentList.get(count.index)}+'%'" class=""></div>
                                 <span class="d:flex ml:auto"></span>
                             </div>
                             <div class="w:10p d:flex jc:space-between fw:bold mr:2 ">
@@ -133,22 +133,35 @@
                                             class="betting-checkbox n-toggle n-toggle-type:check-box n-toggle-size:2 left-betting-checkbox" />
                                     </label>
                                     </div>
-                                    <div>
+                                    <div th:text="${#numbers.formatDecimal(pbg.leftDividend,1,2)}">
                                         2.522
+                                    </div>
+                                    <div th:if="${percentList.get(count.index) > 50}">
+                                        <span class="icon icon:arrow_down"></span>
+                                    </div>
+                                    <div th:if="${percentList.get(count.index) < 50}">
+                                        <span class="icon icon:arrow_up"></span>
                                     </div>
                                 </div>
-                                <div>누적 포인트 123,456,789</div>
+                                <div th:text="'누적 포인트: ' + (${pbg.leftBettingPoint} + ${pbg.rightBettingPoint}-100000)">누적 포인트 123,456,789</div>
                                 <div class="d:flex ml:5 gap:2 ai:center">
-                                    <div>
-                                        <label>
-                                            <input type="checkbox"
-                                                   value="1"
-                                                   id="right-betting-checkbox"
-                                                    class="betting-checkbox n-toggle n-toggle-type:check-box n-toggle-size:2 right-betting-checkbox" />
-                                        </label>
+                                    <div th:text="${#numbers.formatDecimal(pbg.RightDividend,1,2)}" class="">
+                                        2.522
+                                    </div>
+                                    <div th:if="${percentList.get(count.index) < 50}">
+                                        <span class="icon icon:arrow_down"></span>
+                                    </div>
+                                    <div th:if="${percentList.get(count.index) > 50}">
+                                        <span class="icon icon:arrow_up"></span>
                                     </div>
                                     <div>
-                                        2.522
+                                        <label>
+                                            <input
+                                                   type="checkbox"
+                                                   value="1"
+                                                   id="right-betting-checkbox"
+                                                   class="betting-checkbox n-toggle n-toggle-type:check-box n-toggle-size:2 right-betting-checkbox" />
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +178,7 @@
             </section>
 
             <!--          베팅 모달 나오게 하기 betting-modal -->
-            <section id="betting-modal" class=" n-modal d:none w:8 h:6" tabindex="-1">
+            <section id="betting-modal" class=" n-modal d:none w:8" tabindex="-1">
                 <h1 class="n-font:h3 font-weight:3">배팅 하시겠습니까? ^^</h1>
                 <form>
                     <div class="my:5">
@@ -176,7 +189,7 @@
                         <button id ="betting-check-btn" type="submit" class="n-btn mt:2 n-btn-color:base">가능 여부</button>
                     </div>
                     <div id="btn-div" class="d:flex jc:flex-end gap:2 mt:8">
-                        <button id ="submit-btn" type="submit" class="n-btn">배팅</button>
+                        <button id ="submit-btn" type="submit" class="n-btn ">배팅</button>
                         <button id ="close-btn" type="button" class="n-btn n-btn:outline">취소</button>
                     </div>
                 </form>

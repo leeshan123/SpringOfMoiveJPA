@@ -16,6 +16,7 @@ public class Betting {
     int successPoint;
     Long memberId;
     Long bettingBoardId;
+    int choose;
 
 
 

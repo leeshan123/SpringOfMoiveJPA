@@ -45,5 +45,10 @@ public class PlayGroundServiceImp implements PlayGroundService{
         return repository.findAllPlusMovie();
     }
 
+    @Override
+    public int getBettingUserCount(Long id) {
+        return repository.countBettingUser(id);
+    }
+
 
 }

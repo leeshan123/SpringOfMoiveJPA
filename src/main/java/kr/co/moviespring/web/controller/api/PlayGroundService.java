@@ -1,7 +1,10 @@
 package kr.co.moviespring.web.controller.api;
 
 import kr.co.moviespring.web.config.security.CustomUserDetails;
+import kr.co.moviespring.web.entity.Betting;
+import kr.co.moviespring.web.entity.Member;
 import kr.co.moviespring.web.entity.PlayGroundBoard;
+import kr.co.moviespring.web.repository.MemberRepository;
 import kr.co.moviespring.web.repository.PlayGroundRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +12,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @RestController
 @RequestMapping("api/playground")
 public class PlayGroundService {
 
     @Autowired
-    PlayGroundRepository repository;
+    PlayGroundRepository PGrepository;
+
+    @Autowired
+    MemberRepository MBrepository;
 
 
     //로그인 상태 체크
@@ -51,22 +60,28 @@ public class PlayGroundService {
 
     }
 
+    //베팅 로직
     @PostMapping("/betting")
     public ResponseEntity<String> betting(@RequestBody BettingRequest request, @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         int bettingPoint = request.getBettingAmount();
-        int userPoint = userDetails.getPoint();
         int userChoice = request.getSelectedBettingValue();
 
         System.out.println(request.getPbgId());
 
 
-        PlayGroundBoard playGroundBoard = repository.findById(request.getPbgId());
+        PlayGroundBoard playGroundBoard = PGrepository.findById(request.getPbgId());
+        Member member = MBrepository.findByMembername(userDetails.getUsername());
+        int userPoint = member.getPoint();
 
         int leftBettingPoint = playGroundBoard.getLeftBettingPoint();
         int rightBettingPoint = playGroundBoard.getRightBettingPoint();
-//        double leftDividend = playGroundBoard.getLeftDividend();
-//        double rightDividend = playGroundBoard.getRightDiviend();
+        double leftDividend = playGroundBoard.getLeftDividend();
+        double rightDividend = playGroundBoard.getRightDividend();
+
+        System.out.println(leftDividend);
+
+        System.out.println(rightDividend);
 
 
 
@@ -75,36 +90,98 @@ public class PlayGroundService {
         if (bettingPoint <= userPoint && bettingPoint !=0) {
 
             if(userChoice == 0){
-                System.out.println("왼쪽이 실행");
+                System.out.println("왼쪽에 베팅");
+
+                //베팅 테이블에 데이터 만들어주기
+                Betting betting = Betting.builder()
+                        .bettingPoint(bettingPoint)
+                        .successPoint((int)(bettingPoint*leftDividend))
+                        .memberId(userDetails.getId())
+                        .bettingBoardId(request.getPbgId())
+                        .choose(0)
+                        .build();
+
+
 
                 leftBettingPoint += bettingPoint;
-                double leftDividend = (double)leftBettingPoint/(leftBettingPoint+rightBettingPoint);
-                leftDividend = leftDividend * 0.038;
+                rightDividend = (double)leftBettingPoint/(leftBettingPoint+rightBettingPoint);
+                rightDividend =  roundToThree(rightDividend * 0.038) * 100;
+                System.out.println("rightDividend: "+ rightDividend);
+
+                leftDividend = (double)rightBettingPoint/(leftBettingPoint+rightBettingPoint);
+                leftDividend =  roundToThree(leftDividend * 0.038) * 100;
                 System.out.println("leftDividend: "+ leftDividend);
 
-                double rightDividend = (double)rightBettingPoint/(leftBettingPoint+rightBettingPoint);
-                rightDividend = rightDividend * 0.038;
-                System.out.println("rightDividend: "+ rightDividend);
+                //베팅 포인트와 배당률 변경점 업데이트해주기
+                playGroundBoard.setLeftBettingPoint(leftBettingPoint);
+                playGroundBoard.setRightBettingPoint(rightBettingPoint);
+                playGroundBoard.setLeftDividend(leftDividend);
+                playGroundBoard.setRightDividend(rightDividend);
+
+                //유저 포인트 변경점 업데이트해주기
+                userPoint = userPoint - bettingPoint;
+                member.setPoint(userPoint);
+
+                System.out.println(userPoint);
+
+
+
+                //DB에 변경점 저장
+                PGrepository.update(playGroundBoard);
+                MBrepository.updatePoint(member);
+                PGrepository.saveBetting(betting);
+
+
+
+
+
+
+
+
 
 
 
             } else {
-                System.out.println("오른쪽이 실행");
+                System.out.println("오른쪽에 베팅");
+
+                //베팅 테이블에 데이터 만들어주기
+                Betting betting = Betting.builder()
+                        .bettingPoint(bettingPoint)
+                        .successPoint((int)(bettingPoint*rightDividend))
+                        .memberId(userDetails.getId())
+                        .bettingBoardId(request.getPbgId())
+                        .choose(1)
+                        .build();
 
                 rightBettingPoint += bettingPoint;
-                double leftDividend = (double)leftBettingPoint/(leftBettingPoint+rightBettingPoint);
-                leftDividend = leftDividend * 0.038;
-                System.out.println("leftDividend: "+ leftDividend);
+                rightDividend = (double)leftBettingPoint/(leftBettingPoint+rightBettingPoint);
+                rightDividend =  roundToThree(rightDividend * 0.038)* 100;
 
-                double rightDividend = (double)rightBettingPoint/(leftBettingPoint+rightBettingPoint);
-                rightDividend = rightDividend * 0.038;
                 System.out.println("rightDividend: "+ rightDividend);
 
+                leftDividend = (double)rightBettingPoint/(leftBettingPoint+rightBettingPoint);
+                leftDividend =  roundToThree(leftDividend * 0.038)* 100;
+                System.out.println("leftDividend: "+ leftDividend);
+
+
+                //베팅 포인트와 배당률 변경점 업데이트해주기
+                playGroundBoard.setLeftBettingPoint(leftBettingPoint);
+                playGroundBoard.setRightBettingPoint(rightBettingPoint);
+                playGroundBoard.setLeftDividend(leftDividend);
+                playGroundBoard.setRightDividend(rightDividend);
+
+                //유저 포인트 변경점 업데이트해주기
+                userPoint = userPoint - bettingPoint;
+                member.setPoint(userPoint);
+
+                System.out.println(userPoint);
+
+                //DB에 변경점 저장
+                PGrepository.update(playGroundBoard);
+                MBrepository.updatePoint(member);
+                PGrepository.saveBetting(betting);
+
             }
-
-
-
-
 
 
 
@@ -114,6 +191,12 @@ public class PlayGroundService {
         }
 
 
+    }
+
+    public static double roundToThree(double num) {
+        BigDecimal bd = new BigDecimal(Double.toString(num));
+        bd = bd.setScale(3, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
 

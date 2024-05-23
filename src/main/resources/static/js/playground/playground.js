@@ -36,6 +36,9 @@ window.addEventListener('load', function () {
     var selectedBettingValue = null;
     var pbgId = null;
 
+    //현재 날짜
+    const now = new Date();
+    console.log(now);
 
 
 

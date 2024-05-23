@@ -1,5 +1,6 @@
 package kr.co.moviespring.web.repository;
 
+import kr.co.moviespring.web.entity.Betting;
 import kr.co.moviespring.web.entity.PlayGroundBoard;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,4 +20,8 @@ public interface PlayGroundRepository {
     void update(PlayGroundBoard playGroundBoard);
 
     List<PlayGroundBoard> findAllPlusMovie();
+
+    void saveBetting(Betting betting);
+
+    int countBettingUser(Long bettingBoardId);
 }
