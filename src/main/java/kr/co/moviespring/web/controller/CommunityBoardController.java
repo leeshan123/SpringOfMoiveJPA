@@ -58,7 +58,7 @@ public class CommunityBoardController {
                         Model model){
         Category category = categoryService.getByName(categoryName);
         Long categoryId = category.getId();
-        List <CommunityBoardView> list = communityBoardService.getList(categoryId, page, 20);
+        List <CommunityBoardView> list = communityBoardService.getList(categoryId, page, 20); // size(한번에 가져오는 게시글 갯수, 추후에 수정시 페이져갯수도 수정해야함)
         int count = 0;
         count = communityBoardService.getCount(categoryId);
 
@@ -111,15 +111,19 @@ public class CommunityBoardController {
                          @RequestParam("id")Long boardId, Model model,@AuthenticationPrincipal CustomUserDetails userDetails){
         //FIXME: 2024-04-14, 일, 22:58 주소창에서 카테고리 쿼리를 변경해도 게시글이 그대로 출력되는 버그있음,
         // 임의로 변경시 게시글의 카테고리명이 변경됨, 쿼리값에 카테고리가 필요한지? (디씨의 경우 있긴 함) -JOON
+        Category category = categoryService.getByName(categoryName);
         Long memberId = null;
-        if(userDetails != null)
-        memberId= userDetails.getId();
+        Long categoryId = category.getId();
+        if(userDetails != null) {
+            memberId= userDetails.getId();
+        }
 
         CommunityBoardView board = communityBoardService.getById(boardId);
         List<CommunityBoardCommentsView> list = communityBoardCommentsService.getListById(boardId, memberId); //로그인한 상태일시 해당 멤버아이디를 전달시켜서 멤버가 댓글들에 좋아요한 상태값도 포함해서 받아옴
+        CommunityBoard nextBoard = communityBoardService.getNextId(boardId, categoryId); //다음글 가져오기
+        CommunityBoard prevBoard = communityBoardService.getPrevId(boardId, categoryId); //이전글 가져오기
         communityBoardRepository.updateHit(boardId); //게시글 조회시마다 조회수 1증가 로직, 서비스단이 필요없는것같아 리포지토리 바로 호출
         // CommunityBoard board = communityBoardService.getById(boardId); 예전버전
-        Category category = categoryService.getByName(categoryName);
 //        Integer likeCount = communityBoardLikeService.getCount(boardId, 1); //2번째 인자값 => 1 = 좋아요 개수 / 2 = 싫어요 개수
         Integer disLikeCount = communityBoardLikeService.getCount(boardId, -1);
         Integer status = communityBoardLikeService.getStatusById(boardId, memberId); //유저의 좋아요 여부 / 1 = 좋아요 , -1 = 싫어요 , 0 = 투표안함
@@ -127,6 +131,8 @@ public class CommunityBoardController {
         model.addAttribute("memberId", memberId);
         model.addAttribute("board", board);
         model.addAttribute("list", list);
+        model.addAttribute("nextBoard", nextBoard);
+        model.addAttribute("prevBoard", prevBoard);
         model.addAttribute("category", category);
 //        model.addAttribute("likeCount", likeCount); //보드view에 좋아요 개수가 담겨서 오므로 필요 없어짐
         model.addAttribute("disLikeCount", disLikeCount);

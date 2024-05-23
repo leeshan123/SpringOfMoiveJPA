@@ -44,6 +44,22 @@
         WHERE id=#{id}
     </select>
 
+    <!--다음 게시글 상세-->
+    <select id="findNextId" resultType="CommunityBoard">
+        SELECT id, title FROM community_board
+        WHERE id &gt; #{boardId} AND category_id = ${categoryId}
+        ORDER BY id ASC
+        LIMIT 1;
+    </select>
+
+    <!--이전 게시글 상세-->
+    <select id="findPrevId" resultType="CommunityBoard">
+        SELECT id, title FROM community_board
+        WHERE id &lt; #{boardId} AND category_id = ${categoryId}
+        ORDER BY id DESC
+        LIMIT 1;
+    </select>
+
     <!--게시글 상세-->
     <select id="findByMemberId" resultType="CommunityBoardView">
         SELECT * FROM community_board_view

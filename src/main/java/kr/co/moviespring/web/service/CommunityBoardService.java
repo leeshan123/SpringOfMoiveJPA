@@ -19,7 +19,10 @@ public interface CommunityBoardService {
     //게시글 상세//
     CommunityBoardView getById(Long id);
     // CommunityBoard getById(Long id);
-
+    //다음글 아이디 가져오기
+    CommunityBoard getNextId(Long boardId, Long categoryId);
+    //이전글 아이디 가져오기
+    CommunityBoard getPrevId(Long boardId, Long categoryId);
     int getCount(Long categoryId);
     int getCount(Long categoryId, String query);
     

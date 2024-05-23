@@ -63,7 +63,18 @@ public class CommunityBoardServiceImp implements CommunityBoardService {
         CommunityBoardView board = communityBoardRepository.findById(id);
         return board;
     }
-    
+    // 다음글 아이디 가져오기
+    @Override
+    public CommunityBoard getNextId(Long boardId, Long categoryId) {
+        CommunityBoard nextBoard = communityBoardRepository.findNextId(boardId,categoryId);
+        return nextBoard;
+    }
+    // 이전글 아이디 가져오기
+    @Override
+    public CommunityBoard getPrevId(Long boardId, Long categoryId) {
+        CommunityBoard prevBoard = communityBoardRepository.findPrevId(boardId,categoryId);
+        return prevBoard;
+    }
 
     @Override
     public int getCount(Long categoryId) {

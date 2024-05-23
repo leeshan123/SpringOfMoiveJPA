@@ -35,4 +35,8 @@ public interface CommunityBoardRepository {
     // 게시글 조회시마다 조회수 업데이트
     void updateHit(Long boardId);
 
+    // 다음글 아이디 가져오기
+    CommunityBoard findNextId(Long boardId, Long categoryId);
+    // 이전글 아이디 가져오기
+    CommunityBoard findPrevId(Long boardId, Long categoryId);
 }
