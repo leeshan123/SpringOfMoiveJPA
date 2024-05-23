@@ -98,7 +98,6 @@
                                     <span th:text="${r.memberRate}+원"
                                         class="margin-right:auto color:sub-1 fw:bold">평점</span>
                                     <span th:text="${#dates.format(r.regDate, 'yyyy년 MM월 dd일')}">날짜</span>
-                                    <!--                                    <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>-->
                                 </div>
                                 <div class="d:flex ai:center gap:3">
                                     <span class="icon icon:user">아이콘</span>
@@ -112,11 +111,6 @@
                                 </div>
                             </div>
                         </li>
-                        <!--리뷰 없을시 출력되는 창-->
-                        <!-- <li th:if="${reviews == null or #lists.isEmpty(reviews)}"
-                            class="empty-contents-box-size d:flex w:100p jc:center ai:center">
-                            <span class="color:base-6"></span>
-                        </li> -->
                     </ul>
                 <div id="content" class="toggle-off">
                     <div
@@ -128,9 +122,7 @@
                         method="POST">
                         <div class="display:flex justify-content:space-between fs:4">
                             <input type="text" name="movieid" th:value="${movie.movieCd}" class="d:none">
-                            <!-- <span class="icon icon-size:5 icon:hand_coins">아이콘</span> -->
                             <select class="n-select" id="rate" name="rate" type="">
-                                <!--                                <option selected value="0" >적정가격을 골라주세요</option>-->
                                 <option disabled selected value="15000">적정가격을 골라주세요</option>
                                 <option th:selected="${myReview != null and myReview.memberRate == 0}" value="0">0원
                                 </option>

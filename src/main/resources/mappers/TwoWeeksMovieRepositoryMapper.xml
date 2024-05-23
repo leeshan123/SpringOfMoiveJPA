@@ -9,7 +9,10 @@
 
     <!-- 영화후보목록 -->
     <select id="getByMovieCd"> 
-	SELECT * from total_vote_view;
+	<!-- SELECT * from total_vote_view; -->
+	SELECT *
+	FROM total_vote_view
+	ORDER BY vote_count DESC;
 	</select>
 
 	<!-- 투표합계 (progressbar 계산용) -->

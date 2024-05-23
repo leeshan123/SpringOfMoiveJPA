@@ -13,9 +13,11 @@ import kr.co.moviespring.web.config.batch.BatchSchedulerConfig;
 import kr.co.moviespring.web.entity.Actor;
 import kr.co.moviespring.web.entity.Director;
 import kr.co.moviespring.web.entity.Movie;
+import kr.co.moviespring.web.entity.totalVoteView;
 import kr.co.moviespring.web.service.ActorService;
 import kr.co.moviespring.web.service.DirectorService;
 import kr.co.moviespring.web.service.MovieService;
+import kr.co.moviespring.web.service.TwoWeeksMovieService;
 
 @Controller
 @RequestMapping("/")
@@ -30,17 +32,30 @@ public class HomeController {
     @Autowired
     DirectorService directorService;
 
+    @Autowired
+    TwoWeeksMovieService TWMovieService;
 
     @GetMapping("")
     public String main(Model model) {
         List<Movie> dList = BatchSchedulerConfig.getList();
         // 올해의 영화
         List<Movie> list = movieService.getListByYear();
-        model.addAttribute("list", dList);
+
+        //2주의영화
+        List<totalVoteView> TWMovieList = TWMovieService.findByMovieCd();
+        totalVoteView Weeksmovie = TWMovieService.findWinnerMovie();
+        Long totalVote = TWMovieService.findTotalVote();
+
         //개봉예정영화
         List<Movie> listAfter = movieService.getListAfter();
+        
+        model.addAttribute("list", dList);
         model.addAttribute("listAfter", listAfter);
-
+        
+        //2주의영화
+        model.addAttribute("WeeksMovie", Weeksmovie);
+        model.addAttribute("WeeksMovieList", TWMovieList);
+        model.addAttribute("v", totalVote);
         return "main";
     }
 

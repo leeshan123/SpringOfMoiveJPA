@@ -59,11 +59,12 @@
         .empty-contents-box-size {
             height: 290px;
             /*margin-bottom: 8px;*/
-            width:100%;
+            width: 100%;
             /*폰트 설정*/
             font-weight: bold;
             font-size: 140px;
         }
+
         .anonymous-font-size::placeholder {
             font-size: 20px;
             text-align: center;
@@ -77,12 +78,57 @@
             cursor: pointer;
 
             color: darkorange;
-            background-color: rgb(246,246,246);
+            background-color: rgb(246, 246, 246);
             /*box-shadow: #9A9A9A;*/
             width: 120px;
             height: 32px;
             border-radius: 8px;
 
+        }
+
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutToLeft {
+            0% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+        }
+
+        .slide-in {
+            animation: slideInFromRight 0.5s ease-out forwards;
+            position: fixed;
+            top: 140px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        .slide-out {
+            animation: slideOutToLeft 0.5s ease-out forwards;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        .slideblock {
+            background-color: rgba(255, 255, 255, 0.6);
+            /* 흰색 배경에 투명도 50% */
         }
     </style>
 </head>
@@ -93,12 +139,12 @@
             <h1 class="d:none">영화 디테일 페이지</h1>
             <div class="position:relative d:flex overflow:hidden">
                 <img class="main-img" th:src="${movie.mainImgUrl != null ? movie.mainImgUrl : '/image/no_image.jpg'}"
-                src="http://image.tmdb.org/t/p/original/kcrjQkK9XlUe0yD1cZptf4z5h3v.jpg" width="100%" alt="">
+                    src="http://image.tmdb.org/t/p/original/kcrjQkK9XlUe0yD1cZptf4z5h3v.jpg" width="100%" alt="">
                 <div th:if="${movie.logoUrl != null}" class="gradient-overlay"></div>
                 <!--                <img class="img" src="http://file.koreafilm.or.kr/thm/02/99/18/21/tn_DPK021291.jpg" alt="">-->
                 <!--                <img class="img" src="http://file.koreafilm.or.kr/thm/02/99/18/21/tn_DPK021292.jpg" alt="">-->
                 <img class="logo-position position:absolute width:3p" th:src="${movie.logoUrl}"
-                src="http://image.tmdb.org/t/p/original//zPEtfLeTXr8RnYxwBm0Zm4ytmQX.png" alt="">
+                    src="http://image.tmdb.org/t/p/original//zPEtfLeTXr8RnYxwBm0Zm4ytmQX.png" alt="">
                 <!--                transform: translateX(0px);-->
             </div>
             <!-- <div th:each="m2 : ${movie2}">
@@ -121,39 +167,90 @@
             </div> -->
             <div class="test">
                 <div style="max-width: 100%; display: flex; justify-content: space-between; align-items: center;"
-                class="border-left bd-color:main-2 bd-w:3 mt:2 mb:2 fs:5">
-                <div class="d:flex">
+                    class="border-left bd-color:main-2 bd-w:3 mt:2 mb:2 fs:5">
+                    <div class="d:flex">
                         <div class="ml:1 fw:3 title-font" th:text="${movie.korName}">영화명</div>
-<!--                        <div th:if="${#strings.contains(movie.watchGrade, '12')}">-->
-<!--                            <span>모델값에 '12'가 포함되어 있습니다.</span> 추후에 심의정보값이 난해하면 사용고려-->
-<!--                        </div>-->
+                        <!--                        <div th:if="${#strings.contains(movie.watchGrade, '12')}">-->
+                        <!--                            <span>모델값에 '12'가 포함되어 있습니다.</span> 추후에 심의정보값이 난해하면 사용고려-->
+                        <!--                        </div>-->
                         <div class="ml:1 d:flex ai:center" th:switch="${movie.watchGrade}">
                             <!--                        <p th:case="'전체관람가'">전체 연령 제한</p>-->
-                            <svg width="30px" height="30px" th:case="'전체관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.642 500H56.38C25.256 500 0 474.764 0 443.632V56.368C0 25.235 25.256 0 56.379 0h387.263C474.775 0 500 25.235 500 56.368v387.264C500 474.764 474.775 500 443.642 500" style="fill:#00964b"/><path d="m144.95 378.216-6.064-38.323-44.366.01-6.064 38.292-57.17.02v-.687l54.138-256.2h62.527l54.138 256.22.02.668h-57.16zm-28.257-174.19-14.129 87.439h28.247l-14.118-87.439zM212.167 378.213V121.316h57.17v205.447h67.246v51.45zM348.693 378.199V121.312l57.17.01-.03 205.447h67.277v51.461z" style="fill:#fff"/></svg>
+                            <svg width="30px" height="30px" th:case="'전체관람가'" xmlns="http://www.w3.org/2000/svg"
+                                xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500"
+                                viewBox="0 0 500 500">
+                                <path
+                                    d="M443.642 500H56.38C25.256 500 0 474.764 0 443.632V56.368C0 25.235 25.256 0 56.379 0h387.263C474.775 0 500 25.235 500 56.368v387.264C500 474.764 474.775 500 443.642 500"
+                                    style="fill:#00964b" />
+                                <path
+                                    d="m144.95 378.216-6.064-38.323-44.366.01-6.064 38.292-57.17.02v-.687l54.138-256.2h62.527l54.138 256.22.02.668h-57.16zm-28.257-174.19-14.129 87.439h28.247l-14.118-87.439zM212.167 378.213V121.316h57.17v205.447h67.246v51.45zM348.693 378.199V121.312l57.17.01-.03 205.447h67.277v51.461z"
+                                    style="fill:#fff" />
+                            </svg>
                             <!--                        <p th:case="'12세이상관람가'">12세 이상</p>-->
-                            <svg width="30px" height="30px" th:case="'12세이상관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.617 500H56.373C25.24 500 0 474.77 0 443.648V56.373C0 25.24 25.241 0 56.373 0h387.244C474.738 0 500 25.241 500 56.373v387.275C500 474.769 474.738 500 443.617 500" style="fill:#eabc00"/><path d="M108.175 422.27V173.766H80.664l35.629-96.046h69.009v344.55zM407.596 77.719H219.137a7.695 7.695 0 0 0-7.695 7.695v104.143h75.332v-46.903H340v41.477l-131.272 187.18v50.535h205.686v-67.224H304.372l96.045-134.841c3.012-4.22 5.405-7.891 7.22-11.058 1.816-3.157 3.312-6.22 4.519-9.253 1.186-2.992 2.021-6.303 2.465-9.913.464-3.61.67-7.963.67-13.08V85.414a7.689 7.689 0 0 0-7.695-7.695" style="fill:#fff"/></svg>
+                            <svg width="30px" height="30px" th:case="'12세이상관람가'" xmlns="http://www.w3.org/2000/svg"
+                                xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500"
+                                viewBox="0 0 500 500">
+                                <path
+                                    d="M443.617 500H56.373C25.24 500 0 474.77 0 443.648V56.373C0 25.24 25.241 0 56.373 0h387.244C474.738 0 500 25.241 500 56.373v387.275C500 474.769 474.738 500 443.617 500"
+                                    style="fill:#eabc00" />
+                                <path
+                                    d="M108.175 422.27V173.766H80.664l35.629-96.046h69.009v344.55zM407.596 77.719H219.137a7.695 7.695 0 0 0-7.695 7.695v104.143h75.332v-46.903H340v41.477l-131.272 187.18v50.535h205.686v-67.224H304.372l96.045-134.841c3.012-4.22 5.405-7.891 7.22-11.058 1.816-3.157 3.312-6.22 4.519-9.253 1.186-2.992 2.021-6.303 2.465-9.913.464-3.61.67-7.963.67-13.08V85.414a7.689 7.689 0 0 0-7.695-7.695"
+                                    style="fill:#fff" />
+                            </svg>
                             <!--                        <p th:case="'15세이상관람가'">15세 이상</p>-->
-                            <svg width="30px" height="30px" th:case="'15세이상관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.638 500H56.352C25.252 500 0 474.759 0 443.638V56.362C0 25.242 25.252 0 56.352 0h387.286C474.768 0 500 25.241 500 56.362v387.276c0 31.12-25.231 56.362-56.362 56.362" style="fill:#dc7317"/><path d="M107.957 422.277V173.783H80.436l35.619-96.076h69.04v344.57zM407.825 195.418H286.972v-50.514h126.3V77.701H211.217v183.56h129.446v96.055h-54.578v-45.109h-74.868v102.358c0 4.25 3.456 7.695 7.705 7.695H407.825a7.695 7.695 0 0 0 7.695-7.695V203.114a7.695 7.695 0 0 0-7.695-7.696" style="fill:#fff"/></svg>
+                            <svg width="30px" height="30px" th:case="'15세이상관람가'" xmlns="http://www.w3.org/2000/svg"
+                                xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500"
+                                viewBox="0 0 500 500">
+                                <path
+                                    d="M443.638 500H56.352C25.252 500 0 474.759 0 443.638V56.362C0 25.242 25.252 0 56.352 0h387.286C474.768 0 500 25.241 500 56.362v387.276c0 31.12-25.231 56.362-56.362 56.362"
+                                    style="fill:#dc7317" />
+                                <path
+                                    d="M107.957 422.277V173.783H80.436l35.619-96.076h69.04v344.57zM407.825 195.418H286.972v-50.514h126.3V77.701H211.217v183.56h129.446v96.055h-54.578v-45.109h-74.868v102.358c0 4.25 3.456 7.695 7.705 7.695H407.825a7.695 7.695 0 0 0 7.695-7.695V203.114a7.695 7.695 0 0 0-7.695-7.696"
+                                    style="fill:#fff" />
+                            </svg>
                             <!--                        <p th:case="'청소년관람불가'">관람 불가</p>-->
-                            <svg width="30px" height="30px" th:case="'청소년관람불가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.62 500H56.35C25.21 500 0 474.79 0 443.65V56.37C0 25.24 25.21 0 56.35 0h387.27c31.13 0 56.36 25.24 56.36 56.37v387.28c0 31.14-25.23 56.35-56.36 56.35" style="fill:#d61d28"/><path d="M105.917 422.269V173.764h-27.52l35.648-96.051h68.975v344.556zM416.625 281.105c-.588-4.198-1.64-7.818-3.136-10.82a23.291 23.291 0 0 0-6.096-7.674c-2.548-2.104-5.787-4.198-9.686-6.302l-22.992-10.82 22.992-12.193c6.911-4.208 11.8-8.86 14.658-13.976 2.846-5.106 4.26-12.77 4.26-22.992V85.403a7.695 7.695 0 0 0-7.695-7.695H217.332c-4.25 0-7.705 3.445-7.705 7.695v110.925c0 9.892 1.454 17.504 4.291 22.754 2.857 5.292 7.757 10.006 14.647 14.214l23.002 12.193-23.002 10.82c-7.84 4.198-12.997 9.18-15.555 14.863-2.547 5.735-3.827 14.142-3.827 25.282V414.569c0 4.25 3.456 7.705 7.706 7.705h192.97c4.239 0 7.684-3.456 7.684-7.705V296.454c0-6.024-.31-11.14-.918-15.349m-75.752 69.883c0 4.25-3.456 7.685-7.695 7.685h-39.61c-4.238 0-7.704-3.435-7.704-7.685v-68.954c0-4.25 3.466-7.695 7.705-7.695h39.609c4.24 0 7.695 3.445 7.695 7.695v68.954zm0-141.91c0 4.249-3.456 7.694-7.695 7.694h-39.61c-4.238 0-7.704-3.445-7.704-7.695v-60.3c0-4.24 3.466-7.685 7.705-7.685h39.609c4.24 0 7.695 3.445 7.695 7.685v60.3z" style="fill:#fff"/></svg>
-<!--                            <p th:case="*">심의정보없음</p>-->
+                            <svg width="30px" height="30px" th:case="'청소년관람불가'" xmlns="http://www.w3.org/2000/svg"
+                                xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500"
+                                viewBox="0 0 500 500">
+                                <path
+                                    d="M443.62 500H56.35C25.21 500 0 474.79 0 443.65V56.37C0 25.24 25.21 0 56.35 0h387.27c31.13 0 56.36 25.24 56.36 56.37v387.28c0 31.14-25.23 56.35-56.36 56.35"
+                                    style="fill:#d61d28" />
+                                <path
+                                    d="M105.917 422.269V173.764h-27.52l35.648-96.051h68.975v344.556zM416.625 281.105c-.588-4.198-1.64-7.818-3.136-10.82a23.291 23.291 0 0 0-6.096-7.674c-2.548-2.104-5.787-4.198-9.686-6.302l-22.992-10.82 22.992-12.193c6.911-4.208 11.8-8.86 14.658-13.976 2.846-5.106 4.26-12.77 4.26-22.992V85.403a7.695 7.695 0 0 0-7.695-7.695H217.332c-4.25 0-7.705 3.445-7.705 7.695v110.925c0 9.892 1.454 17.504 4.291 22.754 2.857 5.292 7.757 10.006 14.647 14.214l23.002 12.193-23.002 10.82c-7.84 4.198-12.997 9.18-15.555 14.863-2.547 5.735-3.827 14.142-3.827 25.282V414.569c0 4.25 3.456 7.705 7.706 7.705h192.97c4.239 0 7.684-3.456 7.684-7.705V296.454c0-6.024-.31-11.14-.918-15.349m-75.752 69.883c0 4.25-3.456 7.685-7.695 7.685h-39.61c-4.238 0-7.704-3.435-7.704-7.685v-68.954c0-4.25 3.466-7.695 7.705-7.695h39.609c4.24 0 7.695 3.445 7.695 7.695v68.954zm0-141.91c0 4.249-3.456 7.694-7.695 7.694h-39.61c-4.238 0-7.704-3.445-7.704-7.695v-60.3c0-4.24 3.466-7.685 7.705-7.685h39.609c4.24 0 7.695 3.445 7.695 7.685v60.3z"
+                                    style="fill:#fff" />
+                            </svg>
+                            <!--                            <p th:case="*">심의정보없음</p>-->
                         </div>
-                        <div th:each="m2 : ${movie2}" class="h:auto ml:4">
+                        <!-- <div th:each="m2 : ${movie2}" class="h:auto ml:4">
                             <div th:if="${m2.movieCd == movie.id.toString()}" class="d:flex ai:center h:auto ">
                                 <div class="align-items: center">
                                     <span class="txt-al:center fs:4">2주의 영화 후보에 등록된 영화입니다!</span>
                                 </div>
                                 <div class="align-items: center">
                                     <a href="/2weeks/list">
-                                        <button type="button" class="n-btn n-btn-type-filled m-2 submit-button">투표하러 가기!</button>
+                                        <button type="button" class="n-btn n-btn-type-filled m-2 submit-button">투표하러
+                                            가기!</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div th:each="m2 : ${movie2}" class="h:auto ml:4">
+                            <div th:if="${m2.movieCd == movie.id.toString()}" id="animatedDiv"
+                                class="slideblock d:flex ai:center h:1 px:2 bd-radius:3">
+                                <div class="align-items: center">
+                                    <span class="txt-al:center fs:4">2주의 영화 후보에 등록된 영화입니다!</span>
+                                </div>
+                                <div class="align-items: center ml:2">
+                                    <a href="/2weeks/list">
+                                        <button type="button" class="n-btn n-btn-type-filled m-2 submit-button">투표하러
+                                            가기!</button>
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <button onclick="toggleContent()" th:text="${myReview != null ? '리뷰 수정하기' : '리뷰 남기기'}" class="review-btn toggle"
-                            >평가하기
+                        <button onclick="toggleContent()" th:text="${myReview != null ? '리뷰 수정하기' : '리뷰 남기기'}"
+                            class="review-btn toggle">평가하기
                         </button>
                     </div>
                 </div>
@@ -161,42 +258,53 @@
                     <div class="txt-al:center fs:5 fw:3 mb:3">
                         <span>한줄평을 남겨주세요!</span>
                     </div>
-                    <form th:action="${myReview != null ? 'comment/edit/'+movie.id : 'comment'}" action="comment" method="POST">
+                    <form th:action="${myReview != null ? 'comment/edit/'+movie.id : 'comment'}" action="comment"
+                        method="POST">
                         <div class="display:flex justify-content:space-between fs:4">
                             <input type="text" name="movieid" th:value="${movie.id}" class="d:none">
                             <!-- <span class="icon icon-size:5 icon:hand_coins">아이콘</span> -->
                             <select class="n-select" id="rate" name="rate" type="">
-<!--                                <option selected value="0" >적정가격을 골라주세요</option>-->
+                                <!--                                <option selected value="0" >적정가격을 골라주세요</option>-->
                                 <option disabled selected value="15000">적정가격을 골라주세요</option>
-                                <option th:selected="${myReview != null and myReview.memberRate == 0}" value="0">0원</option>
-                                <option th:selected="${myReview != null and myReview.memberRate == 5000}" value="5000">5,000원</option>
-                                <option th:selected="${myReview != null and myReview.memberRate == 10000}" value="10000">10,000원</option>
-                                <option th:selected="${myReview != null and myReview.memberRate == 15000}" value="15000">15,000원</option>
-                                <option th:selected="${myReview != null and myReview.memberRate == 20000}" value="20000">20,000원</option>
-                                <option th:selected="${myReview != null and myReview.memberRate == 25000}" value="25000">25,000원</option>
-                                <option th:selected="${myReview != null and myReview.memberRate == 30000}" value="30000">30,000원</option>
+                                <option th:selected="${myReview != null and myReview.memberRate == 0}" value="0">0원
+                                </option>
+                                <option th:selected="${myReview != null and myReview.memberRate == 5000}" value="5000">
+                                    5,000원</option>
+                                <option th:selected="${myReview != null and myReview.memberRate == 10000}"
+                                    value="10000">10,000원</option>
+                                <option th:selected="${myReview != null and myReview.memberRate == 15000}"
+                                    value="15000">15,000원</option>
+                                <option th:selected="${myReview != null and myReview.memberRate == 20000}"
+                                    value="20000">20,000원</option>
+                                <option th:selected="${myReview != null and myReview.memberRate == 25000}"
+                                    value="25000">25,000원</option>
+                                <option th:selected="${myReview != null and myReview.memberRate == 30000}"
+                                    value="30000">30,000원</option>
                             </select>
                         </div>
                         <div class="display:flex align-items:flex-end flex-direction:column">
                             <!--비회원 접속시-->
                             <textarea sec:authorize="isAnonymous()" disabled
-                                      class="anonymous-font-size width:10p height:2 p:2 n-textbox n-textbox-status:success" type="text"
-                                      placeholder="로그인후 이용하실수 있습니다."></textarea>
+                                class="anonymous-font-size width:10p height:2 p:2 n-textbox n-textbox-status:success"
+                                type="text" placeholder="로그인후 이용하실수 있습니다."></textarea>
 
-                            <button sec:authorize="isAnonymous()" disabled style="cursor: not-allowed" type="button" class="n-btn n-btn-type:filled m:2 submit-button">평가완료</button>
+                            <button sec:authorize="isAnonymous()" disabled style="cursor: not-allowed" type="button"
+                                class="n-btn n-btn-type:filled m:2 submit-button">평가완료</button>
                             <!--회원 접속시-->
-                            <textarea sec:authorize="isAuthenticated()" th:text="${myReview != null ? myReview.comments : ''}" id="comments" name="comments"
+                            <textarea sec:authorize="isAuthenticated()"
+                                th:text="${myReview != null ? myReview.comments : ''}" id="comments" name="comments"
                                 class="width:10p height:2 p:2 n-textbox n-textbox-status:success" type="text"
                                 placeholder="내용을 입력해주세요."></textarea>
                             <div class="d:flex">
                                 <!--삭제요청 버튼-->
-                                <button sec:authorize="isAuthenticated()" disabled type="submit" th:if="${myReview != null}"
-                                        class="n-btn n-btn-type:filled m:2 submit-button n-btn-color:accent">삭제하기
+                                <button sec:authorize="isAuthenticated()" disabled type="submit"
+                                    th:if="${myReview != null}"
+                                    class="n-btn n-btn-type:filled m:2 submit-button n-btn-color:accent">삭제하기
                                 </button>
                                 <!--평가 or 수정버튼-->
                                 <button sec:authorize="isAuthenticated()" type="submit"
-                                th:text="${myReview != null ? '수정완료' : '평가완료'}"
-                                class="n-btn n-btn-type:filled m:2 submit-button">평가하기
+                                    th:text="${myReview != null ? '수정완료' : '평가완료'}"
+                                    class="n-btn n-btn-type:filled m:2 submit-button">평가하기
                                 </button>
                             </div>
                         </div>
@@ -209,8 +317,8 @@
                         <span th:text="${avgRate}+'원'" class="fs:6 fw:3 color:accent-3">30,000원</span>
                         <a href="#review">
                             <span class="fs:3 fw:2 color:base-10"
-                                 th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}"
-                                 th:text="${'('+formattedSize+' 개의 평가)'}">(3,426리뷰)
+                                th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}"
+                                th:text="${'('+formattedSize+' 개의 평가)'}">(3,426리뷰)
                             </span>
                         </a>
                     </div>
@@ -228,7 +336,7 @@
                     <div th:with="floathour=${movie.runningTime}/60,
                                   hour=${T(java.lang.Math).floor(floathour)},
                                   minute=${movie.runningTime} % 60">
-                        <span  th:text="${hour}+0+'시간 '+${minute}+'분'+' · '">1시간49분 · </span>
+                        <span th:text="${hour}+0+'시간 '+${minute}+'분'+' · '">1시간49분 · </span>
                         <span th:text="${movie.watchGrade}+' · '">15세 · </span>
                         <span>누적 관객 133만명</span>
                     </div>
@@ -244,65 +352,72 @@
                     <h1 class="fw:3 section-font border-left bd-color:main-2 bd-w:3 pl:1">감독 · 배우</h1>
                     <section class="d:flex">
                         <h1 class="d:none">스크롤버튼</h1>
-                    <!-- left button -->
-                    <div class="left-div d:flex jc:center ai:center d:inline-block">
-                        <button
-                            class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left1 icon:caret_left_bold">
-                            <span class="icon icon:caret_left_bold">아이콘</span>
-                        </button>
-                    </div>
-                    <section class="of:scroll of-y:hidden scrable-content1">
-                        <div class="display:flex">
-                            <ul class="d:flex width:10p fl-wrap:nowrap gap:5">
-                                <!-- directors 리스트를 먼저 반복 -->
-                                <li th:each="director : ${directors}" class="d:flex">
-                                    <!-- 감독 정보를 출력 -->
-                                    <a href="" th:href="@{/people/info(type='director',id=${director.tmdbId},people-id=${director.id},name=${director.korName != null ? director.korName : director.engName })}" class="w:2">
-                                        <div class="display:flex margin-right:4">
-                                            <img class="bd-radius:1 obj-fit:cover" th:src="${director.imgUrl != null ? director.imgUrl : '/image/unknown_person.jpg'}"
-                                                src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
-                                                width="100px" height="150px" alt="">
-                                        </div>
-                                        <div class="padding:1 fs:3">
-                                            <div>
-                                                <span th:text="${director.korName} ?: ${director.engName}">감독 이름</span>
+                        <!-- left button -->
+                        <div class="left-div d:flex jc:center ai:center d:inline-block">
+                            <button
+                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left1 icon:caret_left_bold">
+                                <span class="icon icon:caret_left_bold">아이콘</span>
+                            </button>
+                        </div>
+                        <section class="of:scroll of-y:hidden scrable-content1">
+                            <div class="display:flex">
+                                <ul class="d:flex width:10p fl-wrap:nowrap gap:5">
+                                    <!-- directors 리스트를 먼저 반복 -->
+                                    <li th:each="director : ${directors}" class="d:flex">
+                                        <!-- 감독 정보를 출력 -->
+                                        <a href=""
+                                            th:href="@{/people/info(type='director',id=${director.tmdbId},people-id=${director.id},name=${director.korName != null ? director.korName : director.engName })}"
+                                            class="w:2">
+                                            <div class="display:flex margin-right:4">
+                                                <img class="bd-radius:1 obj-fit:cover"
+                                                    th:src="${director.imgUrl != null ? director.imgUrl : '/image/unknown_person.jpg'}"
+                                                    src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
+                                                    width="100px" height="150px" alt="">
                                             </div>
+                                            <div class="padding:1 fs:3">
+                                                <div>
+                                                    <span th:text="${director.korName} ?: ${director.engName}">감독
+                                                        이름</span>
+                                                </div>
 
-                                            <div>
-                                                <span class="fs:2 color:base-6">감독</span>
+                                                <div>
+                                                    <span class="fs:2 color:base-6">감독</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li th:each="actor : ${actors}" class="d:flex">
-                                    <a href="" th:href="@{/people/info(type='actor',id=${actor.tmdbId},people-id=${actor.actorId},name=${actor.korName != null ? actor.korName : actor.engName })}" class="w:2">
-                                        <div class="display:flex margin-right:4">
-                                            <img class="bd-radius:1 obj-fit:cover" th:src="${actor.imgUrl != null ? actor.imgUrl : '/image/unknown_person.jpg'}"
-                                                src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
-                                                width="100px" height="150px" alt="">
-                                        </div>
-                                        <div class="padding:1 fs:3">
-                                            <div>
-                                                <span th:text="${actor.korName} ?: ${actor.engName}">정우성</span>
+                                        </a>
+                                    </li>
+                                    <li th:each="actor : ${actors}" class="d:flex">
+                                        <a href=""
+                                            th:href="@{/people/info(type='actor',id=${actor.tmdbId},people-id=${actor.actorId},name=${actor.korName != null ? actor.korName : actor.engName })}"
+                                            class="w:2">
+                                            <div class="display:flex margin-right:4">
+                                                <img class="bd-radius:1 obj-fit:cover"
+                                                    th:src="${actor.imgUrl != null ? actor.imgUrl : '/image/unknown_person.jpg'}"
+                                                    src="https://search.pstatic.net/common?type=n&size=174x196&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202003%2F20200316134444946.jpg"
+                                                    width="100px" height="150px" alt="">
                                             </div>
-                                            <div>
-                                                <span class="fs:2 color:base-6"
-                                                    th:text="${actor.castEngName}">이태신</span>
+                                            <div class="padding:1 fs:3">
+                                                <div>
+                                                    <span th:text="${actor.korName} ?: ${actor.engName}">정우성</span>
+                                                </div>
+                                                <div>
+                                                    <span class="fs:2 color:base-6"
+                                                        th:text="${actor.castEngName}">이태신</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </section>
+                        <div class="right-div d:flex jc:center ai:center d:inline-block">
+                            <button
+                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right1 ">
+                                <span class="icon icon:caret_right_bold">아이콘</span>
+                            </button>
                         </div>
                     </section>
-                    <div class="right-div d:flex jc:center ai:center d:inline-block">
-                        <button
-                            class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right1 ">
-                            <span class="icon icon:caret_right_bold">아이콘</span>
-                        </button>
-                    </div>
                 </section>
-            </section>
                 <section class="section-margin">
                     <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3">트레일러</h1>
                     <section class="d:flex">
@@ -310,7 +425,7 @@
                         <!-- left button -->
                         <div class="left-div d:flex jc:center ai:center d:inline-block">
                             <button
-                                    class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left2 icon:caret_left_bold">
+                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-left2 icon:caret_left_bold">
                                 <span class="icon icon:caret_left_bold">아이콘</span>
                             </button>
                         </div>
@@ -318,19 +433,20 @@
                             <h1 class="d:none">컨텐츠</h1>
                             <div class="d:flex gap:3">
                                 <iframe class="bd-radius:1 d:block fl:none" th:each="trailers : ${trailers}"
-                                        width="516px" height="290px" src=""
-                                        th:src="${trailers.url}" frameborder="0" allowfullscreen></iframe>
+                                    width="516px" height="290px" src="" th:src="${trailers.url}" frameborder="0"
+                                    allowfullscreen></iframe>
                             </div>
                         </section>
                         <div class="right-div d:flex jc:center ai:center d:inline-block">
                             <button
-                                    class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right2 ">
+                                class="n-btn n-btn-type:outline n-btn-size:3 bd bd-radius:3 box-shadow:1 scr-btn-right2 ">
                                 <span class="icon icon:caret_right_bold">아이콘</span>
                             </button>
                         </div>
                     </section>
                     <!--트레일러 없을시 출력되는 창-->
-                    <div th:if="${trailers == null or #lists.isEmpty(trailers)}" class="empty-contents-box-size d:flex w:100p jc:center ai:center">
+                    <div th:if="${trailers == null or #lists.isEmpty(trailers)}"
+                        class="empty-contents-box-size d:flex w:100p jc:center ai:center">
                         <span class="color:base-6">텅..</span>
                     </div>
                 </section>
@@ -350,9 +466,9 @@
                         <section class="of:scroll of-y:hidden scrable-content3">
                             <h1 class="d:none">컨텐츠</h1>
                             <div class="d:flex gap:3">
-                                <img class="bd-radius:1" th:each="stillcuts : ${stillcuts}" src="https://search.pstatic.net/common?qualit y=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231102_299%2F1698892733787ApmPu_JPEG%2Fmovie_image.jpg"
-                                     th:src="${stillcuts.url}"
-                                     alt="" height="290px">
+                                <img class="bd-radius:1" th:each="stillcuts : ${stillcuts}"
+                                    src="https://search.pstatic.net/common?qualit y=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231102_299%2F1698892733787ApmPu_JPEG%2Fmovie_image.jpg"
+                                    th:src="${stillcuts.url}" alt="" height="290px">
                             </div>
                         </section>
 
@@ -364,7 +480,8 @@
                         </div>
                     </section>
                     <!--스틸컷 없을시 출력되는 창-->
-                    <div th:if="${stillcuts == null or #lists.isEmpty(stillcuts)}" class="empty-contents-box-size d:flex w:100p jc:center ai:center">
+                    <div th:if="${stillcuts == null or #lists.isEmpty(stillcuts)}"
+                        class="empty-contents-box-size d:flex w:100p jc:center ai:center">
                         <span class="color:base-6">텅..</span>
                     </div>
                 </section>
@@ -373,8 +490,8 @@
                     <div class="d:flex mb:5">
                         <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3 mr:auto">한줄 평
                             <span class="fs:3 fw:2 color:base-10"
-                                  th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}"
-                                  th:text="${'('+formattedSize+' 개)'}">(3,426리뷰)
+                                th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}"
+                                th:text="${'('+formattedSize+' 개)'}">(3,426리뷰)
                             </span>
                         </h1>
                         <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
@@ -397,7 +514,7 @@
                                     <span th:text="${r.memberRate}+원"
                                         class="margin-right:auto color:sub-1 fw:bold">평점</span>
                                     <span th:text="${#dates.format(r.regDate, 'yyyy년 MM월 dd일')}">날짜</span>
-<!--                                    <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>-->
+                                    <!--                                    <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>-->
                                 </div>
                                 <div class="d:flex ai:center gap:3">
                                     <span class="icon icon:user">아이콘</span>
@@ -412,14 +529,56 @@
                             </div>
                         </li>
                         <!--리뷰 없을시 출력되는 창-->
-                        <li th:if="${reviews == null or #lists.isEmpty(reviews)}" class="empty-contents-box-size d:flex w:100p jc:center ai:center">
+                        <li th:if="${reviews == null or #lists.isEmpty(reviews)}"
+                            class="empty-contents-box-size d:flex w:100p jc:center ai:center">
                             <span class="color:base-6">텅..</span>
                         </li>
                     </ul>
                 </section>
             </div>
         </section>
+        <script>
+            //   window.addEventListener('DOMContentLoaded', (event) => {
+            //     console.log("DOM fully loaded and parsed");
+            //     const animatedDiv = document.getElementById('animatedDiv');
+            //     if (animatedDiv) {
+            //         console.log("animatedDiv found");
+            //         // 조건이 충족될 때 애니메이션 클래스를 추가
+            //         animatedDiv.classList.add('slide-in');
+            //     } else {
+            //         console.log("animatedDiv not found");
+            //     }
+            // });
+            window.addEventListener('DOMContentLoaded', (event) => {
+                console.log("DOM fully loaded and parsed");
+                const animatedDiv = document.getElementById('animatedDiv');
+                if (animatedDiv) {
+                    console.log("animatedDiv found");
+
+                    window.addEventListener('scroll', () => {
+                        const scrollPosition = window.scrollY;
+                        const windowHeight = window.innerHeight;
+                        const scrollThreshold = windowHeight * 0.4; // 윈도우 높이의 40% 위치
+
+                        if (scrollPosition > scrollThreshold) {
+                            // 스크롤이 일정 위치를 넘어섰을 때
+                            animatedDiv.classList.remove('slide-in');
+                        } else {
+                            // 스크롤이 일정 위치 이내에 있을 때
+                            animatedDiv.classList.add('slide-in');
+                        }
+                    });
+
+                    // 초기에도 한 번 클래스를 추가해야 애니메이션이 시작됨
+                    animatedDiv.classList.add('slide-in');
+                } else {
+                    console.log("animatedDiv not found");
+                }
+            });
+
+        </script>
     </main>
+
 </body>
 
 </html>

@@ -8,14 +8,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>다음주영화 투표-영화의봄</title>
     <script src="/js/2weeks/list.js" defer></script>
+    <link rel="stylesheet" href="/css/2weeks/list.css">
+
+    <!-- <style>
+        /* 장르에 따른 클래스와 색상 설정 */
+        .genre-sf { color: blue; }
+        .genre-family { color: green; }
+        .genre-performance { color: red; }
+        .genre-horror { color: purple; }
+        .genre-etc { color: orange; }
+        .genre-documentary { color: cyan; }
+        .genre-drama { color: pink; }
+        .genre-romance { color: yellow; }
+        .genre-musical { color: brown; }
+        .genre-mystery { color: darkcyan; }
+        .genre-crime { color: darkred; }
+        .genre-historical { color: darkgreen; }
+        .genre-western { color: darkblue; }
+        .genre-thriller { color: darkorange; }
+        .genre-animation { color: indigo; }
+        .genre-action { color: darkviolet; }
+        .genre-adventure { color: teal; }
+        .genre-war { color: slategray; }
+        .genre-comedy { color: olive; }
+        .genre-fantasy { color: maroon; }
+        /* 다른 장르에 대한 클래스와 색상 설정을 여기에 추가하세요. */
+    </style> -->
 </head>
 <body>
     <main layout:fragment="main" class="media">
         <section class="media-sect media-mobile">
             <h1 class="d:none">메인</h1>
             <section class="">
-                
-            <h1 class="fw:3 fs:6 txt-al:center  n-font " th:text="'이번 테마는 '+${g}+'영화 입니다'">테마</h1>
+                <h1 class="d:none">컨텐츠</h1>
+                <div class="d:flex jc:center">
+                    <span class="n-font fw:3 fs:6 txt-al:center">이번주의 테마는 </span>
+                    <span class="n-font  fw:3 fs:6 txt-al:center genre-text" th:text="${g}"></span>
+                    <div th:switch="${g}">
+                        <span th:case="'SF'" class="genre-sf"></span>
+                        <span th:case="'가족'" class="genre-family"></span>
+                        <span th:case="'공연'" class="genre-performance"></span>
+                        <span th:case="'공포'" class="genre-horror"></span>
+                        <span th:case="'기타'" class="genre-etc"></span>
+                        <span th:case="'다큐멘터리'" class="genre-documentary"></span>
+                        <span th:case="'드라마'" class="genre-drama"></span>
+                        <span th:case="'멜로/로맨스'" class="genre-romance"></span>
+                        <span th:case="'뮤지컬'" class="genre-musical"></span>
+                        <span th:case="'미스터리'" class="genre-mystery"></span>
+                        <span th:case="'범죄'" class="genre-crime"></span>
+                        <span th:case="'사극'" class="genre-historical"></span>
+                        <span th:case="'서부극'" class="genre-western"></span>
+                        <span th:case="'스릴러'" class="genre-thriller"></span>
+                        <span th:case="'애니메이션'" class="genre-animation"></span>
+                        <span th:case="'액션'" class="genre-action"></span>
+                        <span th:case="'어드벤처'" class="genre-adventure"></span>
+                        <span th:case="'전쟁'" class="genre-war"></span>
+                        <span th:case="'코미디'" class="genre-comedy"></span>
+                        <span th:case="'판타지'" class="genre-fantasy"></span>
+                        <!-- 다른 장르에 대한 색상 클래스를 추가하는 케이스를 여기에 추가하세요. -->
+                    </div>
+                    <span class="n-font fw:3 fs:6 txt-al:center">영화 입니다!</span>
+
+                </div>
+            <!-- <h1 class="fw:3 fs:6 txt-al:center  n-font " th:text="'이번주 영화의 테마는 '+${g}+'영화 입니다'">테마</h1> -->
             <!-- <div  th:if="${param.error}"> -->
             </div>
 
@@ -26,10 +81,10 @@
             </div>
             <section class="d:flex fl-wrap:wrap jc:center my:9 bd-top">
                 <h1 class="d:none">컨텐츠</h1>
-                <section th:each="m:${Tm}" class="py:6 mx:10 p:2">
+                <section th:each="m:${Tm}" class="py:6 mx:10 p:2 bd-radius:3 box-shadow:1 my:4">
                     <h1 class="d:none">영화목록</h1>
                     <div class="">
-                        <div class=" w:5 m:2">
+                        <div class=" w:5 mx:2">
                             <img class="bd-radius:1 box-shadow:1"
                             src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" 
                             alt="/" width="247.69px" height="361.54px">
@@ -65,7 +120,7 @@
                                 
                                 
                             <div class="d:flex jc:center m-top:4">
-                                <button sec:authorize="isAuthenticated()" class="modal-btn n-btn  box-shadow:1">투표하기!</button>
+                                <button sec:authorize="isAuthenticated()" class="modal-btn n-btn">투표하기!</button>
                                 <button sec:authorize="isAnonymous()" class="modal-btn n-btn   n-btn:outline box-shadow:1">투표하기!</button>
                                 <section sec:authorize="isAuthenticated()" class="modal n-modal d:none" tabindex="-1">
                                     <div class="m:4">
@@ -104,10 +159,85 @@
                 </section>
             </section>
             <div class="d:flex jc:center my:6">
-                <button class="n-btn mx:auto h:1 box-shadow:1">2주의영화 홈으로</button>
+                <a href="/2weeks/movie">
+                    <button class="n-btn mx:auto h:1 box-shadow:1">2주의영화 홈으로</button>
+                </a>
             </div>
         </section>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+    var genreText = document.querySelector('.genre-text');
+    var genre = genreText.textContent.trim();
+    genre = genre.replace(/'/g, ''); // 작은 따옴표 제거
 
+    // 각 장르에 대한 클래스와 색상 설정
+    switch(genre) {
+        case 'SF':
+            genreText.classList.add('genre-sf');
+            break;
+        case '가족':
+            genreText.classList.add('genre-family');
+            break;
+        case '공연':
+            genreText.classList.add('genre-performance');
+            break;
+        case '공포':
+            genreText.classList.add('genre-horror');
+            break;
+        case '기타':
+            genreText.classList.add('genre-etc');
+            break;
+        case '다큐멘터리':
+            genreText.classList.add('genre-documentary');
+            break;
+        case '드라마':
+            genreText.classList.add('genre-drama');
+            break;
+        case '멜로/로맨스':
+            genreText.classList.add('genre-romance');
+            break;
+        case '뮤지컬':
+            genreText.classList.add('genre-musical');
+            break;
+        case '미스터리':
+            genreText.classList.add('genre-mystery');
+            break;
+        case '범죄':
+            genreText.classList.add('genre-crime');
+            break;
+        case '사극':
+            genreText.classList.add('genre-historical');
+            break;
+        case '서부극':
+            genreText.classList.add('genre-western');
+            break;
+        case '스릴러':
+            genreText.classList.add('genre-thriller');
+            break;
+        case '애니메이션':
+            genreText.classList.add('genre-animation');
+            break;
+        case '액션':
+            genreText.classList.add('genre-action');
+            break;
+        case '어드벤처':
+            genreText.classList.add('genre-adventure');
+            break;
+        case '전쟁':
+            genreText.classList.add('genre-war');
+            break;
+        case '코미디':
+            genreText.classList.add('genre-comedy');
+            break;
+        case '판타지':
+            genreText.classList.add('genre-fantasy');
+            break;
+        default:
+            break;
+    }
+});
+
+        </script>
         </section>
     </main>
 </body>
