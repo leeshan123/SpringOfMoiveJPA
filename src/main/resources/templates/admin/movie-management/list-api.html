@@ -79,7 +79,7 @@ layout:decorate="inc/adminlayout">
 <body>
     <main layout:fragment="main">
     <div class="bg-color:base-3 h:1">
-        <div class="main-container fs:5 fw:3 d:flex jc:space-between align-items:center">
+        <div class="main-container fs:4 fw:3 d:flex jc:space-between align-items:center">
             <span>영화관리</span>
             <form action="list-api" method="get">
                 <div class="d:flex" >
@@ -107,7 +107,7 @@ layout:decorate="inc/adminlayout">
         <div class="w:10p ">
             <section th:each="m: ${list}" class="w:10p h:1 d:flex ai:center jc:space-between bd-bottom bd-color:base-5">
 
-                <h1 class="fs:4 fw:bold w:6" th:text="${m.movieNm}">영화제목</h1>
+                <h1 class="fs:3 fw:3 w:6" th:text="${m.movieNm}">영화제목</h1>
                 <div class="d:flex col-gap:2">
                     <h2 th:text="${m.movieNmEn}">영어명</h2>,
                     <span th:text="${m.openDt}+','"> 개봉일</span> 
