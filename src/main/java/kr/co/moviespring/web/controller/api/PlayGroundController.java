@@ -17,13 +17,13 @@ import java.math.RoundingMode;
 
 @RestController
 @RequestMapping("api/playground")
-public class PlayGroundService {
+public class PlayGroundController {
 
     @Autowired
-    PlayGroundRepository PGrepository;
+    PlayGroundRepository pgRepository;
 
     @Autowired
-    MemberRepository MBrepository;
+    MemberRepository mbRepository;
 
 
     //로그인 상태 체크
@@ -70,8 +70,8 @@ public class PlayGroundService {
         System.out.println(request.getPbgId());
 
 
-        PlayGroundBoard playGroundBoard = PGrepository.findById(request.getPbgId());
-        Member member = MBrepository.findByMembername(userDetails.getUsername());
+        PlayGroundBoard playGroundBoard = pgRepository.findById(request.getPbgId());
+        Member member = mbRepository.findByMembername(userDetails.getUsername());
         int userPoint = member.getPoint();
 
         int leftBettingPoint = playGroundBoard.getLeftBettingPoint();
@@ -127,9 +127,9 @@ public class PlayGroundService {
 
 
                 //DB에 변경점 저장
-                PGrepository.update(playGroundBoard);
-                MBrepository.updatePoint(member);
-                PGrepository.saveBetting(betting);
+                pgRepository.update(playGroundBoard);
+                mbRepository.updatePoint(member);
+                pgRepository.saveBetting(betting);
 
 
 
@@ -177,9 +177,9 @@ public class PlayGroundService {
                 System.out.println(userPoint);
 
                 //DB에 변경점 저장
-                PGrepository.update(playGroundBoard);
-                MBrepository.updatePoint(member);
-                PGrepository.saveBetting(betting);
+                pgRepository.update(playGroundBoard);
+                mbRepository.updatePoint(member);
+                pgRepository.saveBetting(betting);
 
             }
 

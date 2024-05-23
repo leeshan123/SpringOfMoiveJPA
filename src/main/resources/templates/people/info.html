@@ -19,7 +19,7 @@
                 <img th:src="${people.imgUrl != null ? people.imgUrl : '/image/unknown_person.jpg'}" src="https://i.namu.wiki/i/y4KFt0ysuURf9XfTQFQONTqLMYXAX3w0Kauenq6wxjiDJaE-6ePOnSPR9E0DvJgD7X_uEPrjWlPo6ZA01YWnsxwscN9U9Atc8uf973nycoQxaTfqJNn8_a2KzRqnodDU2j0qlm5w9jIiWgDadqO-Kw.webp"
                 class="bd-radius:3 object-fit:cover" alt="" width="180" height="270">
             </div>
-            <div class="d:flex flex-direction:column gap:5">
+            <div class="d:flex flex-direction:column jc:end gap:5">
             <p class="fs:8" th:text="${people.korName != null ? people.korName : people.engName}">김성수</p>
 <!--            <p class="fs:5 color:base-6">대한민국의 감독,작가</p>-->
             </div>
@@ -27,12 +27,12 @@
 
             <table class="mb:4 mt:4 n-table n-table-hover n-table-border n-table-border-radius:3 fw:3">
                 <colgroup>
-                    <col style="width: 119px;"> <!--119-->
+                    <col style="width: 54px;"> <!--119-->
                     <col style="width: 447px;"> <!--447-->
-                    <col style="width: 160px;"> <!--160-->
+                    <col style="width: 60px;"> <!--160-->
                     <col style="width: 78px;"> <!--78-->
-                    <col style="width: 60px;"> <!--60-->
-                    <col style="width: 116px;"> <!--116-->
+<!--                    <col style="width: 60px;"> &lt;!&ndash;60&ndash;&gt;-->
+<!--                    <col style="width: 116px;"> &lt;!&ndash;116&ndash;&gt;-->
                     <!-- 추가적인 열에 대한 너비 설정 -->
                 </colgroup>
                 <thead class="">
@@ -54,7 +54,7 @@
                     <td class="txt-al:start py:1 white-space:normal">
                         <a href="" th:href="@{/movie/detail(movieid=${movie.id})}" th:text="${movie.korName}">영화 제목</a>
                     </td>
-                    <td class="txt-al:start py:1">배우</td>
+                    <td class="txt-al:center py:1">배우</td>
                     <td class="txt-al:center py:1">30000원</td>
                     </td>
                 </tr>
