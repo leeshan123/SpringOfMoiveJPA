@@ -4,6 +4,10 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.moviespring.web.repository.TwoWeeksMovieRepository">
 
+
+    <!--                                                ///////////user///////////                                       -->
+
+    <!-- 영화후보목록 -->
     <select id="getByMovieCd"> 
 	SELECT * from total_vote_view;
 	</select>
@@ -18,10 +22,12 @@
 	SELECT *from vote_member_list where member_id = #{memberId};
 	</select>
 
+    <!-- 테마이름 -->
     <select id="getGenre"> 
 	SELECT genre from twoweek_movie_vote_list LIMIT 1;
 	</select>
-	
+
+	<!-- 투표수가장높은영화 -->
 	<select id="getThisWeeksMovie">
 	SELECT *FROM total_vote_view
 		WHERE vote_count = 
@@ -37,23 +43,11 @@
 	INSERT INTO vote_member_list (member_id,movie_id)
 	VALUES (#{memberId}, #{movieId})
 	</insert>
-    <!-- admin -->
+    <!--                                                ///////////user///////////                                       -->
 
-	<!-- <select id="">
-	SELECT reg_date from twoweek_movie_vote_list LIMIT 1;
-	</select> -->
 
-    <!-- 장르별 영화등록 -->
-    <!-- <insert id="getByGenre">
-        INSERT INTO twoweek_movie_vote_list (movie_cd, tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, logo_url, main_img_url, release_nation, genre)
-        SELECT movie.id, movie.tmdb_id, movie.kobis_id, movie.kor_name, movie.eng_name, movie.sponsor, movie.release_date, movie.running_time, movie.watch_grade, movie.movie_intro, movie.poster_url, movie.logo_url, movie.main_img_url, movie.release_nation, movie.genre
-        FROM movie
-        INNER JOIN movie3 ON movie.kobis_id = movie3.movie_cd
-        WHERE movie.genre = #{childSelectValue}
-        ORDER BY movie3.audi_acc DESC
-        LIMIT 6;
-    </insert> -->
 
+    <!--                                                ///////////admin///////////                                       -->
 	<select id="getVoteList1">
 	SELECT movie.*, movie3.audi_acc
 	FROM movie
@@ -62,61 +56,16 @@
 	ORDER BY movie3.audi_acc DESC
 	LIMIT 5;
 	</select>
-
-
-
-	<!-- 년도별 영화등록,조회 -->
-	<!-- <insert id="getByReleaseDate">
-     INSERT INTO twoweek_movie_vote_list (movie_cd, tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, logo_url, main_img_url, release_nation, genre)
-        SELECT movie.id, movie.tmdb_id, movie.kobis_id, movie.kor_name, movie.eng_name, movie.sponsor, movie.release_date, movie.running_time, movie.watch_grade, movie.movie_intro, movie.poster_url, movie.logo_url, movie.main_img_url, movie.release_nation, movie.genre
-        FROM movie
-        INNER JOIN movie3 ON movie.kobis_id = movie3.movie_cd
-        WHERE YEAR(movie.release_date) = #{childSelectValue}
-        ORDER BY movie3.audi_acc DESC
-        LIMIT 6;
-	</insert> -->
-
-	<select id="getVoteList2">
-	SELECT movie.*, movie3.audi_acc
-	FROM movie
-	INNER JOIN movie3 ON movie.kobis_id = movie3.movie_cd
-	WHERE movie.genre = #{childSelectValue}
-	ORDER BY movie3.audi_acc DESC
-	LIMIT 5;
-	</select>
-
-
-
-	<!-- 배급사별 영화등록,조회 -->
-	<!-- <insert id="getByDistributor">
-	INSERT INTO twoweek_movie_vote_list (movie_cd)
-	SELECT movie.id
-	FROM movie
-	INNER JOIN movie3 ON movie.kobis_id = movie3.movie_cd
-	WHERE YEAR(movie.release_date) = #{childSelectValue}
-	ORDER BY movie3.audi_acc DESC
-	LIMIT 6;
-    
-	</insert> -->
-
-	<select id="getVoteList3">
-	SELECT movie.*, movie3.audi_acc
-	FROM movie
-	INNER JOIN movie3 ON movie.kobis_id = movie3.movie_cd
-	WHERE movie.genre = #{childSelectValue}
-	ORDER BY movie3.audi_acc DESC
-	LIMIT 5;
-	</select>
 	<!-- 배급사별 영화등록,조회 -->
 
+    <!-- 추후 관리자 영화 등록시 비동기처리로 등록한 영화 가져올때쓸거 -->
 	<select id="getEditedList">
 	select movie.* from twoweek_movie_vote_list
 	inner join movie on movie.id = twoweek_movie_vote_list.movie_cd
 	</select>
 
-
-
-	<!-- 동적쿼리 테스트용 -->
+    <!-- admin 2주의영화 등록시 기존정보 초기화 아래의 3개 맵핑sql은 트랜젝션 내부에서 실행됨 -->
+    <!-- 테마별 영화등록 -->
 	<insert id="getMoviesByDynamicCriteria">
         INSERT INTO twoweek_movie_vote_list 
         (movie_cd, tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, logo_url, main_img_url, release_nation, genre)
@@ -144,90 +93,15 @@
         LIMIT 6
     </insert>
 
-
+    <!-- 기존영화정보삭제 -->
 	<delete id="deleteAllMovieList">
 	DELETE FROM twoweek_movie_vote_list;
 	</delete>
-
+    <!-- 기존투표정보삭제 -->
 	<delete id="deleteAllVoteList">
 	DELETE FROM vote_member_list;
 	</delete>
-    <!-- <UPDATE id="getMoviesByDynamicCriteria">
-
-        UPDATE twoweek_movie_vote_list SET ?
-        (movie_cd, tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, logo_url, main_img_url, release_nation, genre)
-        SELECT 
-            movie.id, movie.tmdb_id, movie.kobis_id, movie.kor_name, movie.eng_name, movie.sponsor, movie.release_date, movie.running_time, movie.watch_grade, movie.movie_intro, movie.poster_url, movie.logo_url, movie.main_img_url, movie.release_nation, movie.genre
-        FROM 
-            movie
-        INNER JOIN 
-            movie3 ON movie.kobis_id = movie3.movie_cd
-        <where>
-            <choose>
-                <when test="parentSelectValue == 'genre'">
-                    movie.genre = #{childSelectValue}
-                </when>
-                <when test="parentSelectValue == 'releaseDate'">
-                    YEAR(movie.release_date) = #{childSelectValue}
-                </when>
-                <when test="parentSelectValue == 'distributor'">
-                    movie.distributor = #{childSelectValue}
-                </when>
-            </choose>
-        </where>
-        ORDER BY 
-            movie3.audi_acc DESC
-        LIMIT 6
-
-		
-    </UPDATE> -->
-
-<!-- <update id="getMoviesByDynamicCriteria">
-UPDATE twoweek_movie_vote_list AS tw
-    INNER JOIN (
-        SELECT 
-            movie.id, movie.tmdb_id, movie.kobis_id, movie.kor_name, movie.eng_name, movie.sponsor, movie.release_date, movie.running_time, movie.watch_grade, movie.movie_intro, movie.poster_url, movie.logo_url, movie.main_img_url, movie.release_nation, movie.genre
-        FROM 
-            movie
-        INNER JOIN 
-            movie3 ON movie.kobis_id = movie3.movie_cd
-        <where>
-            <choose>
-                <when test="parentSelectValue == 'genre'">
-                    AND movie.genre = #{childSelectValue}
-                </when>
-                <when test="parentSelectValue == 'releaseDate'">
-                    AND YEAR(movie.release_date) = #{childSelectValue}
-                </when>
-                <when test="parentSelectValue == 'distributor'">
-                    AND movie.distributor = #{childSelectValue}
-                </when>
-            </choose>
-        </where>
-        ORDER BY 
-            movie3.audi_acc DESC
-        LIMIT 6
-    ) AS m ON tw.id = m.id
-    SET 
-		tw.id = 
-        tw.tmdb_id = m.tmdb_id,
-        tw.kobis_id = m.kobis_id,
-        tw.kor_name = m.kor_name,
-        tw.eng_name = m.eng_name,
-        tw.sponsor = m.sponsor,
-        tw.release_date = m.release_date,
-        tw.running_time = m.running_time,
-        tw.watch_grade = m.watch_grade,
-        tw.movie_intro = m.movie_intro,
-        tw.poster_url = m.poster_url,
-        tw.logo_url = m.logo_url,
-        tw.main_img_url = m.main_img_url,
-        tw.release_nation = m.release_nation,
-        tw.genre = m.genre;
-</update> -->
-
-
-
+    <!--                                                ///////////admin///////////                                       -->
 
 </mapper>
 

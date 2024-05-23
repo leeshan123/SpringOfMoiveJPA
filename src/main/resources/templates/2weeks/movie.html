@@ -14,7 +14,7 @@
         <section class="media-sect-for-2weeks media-mobile">
             <h1 class="d:none">메인</h1>
             <section class="my:6  px:2">
-                <button id="playButton" class="n-btn">음악 재생</button>
+                <button id="playButton" class="n-btn n-btn:outline ">음악 재생</button>
                 <audio id="myAudio">
                     <source src="/media/movieSong2.mp3" type="audio/mpeg">
                     Your browser does not support the audio element.
@@ -30,7 +30,7 @@
                     };
 
                 </script>
-                <section class="">
+                <section  th:if="${movie.voteCount != 0}" class="">
                     <div class="txt-al:center">
                         <h1 class="fw:3 fs:8">🎖️2주의 영화</h1>
                     </div>
@@ -47,63 +47,82 @@
                         </div>
                         <div class="m-top:4">
                             <div class="d:flex jc:center">
-                                "Enjoy it"
+                                <span th:text="${movie.movieIntro}">줄거리</span>
                             </div>
                         </div>
                     </div>
                 </section>
-                <div class="d:flex mb:5">
-                    <h1 class="pl:1 fw:3 section-font border-left bd-color:main-2 bd-w:3 mr:auto">한줄 평
-                        <span class="fs:3 fw:2 color:base-10"
-                            th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}"
-                            th:text="${'('+formattedSize+' 개)'}">(3,426리뷰)
-                        </span>
-                    </h1>
-                    <!-- <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
-                        <li class="p-right:3 fs:3 color:base-10">
-                            <a href="" class="">최신 순</a>
-                        </li>
-                        <li class="p-right:3">
-                            <a href="">평점 순</a>
-                        </li>
 
-                        <li class="">
-                            <a href="">좋아요 순</a>
-                        </li>
-                    </ul> -->
-                </div>
-                <ul class="d:flex flex-direction:column gap:2">
-                    <li th:each="r ,count: ${reviews}" class="n-item n-item-type:shadow ttr">
-                        <div class="d:flex flex-direction:column gap:2">
-                            <div class="d:flex">
-                                <span th:text="${r.memberRate}+원"
-                                    class="margin-right:auto color:sub-1 fw:bold">평점</span>
-                                <span th:text="${#dates.format(r.regDate, 'yyyy년 MM월 dd일')}">날짜</span>
-                                <!--                                    <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>-->
-                            </div>
-                            <div class="d:flex ai:center gap:3">
-                                <span class="icon icon:user">아이콘</span>
-                                <span th:text="${r.nickname}">닉네임</span>
-                            </div>
-                            <div th:text="${r.comments}">한줄평이 출력됩니다</div>
-                            <div class="d:inline-block ">
-                                <span class="icon icon:thumbs_up">아이콘</span>
-                                <span th:text="${count.count}">좋아요 수</span>
-                                <button class="ml:2">좋아요</button>
+                <section th:if="${movie.voteCount == 0}" class="">
+                    <div class="txt-al:center">
+                        <h1 class="fw:3 fs:8">🎖️2주의영화</h1>
+                    </div>
+                    <div class="m-top:4">
+                        <div class="d:flex jc:center h:8">
+                            <img class="bd-radius:1 box-shadow:1"
+                                src="/image/no_image_poster.png"
+                                alt="dd">
+                        </div>
+                        <div class="m-top:4">
+                            <div class="d:flex jc:center ai:center gap:2">
+                                <span class="fs:6">등록된 영화가 없습니다</span>
                             </div>
                         </div>
-                    </li>
-                    <!--리뷰 없을시 출력되는 창-->
-                    <li th:if="${reviews == null or #lists.isEmpty(reviews)}"
-                        class="empty-contents-box-size d:flex w:100p jc:center ai:center">
-                        <span class="color:base-6">텅..</span>
-                    </li>
-                </ul>
-            <section>
-                <h1 class="pl:1 fw:3 fs:5 border-left bd-color:main-2 bd-w:3 mt:5 mb:2">한줄 평</h1>
+                        <div class="m-top:4">
+                            <div class="d:flex jc:center">
+                                여러분의 영화를 투표해주세요!
+                            </div>
+                        </div>
+                        <div class="d:flex jc:center my:4">
+                            <a href="/2weeks/list">
+                                <button class="n-btn n-btn-color:main">후보 보러가기</button>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <section th:if="${movie.voteCount != 0}">
+                    <h1 class="d:none">한줄 평</h1>
+                    <div class="d:flex mb:5">
+                        <h1 class="pl:1 fw:3 fs:5 section-font border-left bd-color:main-2 bd-w:3  mr:auto">한줄 평
+                            <span class="fs:3 fw:2 color:base-10"
+                                th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}"
+                                th:text="${'('+formattedSize+' 개)'}">(3,426리뷰)
+                            </span>
+                        </h1>
+                    </div>
+                    <ul class="d:flex flex-direction:column gap:2">
+                        <li th:each="r ,count: ${reviews}" class="n-item n-item-type:shadow ttr">
+                            <div class="d:flex flex-direction:column gap:2">
+                                <div class="d:flex">
+                                    <span th:text="${r.memberRate}+원"
+                                        class="margin-right:auto color:sub-1 fw:bold">평점</span>
+                                    <span th:text="${#dates.format(r.regDate, 'yyyy년 MM월 dd일')}">날짜</span>
+                                    <!--                                    <span th:text="${#dates.format(r.regDate, 'HH:mm')}">시간</span>-->
+                                </div>
+                                <div class="d:flex ai:center gap:3">
+                                    <span class="icon icon:user">아이콘</span>
+                                    <span th:text="${r.nickname}">닉네임</span>
+                                </div>
+                                <div th:text="${r.comments}">한줄평이 출력됩니다</div>
+                                <div class="d:inline-block ">
+                                    <span class="icon icon:thumbs_up">아이콘</span>
+                                    <span th:text="${count.count}">좋아요 수</span>
+                                    <button class="ml:2">좋아요</button>
+                                </div>
+                            </div>
+                        </li>
+                        <!--리뷰 없을시 출력되는 창-->
+                        <!-- <li th:if="${reviews == null or #lists.isEmpty(reviews)}"
+                            class="empty-contents-box-size d:flex w:100p jc:center ai:center">
+                            <span class="color:base-6"></span>
+                        </li> -->
+                    </ul>
                 <div id="content" class="toggle-off">
-                    <div class="txt-al:center fs:5 fw:3 mb:3">
-                        <span>한줄평을 남겨주세요!</span>
+                    <div
+                    th:if="${reviews == null or #lists.isEmpty(reviews)}" 
+                    class="txt-al:center fs:5 fw:3 mb:3">
+                        <span>1등으로 리뷰를 작성해보세요!</span>
                     </div>
                     <form th:action="${myReview != null ? 'comment/edit/'+movie.movieCd : 'comment'}" action="comment"
                         method="POST">

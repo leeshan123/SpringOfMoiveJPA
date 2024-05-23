@@ -26,8 +26,7 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
     @Override
     public List<totalVoteView> findByMovieCd() {
         List<totalVoteView> TWMovie = TWMovieRepository.getByMovieCd();
-        System.out.println("투표수 영화목록 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+TWMovie);
-
+        // System.out.println("투표수 영화목록 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+TWMovie);
         return TWMovie;
     }
     //2주의영화 투표수가져오기
@@ -42,6 +41,11 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
         return totalVoteCount;
     }
 
+    // @Override
+    // public List<String> findMovieVoteListId(){
+    //     List<String> Id=TWMovieRepository.getVoteListId();
+    //     parseId = parseLong(Id);
+    // }
     // admin
     // public void findByCriteria(String parentSelectValue, String childSelectValue) {
     //     TWMovieRepository.getMoviesByDynamicCriteria(parentSelectValue,childSelectValue);
@@ -51,7 +55,7 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
     // }
 
     @Override
-    @Transactional
+    // @Transactional
     public void initList(String parentSelectValue, String childSelectValue){
         TWMovieRepository.deleteAllVoteList();
         TWMovieRepository.deleteAllMovieList();
@@ -113,6 +117,9 @@ public class TwoWeeksMovieServiceImp implements TwoWeeksMovieService {
     @Override
     public totalVoteView findWinnerMovie() {
         totalVoteView winner = TWMovieRepository.getThisWeeksMovie();
+        // if(winner.getVoteCount()==0){
+        //     winner=null;
+        // }
         return winner;
     }
     

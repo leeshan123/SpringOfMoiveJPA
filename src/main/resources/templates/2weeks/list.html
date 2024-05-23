@@ -37,7 +37,7 @@
                         <div class="max-w:10 ">
                             <div class=" d:flex ai:center">
                                 <h2 class="d:none">영화정보</h2>
-                                <div class="d:flex fl-wrap:wrap ">
+                                <div class="d:flex fl-wrap:wrap">
                                     <div class="fw:3 fs:7 " th:text="${m.korName}" >영화제목</div>
                                 </div>
                                 <div th:switch="${m.watchGrade}" class="ai:center position:relative display:inline-block bd-color:base-10  m-left:1">
@@ -103,6 +103,9 @@
                     </div>
                 </section>
             </section>
+            <div class="d:flex jc:center my:6">
+                <button class="n-btn mx:auto h:1 box-shadow:1">2주의영화 홈으로</button>
+            </div>
         </section>
 
         </section>

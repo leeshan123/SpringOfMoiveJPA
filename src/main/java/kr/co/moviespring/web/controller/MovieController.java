@@ -20,6 +20,7 @@ import kr.co.moviespring.web.service.MovieService;
 import kr.co.moviespring.web.service.MovieStillcutService;
 import kr.co.moviespring.web.service.MovieTrailerService;
 import kr.co.moviespring.web.service.OnelineReviewService;
+import kr.co.moviespring.web.service.TwoWeeksMovieService;
 
 @Controller
 @RequestMapping("movie")
@@ -42,7 +43,8 @@ public class MovieController {
 
     @Autowired
     MovieTrailerService movieTrailerService;
-
+    @Autowired
+    TwoWeeksMovieService TWMovieService;
 
     // 영화 목록//
     @GetMapping("main")
@@ -132,6 +134,7 @@ public class MovieController {
         List<MovieActorView> actors = movieActorService.getById(movieId);
         List<Director> directors = movieDirectorService.getById(movieId); //디렉터 타입인데 무비디렉터 서비스 쓰는게 맞나?
         List<MovieStillcut> stillcuts = movieStillcutService.getById(movieId);
+        List<totalVoteView> TWMovie = TWMovieService.findByMovieCd();
         List<MovieTrailer> trailers = movieTrailerService.getById(movieId);
         // 리뷰목록//
         List<OnelineReviewView> onelineReviews = onelineReviewService.getList(movieId);
@@ -155,8 +158,12 @@ public class MovieController {
                 model.addAttribute("avgRate", avg); //유저 평점을 기준으로 평균가격 측정
             }
         }
+        // for(totalVoteView TWMovies : TWMovie){
+        //     if(TWMovies.getMovieCd() == movie.getId())
 
-
+        // }
+        
+        model.addAttribute("movie2", TWMovie);
         model.addAttribute("movie", movie);
         model.addAttribute("actors", actors);
         model.addAttribute("directors", directors);
