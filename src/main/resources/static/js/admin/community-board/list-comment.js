@@ -1,23 +1,23 @@
 window.addEventListener('load', function() {
     const deleteBtn = this.document.querySelector(".delete-btn");
-    const checkMovie = this.document.querySelectorAll(".check-movie");
     // 체크된 체크박스의 값을 저장할 배열 생성.
-    
+    const checkMovie = this.document.querySelectorAll(".check-content");
+
     deleteBtn.onclick = function() {
-        const apiUrl = `http://localhost/api/movie/delete`;
-        const checkedItems = []; 
+        const apiUrl = `http://localhost/api/community-board/delete-comment`;
+        const checkedItems = [];
         Array.from(checkMovie).forEach((checkbox) => { // NodeList를 배열로 변환
             if (checkbox.checked) {
                 checkedItems.push(checkbox.value);
             }
         });
         console.log(checkedItems);
-        
+
         if(checkedItems.length == 0){
-            alert("선택된 영화가 없습니다.");
+            alert("선택된 게시글이 없습니다.");
             return;
         }
-    
+
         if (confirm("정말 삭제하시겠습니까?")){
             fetch(apiUrl, {
                 method: 'DELETE',
@@ -29,8 +29,8 @@ window.addEventListener('load', function() {
             .then(response => response.text())
             .then(data => {
                 alert(data);
-                // 페이지 리다이렉트하기
-                
+                // 페이지를 리다이렉트
+                window.location.href = "/admin/community-board/commentlist";
             })
             .catch(error => console.error('Error:', error));
         }

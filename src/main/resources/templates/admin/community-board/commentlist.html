@@ -21,6 +21,7 @@
         }
 
     </style>
+    <script src="/js/admin/community-board/list-comment.js" defer></script>
 </head>
 <body>
     <main layout:fragment="main">
@@ -75,12 +76,12 @@
                         <td th:text="${comment.nickname}" class="txt-al:start py:1">작성자</td>
                         <td class="txt-al:center py:1">123</td>
                         <td class="txt-al:center py:1" th:text="${#temporals.format(comment.regDate, 'yyyy.MM.dd')}">작성일</td>
-                        <td class="txt-al:center py:1" ><input type="checkbox" name="" value=""></td>
+                        <td class="txt-al:center py:1" ><input class="check-content" type="checkbox" name="" th:value="${comment.id}"></td>
                     </tr>
                 </tbody>
             </table>
             <div class="d:flex jc:flex-end">
-                <button class="n-btn n-btn-color:accent" onclick="deleteSelected()">삭제</button>
+                <a type="button" class="delete-btn n-btn n-btn-color:accent">삭제</a>
             </div>
             
             
