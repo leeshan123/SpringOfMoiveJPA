@@ -76,14 +76,21 @@ public class CommunityBoardServiceImp implements CommunityBoardService {
         return prevBoard;
     }
 
+    
+
     @Override
-    public int getCount(Long categoryId) {
-        return getCount(categoryId, null);
+    public int getCount(Long memberId) {
+        return getCount(memberId, null, null);
     }
 
     @Override
-    public int getCount(Long categoryId, String query) {
-        int count = communityBoardRepository.getCount(categoryId, query);
+    public int getCount(Long memberId, Long categoryId) {
+        return getCount(memberId, categoryId, null);
+    }
+
+    @Override
+    public int getCount(Long memberId, Long categoryId, String query) {
+        int count = communityBoardRepository.getCount(memberId, categoryId, query);
         return count;
     }
 

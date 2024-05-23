@@ -15,7 +15,9 @@ public interface CommunityBoardCommentsRepository {
     List<CommunityBoardCommentsView> findAllById(Long boardId, Long memberId);
     List<CommunityBoardCommentsView> findAllByMemberId(Long id);
     List<CommunityBoardCommentsView> findAll(int offset, int size);
-    int getCount();
+    
+    int getCount(Long memberId);
+    
     //댓글 수정
     int edit(Long commentId, Long memberId, String comment);
     //댓글 삭제

@@ -41,7 +41,12 @@ public class CommunityBoardCommentsServiceImp implements CommunityBoardCommentsS
 
     @Override
     public int getCount() {
-        return repository.getCount();
+        return getCount(null);
+    }
+
+    @Override
+    public int getCount(Long memberId) {
+        return repository.getCount(memberId);
     }
 
     //댓글 수정

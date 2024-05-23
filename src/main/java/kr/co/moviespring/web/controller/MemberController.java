@@ -23,9 +23,11 @@ import kr.co.moviespring.web.entity.OnelineReview;
 import kr.co.moviespring.web.entity.OnelineReviewMovieView;
 import kr.co.moviespring.web.service.CategoryService;
 import kr.co.moviespring.web.service.CommunityBoardCommentsService;
+import kr.co.moviespring.web.service.CommunityBoardService;
 import kr.co.moviespring.web.service.MemberService;
 import kr.co.moviespring.web.service.MovieService;
 import kr.co.moviespring.web.service.OnelineReviewService;
+import kr.co.moviespring.web.service.PlayGroundService;
 
 @Controller
 @RequestMapping("user")
@@ -47,10 +49,30 @@ public class MemberController {
     CommunityBoardCommentsService cbcService;
 
     @Autowired
+    CommunityBoardService cbService;
+
+    @Autowired
+    PlayGroundService pgService;
+
+    @Autowired
     private CustomUserDetailService customUserDetailsService;
 
     @GetMapping("mypage")
-    public String main(){
+    public String main(
+        Model model
+        , @AuthenticationPrincipal CustomUserDetails userDetails
+    ){
+        Long memberId = userDetails.getId();
+
+        int orCnt = orService.getCount(memberId); // 평가한 영화
+        int pgCnt = pgService.getCount(memberId); // 배팅한 영화
+        int cbCnt = cbService.getCount(memberId); // 게시물
+        int cbcCnt = cbcService.getCount(memberId); // 댓글
+
+        model.addAttribute("orCnt", orCnt);
+        model.addAttribute("pgCnt", pgCnt);
+        model.addAttribute("cbCnt", cbCnt);
+        model.addAttribute("cbcCnt", cbcCnt);
 
         return "user/mypage";
     }

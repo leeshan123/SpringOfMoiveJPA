@@ -42,18 +42,15 @@
 
     <select id="findAllByMemberId" resultType="CommunityBoardCommentsView">
         SELECT * FROM community_board_comments_view
-        WHERE member_id = #{id} OR community_board_id IS NULL;
+        WHERE member_id = #{id};
     </select>
 
     <!--페이징을 위한 댓글 갯수 카운팅-->
     <select id="getCount" resultType="Integer">
         SELECT COUNT(*) FROM community_board_comments_view
         <where>
-            <if test="categoryId != null">
-                category_id = #{categoryId}
-            </if>
-            <if test="query != null">
-                AND title LIKE '%${query}%'
+            <if test="memberId != null">
+                member_id = #{memberId}
             </if>
         </where>
     </select>

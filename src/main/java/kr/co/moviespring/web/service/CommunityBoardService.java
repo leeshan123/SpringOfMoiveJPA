@@ -23,8 +23,10 @@ public interface CommunityBoardService {
     CommunityBoard getNextId(Long boardId, Long categoryId);
     //이전글 아이디 가져오기
     CommunityBoard getPrevId(Long boardId, Long categoryId);
-    int getCount(Long categoryId);
-    int getCount(Long categoryId, String query);
+
+    int getCount(Long memberId);
+    int getCount(Long memberId, Long categoryId);
+    int getCount(Long memberId, Long categoryId, String query);
     
     void write(Long memberId, String title, String contents, Long id);
 

@@ -50,5 +50,11 @@ public class PlayGroundServiceImp implements PlayGroundService{
         return repository.countBettingUser(id);
     }
 
+    @Override
+    public int getCount(Long memberId) {
+        int cnt = repository.getCount(memberId);
+        return cnt;
+    }
+
 
 }

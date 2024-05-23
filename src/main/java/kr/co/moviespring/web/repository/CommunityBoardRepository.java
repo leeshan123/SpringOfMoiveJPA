@@ -28,7 +28,7 @@ public interface CommunityBoardRepository {
     CommunityBoardView findById(Long id);
 
     //페이징을 위한 게시글 갯수 카운팅
-    int getCount(Long categoryId, String query);
+    int getCount(Long memberId, Long categoryId, String query);
 
     // 아이디별 조회
     List<CommunityBoardView> findByMemberId(Long memberId);
