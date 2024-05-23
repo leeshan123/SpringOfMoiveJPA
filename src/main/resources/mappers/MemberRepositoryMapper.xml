@@ -40,4 +40,8 @@
         update member set point = #{point} where id = #{id}
     </update>
 
+    <delete id="delete">
+        UPDATE member SET status='inactive' WHERE id=#{id};
+    </delete>
+
 </mapper>

@@ -87,4 +87,9 @@ public class MemberServiceImp implements MemberService {
         return true;
     }
 
+    @Override
+    public void removeById(Long id) {
+        memberRepository.delete(id);
+    }
+
 }

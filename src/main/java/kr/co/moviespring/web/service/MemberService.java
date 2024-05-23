@@ -18,5 +18,7 @@ public interface MemberService {
     List<CommunityBoardView> getMyBoard(Long memberId); // 내 게시글 조회
 
     boolean getByUsername(String name);
+
+    void removeById(Long id);
     
 }

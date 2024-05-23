@@ -39,10 +39,10 @@
                 <div>나이</div>
                 <span th:text="${user.age}">30</span>
             </div>
-            <div>
+            <!-- <div>
                 <div class="d:flex jc:space-between">보유포인트</div>
                 <span th:text="${user.point}">1000</span>점
-            </div>
+            </div> -->
             <div class="test">
                 <div class="d:flex jc:space-between">닉네임<button id="btn-nick" type="button" class="n-btn n-btn-size:1">수정</button></div>
                 <span th:text="${user.nickname}">nickname</span>
@@ -56,7 +56,8 @@
                 <!-- <span sec:authentication="principal.password">********</span> 비번은 숨기는걸로...-->
             </div>
             <div class="txt-al:right">
-                <button type="button" class="n-btn n-btn:outline">회원탈퇴</button>
+                <input type="hidden" id="user-id" th:value="${user.id}">
+                <button type="button" class="delete n-btn n-btn:outline">회원탈퇴</button>
             </div>
         </section>
 

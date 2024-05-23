@@ -15,6 +15,8 @@ public interface MemberRepository {
 
     void updatePoint(Member member);
 
+    void delete(Long id);
+
 //    String username, String password, String name, String nickname, int age, String email
   
 }

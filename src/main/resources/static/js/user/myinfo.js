@@ -1,5 +1,29 @@
 window.addEventListener('load', function () {
 
+    const btnDelete = document.querySelector(".delete");
+    const userId = this.document.querySelector("#user-id");
+    btnDelete.onclick = function(){
+
+        const apiUrl = `http://localhost/api/member/delete`;
+
+        if (confirm("정말 삭제하시겠습니까?")){
+            fetch(apiUrl, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userId.value)
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                // 페이지를 리다이렉트
+                window.location.href = "/";
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    }
+
     const modals = {
         'nick': {
             'btn': document.getElementById('btn-nick'),
