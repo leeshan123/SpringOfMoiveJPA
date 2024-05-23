@@ -19,4 +19,6 @@ public interface EventPageRepository {
     void delete(Long id);
     List<EventPage> ongoingEvents(LocalDate currentDate);
     List<EventPage> endedEvents(LocalDate currentDate);
+
+    List<EventPage> findByTop5();
 }

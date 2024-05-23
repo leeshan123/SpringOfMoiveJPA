@@ -15,4 +15,6 @@ public interface EventPageService {
     void deleteById(Long id);
     List<EventPage> getOngoingList();
     List<EventPage> getEndedList();
+
+    List<EventPage> getEventListTop5();
 }

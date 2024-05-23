@@ -50,5 +50,10 @@ public class PlayGroundServiceImp implements PlayGroundService{
         return repository.countBettingUser(id);
     }
 
+    @Override
+    public List<PlayGroundBoard> getBoardTop5() {
+        return repository.findBoardTop5();
+    }
+
 
 }

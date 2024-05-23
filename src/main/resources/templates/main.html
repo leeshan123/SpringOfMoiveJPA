@@ -31,6 +31,13 @@
         .line-height {
             line-height: 28px;
         }
+
+        .n-table {
+            --bbs-table-first-column-width: 70px;
+            /*--bbs-table-last-column-width: 150px;*/
+            --table-row-height: 50px;
+            --table-cell-padding-x: 0px;
+        }
     </style>
 </head>
 
@@ -78,24 +85,16 @@
                             <h1 class="d:none ">컨텐츠</h1>
                             <div th:each="m,mCount : ${list}"
                                 class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
-                                <div class="position:relative display:inline-block bd-color:base-10 ">
-                                    <a href="detail" th:href="@{movie/detail(movieid=${m.id})}"><img class="bd-radius:1"
-                                            src=""
-                                            th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}"
-                                            alt="/" width="247.69px" height="361.54px"></a>
+                                <div th:switch="${m.watchGrade}" class="position:relative display:inline-block bd-color:base-10 ">
+                                    <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1"
+                                                                                               src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" alt="/" width="247.69px" height="361.54px"></a>
                                     <span
-                                        class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
-                                        th:text="${mCount.count}">1</span>
-                                    <span><svg class="watch-grade-position" width="30px"
-                                            xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px"
-                                            style="enable-background:new 0 0 500 500" viewBox="0 0 500 500">
-                                            <path
-                                                d="M443.642 500H56.38C25.256 500 0 474.764 0 443.632V56.368C0 25.235 25.256 0 56.379 0h387.263C474.775 0 500 25.235 500 56.368v387.264C500 474.764 474.775 500 443.642 500"
-                                                style="fill:#00964b" />
-                                            <path
-                                                d="m144.95 378.216-6.064-38.323-44.366.01-6.064 38.292-57.17.02v-.687l54.138-256.2h62.527l54.138 256.22.02.668h-57.16zm-28.257-174.19-14.129 87.439h28.247l-14.118-87.439zM212.167 378.213V121.316h57.17v205.447h67.246v51.45zM348.693 378.199V121.312l57.17.01-.03 205.447h67.277v51.461z"
-                                                style="fill:#fff" />
-                                        </svg></span>
+                                            class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
+                                            th:text="${mCount.count}">1</span>
+                                    <span><svg class="watch-grade-position" width="30px" height="30px" th:case="'전체관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.642 500H56.38C25.256 500 0 474.764 0 443.632V56.368C0 25.235 25.256 0 56.379 0h387.263C474.775 0 500 25.235 500 56.368v387.264C500 474.764 474.775 500 443.642 500" style="fill:#00964b"/><path d="m144.95 378.216-6.064-38.323-44.366.01-6.064 38.292-57.17.02v-.687l54.138-256.2h62.527l54.138 256.22.02.668h-57.16zm-28.257-174.19-14.129 87.439h28.247l-14.118-87.439zM212.167 378.213V121.316h57.17v205.447h67.246v51.45zM348.693 378.199V121.312l57.17.01-.03 205.447h67.277v51.461z" style="fill:#fff"/></svg></span>
+                                    <span><svg class="watch-grade-position" width="30px" height="30px" th:case="'12세이상관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.617 500H56.373C25.24 500 0 474.77 0 443.648V56.373C0 25.24 25.241 0 56.373 0h387.244C474.738 0 500 25.241 500 56.373v387.275C500 474.769 474.738 500 443.617 500" style="fill:#eabc00"/><path d="M108.175 422.27V173.766H80.664l35.629-96.046h69.009v344.55zM407.596 77.719H219.137a7.695 7.695 0 0 0-7.695 7.695v104.143h75.332v-46.903H340v41.477l-131.272 187.18v50.535h205.686v-67.224H304.372l96.045-134.841c3.012-4.22 5.405-7.891 7.22-11.058 1.816-3.157 3.312-6.22 4.519-9.253 1.186-2.992 2.021-6.303 2.465-9.913.464-3.61.67-7.963.67-13.08V85.414a7.689 7.689 0 0 0-7.695-7.695" style="fill:#fff"/></svg></span>
+                                    <span><svg class="watch-grade-position" width="30px" height="30px" th:case="'15세이상관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.638 500H56.352C25.252 500 0 474.759 0 443.638V56.362C0 25.242 25.252 0 56.352 0h387.286C474.768 0 500 25.241 500 56.362v387.276c0 31.12-25.231 56.362-56.362 56.362" style="fill:#dc7317"/><path d="M107.957 422.277V173.783H80.436l35.619-96.076h69.04v344.57zM407.825 195.418H286.972v-50.514h126.3V77.701H211.217v183.56h129.446v96.055h-54.578v-45.109h-74.868v102.358c0 4.25 3.456 7.695 7.705 7.695H407.825a7.695 7.695 0 0 0 7.695-7.695V203.114a7.695 7.695 0 0 0-7.695-7.696" style="fill:#fff"/></svg></span>
+                                    <span><svg class="watch-grade-position" width="30px" height="30px" th:case="'청소년관람불가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.62 500H56.35C25.21 500 0 474.79 0 443.65V56.37C0 25.24 25.21 0 56.35 0h387.27c31.13 0 56.36 25.24 56.36 56.37v387.28c0 31.14-25.23 56.35-56.36 56.35" style="fill:#d61d28"/><path d="M105.917 422.269V173.764h-27.52l35.648-96.051h68.975v344.556zM416.625 281.105c-.588-4.198-1.64-7.818-3.136-10.82a23.291 23.291 0 0 0-6.096-7.674c-2.548-2.104-5.787-4.198-9.686-6.302l-22.992-10.82 22.992-12.193c6.911-4.208 11.8-8.86 14.658-13.976 2.846-5.106 4.26-12.77 4.26-22.992V85.403a7.695 7.695 0 0 0-7.695-7.695H217.332c-4.25 0-7.705 3.445-7.705 7.695v110.925c0 9.892 1.454 17.504 4.291 22.754 2.857 5.292 7.757 10.006 14.647 14.214l23.002 12.193-23.002 10.82c-7.84 4.198-12.997 9.18-15.555 14.863-2.547 5.735-3.827 14.142-3.827 25.282V414.569c0 4.25 3.456 7.705 7.706 7.705h192.97c4.239 0 7.684-3.456 7.684-7.705V296.454c0-6.024-.31-11.14-.918-15.349m-75.752 69.883c0 4.25-3.456 7.685-7.695 7.685h-39.61c-4.238 0-7.704-3.435-7.704-7.685v-68.954c0-4.25 3.466-7.695 7.705-7.695h39.609c4.24 0 7.695 3.445 7.695 7.695v68.954zm0-141.91c0 4.249-3.456 7.694-7.695 7.694h-39.61c-4.238 0-7.704-3.445-7.704-7.695v-60.3c0-4.24 3.466-7.685 7.705-7.685h39.609c4.24 0 7.695 3.445 7.695 7.685v60.3z" style="fill:#fff"/></svg></span>
                                 </div>
                                 <div class="d:flex fl-dir:column gap:2 d:inline-block mt:2">
                                     <div class="d:flex">
@@ -154,24 +153,16 @@
                             <h1 class="d:none ">컨텐츠</h1>
                             <div th:each="m,mCount : ${listAfter}"
                                 class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
-                                <div class="position:relative display:inline-block bd-color:base-10 ">
-                                    <a href="detail" th:href="@{movie/detail(movieid=${m.id})}"><img class="bd-radius:1"
-                                            src=""
-                                            th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}"
-                                            alt="/" width="247.69px" height="361.54px"></a>
+                                <div th:switch="${m.watchGrade}" class="position:relative display:inline-block bd-color:base-10 ">
+                                    <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1"
+                                                                                               src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" alt="/" width="247.69px" height="361.54px"></a>
                                     <span
-                                        class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
-                                        th:text="${mCount.count}">1</span>
-                                    <span><svg class="watch-grade-position" width="30px"
-                                            xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px"
-                                            style="enable-background:new 0 0 500 500" viewBox="0 0 500 500">
-                                            <path
-                                                d="M443.642 500H56.38C25.256 500 0 474.764 0 443.632V56.368C0 25.235 25.256 0 56.379 0h387.263C474.775 0 500 25.235 500 56.368v387.264C500 474.764 474.775 500 443.642 500"
-                                                style="fill:#00964b" />
-                                            <path
-                                                d="m144.95 378.216-6.064-38.323-44.366.01-6.064 38.292-57.17.02v-.687l54.138-256.2h62.527l54.138 256.22.02.668h-57.16zm-28.257-174.19-14.129 87.439h28.247l-14.118-87.439zM212.167 378.213V121.316h57.17v205.447h67.246v51.45zM348.693 378.199V121.312l57.17.01-.03 205.447h67.277v51.461z"
-                                                style="fill:#fff" />
-                                        </svg></span>
+                                            class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
+                                            th:text="${mCount.count}">1</span>
+                                    <span><svg class="watch-grade-position" width="30px" height="30px" th:case="'전체관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.642 500H56.38C25.256 500 0 474.764 0 443.632V56.368C0 25.235 25.256 0 56.379 0h387.263C474.775 0 500 25.235 500 56.368v387.264C500 474.764 474.775 500 443.642 500" style="fill:#00964b"/><path d="m144.95 378.216-6.064-38.323-44.366.01-6.064 38.292-57.17.02v-.687l54.138-256.2h62.527l54.138 256.22.02.668h-57.16zm-28.257-174.19-14.129 87.439h28.247l-14.118-87.439zM212.167 378.213V121.316h57.17v205.447h67.246v51.45zM348.693 378.199V121.312l57.17.01-.03 205.447h67.277v51.461z" style="fill:#fff"/></svg></span>
+                                    <span><svg class="watch-grade-position" width="30px" height="30px" th:case="'12세이상관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.617 500H56.373C25.24 500 0 474.77 0 443.648V56.373C0 25.24 25.241 0 56.373 0h387.244C474.738 0 500 25.241 500 56.373v387.275C500 474.769 474.738 500 443.617 500" style="fill:#eabc00"/><path d="M108.175 422.27V173.766H80.664l35.629-96.046h69.009v344.55zM407.596 77.719H219.137a7.695 7.695 0 0 0-7.695 7.695v104.143h75.332v-46.903H340v41.477l-131.272 187.18v50.535h205.686v-67.224H304.372l96.045-134.841c3.012-4.22 5.405-7.891 7.22-11.058 1.816-3.157 3.312-6.22 4.519-9.253 1.186-2.992 2.021-6.303 2.465-9.913.464-3.61.67-7.963.67-13.08V85.414a7.689 7.689 0 0 0-7.695-7.695" style="fill:#fff"/></svg></span>
+                                    <span><svg class="watch-grade-position" width="30px" height="30px" th:case="'15세이상관람가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.638 500H56.352C25.252 500 0 474.759 0 443.638V56.362C0 25.242 25.252 0 56.352 0h387.286C474.768 0 500 25.241 500 56.362v387.276c0 31.12-25.231 56.362-56.362 56.362" style="fill:#dc7317"/><path d="M107.957 422.277V173.783H80.436l35.619-96.076h69.04v344.57zM407.825 195.418H286.972v-50.514h126.3V77.701H211.217v183.56h129.446v96.055h-54.578v-45.109h-74.868v102.358c0 4.25 3.456 7.695 7.705 7.695H407.825a7.695 7.695 0 0 0 7.695-7.695V203.114a7.695 7.695 0 0 0-7.695-7.696" style="fill:#fff"/></svg></span>
+                                    <span><svg class="watch-grade-position" width="30px" height="30px" th:case="'청소년관람불가'" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" x="0px" y="0px" style="enable-background:new 0 0 500 500" viewBox="0 0 500 500"><path d="M443.62 500H56.35C25.21 500 0 474.79 0 443.65V56.37C0 25.24 25.21 0 56.35 0h387.27c31.13 0 56.36 25.24 56.36 56.37v387.28c0 31.14-25.23 56.35-56.36 56.35" style="fill:#d61d28"/><path d="M105.917 422.269V173.764h-27.52l35.648-96.051h68.975v344.556zM416.625 281.105c-.588-4.198-1.64-7.818-3.136-10.82a23.291 23.291 0 0 0-6.096-7.674c-2.548-2.104-5.787-4.198-9.686-6.302l-22.992-10.82 22.992-12.193c6.911-4.208 11.8-8.86 14.658-13.976 2.846-5.106 4.26-12.77 4.26-22.992V85.403a7.695 7.695 0 0 0-7.695-7.695H217.332c-4.25 0-7.705 3.445-7.705 7.695v110.925c0 9.892 1.454 17.504 4.291 22.754 2.857 5.292 7.757 10.006 14.647 14.214l23.002 12.193-23.002 10.82c-7.84 4.198-12.997 9.18-15.555 14.863-2.547 5.735-3.827 14.142-3.827 25.282V414.569c0 4.25 3.456 7.705 7.706 7.705h192.97c4.239 0 7.684-3.456 7.684-7.705V296.454c0-6.024-.31-11.14-.918-15.349m-75.752 69.883c0 4.25-3.456 7.685-7.695 7.685h-39.61c-4.238 0-7.704-3.435-7.704-7.685v-68.954c0-4.25 3.466-7.695 7.705-7.695h39.609c4.24 0 7.695 3.445 7.695 7.695v68.954zm0-141.91c0 4.249-3.456 7.694-7.695 7.694h-39.61c-4.238 0-7.704-3.445-7.704-7.695v-60.3c0-4.24 3.466-7.685 7.705-7.685h39.609c4.24 0 7.695 3.445 7.695 7.685v60.3z" style="fill:#fff"/></svg></span>
                                 </div>
                                 <div class="d:flex fl-dir:column gap:2 d:inline-block mt:2">
                                     <div class="d:flex">
@@ -182,7 +173,10 @@
                                     <div class="fs:2"
                                         th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">
                                         2024 · 한국</div>
-                                    <div class="fs:2 color:base-6">누적 관객수 0만명</div>
+                                    <div class="fs:2 color:base-6"
+                                         th:if="${m.releaseDate != null}">
+                                        <p class="color:accent-1 fw:bold" th:text="${#dates.format(m.releaseDate, 'MM월 dd일')}+' 개봉'"></p>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -335,99 +329,71 @@
                     <h1 class="d:none">이벤트 및 커뮤니티</h1>
 
                     <!-- 이벤트 -->
-                    <div class="fl:fill mb:5">
-                        <div class="d:flex ac:center">
-                            <h1 class="fs:5 fw:3 flex-grow:1 mb:3">EVENT</h1>
-                            <a href="" class="fs:2">더보기></a>
+                    <section class="fl:fill mb:5">
+                        <div class="d:flex ac:center mb:3">
+                            <h1 class="fs:6 fw:3 flex-grow:1 mb:3">EVENT</h1>
+                            <a href="event/list" class="fs:2">더보기></a>
                         </div>
-                        <div class="d:flex fl-dir:column gap:2">
-                            <li><a>쿵</a></li>
-                            <li><a>푸</a></li>
-                            <li><a>팬</a></li>
-                            <li><a>더</a></li>
-                            <li><a>4</a></li>
-                            <li><a>짱</a></li>
+                        <div class="d:flex fl-dir:column" th:each="eventList : ${eventList}">
+                            <a href="" th:href="@{event/detail(id=${eventList.id})}">
+                            <li th:text="${eventList.title}" class="mb:3">
+                            </li>
+                            </a>
                         </div>
-                    </div>
+                    </section>
                     <!-- 커뮤니티 -->
 
-                    <div class="fl:fill mb:5">
-                        <div class="d:flex">
-                            <h1 class="fs:5 fw:3 flex-grow:1 mb:3">커뮤니티</h1>
-                            <a href="" class="fs:2">더보기></a>
+                    <section class="fl:fill mb:5">
+                        <div class="d:flex ac:center">
+                            <h1 class="fs:6 fw:3 flex-grow:1 mb:3">커뮤니티</h1>
+                            <a href="community/main" class="fs:2">더보기></a>
                         </div>
-                        <div class="d:flex fl-dir:column gap:2">
-                            <li><a>쿵</a></li>
-                            <li><a>푸</a></li>
-                            <li><a>팬</a></li>
-                            <li><a>더</a></li>
-                            <li><a>4</a></li>
-                            <li><a>짱</a></li>
+                        <div class="d:flex fl-dir:column" th:each="communitylist : ${communitylist}">
+                            <a th:href="@{/community/board/detail(id=${communitylist.id}, c='best')}">
+                            <li th:text="${communitylist.title}" class="mb:3"></li>
+                            </a>
                         </div>
-                    </div>
+                    </section>
                 </section>
 
                 <!-- 관객수 놀이터 -->
 
                 <section class="of:scroll of-y:hidden scrable-content4">
-                    <div class="d:flex ac:center">
-                        <h1 class="fs:5 fw:3 flex-grow:1 mb:3">놀이터</h1>
-                        <a href="" class="fs:2">더보기></a>
+                    <div class="d:flex ac:center mb:5">
+                        <h1 class="fs:6 fw:3 flex-grow:1 mb:3">관객수 놀이터</h1>
+                        <a href="playground/main" class="fs:2">더보기></a>
                     </div>
 
-                    <div class="d:flex gap:3">
-                        <div class="d:flex fl-dir:column movie-playground ai:center ac:center 
-                bd-radius:3 txt-al:center">
-                            <div class="w:10p bg-color:main-3 fs:3 fw:3 color:base-1">목표 관객수 1300만 이상</div>
-                            <div><img
-                                    src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20240311_85%2F1710136183535z3QfC_JPEG%2Fmovie_image.jpg"
-                                    width="200" height="300" alt=""></div>
-                            <div class="w:10p bg-color:main-3 fs:3 fw:3 color:accent-2 bd-radius:3"><a href="">참여하기</a>
-                            </div>
-                        </div>
 
-                        <div class="d:flex fl-dir:column movie-playground ai:center ac:center 
-                bd-radius:3 txt-al:center">
-                            <div class="w:10p bg-color:main-3 fs:3 fw:3 color:base-1">목표 관객수 1300만 이상</div>
-                            <div><img
-                                    src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20240311_85%2F1710136183535z3QfC_JPEG%2Fmovie_image.jpg"
-                                    width="200" height="300" alt=""></div>
-                            <div class="w:10p bg-color:main-3 fs:3 fw:3 color:accent-2 bd-radius:3"><a href="">참여하기</a>
-                            </div>
-                        </div>
+                        <table class="n-table n-bbs-table n-column-width:3 n-table-border mb:5">
+                            <thead>
+                            <tr>
+                                <th scope="col">순위</th>
+                                <th scope="col">제목</th>
+                                <th scope="col">투표 마감</th>
+                                <th scope="col">집계 마감</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="pgb,count : ${pgbList}">
+                                <th scope="row" th:text="${count.count}" >1</th>
+                                <!-- 각 행의 제목 열에 링크 추가 -->
+                                <td>
+                                    <a th:href="@{/playground/main}">
+                                        <span th:text="${pgb.title}">Tom</span>
+                                    </a>
+                                </td>
+                                <td class="color:accent-1" th:text="${#dates.format(pgb.voteEndDate, 'yyyy-MM-dd')}">male</td>
+                                <td th:text="${#dates.format(pgb.deadLineDate, 'yyyy-MM-dd')}">2020-11-01</td>
+                            </tr>
+                            </tbody>
+                        </table>
 
-                        <div class="d:flex fl-dir:column movie-playground ai:center ac:center 
-                bd-radius:3 txt-al:center">
-                            <div class="w:10p bg-color:main-3 fs:3 fw:3 color:base-1">목표 관객수 1300만 이상</div>
-                            <div><img
-                                    src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20240311_85%2F1710136183535z3QfC_JPEG%2Fmovie_image.jpg"
-                                    width="200" height="300" alt=""></div>
-                            <div class="w:10p bg-color:main-3 fs:3 fw:3 color:accent-2 bd-radius:3"><a href="">참여하기</a>
-                            </div>
-                        </div>
 
-                        <div class="d:flex fl-dir:column movie-playground ai:center ac:center 
-                bd-radius:3 txt-al:center">
-                            <div class="w:10p bg-color:main-3 fs:3 fw:3 color:base-1">목표 관객수 1300만 이상</div>
-                            <div><img
-                                    src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20240311_85%2F1710136183535z3QfC_JPEG%2Fmovie_image.jpg"
-                                    width="200" height="300" alt=""></div>
-                            <div class="w:10p bg-color:main-3 fs:3 fw:3 color:accent-2 bd-radius:3"><a href="">참여하기</a>
-                            </div>
-                        </div>
 
-                        <div class="d:flex fl-dir:column movie-playground ai:center ac:center 
-                bd-radius:3 txt-al:center">
-                            <div class="w:10p bg-color:main-3 fs:3 fw:3 color:base-1">목표 관객수 1300만 이상</div>
-                            <div><img
-                                    src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20240311_85%2F1710136183535z3QfC_JPEG%2Fmovie_image.jpg"
-                                    width="200" height="300" alt=""></div>
-                            <div class="w:10p bg-color:main-3 fs:3 fw:3 color:accent-2 bd-radius:3"><a href="">참여하기</a>
-                            </div>
-                        </div>
-
-                    </div>
                 </section>
+
+
                 <!-- 태평: 테스트 나중에 지울거임 -->
                 <!--                <div class="d:flex jc:flex-end">-->
                 <!--                    <form style="width: 450px;" class="n-form m:4" action="test" method="post">-->

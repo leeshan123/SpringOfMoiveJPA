@@ -24,4 +24,6 @@ public interface PlayGroundRepository {
     void saveBetting(Betting betting);
 
     int countBettingUser(Long bettingBoardId);
+
+    List<PlayGroundBoard> findBoardTop5();
 }

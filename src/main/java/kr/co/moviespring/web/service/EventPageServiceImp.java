@@ -67,5 +67,12 @@ public class EventPageServiceImp implements EventPageService{
         List<EventPage> list = repository.endedEvents(currentDate);
         return list;
     }
-    
+
+    @Override
+    public List<EventPage> getEventListTop5() {
+        List<EventPage> list = repository.findByTop5();
+        return list;
+
+    }
+
 }

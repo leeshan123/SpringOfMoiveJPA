@@ -2,6 +2,8 @@ package kr.co.moviespring.web.controller;
 
 import java.util.List;
 
+import kr.co.moviespring.web.entity.*;
+import kr.co.moviespring.web.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,14 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.moviespring.web.config.batch.BatchSchedulerConfig;
-import kr.co.moviespring.web.entity.Actor;
-import kr.co.moviespring.web.entity.Director;
-import kr.co.moviespring.web.entity.Movie;
-import kr.co.moviespring.web.entity.totalVoteView;
-import kr.co.moviespring.web.service.ActorService;
-import kr.co.moviespring.web.service.DirectorService;
-import kr.co.moviespring.web.service.MovieService;
-import kr.co.moviespring.web.service.TwoWeeksMovieService;
 
 @Controller
 @RequestMapping("/")
@@ -35,6 +29,16 @@ public class HomeController {
     @Autowired
     TwoWeeksMovieService TWMovieService;
 
+    @Autowired
+    EventPageService eventService;
+
+    @Autowired
+    CommunityBoardService communityService;
+
+    @Autowired
+    PlayGroundService playGroundService;
+
+
     @GetMapping("")
     public String main(Model model) {
         List<Movie> dList = BatchSchedulerConfig.getList();
@@ -51,6 +55,18 @@ public class HomeController {
         
         model.addAttribute("list", dList);
         model.addAttribute("listAfter", listAfter);
+
+        //이벤트 게시판
+        List<EventPage> eventList = eventService.getEventListTop5();
+        model.addAttribute("eventList", eventList);
+
+        //커뮤니티 게시판
+        List<CommunityBoardView> communitylist = communityService.getList(1L,1, 5);
+        model.addAttribute("communitylist", communitylist);
+
+        //놀이터 게시판
+        List<PlayGroundBoard> playGroundBoardList = playGroundService.getBoardTop5();
+        model.addAttribute("pgbList",playGroundBoardList);
         
         //2주의영화
         model.addAttribute("WeeksMovie", Weeksmovie);
