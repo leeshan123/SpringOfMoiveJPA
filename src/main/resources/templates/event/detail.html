@@ -37,7 +37,13 @@ layout:decorate="inc/layout">
                     <span th:text="${menu.hit}" class="fs:2 color:base-6">조회수<span class="fw:bold margin-left:1 color:base-10" >1004</span></span>
                 </div>
                 <div class="padding-y:3 border-top margin-bottom:10">
-                    <span><img src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>
+                    <div class="p:2">
+                        <h1 class="fw:2">이벤트 기간</h1>
+                        <span th:text="${#dates.format(menu.startDate, 'yyyy.MM.dd')}">시작날짜</span>
+                        ~
+                        <span th:text="${#dates.format(menu.endDate, 'yyyy.MM.dd')}">종료날짜</span>
+                    </div>
+                    <span><img th:src="${menu.imageUrl}" src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>
                     <!--th:utext는 html태그를 해석해서 출력해줌-->
                     <p th:text="${menu.contents}">작성글 내용이 담길 위치입니다</p>
                 </div>

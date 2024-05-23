@@ -29,6 +29,21 @@ layout:decorate="inc/adminlayout">
                 <input type="checkbox" id="notice_btn"/>
                 <label for="notice_btn"><span>공지글 여부</span></label>
             </div>
+            <div class="p:3 bd bd-w:1 bd-color:base-5">
+                <span>이벤트 시작일</span>
+                <input 
+                    class="mr:10" 
+                    type="date" 
+                    name="start-date"
+                    th:value="${#dates.format(menu.startDate, 'yyyy-MM-dd')}"
+                    />
+                <span class="ml:10">이벤트 종료일</span>
+                <input 
+                    type="date" 
+                    name="end-date" 
+                    th:value="${#dates.format(menu.endDate, 'yyyy-MM-dd')}"
+                    />
+            </div>
 
             <div>
                 <textarea th:text="${menu.title}" class="w:10p h:1 bd bd-w:1 bd-color:base-5 p:2" name="title" id="editor" placeholder="이벤트 제목을 입력해주세요"></textarea>
