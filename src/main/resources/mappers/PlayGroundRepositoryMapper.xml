@@ -71,13 +71,6 @@
 		select count(*) from betting where betting_board_id = #{bettingBoardId}
 	</select>
 
-	<select id="findBoardTop5" resultType="PlayGroundBoard">
-		select p.*, m.poster_url poster_url
-		from play_ground_board p
-		JOIN movie m ON p.movie_id = m.id
-		order by vote_end_date limit 5
-	</select>
-
 
 
 </mapper>

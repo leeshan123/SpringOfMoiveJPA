@@ -30,4 +30,9 @@
         where member_id = #{id};
     </select>
 
+    <select id="getCount" resultType="Integer">
+        select count(*) from oneline_review
+        where member_id = #{memberId};
+    </select>
+
 </mapper>

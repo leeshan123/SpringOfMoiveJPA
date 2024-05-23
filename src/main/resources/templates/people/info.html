@@ -27,9 +27,9 @@
 
             <table class="mb:4 mt:4 n-table n-table-hover n-table-border n-table-border-radius:3 fw:3">
                 <colgroup>
-                    <col style="width: 54px;"> <!--119-->
+                    <col style="width: 100px;"> <!--119-->
                     <col style="width: 447px;"> <!--447-->
-                    <col style="width: 60px;"> <!--160-->
+                    <col style="width: 40px;"> <!--160-->
                     <col style="width: 78px;"> <!--78-->
 <!--                    <col style="width: 60px;"> &lt;!&ndash;60&ndash;&gt;-->
 <!--                    <col style="width: 116px;"> &lt;!&ndash;116&ndash;&gt;-->
@@ -51,12 +51,14 @@
                                 <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
                                       th:text="${#dates.format(movie.releaseDate, 'yyyy')}">개봉일</span>
                     </td>
-                    <td class="txt-al:start py:1 white-space:normal">
-                        <a href="" th:href="@{/movie/detail(movieid=${movie.id})}" th:text="${movie.korName}">영화 제목</a>
+                    <td class="txt-al:start px:0 py:3 white-space:normal d:flex">
+                        <a href="" th:href="@{/movie/detail(movieid=${movie.id})}" class="w:10p d:flex ai:center">
+                            <img th:src="${movie.posterUrl}" width="112px" alt="" class="bd-radius:1">
+                            <span th:text="${movie.korName}" class="p:6 fs:4">영화 제목</span>
+                        </a>
                     </td>
                     <td class="txt-al:center py:1">배우</td>
                     <td class="txt-al:center py:1">30000원</td>
-                    </td>
                 </tr>
                 </tbody>
             </table>

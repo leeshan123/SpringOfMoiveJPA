@@ -53,4 +53,10 @@ public class OnelineReviewServiceImp implements OnelineReviewService {
         OnelineReview review = onelineReviewRepository.findById(movieId, memberId);
         return review;
     }
+
+    @Override
+    public int getCount(Long memberId) {
+        int cnt = onelineReviewRepository.getCount(memberId);
+        return cnt;
+    }
 }

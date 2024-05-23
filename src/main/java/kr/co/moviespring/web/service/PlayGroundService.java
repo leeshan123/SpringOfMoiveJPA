@@ -19,6 +19,4 @@ public interface PlayGroundService {
 
     int getBettingUserCount(Long id);
 
-    List<PlayGroundBoard> getBoardTop5();
-
 }

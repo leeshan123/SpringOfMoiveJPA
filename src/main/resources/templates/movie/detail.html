@@ -507,8 +507,8 @@
                             </li>
                         </ul>
                     </div>
-                    <ul class="d:flex flex-direction:column gap:2">
-                        <li th:each="r ,count: ${reviews}" class="n-item n-item-type:shadow ttr">
+                    <ul class="mb:7 d:flex flex-direction:column gap:2">
+                        <li th:each="r ,count: ${reviews}" class="mb:3 n-item n-item-type:shadow ttr">
                             <div class="d:flex flex-direction:column gap:2">
                                 <div class="d:flex">
                                     <span th:text="${r.memberRate}+원"

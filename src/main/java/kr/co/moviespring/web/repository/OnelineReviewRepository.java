@@ -23,4 +23,6 @@ public interface OnelineReviewRepository {
 
     // 회원이 작성한 리뷰 가져오기
     OnelineReview findById(Long movieId, Long memberId);
+
+    int getCount(Long memberId);
 }

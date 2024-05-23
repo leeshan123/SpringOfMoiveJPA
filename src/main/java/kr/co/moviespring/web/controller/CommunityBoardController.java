@@ -65,7 +65,7 @@ public class CommunityBoardController {
 
         if (query != null) {
             list = communityBoardService.getList(categoryId, page, 20, query);
-            count = communityBoardService.getCount(categoryId, query);
+            count = communityBoardService.getCount(null, categoryId, query);
         }
 
         List<Category> categories = categoryService.getList();
@@ -92,7 +92,7 @@ public class CommunityBoardController {
 
         if (query != null) {
             list = communityBoardService.getList(categoryId, page, 20, query);
-            count = communityBoardService.getCount(categoryId, query);
+            count = communityBoardService.getCount(null, categoryId, query);
         }
 
         List<Category> categories = categoryService.getList();
