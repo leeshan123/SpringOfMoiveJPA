@@ -1,5 +1,6 @@
 package kr.co.moviespring.web.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,6 +121,10 @@ public class MovieController {
         model.addAttribute("dlist", dailyList);
         model.addAttribute("list", list);
         model.addAttribute("listAfter", listAfter);
+
+
+
+
         return "movie/main";
         
         

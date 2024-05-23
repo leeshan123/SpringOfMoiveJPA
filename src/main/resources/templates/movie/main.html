@@ -167,7 +167,10 @@
                                         <div class="fs:2"
                                             th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">
                                             2024 · 한국</div>
-                                        <div class="fs:2 color:base-6">누적 관객수 0만명</div>
+                                        <div class="fs:2 color:base-6"
+                                             th:if="${m.releaseDate != null}">
+                                            <p class="color:accent-1 fw:bold" th:text="${#dates.format(m.releaseDate, 'MM월 dd일')}+' 개봉'"></p>
+                                            </div>
                                     </div>
                                 </div>
                             </section>
