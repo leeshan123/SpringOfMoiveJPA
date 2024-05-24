@@ -193,6 +193,13 @@ public class PlayGroundController {
 
     }
 
+    @PostMapping("/findboardbyid")
+    public PlayGroundBoard findboardbyid(@RequestBody Long pgbId) {
+
+        return pgRepository.findById(pgbId);
+
+    }
+
     public static double roundToThree(double num) {
         BigDecimal bd = new BigDecimal(Double.toString(num));
         bd = bd.setScale(3, RoundingMode.HALF_UP);

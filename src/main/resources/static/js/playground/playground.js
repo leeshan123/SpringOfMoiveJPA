@@ -321,6 +321,15 @@ window.addEventListener('load', function () {
         });
     });
 
+    const boardButton = document.getElementById('board-btn');
+
+    boardButton.addEventListener('click',function (){
+        location.href = '/community/board/list?c=betting';
+    });
+
+
+
+
 
 
 

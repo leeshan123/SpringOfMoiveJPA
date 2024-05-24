@@ -20,7 +20,10 @@
 	</delete>
 
 	<select id="findById" resultType="PlayGroundBoard">
-		select * from play_ground_board where id = #{id}
+		SELECT p.*, m.poster_url poster_url
+		FROM play_ground_board p
+		JOIN movie m ON p.movie_id = m.id
+		where p.id = #{id}
 	</select>
 
 	<update id="update" parameterType="PlayGroundBoard">

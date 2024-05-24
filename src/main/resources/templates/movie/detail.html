@@ -338,7 +338,7 @@
                                   minute=${movie.runningTime} % 60">
                         <span th:text="${hour}+0+'시간 '+${minute}+'분'+' · '">1시간49분 · </span>
                         <span th:text="${movie.watchGrade}+' · '">15세 · </span>
-                        <span>누적 관객 133만명</span>
+                        <span th:text="' 누적 관객수 '+ ${#numbers.formatInteger(movie.audiAcc / 10000, 1)} + ' 만명'">누적 관객 133만명</span>
                     </div>
                 </div>
 
