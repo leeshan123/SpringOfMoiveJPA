@@ -92,7 +92,7 @@
                             <div th:each="m,mCount : ${list}"
                                 class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
                                 <div th:switch="${m.watchGrade}" class="position:relative display:inline-block bd-color:base-10 ">
-                                    <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1"
+                                    <a href="detail" th:href="@{movie/detail(movieid=${m.id})}"><img class="bd-radius:1"
                                                                                                src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" alt="/" width="247.69px" height="361.54px"></a>
                                     <span
                                             class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
@@ -112,7 +112,7 @@
                                         th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">
                                         2024 · 한국</div>
                                     <div class="fs:2 color:base-6"
-                                        th:text="' 누적 관객수 '+ ${#numbers.formatInteger(m.getAudiAcc() / 10000, 2)} + ' 만명'">
+                                        th:text="' 누적 관객수 '+ ${#numbers.formatInteger(m.getAudiAcc() / 10000, 1)} + ' 만명'">
                                         누적 관객수 100만명</div>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
                             <div th:each="m,mCount : ${listAfter}"
                                 class="media-pading bd d:inline-block bd-radius:2 bd-color:base-1 p-right:3">
                                 <div th:switch="${m.watchGrade}" class="position:relative display:inline-block bd-color:base-10 ">
-                                    <a href="detail" th:href="@{detail(movieid=${m.id})}"><img class="bd-radius:1"
+                                    <a href="detail" th:href="@{movie/detail(movieid=${m.id})}"><img class="bd-radius:1"
                                                                                                src="" th:src="${m.posterUrl != null ? m.posterUrl : '/image/no_image_poster.png'}" alt="/" width="247.69px" height="361.54px"></a>
                                     <span
                                             class="position:absolute icon-position d:inline-block icon-size bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold"
