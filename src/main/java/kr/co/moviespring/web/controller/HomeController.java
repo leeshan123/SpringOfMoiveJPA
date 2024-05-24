@@ -65,8 +65,8 @@ public class HomeController {
         model.addAttribute("communitylist", communitylist);
 
         //놀이터 게시판
-        // List<PlayGroundBoard> playGroundBoardList = playGroundService.getBoardTop5();
-        // model.addAttribute("pgbList",playGroundBoardList);
+         List<PlayGroundBoard> playGroundBoardList = playGroundService.getBoardTop5();
+         model.addAttribute("pgbList",playGroundBoardList);
         
         //2주의영화
         model.addAttribute("WeeksMovie", Weeksmovie);

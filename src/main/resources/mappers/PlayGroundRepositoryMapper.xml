@@ -76,5 +76,12 @@
         where member_id = #{memberId};
     </select>
 
+	<select id="findTop5" resultType="PlayGroundBoard">
+		SELECT p.*, m.poster_url poster_url
+		FROM play_ground_board p
+		JOIN movie m ON p.movie_id = m.id
+		order by p.vote_end_date limit 5
+	</select>
+
 </mapper>
 

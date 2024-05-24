@@ -26,4 +26,6 @@ public interface PlayGroundRepository {
     int countBettingUser(Long bettingBoardId);
 
     int getCount(Long memberId);
+
+    List<PlayGroundBoard> findTop5();
 }
