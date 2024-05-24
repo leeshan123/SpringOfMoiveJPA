@@ -75,10 +75,10 @@ Vue.createApp({
             <p>내용: {{ item.contents }}</p>
             <span class="fs:2 color:base-6">{{ new Date(item.regDate).toLocaleString() }}</span>
         </section>
-        <section v-if="activeButton === 'review-list'" v-for="item in list" :key="item.id" class="review-list bd-bottom border-width:2 pb:2 mb:2 ai:center">
+        <section v-if="activeButton === 'review-list'" v-for="item in list" :key="item.id" class="review-list bd-bottom border-width:2 pb:2 mb:2 jc:space-between ai:center">
             <h1>번호:{{ item.id }}</h1>
             <p>내용: {{ item.comments }}</p>
-            <div>
+            <div class="">
                 <span class="fs:2 color:base-6">날짜:{{ new Date(item.regDate).toLocaleDateString() }}</span>
                 <p>평점: {{ item.memberRate }}</p>
             </div>

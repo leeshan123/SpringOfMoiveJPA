@@ -2,6 +2,14 @@ window.addEventListener('load', function() {
     const deleteBtn = this.document.querySelector(".delete-btn");
     // 체크된 체크박스의 값을 저장할 배열 생성.
     const checkMovie = this.document.querySelectorAll(".check-content");
+    const checkAll = document.querySelector("#check-all");
+
+    // 전체 선택
+    checkAll.addEventListener('change', function() {
+        checkMovie.forEach(function(checkbox) {
+            checkbox.checked = checkAll.checked;
+        });
+    });
 
     deleteBtn.onclick = function() {
         const apiUrl = `http://localhost/api/community-board/delete-board`;

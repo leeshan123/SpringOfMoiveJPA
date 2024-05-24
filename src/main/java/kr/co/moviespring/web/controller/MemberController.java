@@ -63,7 +63,7 @@ public class MemberController {
         , @AuthenticationPrincipal CustomUserDetails userDetails
     ){
         Long memberId = userDetails.getId();
-
+        
         int orCnt = orService.getCount(memberId); // 평가한 영화
         int pgCnt = pgService.getCount(memberId); // 배팅한 영화
         int cbCnt = cbService.getCount(memberId); // 게시물
@@ -73,7 +73,7 @@ public class MemberController {
         model.addAttribute("pgCnt", pgCnt);
         model.addAttribute("cbCnt", cbCnt);
         model.addAttribute("cbcCnt", cbcCnt);
-
+        model.addAttribute("point", userDetails.getPoint());
         return "user/mypage";
     }
 
