@@ -25,6 +25,8 @@ public class Movie {
     private String posterUrl;//영화 상세 검색(MOVIES>Details) (포스트) tmdb poster_path
     private String logoUrl;//이건(로고이미지) tmdb
     private String mainImgUrl;//이건(메인이미지) tmdb
+    private int reviewCount;//이건(메인이미지) tmdb
+    private long totalMemberRate;//이건(메인이미지) tmdb
     // private String trailerUrl;//이건(트레일러영상) tmdb
 //    private int totalRate;//일단 null
 //    private int totalBoxoffice;//영화상세정보(랭킹) > audiAcc
