@@ -83,7 +83,7 @@ layout:decorate="inc/adminlayout">
             <span>영화관리</span>
             <form action="list-api" method="get">
                 <div class="d:flex" >
-                    <input type="text" name="q" th:value="${searchQuery}" placeholder="무비3에서 검색" class="n-textbox fs:3 fw:2">
+                    <input type="text" name="q" th:value="${searchQuery}" placeholder="영화진흥위원회에서 검색" class="n-textbox fs:3 fw:2">
                     <button type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
@@ -107,12 +107,12 @@ layout:decorate="inc/adminlayout">
         <div class="w:10p ">
             <section th:each="m: ${list}" class="w:10p h:1 d:flex ai:center jc:space-between bd-bottom bd-color:base-5">
 
-                <h1 class="fs:3 fw:3 w:6" th:text="${m.movieNm}">영화제목</h1>
+                <h1 class="fs:3 fw:3 w:4" th:text="${m.movieNm}">영화제목</h1>
                 <div class="d:flex col-gap:2">
                     <h2 th:text="${m.movieNmEn}">영어명</h2>,
                     <span th:text="${m.openDt}+','"> 개봉일</span> 
                     <span th:text="${m.repGenreNm}+','"> 장르</span>
-                    <span th:text="${m.nationAlt}"> 나라</span>
+                    <span th:text="${m.nationAlt}"> 나라</span>,
                     <span th:text="${m.directorNm}">감독</span>
                 </div>
                 <button class="n-btn" type="button"

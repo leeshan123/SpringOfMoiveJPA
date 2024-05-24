@@ -107,4 +107,11 @@ public class MemberServiceImp implements MemberService {
         return cnt;
     }
 
+    @Override
+    public Member getById(long memberId) {
+        Member member;
+        member = memberRepository.findById(memberId);
+        return member;
+    }
+
 }

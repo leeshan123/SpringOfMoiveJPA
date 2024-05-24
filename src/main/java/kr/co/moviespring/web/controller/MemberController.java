@@ -178,6 +178,7 @@ public class MemberController {
         model.addAttribute("mlist", movieList);
         return "user/mymovie";
     }
+    
     @GetMapping("mybet")
     public String mybet() {
 

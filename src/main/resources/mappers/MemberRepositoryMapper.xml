@@ -9,6 +9,12 @@
         select * from member where username = #{username};
     </select>
 
+    <select id="findById" resultType="Member">
+		SELECT * FROM member
+        WHERE
+		    id = #{memberId};
+    </select>
+
     <!-- 이메일 검증 -->
     <select id="findByEmail" resultType="Member">
         select * from member where email = #{email};

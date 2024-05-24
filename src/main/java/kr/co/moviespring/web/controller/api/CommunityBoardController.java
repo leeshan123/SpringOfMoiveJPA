@@ -1,8 +1,13 @@
 package kr.co.moviespring.web.controller.api;
 
 import kr.co.moviespring.web.config.security.CustomUserDetails;
+import kr.co.moviespring.web.entity.CommunityBoard;
+import kr.co.moviespring.web.entity.CommunityBoardView;
 import kr.co.moviespring.web.service.CommunityBoardCommentsService;
 import kr.co.moviespring.web.service.CommunityBoardService;
+import kr.co.moviespring.web.service.MemberService;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +23,10 @@ public class CommunityBoardController {
 
     @Autowired
     private CommunityBoardService communityBoardService;
+
+    @Autowired
+    private MemberService memberService;
+
 
     // 댓글 수정 요청
     @PutMapping("comments/{commentId}")
@@ -58,6 +67,7 @@ public class CommunityBoardController {
         
         return ResponseEntity.ok("성공적으로 삭제되었습니다.");
     }
+
     @DeleteMapping("delete-comment")
     public ResponseEntity<String> deleteComment(
         @RequestBody String[] idArr

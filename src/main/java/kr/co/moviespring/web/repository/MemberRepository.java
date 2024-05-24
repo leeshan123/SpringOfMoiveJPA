@@ -23,6 +23,8 @@ public interface MemberRepository {
 
     int getCount();
 
+    Member findById(long memberId);
+
 //    String username, String password, String name, String nickname, int age, String email
   
 }

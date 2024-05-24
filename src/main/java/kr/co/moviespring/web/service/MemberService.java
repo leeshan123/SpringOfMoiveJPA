@@ -24,5 +24,7 @@ public interface MemberService {
     List<Member> getList(Integer page);
 
     int getCount();
+
+    Member getById(long memberId);
     
 }

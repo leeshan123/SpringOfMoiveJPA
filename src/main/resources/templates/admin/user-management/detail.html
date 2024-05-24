@@ -7,10 +7,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/admin/user-management/detail.css">
+    <!-- Vue용 js 추가 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="/js/admin/user-management/detail.js" defer></script>
+    <style>
+        .main-container {
+            width: 980px; margin: 0 auto; 
+            height: 100%;
+        } 
+
+        .main-contents{
+            width: 980px; margin: 0 auto; 
+            min-height: 500px;
+        }
+    </style>
 </head>
 <body>
     <main layout:fragment="main">
-        <h1>유저 디테일 페이지입니다.</h1>
+        <div style="width: 100%;" class="bg-color:base-3 h:1">
+            <div class="main-container fs:4 fw:3 
+            d:flex align-items:center">유저 관리</div>
+        </div>
+        <div class="bg-color:base-3 h:1">
+            <div style="background-color: #fff;" class="main-container fs:4 fw:3 d:flex align-items:center">
+                <span th:text="${user.nickname}">유저 관리</span>
+                님의 활동내역
+            </div>
+        </div>
+        <section class="user-list d:flex fl-dir:column jc:end">
+            
+            <!-- <nav class="nav-contents mt:4 mb:10">
+                <ul class="d:flex col-gap:1 jc:flex-end">
+                    <li>
+                        <button type="button" :class="{ 'font-bold': activeButton === 'review' }" @click.prevent="reviewEventHandler">리뷰</button> |
+                    </li>
+                    <li>
+                        <button type="button" :class="{ 'font-bold': activeButton === 'board' }" @click.prevent="boardEventHandler">게시글</button> |
+                    </li>
+                    <li>
+                        <button type="button" :class="{ 'font-bold': activeButton === 'comment' }" @click.prevent="commentEventHandler">댓글</button>
+                    </li>
+                </ul>
+            </nav> -->
+        </section>
     </main>
 </body>
 </html>

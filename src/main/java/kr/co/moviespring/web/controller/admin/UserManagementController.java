@@ -45,6 +45,9 @@ public class UserManagementController {
         ,Model model
     ){
         System.out.println(id);
+        Member user = memberService.getById(Long.parseLong(id));
+
+        model.addAttribute("user", user);
 
         return "admin/user-management/detail";
     }
