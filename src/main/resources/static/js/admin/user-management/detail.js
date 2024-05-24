@@ -8,7 +8,8 @@ Vue.createApp({
             activeButton: 'board-list', 
             // 선택한 유저의 Id가 필요함
             id: null, 
-            list: []
+            list: [],
+            expandedItemId: null
         };
     },
     methods: {
@@ -40,6 +41,13 @@ Vue.createApp({
         getIdFromUrl() {
             const params = new URLSearchParams(window.location.search);
             this.id = params.get('id');
+        },
+        toggleContent(itemId) {
+            if (this.expandedItemId === itemId) {
+                this.expandedItemId = null;
+            } else {
+                this.expandedItemId = itemId;
+            }
         }
     },
     mounted() {
@@ -50,7 +58,7 @@ Vue.createApp({
     },
     template: `
     <div class="d:flex jc:end">
-        <nav class="nav-contents mt:4 mb:10">
+        <nav class="nav-contents mt:4 mb:5">
             <ul class="d:flex col-gap:1 jc:flex-end">
                 <li>
                     <button type="button" :class="{ 'font-bold': activeButton === 'board-list' }" @click.prevent="handleButtonClick('board-list')">커뮤니티 게시판</button> |
@@ -65,16 +73,24 @@ Vue.createApp({
         </nav>
     </div>
     <div class="content">
-        <section v-if="activeButton === 'board-list'" v-for="item in list" :key="item.id" class="board-list bd-bottom border-width:2 pb:2 mb:2 ai:center">
-            <h1>번호:{{ item.id }} </h1>
-            <span class="fs:4">제목:{{ item.title }}</span>
-            <span class="fs:2 color:base-6"> 날짜:{{ new Date(item.regDate).toLocaleDateString() }}</span>
+        <section v-if="activeButton === 'board-list'" v-for="item in list" :key="item.id" class="board-list fl-dir:column bd-bottom border-width:2 pb:2 mb:2">
+            <div class="d:flex ai:center board-list">
+                <h1>번호:{{ item.id }} </h1>
+                <span class="content-title" @click="toggleContent(item.id)" class="fs:4">제목:{{ item.title }}</span>
+                <span class="fs:2 color:base-6"> 날짜:{{ new Date(item.regDate).toLocaleDateString() }}</span>
+            </div>
+            <div class="p:3" style="background-color:#ddd;" v-if="expandedItemId === item.id">
+                <p class="ml:10" v-if="item.contents != '' ">{{ item.contents }}</p>
+                <p class="ml:10" v-if="item.contents == '' ">컨텐츠가 없습니다.</p>
+            </div>
         </section>
+        
         <section v-if="activeButton === 'comment-list'" v-for="item in list" :key="item.id" class="comment-list bd-bottom border-width:2 pb:2 mb:2 ai:center">
             <h1>번호:{{ item.id }}</h1>
             <p>내용: {{ item.contents }}</p>
             <span class="fs:2 color:base-6">{{ new Date(item.regDate).toLocaleString() }}</span>
         </section>
+
         <section v-if="activeButton === 'review-list'" v-for="item in list" :key="item.id" class="review-list bd-bottom border-width:2 pb:2 mb:2 jc:space-between ai:center">
             <h1>번호:{{ item.id }}</h1>
             <p>내용: {{ item.comments }}</p>
