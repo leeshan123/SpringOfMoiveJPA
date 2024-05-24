@@ -102,8 +102,18 @@
 	</select>
 
 	<select id="findByKobisId" resultType="Movie">
-		select * from movie
-		where kobis_id=#{id}
+		SELECT m.*,
+		COALESCE(r.review_count, 0) AS review_count,
+		COALESCE(r.total_member_rate, 0) AS total_member_rate
+		FROM movie m
+		LEFT JOIN (
+		SELECT movie_id,
+		COUNT(id) AS review_count,
+		SUM(member_rate) AS total_member_rate
+		FROM oneline_review
+		GROUP BY movie_id
+		) r ON m.id = r.movie_id
+		WHERE m.kobis_id=#{id}
 	</select>
 
 	<!-- 영화 등록 (임시) -->

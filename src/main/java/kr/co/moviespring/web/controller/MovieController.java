@@ -154,12 +154,12 @@ public class MovieController {
         {
             model.addAttribute("avgRate", 15000); //리뷰가 없을경우 기본값 전송
             if (onelineReviews.size() != 0) {
-                int total = 15000;
+                int total = 0;
                 int avg = 0;
                 for (int i = 0; i < onelineReviews.size(); i++) {
                     total += onelineReviews.get(i).getMemberRate();
                 }
-                avg = total / (onelineReviews.size()+1);
+                avg = total / (onelineReviews.size());
                 model.addAttribute("avgRate", avg); //유저 평점을 기준으로 평균가격 측정
             }
         }
