@@ -120,11 +120,7 @@
                                     <div class="d:flex">
                                         <span class="fs:3 fw:2 d:inline-block mr:auto" th:text="${m.getKorName()}">서울의
                                             봄</span>
-<<<<<<< Updated upstream
-                                        <span class="fs:3 white-space:nowrap fw:600 d:inline-block ml:3" >15000원 </span>
-=======
                                         <span class="fs:3 white-space:nowrap fw:600 d:inline-block ml:3" th:text="${m.reviewCount == 0 ? '15000원' : (m.totalMemberRate)/(m.reviewCount)+'원'}">13000원 </span>
->>>>>>> Stashed changes
                                     </div>
                                     <div class="fs:2"
                                         th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">
