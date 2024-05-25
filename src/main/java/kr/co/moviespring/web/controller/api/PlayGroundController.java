@@ -200,6 +200,18 @@ public class PlayGroundController {
 
     }
 
+
+    @PostMapping("/givepoint")
+    public void givePoint(@RequestBody BettingRequest request){
+        System.out.println("id: "+ request.getPbgId());
+        System.out.println("selectedBettingValue: "+ request.getSelectedBettingValue());
+
+        repo
+
+
+    }
+
+
     public static double roundToThree(double num) {
         BigDecimal bd = new BigDecimal(Double.toString(num));
         bd = bd.setScale(3, RoundingMode.HALF_UP);

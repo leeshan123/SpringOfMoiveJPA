@@ -259,8 +259,8 @@
                                         th:text="${#dates.format(ml.releaseDate, 'yyyy')} +' · '+ ${ml.releaseNation} +' · '+ ${ml.genre}">개봉일,제작국가</span>
                                         <span class=""></span>
                                     </div>
-                                        <div class="n-progress n-progress-color:main txt-al:center color:base-1 w:auto  box-shadow:1" role="progressbar w:10">
-                                            <div th:if="${ml.voteCount == 0}" th:style="'width: 0%; text-wrap: nowrap;'" class="ai:center text-wrap: nowrap">0표</div>
+                                        <div class="n-progress n-progress-color:main txt-al:center color:base-1 w:auto  box-shadow:1" role="progressbar w:10" >
+                                            <div th:if="${ml.voteCount == 0}" th:style="'margin:0 auto; background: transparent; color:#262F45 !important;  text-wrap: nowrap;'" class="ai:center text-wrap: nowrap">0표</div>
                                             <div th:if="${ml.voteCount != 0}" th:style="'width: ' + (${ml.voteCount} * 100 / ${v}) + '%; text-wrap: nowrap;'" class="ai:center text-wrap: nowrap" th:text="${ml.voteCount}+표">1표</div>
                                         </div>
                                 </div>
