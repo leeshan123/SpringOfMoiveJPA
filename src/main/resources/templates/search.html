@@ -168,7 +168,7 @@
                                             <div class="d:flex">
                                                 <span class="fs:3 fw:2 d:inline-block mr:auto"
                                                     th:text="${m.getKorName()}">서울의 봄</span>
-                                                <span class="fs:3 white-space:nowrap fw:600 d:inline-block ml:3">13000원
+                                                <span class="fs:3 white-space:nowrap fw:600 d:inline-block ml:3" th:text="${m.reviewCount == 0 ? '15000원' : (m.totalMemberRate)/(m.reviewCount)/100*100+'원'}">13000원
                                                 </span>
                                             </div>
                                             <div class="fs:2"

@@ -70,25 +70,51 @@
 
 	<!-- 검색한 영화 목록 -->
 	<select id="findAllByName" resultType="Movie">
-		SELECT * FROM movie WHERE kor_name LIKE CONCAT('%', #{query}, '%')
+		SELECT m.*,
+		COALESCE(r.review_count, 0) AS review_count,
+		COALESCE(r.total_member_rate, 0) AS total_member_rate
+		FROM movie m
+		LEFT JOIN (
+		SELECT movie_id,
+		COUNT(id) AS review_count,
+		SUM(member_rate) AS total_member_rate
+		FROM oneline_review
+		GROUP BY movie_id
+		) r ON m.id = r.movie_id
+		WHERE kor_name LIKE CONCAT('%', #{query}, '%')
 		OR REPLACE(kor_name, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
 		OR LOWER(eng_name) LIKE CONCAT('%', LOWER(#{query}), '%');
 	</select>
 
 	<!--인물별 필모리스트-->
 	<select id="findAllByPeopleId" resultType="Movie">
-		SELECT m.id, m.kobis_id, m.kor_name, m.eng_name, m.poster_url, m.release_date
+		SELECT m.id,
+		m.kobis_id,
+		m.kor_name,
+		m.eng_name,
+		m.poster_url,
+		m.release_date,
+		COALESCE(r.review_count, 0) AS review_count,
+		COALESCE(r.total_member_rate, 0) AS total_member_rate
 		FROM movie m
+		LEFT JOIN (
+		SELECT movie_id,
+		COUNT(id) AS review_count,
+		SUM(member_rate) AS total_member_rate
+		FROM oneline_review
+		GROUP BY movie_id
+		) r ON m.id = r.movie_id
 		<if test="type == 'director'">
-		INNER JOIN movie_director md ON m.id = md.movie_id
-		WHERE md.director_id = #{id}
+			INNER JOIN movie_director md ON m.id = md.movie_id
+			WHERE md.director_id = #{id}
 		</if>
 		<if test="type == 'actor'">
-		INNER JOIN movie_actor ma ON m.id = ma.movie_id
-		WHERE ma.actor_id = #{id}
+			INNER JOIN movie_actor ma ON m.id = ma.movie_id
+			WHERE ma.actor_id = #{id}
 		</if>
-		ORDER BY release_date DESC
+		ORDER BY m.release_date DESC
 	</select>
+
 
 	<!-- 영화 상세 페이지 -->
 	<select id="findById" resultType="Movie">

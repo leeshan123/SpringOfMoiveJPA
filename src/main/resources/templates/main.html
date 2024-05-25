@@ -120,7 +120,7 @@
                                     <div class="d:flex">
                                         <span class="fs:3 fw:2 d:inline-block mr:auto" th:text="${m.getKorName()}">서울의
                                             봄</span>
-                                        <span class="fs:3 white-space:nowrap fw:600 d:inline-block ml:3" th:text="${m.reviewCount == 0 ? '15000원' : (m.totalMemberRate)/(m.reviewCount)+'원'}">13000원 </span>
+                                        <span class="fs:3 white-space:nowrap fw:600 d:inline-block ml:3" th:text="${m.reviewCount == 0 ? '15000원' : (m.totalMemberRate)/(m.reviewCount)/100*100+'원'}">13000원 </span>
                                     </div>
                                     <div class="fs:2"
                                         th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">
@@ -185,7 +185,13 @@
                                     <div class="d:flex">
                                         <span class="fs:3 fw:2 d:inline-block mr:auto" th:text="${m.getKorName()}">서울의
                                             봄</span>
-                                        <span class="fs:3 white-space:nowrap fw:600 d:inline-block ml:3" th:text="${m.reviewCount == 0 ? '15000원' : (m.totalMemberRate)/(m.reviewCount)+'원'}">15000원 </span>
+                                        <span class="fs:3 white-space:nowrap fw:600 d:inline-block ml:3" th:text="${m.reviewCount == 0 ? '15000원' : (m.totalMemberRate)/(m.reviewCount)/100*100+'원'}">15000원 </span>
+<!--                                        <div th:if="${m.reviewCount != 0}"--> <!--//평점 100원 단위밑은 0 만드는 로직 테스트중-->
+<!--                                            th:with="floatnum=${(m.totalMemberRate) / (m.reviewCount) /100*100},-->
+<!--                                                    intnum=${T(java.lang.Math).floor(floatnum)}">-->
+<!--                                        <p th:text="${floatnum}+'실수'"></p>-->
+<!--                                        <p th:text="${intnum}+0"></p>-->
+<!--                                        </div>-->
                                     </div>
                                     <div class="fs:2"
                                         th:text="${#dates.format(m.releaseDate, 'yyyy')} +' · '+ ${m.releaseNation} +' · '+ ${m.genre}">

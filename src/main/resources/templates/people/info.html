@@ -8,26 +8,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 <!--    <link rel="stylesheet" type="text/css" href="/css/components/movie/detail.css">-->
-
+    <style>
+        .poster{
+            transition: transform 0.5s;
+        }
+        .poster:hover{
+            transform: scale(4);
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
     <main layout:fragment="main">
         <section class="media">
-        <section class="media-sect">
+        <section class="media-sect-for-commu">
             <div class="d:flex gap:5">
             <div>
                 <img th:src="${people.imgUrl != null ? people.imgUrl : '/image/unknown_person.jpg'}" src="https://i.namu.wiki/i/y4KFt0ysuURf9XfTQFQONTqLMYXAX3w0Kauenq6wxjiDJaE-6ePOnSPR9E0DvJgD7X_uEPrjWlPo6ZA01YWnsxwscN9U9Atc8uf973nycoQxaTfqJNn8_a2KzRqnodDU2j0qlm5w9jIiWgDadqO-Kw.webp"
                 class="bd-radius:3 object-fit:cover" alt="" width="180" height="270">
             </div>
             <div class="d:flex flex-direction:column jc:end gap:5">
-            <p class="fs:8" th:text="${people.korName != null ? people.korName : people.engName}">김성수</p>
-<!--            <p class="fs:5 color:base-6">대한민국의 감독,작가</p>-->
+                <p class="fs:7 fw:bold" th:if="${people.korName != null and people.engName == null}" th:text="${people.korName}">김성수</p>
+                <p class="fs:7 fw:bold" th:if="${people.korName == null and people.engName != null}" th:text="${people.engName}">김성수</p>
+                <div th:if="${people.korName != null and people.engName != null}">
+                    <p class="fs:7 mb:4 fw:bold" th:text="${people.korName}">김성수</p>
+                    <p class="fs:5 color:base-6" th:text="${people.engName}">김성수</p>
+                </div>
             </div>
             </div>
 
             <table class="mb:4 mt:4 n-table n-table-hover n-table-border n-table-border-radius:3 fw:3">
                 <colgroup>
-                    <col style="width: 100px;"> <!--119-->
+                    <col style="width: 60px;"> <!--119-->
                     <col style="width: 447px;"> <!--447-->
                     <col style="width: 40px;"> <!--160-->
                     <col style="width: 78px;"> <!--78-->
@@ -37,8 +49,8 @@
                 </colgroup>
                 <thead class="">
                 <tr class="jc:space-around">
-                    <th class="txt-al:center">개봉일</th>
-                    <th class="txt-al:center">제목</th>
+                    <th class="txt-al:center">개봉년도</th>
+                    <th class="txt-al:center">필모그래피</th>
                     <th class="txt-al:center">역할</th>
 <!--                    <th class="txt-al:center">조회</th>-->
 <!--                    <th class="txt-al:center">추천</th>-->
@@ -48,17 +60,18 @@
                 <tbody>
                 <tr th:each="movie:${list}">
                     <td class="txt-al:center py:1">
-                                <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
+                                <span class="color:base-6 px:1"
                                       th:text="${#dates.format(movie.releaseDate, 'yyyy')}">개봉일</span>
                     </td>
-                    <td class="txt-al:start px:0 py:3 white-space:normal d:flex">
+                    <td class="overflow:visible txt-al:start px:0 py:3 white-space:normal d:flex">
                         <a href="" th:href="@{/movie/detail(movieid=${movie.id})}" class="w:10p d:flex ai:center">
-                            <img th:src="${movie.posterUrl}" width="112px" alt="" class="bd-radius:1">
+                            <img th:src="${movie.posterUrl}" width="112px" alt="" class="poster bd-radius:1">
                             <span th:text="${movie.korName}" class="p:6 fs:4">영화 제목</span>
                         </a>
                     </td>
-                    <td class="txt-al:center py:1">배우</td>
-                    <td class="txt-al:center py:1">30000원</td>
+                    <td class="txt-al:center py:1 color:base-6" th:text="${{param.type}} == 'actor' ? '배우' : '감독'">배우</td>
+                    <td class="fw:2 txt-al:center py:1 " th:classappend="${movie.reviewCount == 0 ? 'color:base-6' : (((movie.totalMemberRate)/(movie.reviewCount)/100*100 >= 15000) ? 'color:accent-1' : 'color:sub-1')}"
+                        th:text="${movie.reviewCount == 0 ? '15000원' : (movie.totalMemberRate)/(movie.reviewCount)/100*100+'원'}">30000원</td>
                 </tr>
                 </tbody>
             </table>
