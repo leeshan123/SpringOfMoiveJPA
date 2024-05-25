@@ -25,6 +25,12 @@
 		LIMIT #{offset}, #{size};
     </select>
 
+    <!--    닉네임 검증-->
+    <select id="findByNickname" resultType="Member">
+        SELECT * FROM member
+        where nickname = #{nickname};
+    </select>
+
     <select id="getCount" resultType="Integer">
 		SELECT COUNT(*) FROM member
 	</select>
@@ -34,6 +40,7 @@
         insert into member(username,password,name,nickname,age,email,role)
         values (#{username},#{password},#{name},#{nickname},#{age},#{email},#{role});
     </insert>
+
 
     <update id="update" parameterType="member">
         update member

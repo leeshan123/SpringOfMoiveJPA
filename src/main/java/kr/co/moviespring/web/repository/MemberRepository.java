@@ -12,6 +12,10 @@ public interface MemberRepository {
 
     Member findByEmail(String email);
 
+    //닉네임 있나 여부
+    Member findByNickname(String nickname);
+
+
     void regist(Member member);
     void update(Member member);
 

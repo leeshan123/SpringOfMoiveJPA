@@ -42,9 +42,36 @@ public class WebOAuth2UserDetailsService implements OAuth2UserService<OAuth2User
         if (member == null) { //로컬 회원으로 가입한적이 없다 ,
             // 실패하는 경우를 먼저 적어주는게 좋다, 보통 실패할경우 리턴 한줄로 끝나기에 깔끔하다
             // 중괄호가 커질수록 복잡해지기 때문
-            member = Member.builder().name(oAuth2User.getName()).email(email).username(username).build();
+            System.out.println("oAuth2User.getName(): "+ username);
+            System.out.println("oAuth2User.getEmail(): "+ email);
+
+            //닉네임 강제로 만들기
+            int count = 1;
+            String nickname = username;
+
+            System.out.println(repository.findByNickname(nickname));
+
+            while(repository.findByNickname(nickname) != null){
+                nickname = nickname + count;
+                count++;
+            }
+
+
+
+
+            member = Member.builder()
+                    .name(username)
+                    .email(email)
+                    .username(username)
+                    .nickname(nickname)
+                    .role("ROLE_MEMBER")
+                    .point(5000)
+                    .build();
             CustomUserDetails userDetails = new CustomUserDetails(member);
             userDetails.setAttributes(oAuth2User.getAttributes());
+
+
+            repository.regist(member);
 
 
             return userDetails;
@@ -59,6 +86,7 @@ public class WebOAuth2UserDetailsService implements OAuth2UserService<OAuth2User
 ////        userDetails.getUsername();
 //        userDetails.setEmail(email);
 //        userDetails.setNickname(oAuth2User.getName());
-        return oAuth2User; //oAuth2User
+        CustomUserDetails userDetails = new CustomUserDetails(member);
+        return userDetails; //oAuth2User
     }
 }
