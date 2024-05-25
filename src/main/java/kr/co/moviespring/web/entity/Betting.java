@@ -1,5 +1,7 @@
 package kr.co.moviespring.web.entity;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +18,7 @@ public class Betting {
     int successPoint;
     Long memberId;
     Long bettingBoardId;
+    LocalDateTime regDate;
     int choose;
 
 

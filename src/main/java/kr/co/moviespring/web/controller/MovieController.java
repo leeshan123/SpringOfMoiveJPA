@@ -160,7 +160,8 @@ public class MovieController {
                     total += onelineReviews.get(i).getMemberRate();
                 }
                 avg = total / (onelineReviews.size());
-                model.addAttribute("avgRate", avg); //유저 평점을 기준으로 평균가격 측정
+                int intAvg = avg / 100 * 100; // 소수점 앞 2자리 잘라서 100단위까지만 나오게
+                model.addAttribute("avgRate", intAvg); //유저 평점을 기준으로 평균가격 측정
             }
         }
         // for(totalVoteView TWMovies : TWMovie){
