@@ -80,7 +80,7 @@ Vue.createApp({
                 <span class="fs:2 color:base-6"> 날짜:{{ new Date(item.regDate).toLocaleDateString() }}</span>
             </div>
             <div class="p:3" style="background-color:#ddd;" v-if="expandedItemId === item.id">
-                <p class="ml:10" v-if="item.contents != '' ">{{ item.contents }}</p>
+            <p class="ml:10" v-if="item.contents != '' " v-html="item.contents"></p>
                 <p class="ml:10" v-if="item.contents == '' ">컨텐츠가 없습니다.</p>
             </div>
         </section>
@@ -91,14 +91,14 @@ Vue.createApp({
             <span class="fs:2 color:base-6">{{ new Date(item.regDate).toLocaleString() }}</span>
         </section>
 
-        <section v-if="activeButton === 'review-list'" v-for="item in list" :key="item.id" class="review-list bd-bottom border-width:2 pb:2 mb:2 jc:space-between ai:center">
+        <section v-if="activeButton === 'review-list'" v-for="item in list" :key="item.id" class="review-list bd-bottom border-width:2 pb:2 mb:2 ai:center">
             <h1>번호:{{ item.id }}</h1>
             <p>내용: {{ item.comments }}</p>
             <div class="">
                 <span class="fs:2 color:base-6">날짜:{{ new Date(item.regDate).toLocaleDateString() }}</span>
-                <p>평점: {{ item.memberRate }}</p>
-            </div>
-        </section>
-    </div>
-    `
+                </div>
+                </section>
+                </div>
+                `
+                // <p>평점: {{ item.memberRate }}</p>
 }).mount('.user-list');
