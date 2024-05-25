@@ -115,14 +115,14 @@
                 </button>
             </div>
         </section>
-        <form action="detail" method="post"
-              class="my-comment-bgc  bd-bl-radius:1 bd-br-radius:1 padding-top:4 padding-bottom:2 padding-left:2 padding-right:1 reg-box">
+        <form th:classappend="${memberId != null ? '': 'h:4'}" action="detail" method="post"
+              class="my-comment-bgc bd-bl-radius:1 bd-br-radius:1 padding-top:4 padding-bottom:2 padding-left:2 padding-right:1 reg-box">
             <div>
                 <div sec:authorize="isAuthenticated()">
                     <span class="icon icon:bone">아이콘</span>
                     <span sec:authentication="principal.nickname" class="fw:bold">이름</span>
                 </div>
-                <div sec:authorize="isAnonymous()" class="d:flex jc:center ai:center">
+                <div sec:authorize="isAnonymous()" class="mb:4 d:flex jc:center ai:center">
                     <span class="icon icon:warning_circle">아이콘</span>
                     <span class="middle-position">로그인 후에 댓글을 작성하실 수 있습니다</span>
                 </div>
@@ -130,7 +130,7 @@
             <div class="d:flex">
                 <div class="pb:2 pl:5 pr:3 pt:1 w:10p">
                     <textarea sec:authorize="isAuthenticated()" name="content" id="" placeholder="댓글 내용 입력" maxlength="200" class="ml:2 w:10p n-textbox mb:2 py:2 h:2 reg-textarea"></textarea>
-                    <div class="charCount ml:2 color:base-6">0 / 200</div>
+                    <div sec:authorize="isAuthenticated()" class="charCount ml:2 color:base-6">0 / 200</div>
                     <input sec:authorize="isAuthenticated()" name="memberId" th:value="${memberId}" id=""
                            placeholder="댓글 내용 입력" class="d:none">
                     <input sec:authorize="isAuthenticated()" name="id" th:value="${board.id}" id=""
@@ -138,8 +138,8 @@
                     <input sec:authorize="isAuthenticated()" name="c" th:value="${category.engName}" id=""
                            placeholder="댓글 내용 입력" class="d:none">
                     <!--비로그인 댓글 금지-->
-                    <textarea sec:authorize="isAnonymous()" disabled name="content" id="" placeholder="댓글 내용 입력"
-                              class="n-textbox-status:disabled w:10p n-textbox"></textarea>
+                    <textarea sec:authorize="isAnonymous()" disabled name="content" id="" placeholder="댓글 내용 입력" class="n-textbox-status:disabled w:10p n-textbox"></textarea>
+                    <span sec:authorize="isAnonymous()" class="ml:2 color:base-6">0 / 200</span>
                 </div>
                 <!--비로그인시 버튼 submit 요청제거-->
                 <button sec:authorize="isAnonymous()" type="button" style="cursor: not-allowed"

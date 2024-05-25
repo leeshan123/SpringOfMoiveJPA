@@ -130,6 +130,12 @@
             background-color: rgba(255, 255, 255, 0.6);
             /* 흰색 배경에 투명도 50% */
         }
+
+        .delete-button {
+            position: relative;
+            bottom: 52px;
+            right: -1120px;
+        }
     </style>
 </head>
 
@@ -309,7 +315,7 @@
                     <input type="text" name="movieid" th:value="${movie.id}" class="d:none">
                     <button sec:authorize="isAuthenticated()" type="submit"
                     th:if="${myReview != null}"
-                    class="n-btn n-btn-type:filled m:2 submit-button n-btn-color:accent">삭제하기
+                    class="n-btn n-btn-type:filled m:2 delete-button submit-button n-btn-color:accent">삭제하기
                 </button>
                 </form>
                 </div>
