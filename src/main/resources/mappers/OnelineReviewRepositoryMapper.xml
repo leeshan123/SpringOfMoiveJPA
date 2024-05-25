@@ -15,6 +15,12 @@
         UPDATE oneline_review SET comments=#{comments}, member_rate=#{rate} WHERE member_id=#{memberId} AND movie_id=#{movieId};
     </update>
 
+    <!-- 한줄평 삭제 -->
+
+    <delete id="deleteCommentById">
+         DELETE FROM oneline_review WHERE movie_id = #{movieId} AND member_id = #{memberId};
+    </delete>
+
     <!-- 한줄평 목록 -->
     <select id="findAll" resultType="OnelineReviewView">
         select * from one_line_review_view where movie_id = #{movieId};

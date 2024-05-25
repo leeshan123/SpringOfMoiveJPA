@@ -35,7 +35,9 @@ public class TwoWeeksMovieController {
     public String movie(Model model,@AuthenticationPrincipal CustomUserDetails userDetails) {
         
         totalVoteView Weeksmovie = TWMovieService.findWinnerMovie();
-        Long movieId = Long.parseLong(Weeksmovie.getMovieCd());
+        // Long movieId = Long.parseLong(Weeksmovie.getMovieCd());
+        Long movieId = Weeksmovie.getMovieCd();
+
 
      List<OnelineReviewView> onelineReviews = onelineReviewService.getList(movieId);
         if (userDetails != null) {
@@ -47,15 +49,28 @@ public class TwoWeeksMovieController {
         {
             model.addAttribute("avgRate", 15000); //리뷰가 없을경우 기본값 전송
             if (onelineReviews.size() != 0) {
-                int total = 15000;
+                int total = 0;
                 int avg = 0;
                 for (int i = 0; i < onelineReviews.size(); i++) {
                     total += onelineReviews.get(i).getMemberRate();
                 }
-                avg = total / (onelineReviews.size()+1);
-                model.addAttribute("avgRate", avg); //유저 평점을 기준으로 평균가격 측정
+                avg = total / (onelineReviews.size());
+                int intAvg = avg / 100 * 100; // 소수점 앞 2자리 잘라서 100단위까지만 나오게
+                model.addAttribute("avgRate", intAvg); //유저 평점을 기준으로 평균가격 측정
             }
         }
+        // {
+        //     model.addAttribute("avgRate", 15000); //리뷰가 없을경우 기본값 전송
+        //     if (onelineReviews.size() != 0) {
+        //         int total = 15000;
+        //         int avg = 0;
+        //         for (int i = 0; i < onelineReviews.size(); i++) {
+        //             total += onelineReviews.get(i).getMemberRate();
+        //         }
+        //         avg = total / (onelineReviews.size()+1);
+        //         model.addAttribute("avgRate", avg); //유저 평점을 기준으로 평균가격 측정
+        //     }
+        // }
         model.addAttribute("reviews", onelineReviews);
         model.addAttribute("movie", Weeksmovie);
         model.addAttribute("user", userDetails);
@@ -95,8 +110,10 @@ public class TwoWeeksMovieController {
 
         Long memberId = userDetails.getId();
         onelineReviewService.saveComment(memberId, comments, rate, movieId);
+        // onelineReviewService.deleteComment(memberId, movieId);
 
-        return "redirect:/2weeks/list";
+
+        return "redirect:/2weeks/movie";
     }
 
     @PostMapping("comment/edit/{movieCd}")
@@ -107,5 +124,13 @@ public class TwoWeeksMovieController {
         onelineReviewService.editComment(memberId, comments, rate, movieId);
 
         return "redirect:/2weeks/movie";
+    }
+
+    @PostMapping("comment/delete/{movieCd}")
+    public String delete(@PathVariable("movieCd") Long movieId,@AuthenticationPrincipal CustomUserDetails userDetails){
+        Long memberId = userDetails.getId();
+        onelineReviewService.deleteComment(memberId, movieId);
+        return "redirect:/2weeks/movie";
+    
     }
 }
