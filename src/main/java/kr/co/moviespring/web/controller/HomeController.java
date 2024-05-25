@@ -120,4 +120,16 @@ public class HomeController {
         return "search-people";
     }
 
+    @GetMapping("deleted-member")
+    public String deletedMember(){
+
+        return "deleted-member";
+    }
+
+    @GetMapping("ban-member")
+    public String banMember(){
+
+        return "ban-member";
+    }
+
 }

@@ -71,6 +71,14 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
         this.member.setAge(age);
     }
 
+    public int getStatus(){
+        return member.getStatus();
+    }
+
+    public void setStatus(int status){
+        this.member.setStatus(status);
+    }
+
     public String getEmail() {
         return member.getEmail();
     }

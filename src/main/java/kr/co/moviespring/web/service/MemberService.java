@@ -26,5 +26,7 @@ public interface MemberService {
     int getCount();
 
     Member getById(long memberId);
+
+    void banById(Long memberId);
     
 }

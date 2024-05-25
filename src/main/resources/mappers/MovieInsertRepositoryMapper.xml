@@ -32,6 +32,7 @@
 			OR REPLACE(movie_nm, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
 			OR LOWER(movie_nm_en) LIKE CONCAT('%', LOWER(#{query}), '%'))
 		</if>
+		ORDER BY movie_cd DESC
 		LIMIT #{offset}, #{size};
 	</select>
 

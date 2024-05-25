@@ -3,7 +3,10 @@ package kr.co.moviespring.web.config.security;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
@@ -24,12 +27,33 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         // 사용자가 원래 요청한 페이지를 가져옴
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
-        // 원래 요청한 페이지가 존재하면 해당 페이지로 리다이렉트, 없으면 기본적인 리다이렉트
-        if (savedRequest != null) {
-            response.sendRedirect(savedRequest.getRedirectUrl());
-        } else {
-            response.sendRedirect("/");
+        //
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        System.out.println("===============================================================================");
+        System.out.println(userDetails.toString());
+        System.out.println(userDetails.getStatus());
+        System.out.println("===============================================================================");
+        
+        String url = "/";
+
+        // Status 상태값에 따라서 페이지 이동
+        if (userDetails.getStatus() == 2) {
+            //로그아웃
+            HttpSession session = request.getSession(false);
+            if(session != null)
+                session.invalidate();
+
+            url = "/deleted-member";
+        } else if(userDetails.getStatus() == 1) {
+            //로그아웃
+            HttpSession session = request.getSession(false);
+            if(session != null)
+                session.invalidate();
+
+            url = "/ban-member";
         }
+
+        response.sendRedirect(url);
 
     }
 }

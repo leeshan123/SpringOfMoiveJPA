@@ -48,6 +48,26 @@ Vue.createApp({
             } else {
                 this.expandedItemId = itemId;
             }
+        },
+        benMemberHandler(){
+            let url = `/api/member/ban`;
+            if (confirm("해당 유저를 제제하시겠습니까?")){
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id: this.id })
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    alert('처리 중 오류가 발생했습니다.');
+                });
+            }
         }
     },
     mounted() {
@@ -76,7 +96,7 @@ Vue.createApp({
         <section v-if="activeButton === 'board-list'" v-for="item in list" :key="item.id" class="board-list fl-dir:column bd-bottom border-width:2 pb:2 mb:2">
             <div class="d:flex ai:center board-list">
                 <h1>번호:{{ item.id }} </h1>
-                <span class="content-title" @click="toggleContent(item.id)" class="fs:4">제목:{{ item.title }}</span>
+                <span class="content-title fs:4" @click="toggleContent(item.id)">제목:{{ item.title }}</span>
                 <span class="fs:2 color:base-6"> 날짜:{{ new Date(item.regDate).toLocaleDateString() }}</span>
             </div>
             <div class="p:3" style="background-color:#ddd;" v-if="expandedItemId === item.id">
@@ -96,9 +116,14 @@ Vue.createApp({
             <p>내용: {{ item.comments }}</p>
             <div class="">
                 <span class="fs:2 color:base-6">날짜:{{ new Date(item.regDate).toLocaleDateString() }}</span>
-                </div>
-                </section>
-                </div>
+            </div>
+        </section>
+    </div>
+    <div class="d:flex jc:center m:5 col-gap:2">
+        <a type="button" class="n-btn n-btn-color:main" href="list">회원 리스트로</a>
+        <a @click.prevent="benMemberHandler()" type="button" class="n-btn n-btn-color:accent">유저 제제하기</a>
+    </div>
+                
                 `
                 // <p>평점: {{ item.memberRate }}</p>
 }).mount('.user-list');

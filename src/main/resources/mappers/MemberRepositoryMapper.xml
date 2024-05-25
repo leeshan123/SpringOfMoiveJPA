@@ -46,13 +46,16 @@
         update member
         <set>
             <if test="nickname != null">
-                nickname = #{nickname}
+                nickname = #{nickname},
             </if>
             <if test="email != null">
-                email = #{email}
+                email = #{email},
             </if>
             <if test="password != null">
-                password = #{password}
+                password = #{password},
+            </if>
+            <if test="status != null">
+                status = #{status},
             </if>
         </set>
         where id = #{id}
@@ -63,7 +66,11 @@
     </update>
 
     <delete id="delete">
-        UPDATE member SET status='inactive' WHERE id=#{id};
+        UPDATE member 
+        SET 
+            status=2 
+        WHERE 
+            id=#{id};
     </delete>
 
 </mapper>

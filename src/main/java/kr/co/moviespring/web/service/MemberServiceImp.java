@@ -91,6 +91,13 @@ public class MemberServiceImp implements MemberService {
     public void removeById(Long id) {
         memberRepository.delete(id);
     }
+    
+    @Override
+    public void banById(Long memberId) {
+        Member member = memberRepository.findById(memberId);
+        member.setStatus(1);
+        memberRepository.update(member);
+    }
 
     @Override
     public List<Member> getList(Integer page) {
@@ -113,5 +120,6 @@ public class MemberServiceImp implements MemberService {
         member = memberRepository.findById(memberId);
         return member;
     }
+
 
 }

@@ -49,11 +49,15 @@ public class WebSecurityConfig {
                        .loginPage("/user/signin")
                        .loginProcessingUrl("/user/signin")
                        .defaultSuccessUrl("/")
-                       .permitAll())
+                       .successHandler(loginSuccessHandler)
+                       .permitAll()
+                )
                .oauth2Login(config->config //구글 소셜 로그인 설정
-                       .userInfoEndpoint(userInf->userInf
-                               .userService(webOAuth2UserDetailsService)))
-//                       .successHandler(loginSuccessHandler))
+                        .userInfoEndpoint(userInf->userInf
+                                .userService(webOAuth2UserDetailsService))
+                        .successHandler(loginSuccessHandler)
+                )
+                        
                //이곳에서만 쓸꺼면 그냥 new해서 바로 쓰면 되고 여러곳에서 사용하려면 변수로 만들어 주면 된다
                // 로그인 성공후 추가적으로 사용할 로직 호출..
                // 관리자로 로그인하면 관리자페이지로 바로이동 한다던지 로컬서버에 가입이 안되있는 유저라면 가입페이지로 이동시킨다던지....

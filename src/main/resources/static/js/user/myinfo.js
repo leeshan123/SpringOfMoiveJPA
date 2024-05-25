@@ -2,6 +2,7 @@ window.addEventListener('load', function () {
 
     const btnDelete = document.querySelector(".delete");
     const userId = this.document.querySelector("#user-id");
+    
     btnDelete.onclick = function(){
 
         const apiUrl = `http://localhost/api/member/delete`;
@@ -15,6 +16,7 @@ window.addEventListener('load', function () {
                 body: JSON.stringify(userId.value)
             })
             .then(response => response.text())
+            // 리턴되는 데이터
             .then(data => {
                 alert(data);
                 // 페이지를 리다이렉트
