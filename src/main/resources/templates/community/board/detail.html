@@ -23,6 +23,19 @@
             background-color: #f9f9fa;
         }
 
+        .empty-field {
+            position: absolute;
+            left: 90px;
+            top: 116px;
+            /*margin-left: 6px;*/
+            /*margin-top: 8px;*/
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .show-and-hide {
+            opacity: 1;
+        }
+
         button {
             cursor: pointer;
         }
@@ -128,9 +141,10 @@
                 </div>
             </div>
             <div class="d:flex">
-                <div class="pb:2 pl:5 pr:3 pt:1 w:10p">
+                <div class="pb:2 pl:5 pr:3 pt:1 w:10p position:relative">
                     <textarea sec:authorize="isAuthenticated()" name="content" id="" placeholder="댓글 내용 입력" maxlength="200" class="ml:2 w:10p n-textbox mb:2 py:2 h:2 reg-textarea"></textarea>
                     <div sec:authorize="isAuthenticated()" class="charCount ml:2 color:base-6">0 / 200</div>
+                    <span class="color:accent-1 empty-field">공백은 입력할 수 없습니다</span>
                     <input sec:authorize="isAuthenticated()" name="memberId" th:value="${memberId}" id=""
                            placeholder="댓글 내용 입력" class="d:none">
                     <input sec:authorize="isAuthenticated()" name="id" th:value="${board.id}" id=""

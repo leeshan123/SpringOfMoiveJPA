@@ -1,10 +1,14 @@
 const inputField = document.querySelector(".reg-textarea");
-let inputText = inputField.value;
 let legButton = document.querySelector(".reg-button");
-legButton.onclick = function () {
+let emptyBox = document.querySelector(".empty-field");
+legButton.onclick = function (e) {
+    let inputText = inputField.value;
     // 입력값이 공백인지 확인
     if (inputText.trim() === "") {
-        alert("공백은 입력할 수 없습니다.");
+        emptyBox.classList.add("show-and-hide");
+        setTimeout(function () {
+            emptyBox.classList.remove("show-and-hide");
+        },3000)
         return false; // 제출을 방지하기 위해 false 반환
     }
     return true; // 유효한 입력이므로 제출 허용
