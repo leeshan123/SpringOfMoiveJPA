@@ -43,7 +43,7 @@ public class BatchSchedulerConfig {
 
 
     //초, 분, 시간, 일, 월, 요일
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 10 0 * * *")
     public void performBatchJob() {
         list = new ArrayList<>();
         KobisMovieAPI api = new KobisMovieAPI();
@@ -52,7 +52,7 @@ public class BatchSchedulerConfig {
             Movie movie = service.getByKobisId(kobisDailyBox.getMovieCd());
             list.add(movie);
         }
-        System.out.println("데일리 리스트 데이터 획득ㅋ");
+        System.out.println("데일리 리스트 데이터 획득");
     }
 
     //초, 분, 시간, 일, 월, 요일
