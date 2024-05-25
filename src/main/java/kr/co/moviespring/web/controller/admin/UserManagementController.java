@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,14 +32,34 @@ public class UserManagementController {
         List<Member> list = new ArrayList<>();
         int cnt = 0;
 
-        list = memberService.getList(page);
-        cnt = memberService.getCount();
+        list = memberService.getList(page, null);
+        cnt = memberService.getCount(null);
 
         model.addAttribute("list", list);
         model.addAttribute("count", cnt);
 
 
         return "admin/user-management/list";
+    }
+
+    @GetMapping("ban-list")
+    public String banList(
+        @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
+        , Model model
+    ) {
+
+        List<Member> list = new ArrayList<>();
+        int cnt = 0;
+        int status = 1;
+
+        list = memberService.getList(page, status);
+        cnt = memberService.getCount(status);
+
+        model.addAttribute("list", list);
+        model.addAttribute("count", cnt);
+
+
+        return "admin/user-management/ban-list";
     }
 
     @GetMapping("detail")
@@ -51,6 +74,5 @@ public class UserManagementController {
 
         return "admin/user-management/detail";
     }
-
 
 }

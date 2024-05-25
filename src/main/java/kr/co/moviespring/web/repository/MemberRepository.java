@@ -23,9 +23,9 @@ public interface MemberRepository {
 
     void delete(Long id);
 
-    List<Member> findAll(int offset, int size);
+    List<Member> findAll(int offset, int size, Integer status);
 
-    int getCount();
+    int getCount(Integer status);
 
     Member findById(long memberId);
 

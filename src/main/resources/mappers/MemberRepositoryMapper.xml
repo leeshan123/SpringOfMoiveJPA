@@ -22,6 +22,11 @@
 
     <select id="findAll" resultType="Member">
 		SELECT * FROM member
+        <where>
+			<if test="status != null">
+				status = #{status}
+			</if>
+		</where>
 		LIMIT #{offset}, #{size};
     </select>
 
@@ -33,6 +38,11 @@
 
     <select id="getCount" resultType="Integer">
 		SELECT COUNT(*) FROM member
+        <where>
+			<if test="status != null">
+				status = #{status}
+			</if>
+		</where>
 	</select>
 
     <!-- 회원가입 -->

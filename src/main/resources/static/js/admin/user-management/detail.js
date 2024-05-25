@@ -62,6 +62,8 @@ Vue.createApp({
                 .then(response => response.text())
                 .then(data => {
                     alert(data);
+                    // 유저 목록으로 페이지 요청
+                    window.location.href = "/admin/user-management/list";
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);

@@ -17,6 +17,7 @@
             min-height: 500px;
         }
     </style>
+    <script src="/js/admin/user-management/ban-list.js" defer></script>
 </head>
 <body>
 <main layout:fragment="main">
@@ -29,10 +30,10 @@
         <nav class="nav-contents mt:4 mb:1">
             <ul class="d:flex col-gap:1 jc:flex-end">
                 <li>
-                    <a href="" class="fw:bold">회원 목록</a> |
+                    <a href="list">회원 목록</a> |
                 </li>
                 <li>
-                    <a href="ban-list">제제중인 회원 목록</a>
+                    <a href="" class="fw:bold">제제중인 회원 목록</a>
                 </li>
             </ul>
         </nav>
@@ -59,7 +60,7 @@
             <tbody>
                 <tr th:each="user:${list}">
                     <td class="txt-al:center py:1">
-                        <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
+                        <span class="user-id d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
                             th:text="${user.id}">회원번호</span>
                     </td>
                     <td class="txt-al:center py:1 white-space:normal">
@@ -70,7 +71,7 @@
                     <td th:text="${user.email}" class="txt-al:center py:1">회원이메일</td>
                     <td class="txt-al:center py:1" >
                         <!-- <input type="checkbox" class="" name=""> -->
-                        <a th:href="@{detail(id = ${user.id})}"  href="" type="button" class="n-btn n-btn-color:main">유저정보</a>
+                        <a type="button" class="restore n-btn n-btn-color:main">복구하기</a>
                     </td>
                 </tr>
             </tbody>
@@ -95,17 +96,17 @@
             <!-- <li th:text="${startnum}">aa</li> -->
             <li>
                 <span style="color: rgb(189, 189, 189)" th:if="${page} lt 6">이전</span><!-- 현재 페이지가 6 미만인 경우 -->
-                <a th:if="${page} ge 6" th:href="@{list(p=${startnum-1}, q=${searchQuery})}" href="boardlist?p=1">이전</a><!-- 현재 페이지가 6 이상인 경우 -->
+                <a th:if="${page} ge 6" th:href="@{ban-list(p=${startnum-1}, q=${searchQuery})}" href="boardlist?p=1">이전</a><!-- 현재 페이지가 6 이상인 경우 -->
             </li>
             <li th:class="${page} == ${n} ? 'active' : ''"  th:each="n : ${#numbers.sequence(startnum, startnum+4)}">
                 <!-- 각 페이지 번호에 대한 링크를 생성합니다 -->
                 <!-- <a th:href="@{'list?p=' + ${n}}" th:text="${n}"></a> -->
-                <a th:if="${n} le ${lastnum}" href="boardlist?p=1" th:href="@{list(p=${n}, q=${searchQuery})}" th:text="${n}">1</a>
+                <a th:if="${n} le ${lastnum}" href="boardlist?p=1" th:href="@{ban-list(p=${n}, q=${searchQuery})}" th:text="${n}">1</a>
                 <span style="color: rgb(189, 189, 189)" th:if="${n} gt ${lastnum}" th:text="${n}"></span>
             </li>
             <li>
                 <span style="color: rgb(189, 189, 189)" th:if="${startnum}+4 gt ${lastnum}">다음</span> <!--  현재 페이지의 끝이 lastnum 초과인 경우 -->
-                <a th:if="${startnum}+4 le ${lastnum}" th:href="@{list(p=${startnum+5}, q=${searchQuery})}">다음</a><!-- 현재 페이지의 끝이 lastnum 이하인 경우 -->
+                <a th:if="${startnum}+4 le ${lastnum}" th:href="@{ban-list(p=${startnum+5}, q=${searchQuery})}">다음</a><!-- 현재 페이지의 끝이 lastnum 이하인 경우 -->
             </li>
         </ul>
     </section>

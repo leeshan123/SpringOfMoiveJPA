@@ -21,12 +21,14 @@ public interface MemberService {
 
     void removeById(Long id);
 
-    List<Member> getList(Integer page);
+    List<Member> getList(Integer page, Integer status);
 
-    int getCount();
+    int getCount(Integer status);
 
     Member getById(long memberId);
 
     void banById(Long memberId);
+
+    void restoreById(Long memberId);
     
 }

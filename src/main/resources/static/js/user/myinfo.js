@@ -22,7 +22,10 @@ window.addEventListener('load', function () {
                 // 페이지를 리다이렉트
                 window.location.href = "/";
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                alert('삭제 중 오류가 발생했습니다.');
+            });
         }
     }
 

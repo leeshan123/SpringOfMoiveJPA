@@ -99,17 +99,27 @@ public class MemberController {
         return ResponseEntity.ok("성공적으로 삭제되었습니다.");
     }
 
+    // 회원 제제
     @PostMapping("ban")
     public ResponseEntity<String> ban(
         @RequestBody Map<String, Long> requestBody
     ) {
-        
-        // 회원 제제
 
         Long id = requestBody.get("id");
 
         memberService.banById(id);
 
         return ResponseEntity.ok("회원을 제제하였습니다.");
+    }
+
+    
+    // 회원 복구
+    @PostMapping("restore")
+    public ResponseEntity<String> restore(
+        @RequestBody String userId
+    ){
+        Long memberId = Long.parseLong(userId);
+        memberService.restoreById(memberId);
+        return ResponseEntity.ok("성공적으로 복구되었습니다.");
     }
 }

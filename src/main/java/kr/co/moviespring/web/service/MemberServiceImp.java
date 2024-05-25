@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.moviespring.web.entity.CommunityBoardView;
 import kr.co.moviespring.web.entity.Member;
@@ -88,11 +89,13 @@ public class MemberServiceImp implements MemberService {
     }
 
     @Override
+    @Transactional
     public void removeById(Long id) {
         memberRepository.delete(id);
     }
     
     @Override
+    @Transactional
     public void banById(Long memberId) {
         Member member = memberRepository.findById(memberId);
         member.setStatus(1);
@@ -100,25 +103,37 @@ public class MemberServiceImp implements MemberService {
     }
 
     @Override
-    public List<Member> getList(Integer page) {
+    @Transactional
+    public List<Member> getList(Integer page, Integer status) {
         int size = 10;
         int offset = (page-1) * size;
 
-        List<Member> list = memberRepository.findAll(offset, size);
+        List<Member> list = memberRepository.findAll(offset, size, status);
         return list;
     }
 
     @Override
-    public int getCount() {
-        int cnt = memberRepository.getCount();
+    @Transactional
+    public int getCount(Integer status) {
+        int cnt = memberRepository.getCount(status);
         return cnt;
     }
 
     @Override
+    @Transactional
     public Member getById(long memberId) {
         Member member;
         member = memberRepository.findById(memberId);
         return member;
+    }
+
+    @Override
+    @Transactional
+    public void restoreById(Long memberId) {
+        Member member;
+        member = memberRepository.findById(memberId);
+        member.setStatus(0);
+        memberRepository.update(member);
     }
 
 
