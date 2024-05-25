@@ -111,8 +111,8 @@
                                 </div>
                             </div>
                             <div class="">
-                                <div class="n-progress n-progress-color:main txt-al:center color:base-1 w:auto h:1  box-shadow:1" role="progressbar w:10">
-                                    <div th:if="${m.voteCount == 0}" th:style="'width: 0%; text-wrap: nowrap;'" class="ai:center text-wrap: nowrap h:1">0표</div>
+                                <div class="n-progress n-progress-color:main txt-al:center color:base-1 w:auto box-shadow:1" role="progressbar w:10">
+                                    <div th:if="${m.voteCount == 0}" th:style="'margin:0 auto; background: transparent; color:#262F45 !important; text-wrap: nowrap;'" class="ai:center text-wrap: nowrap h:1">0표</div>
                                     <div th:if="${m.voteCount != 0}" th:style="'width: ' + (${m.voteCount} * 100 / ${v}) + '%; text-wrap: nowrap;'" class="ai:center text-wrap: nowrap h:1" th:text="${m.voteCount}+표">1표</div>
                                 </div>
                             </div>

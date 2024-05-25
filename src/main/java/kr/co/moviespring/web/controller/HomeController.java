@@ -41,9 +41,21 @@ public class HomeController {
 
     @GetMapping("")
     public String main(Model model) {
-        List<Movie> dList = BatchSchedulerConfig.getList();
+        
+        
         // 올해의 영화
         List<Movie> list = movieService.getListByYear();
+        
+        // 현재 상영작(전날기준 박스오피스)
+        List<Movie> dList = BatchSchedulerConfig.getList();
+        for (Movie movie : dList) {
+            if(movie == null){
+                dList = list;
+                System.out.println("영화없음");
+                System.out.println("영화없음");
+                System.out.println("영화없음");
+            }
+        }
 
         //2주의영화
         List<totalVoteView> TWMovieList = TWMovieService.findByMovieCd();

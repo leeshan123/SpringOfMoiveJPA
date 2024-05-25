@@ -1,5 +1,7 @@
 package kr.co.moviespring.web.controller;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.moviespring.web.config.security.CustomUserDetailService;
 import kr.co.moviespring.web.config.security.CustomUserDetails;
+import kr.co.moviespring.web.entity.Betting;
 import kr.co.moviespring.web.entity.Category;
 import kr.co.moviespring.web.entity.CommunityBoardCommentsView;
 import kr.co.moviespring.web.entity.CommunityBoardView;
@@ -21,6 +24,8 @@ import kr.co.moviespring.web.entity.Member;
 import kr.co.moviespring.web.entity.Movie;
 import kr.co.moviespring.web.entity.OnelineReview;
 import kr.co.moviespring.web.entity.OnelineReviewMovieView;
+import kr.co.moviespring.web.entity.PlayGroundBoard;
+import kr.co.moviespring.web.service.BettingService;
 import kr.co.moviespring.web.service.CategoryService;
 import kr.co.moviespring.web.service.CommunityBoardCommentsService;
 import kr.co.moviespring.web.service.CommunityBoardService;
@@ -38,6 +43,9 @@ public class MemberController {
 
     @Autowired
     MovieService movieService;
+
+    @Autowired
+    BettingService bettingService;
 
     @Autowired
     CategoryService cService;
@@ -147,6 +155,7 @@ public class MemberController {
         return "user/signup";
     }
 
+
     @PostMapping("signup")
     public String signup(Member member) {
 //        String userId, String pwd, String name, String nickname, int age, String email
@@ -155,12 +164,14 @@ public class MemberController {
         return "redirect:/user/welcome";
     }
 
+
     @GetMapping("welcome")
     public String welcome() {
 
         return "user/welcome";
     }
     
+
     @GetMapping("mymovie")
     public String mymovie(
         Model model
@@ -179,11 +190,58 @@ public class MemberController {
         return "user/mymovie";
     }
     
+
     @GetMapping("mybet")
-    public String mybet() {
+    public String mybet(
+        Model model
+        ,@AuthenticationPrincipal CustomUserDetails userDetails
+    ) {
+        Long id = userDetails.getId();
+        List<Betting> blist = bettingService.getList(id);
+        List<PlayGroundBoard> plist = new ArrayList<>();
+        List<Integer> betNums = new ArrayList<>();
+
+        
+        for (Betting betting : blist) {
+            Long betId = betting.getBettingBoardId();
+            
+            // 정보 저장
+            PlayGroundBoard pBoard = new PlayGroundBoard();
+            pBoard = pgService.getById(betId);
+            plist.add(pBoard);
+            
+            // 배팅당 참여 인원수 저장
+            int num = 0;
+            num = bettingService.getCount(betId);
+            betNums.add(num);
+        }
+        
+
+        
+        // 퍼센트
+        List<Double> percentList = new ArrayList<>();
+
+        //퍼센트를 구해오기
+        for(PlayGroundBoard pgb : plist){
+            double result = (double)pgb.getLeftBettingPoint()/ (pgb.getLeftBettingPoint()+ pgb.getRightBettingPoint());
+            BigDecimal bd = new BigDecimal(Double.toString(result));
+            bd = bd.setScale(4, RoundingMode.HALF_UP);
+
+            BigDecimal percentage = bd.multiply(BigDecimal.valueOf(100));
+            percentList.add(percentage.doubleValue());
+            System.out.println("percentage: "+percentage);
+        }
+
+
+        model.addAttribute("blist", blist);
+        model.addAttribute("plist", plist);
+        model.addAttribute("nums", betNums);
+        model.addAttribute("percentList",percentList);
 
         return "user/mybet";
     }
+
+
     @GetMapping("myboard")
     public String myboard(
         @AuthenticationPrincipal CustomUserDetails userDetails
@@ -197,6 +255,7 @@ public class MemberController {
         return "user/myboard";
     }
 
+
     @GetMapping("mycomment")
     public String mycomment(
         @AuthenticationPrincipal CustomUserDetails userDetails,
@@ -208,6 +267,8 @@ public class MemberController {
         model.addAttribute("clist", clist);
         return "user/mycomment";
     }
+
+
     @GetMapping("myinfo")
     public String myinfo(
         @AuthenticationPrincipal CustomUserDetails userDetails,
@@ -217,6 +278,7 @@ public class MemberController {
         model.addAttribute("user", refreshedUserDetails);
         return "user/myinfo";
     }
+
 
     @PostMapping("myinfo")
     public String myinfo(

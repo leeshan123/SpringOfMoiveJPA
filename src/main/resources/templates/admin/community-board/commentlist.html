@@ -111,8 +111,8 @@
                     <span style="color: rgb(189, 189, 189)" th:if="${n} gt ${lastnum}" th:text="${n}"></span>
                 </li>
                 <li>
-                    <span style="color: rgb(189, 189, 189)" th:if="${startnum}+4 gt ${lastnum}">다음</span> <!--  현재 페이지의 끝이 lastnum 초과인 경우 -->
-                    <a th:if="${startnum}+4 le ${lastnum}" th:href="@{commentlist(p=${startnum+5}, q=${searchQuery})}">다음</a><!-- 현재 페이지의 끝이 lastnum 이하인 경우 -->
+                    <span style="color: rgb(189, 189, 189)" th:if="${startnum}+4 ge ${lastnum}">다음</span> <!--  현재 페이지의 끝이 lastnum 초과인 경우 -->
+                    <a th:if="${startnum}+4 lt ${lastnum}" th:href="@{commentlist(p=${startnum+5}, q=${searchQuery})}">다음</a><!-- 현재 페이지의 끝이 lastnum 이하인 경우 -->
                 </li>
             </ul>
         </section>

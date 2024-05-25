@@ -103,17 +103,17 @@
                 <!-- <li th:text="${startnum}">aa</li> -->
                 <li>
                     <span style="color: rgb(189, 189, 189)" th:if="${page} lt 6">이전</span><!-- 현재 페이지가 6 미만인 경우 -->
-                    <a th:if="${page} ge 6" th:href="@{boardlist(p=${startnum-1}, q=${searchQuery})}" href="boardlist?p=1">이전</a><!-- 현재 페이지가 6 이상인 경우 -->
+                    <a th:if="${page} ge 6" th:href="@{boardlist(p=${startnum-1})}" href="boardlist?p=1">이전</a><!-- 현재 페이지가 6 이상인 경우 -->
                 </li>
                 <li th:class="${page} == ${n} ? 'active' : ''"  th:each="n : ${#numbers.sequence(startnum, startnum+4)}">
                     <!-- 각 페이지 번호에 대한 링크를 생성합니다 -->
                     <!-- <a th:href="@{'list?p=' + ${n}}" th:text="${n}"></a> -->
-                    <a th:if="${n} le ${lastnum}" href="boardlist?p=1" th:href="@{boardlist(p=${n}, q=${searchQuery})}" th:text="${n}">1</a>
+                    <a th:if="${n} le ${lastnum}" href="boardlist?p=1" th:href="@{boardlist(p=${n})}" th:text="${n}">1</a>
                     <span style="color: rgb(189, 189, 189)" th:if="${n} gt ${lastnum}" th:text="${n}"></span>
                 </li>
                 <li>
-                    <span style="color: rgb(189, 189, 189)" th:if="${startnum}+4 gt ${lastnum}">다음</span> <!--  현재 페이지의 끝이 lastnum 초과인 경우 -->
-                    <a th:if="${startnum}+4 le ${lastnum}" th:href="@{boardlist(p=${startnum+5}, q=${searchQuery})}">다음</a><!-- 현재 페이지의 끝이 lastnum 이하인 경우 -->
+                    <span style="color: rgb(189, 189, 189)" th:if="${startnum}+4 ge ${lastnum}">다음</span> <!--  현재 페이지의 끝이 lastnum 초과인 경우 -->
+                    <a th:href="@{boardlist(p=${startnum+5})}" th:if="${startnum}+4 lt ${lastnum}">다음</a><!-- 현재 페이지의 끝이 lastnum 이하인 경우 -->
                 </li>
             </ul>
         </section>

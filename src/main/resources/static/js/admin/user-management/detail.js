@@ -95,11 +95,11 @@ Vue.createApp({
         </nav>
     </div>
     <div class="content">
-        <section v-if="activeButton === 'board-list'" v-for="item in list" :key="item.id" class="board-list fl-dir:column bd-bottom border-width:2 pb:2 mb:2">
+        <section v-if="activeButton === 'board-list'" v-for="item in list" :key="item.id" class="fl-dir:column bd-bottom border-width:2 pb:1 mb:2">
             <div class="d:flex ai:center board-list">
                 <h1>번호:{{ item.id }} </h1>
-                <span class="content-title fs:4" @click="toggleContent(item.id)">제목:{{ item.title }}</span>
-                <span class="fs:2 color:base-6"> 날짜:{{ new Date(item.regDate).toLocaleDateString() }}</span>
+                <span class="content-title" @click="toggleContent(item.id)">제목:{{ item.title }}</span>
+                <span class="fs:2 color:base-6">{{ new Date(item.regDate).toLocaleString() }}</span>
             </div>
             <div class="p:3" style="background-color:#ddd;" v-if="expandedItemId === item.id">
             <p class="ml:10" v-if="item.contents != '' " v-html="item.contents"></p>
@@ -126,6 +126,7 @@ Vue.createApp({
         <a @click.prevent="benMemberHandler()" type="button" class="n-btn n-btn-color:accent">유저 제제하기</a>
     </div>
                 
-                `
-                // <p>평점: {{ item.memberRate }}</p>
+    `
+    // <span class="fs:2 color:base-6"> 날짜:{{ new Date(item.regDate).toLocaleDateString() }}</span>
+    // <p>평점: {{ item.memberRate }}</p>
 }).mount('.user-list');
