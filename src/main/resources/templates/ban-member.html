@@ -6,15 +6,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>로그인 - 영화의봄</title>
+    <style>
+        .section-padding {
+            padding: 100px 0;
+            position: relative;
+            top: 100px;
+        }
+    </style>
 </head>
 <body>
     <main layout:fragment="main">
-        <section class="d:flex flex-direction:column ai:center gap:5">
+        <section class="section-padding d:flex flex-direction:column ai:center gap:5">
             <div><img src="/image/bad.png" alt="" width="250"></div>
-            <div class="fs:6 fw:bold">제제중인 회원입니다.</div>
+            <div class="fs:6 fw:bold">이용이 정지된 회원입니다</div>
             <div>
-                <a type="button" class="n-btn" href="/">홈으로</a>
+                <a href="/" class="n-btn n-btn-color:base">메인페이지로</a>
             </div>
         </section>
     </main>

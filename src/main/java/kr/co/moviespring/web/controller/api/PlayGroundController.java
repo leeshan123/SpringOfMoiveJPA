@@ -122,6 +122,7 @@ public class PlayGroundController {
                 userPoint = userPoint - bettingPoint;
                 member.setPoint(userPoint);
 
+
                 System.out.println(userPoint);
 
 

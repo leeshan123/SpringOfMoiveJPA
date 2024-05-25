@@ -1,4 +1,14 @@
-
+const inputField = document.querySelector(".reg-textarea");
+let inputText = inputField.value;
+let legButton = document.querySelector(".reg-button");
+legButton.onclick = function () {
+    // 입력값이 공백인지 확인
+    if (inputText.trim() === "") {
+        alert("공백은 입력할 수 없습니다.");
+        return false; // 제출을 방지하기 위해 false 반환
+    }
+    return true; // 유효한 입력이므로 제출 허용
+}
 {
 // 게시글 버튼 요소 가져오기
     let voteBox = document.querySelector("#vote-box");
@@ -419,3 +429,37 @@
             }
         });
     }
+// =========================================================================================================
+
+{
+    //텍스트 입력수 제한 필터링스크립트
+    const inputField = document.querySelector(".reg-textarea");
+    const counterElement = document.querySelector(".charCount");
+
+    inputField.oninput = function() {
+        const maxLength = parseInt(inputField.getAttribute("maxlength"));
+        let currentLength = inputField.value.length;
+
+        // 최대 길이를 초과하는 입력을 제거
+        if (currentLength > maxLength) {
+            inputField.value = inputField.value.slice(0, maxLength);
+            currentLength = maxLength;
+        }
+
+        const remainingLength = maxLength - currentLength;
+        counterElement.textContent = `${currentLength} / ${maxLength}`;
+    };
+    //텍스트 공백 필터링 스크립트
+    function checkInput() {
+        let inputText = inputField.value;
+        let legButton = document.querySelector(".reg-button");
+        legButton.onclick = function () {
+            // 입력값이 공백인지 확인
+            if (inputText.trim() === "") {
+                alert("공백은 입력할 수 없습니다.");
+                return false; // 제출을 방지하기 위해 false 반환
+            }
+            return true; // 유효한 입력이므로 제출 허용
+        }
+    }
+}

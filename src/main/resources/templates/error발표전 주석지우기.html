@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="inc/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>시스템 오류 - 영화의봄</title>
+    <style>
+        .section-padding {
+            padding: 100px 0;
+            position: relative;
+            top: 100px;
+        }
+    </style>
+</head>
+<body>
+<main layout:fragment="main">
+    <section class="section-padding d:flex flex-direction:column ai:center gap:5">
+        <div class="fs:6 fw:bold">🥲예기치 못한 오류가 발생하였습니다</div>
+        <div class="fs:6 fw:bold">잠시후 다시 시도해주세요</div>
+<!--        <div><img src="/image/jun.jpg" alt="" width="400"></div>-->
+        <div class="fs:9 mb:10">🙏</div>
+        <div class="d:flex fl-dir:column gap:3">
+            <a href="javascript:history.back()" class="n-btn n-btn-color:base">이전페이지로</a>
+            <a href="/" class="n-btn n-btn-color:base">메인페이지로</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>
