@@ -108,7 +108,7 @@ window.addEventListener('load', function () {
     });
 
     givepointButton.addEventListener('click', function() {
-        const id = this.getAttribute('data-id');
+        const pbgId = this.getAttribute('data-id');
         let leftBettingCheckBox = document.querySelector('.left-betting-checkbox');
         let rightBettingCheckBox = document.querySelector('.right-betting-checkbox');
         let selectedBettingValue = null;
@@ -121,10 +121,11 @@ window.addEventListener('load', function () {
                 selectedBettingValue = rightBettingCheckBox.value;
             }
 
+
             console.log("selectedBettingValue:" + selectedBettingValue);
 
             let data = {
-                id: id,
+                pbgId: pbgId,
                 selectedBettingValue: parseInt(selectedBettingValue)
             };
 
@@ -147,6 +148,15 @@ window.addEventListener('load', function () {
                     // 포인트 지급 성공 시 버튼 삭제 및 콘솔에 메시지 출력
                     // givepointButton.remove();
                     alert('포인트 지급 완료!');
+
+                    pointModal.classList.replace('modal-fade-in', 'modal-fade-out');
+
+                    setTimeout(() => {
+                        pointModal.classList.add('d:none');
+                        modalBackdrop.classList.add('d:none');
+                        pointModal.classList.remove('modal-fade-out');
+                    }, 130);
+
                 })
                 .catch(error => {
                     console.error('포인트 지급 실패:', error);

@@ -4,6 +4,7 @@ import kr.co.moviespring.web.config.security.CustomUserDetails;
 import kr.co.moviespring.web.entity.Betting;
 import kr.co.moviespring.web.entity.Member;
 import kr.co.moviespring.web.entity.PlayGroundBoard;
+import kr.co.moviespring.web.repository.BettingRepository;
 import kr.co.moviespring.web.repository.MemberRepository;
 import kr.co.moviespring.web.repository.PlayGroundRepository;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @RestController("ApiPlayGroundController")
 @RequestMapping("api/playground")
@@ -24,6 +26,9 @@ public class PlayGroundController {
 
     @Autowired
     MemberRepository mbRepository;
+
+    @Autowired
+    BettingRepository btRepository;
 
 
     //로그인 상태 체크
@@ -203,10 +208,22 @@ public class PlayGroundController {
 
     @PostMapping("/givepoint")
     public void givePoint(@RequestBody BettingRequest request){
+
+        Long boardId = request.getPbgId();
+        int choose = request.getSelectedBettingValue();
+
         System.out.println("id: "+ request.getPbgId());
         System.out.println("selectedBettingValue: "+ request.getSelectedBettingValue());
 
-        repo
+        List<Betting> SuccessUsers = btRepository.finaAllSuccessUser(boardId, choose);
+
+        for(Betting user : SuccessUsers){
+            System.out.println(user.getSuccessPoint());
+
+        }
+
+//        btrRepository.getPoint(boardId, choose);
+//        btrRepository.deletegetPoint(boardId, choose);
 
 
     }

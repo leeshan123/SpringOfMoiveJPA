@@ -12,5 +12,9 @@ public interface BettingRepository {
     List<Betting> findAllById(Long memberId);
 
     int getCount(Long betId);
+
+    List<Betting> finaAllSuccessUser(Long betId, int choose);
+
+//    void deletegetPoint(Long betId, int choose);
     
 }

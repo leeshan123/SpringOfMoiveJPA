@@ -22,5 +22,10 @@
             betting_board_id = #{betId}
     </select>
 
+        <select id="finaAllSuccessUser" resultType="Betting">
+            SELECT * FROM betting
+            WHERE betting_board_id = #{betId} AND choose = #{choose}
+        </select>
+
 
 </mapper>
