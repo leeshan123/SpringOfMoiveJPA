@@ -2,6 +2,7 @@ window.addEventListener('load', function () {
     const backButton = document.getElementById('back-btn');
     const SearchButton = document.getElementById('search-btn');
     const resultList = document.querySelector(".result-list");
+    const submitButton = document.getElementById("submit-btn");
 
     backButton.addEventListener('click', () => handleButtonClick('http://localhost/admin/playground/main'));
 
@@ -85,6 +86,22 @@ window.addEventListener('load', function () {
         } else {
             console.log("movieQuery가 비어 있습니다.");
         }
+    });
+
+    submitButton.addEventListener('click', function(e) {
+        const title = document.querySelector('input[name="title"]').value.trim();
+        const movieQuery = document.querySelector('input[name="movie_query"]').value.trim();
+        const bettingTitle = document.querySelector('input[name="betting_title"]').value.trim();
+        const voteEndDate = document.querySelector('input[name="vote_end_date"]').value.trim();
+        const deadLineDate = document.querySelector('input[name="dead_line_date"]').value.trim();
+
+        if (!title || !movieQuery || !bettingTitle || !voteEndDate || !deadLineDate) {
+            alert('데이터가 누락된게 있습니다.');
+            e.preventDefault();
+            return false;
+        }
+
+        return ture;
     });
 
 
