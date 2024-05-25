@@ -57,11 +57,18 @@
 		<result column="poster_url" property="posterUrl"/>
 	</resultMap>
 
-	<select id="findAllPlusMovie" resultMap="PlayGroundBoardResultMap">
-		SELECT p.*, m.poster_url poster_url
-		FROM play_ground_board p
-		JOIN movie m ON p.movie_id = m.id
-		order by p.dead_line_date
+	<select id="findAllPlusMovie" parameterType="PlayGroundBoard">
+		<![CDATA[
+    SELECT p.*, m.poster_url AS poster_url
+    FROM play_ground_board p
+    JOIN movie m ON p.movie_id = m.id
+    ORDER BY
+    CASE
+      WHEN p.vote_end_date < NOW() THEN 1
+      ELSE 0
+    END,
+    p.vote_end_date
+  	]]>
 	</select>
 
 	<insert id="saveBetting" parameterType="Betting">

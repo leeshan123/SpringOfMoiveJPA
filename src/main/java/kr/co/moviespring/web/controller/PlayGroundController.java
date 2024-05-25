@@ -58,8 +58,6 @@ public class PlayGroundController {
 
 
 
-
-
         model.addAttribute("pgbList", pgbList);
         model.addAttribute("countList", countList);
         model.addAttribute("percentList",percentList);

@@ -38,7 +38,8 @@ window.addEventListener('load', function () {
 
     //현재 날짜
     const now = new Date();
-    console.log(now);
+
+
 
 
 
@@ -326,6 +327,8 @@ window.addEventListener('load', function () {
     boardButton.addEventListener('click',function (){
         location.href = '/community/board/list?c=betting';
     });
+
+
 
 
 
