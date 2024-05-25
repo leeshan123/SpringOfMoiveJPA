@@ -77,11 +77,11 @@
                         <span th:text="${blist.get(iterStat.index).successPoint}" style="color: #db5f5f;">+50000</span>p
                     </div>
                     <div class="fs:3 fw:500 color:base-6">
-                        <span th:text="${#dates.format(pg.deadLineDate, '~yyyy.MM.dd')}">~2024.02.28</span>
+                        <span th:text="${#dates.format(pg.voteEndDate, '~yyyy.MM.dd')}">~2024.02.28</span>
                         배팅마감
                     </div>
                     <div class="fs:3 fw:500 color:base-6">
-                        <span th:text="${#dates.format(pg.voteEndDate, '~yyyy.MM.dd')}">~2024.03.11</span>
+                        <span th:text="${#dates.format(pg.deadLineDate, '~yyyy.MM.dd')}">~2024.03.11</span>
                         집계마감
                     </div>
                 </section>
