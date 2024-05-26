@@ -196,10 +196,17 @@ public class MovieController {
 
         Long memberId = userDetails.getId();
         onelineReviewService.saveComment(memberId, comments, rate, movieId);
-
         return "redirect:/movie/detail?movieid=" + movieId;
     }
 
+    /*한줄평 삭제 */
+    @PostMapping("comment/delete/{movieid}")
+    public String delete(@PathVariable("movieid") Long movieId,@AuthenticationPrincipal CustomUserDetails userDetails){
+        Long memberId = userDetails.getId();
+        onelineReviewService.deleteComment(memberId, movieId);
+        return "redirect:/movie/detail?movieid=" + movieId;
+    
+    }
     // 한줄평 수정// //put으로 바꿔야함
     @PostMapping("comment/edit/{movieid}")
     public String edit(String comments , int rate, @PathVariable("movieid") Long movieId,

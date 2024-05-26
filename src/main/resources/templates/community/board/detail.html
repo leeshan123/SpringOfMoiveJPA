@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="inc/layout">
+      layout:decorate="inc/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,13 +13,29 @@ layout:decorate="inc/layout">
             width: 56px;
             height: 56px;
         }
+
         .middle-position {
             /*height: 24px;*/
             line-height: 28px;
         }
+
         .my-comment-bgc {
             background-color: #f9f9fa;
         }
+
+        .empty-field {
+            position: absolute;
+            left: 90px;
+            top: 116px;
+            /*margin-left: 6px;*/
+            /*margin-top: 8px;*/
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .show-and-hide {
+            opacity: 1;
+        }
+
         button {
             cursor: pointer;
         }
@@ -27,126 +43,152 @@ layout:decorate="inc/layout">
     </style>
 </head>
 <body>
-    <main layout:fragment="main" class="media padding-x:2">
-        <section class="media-sect-for-commu">
-            <div class="d:flex"><span th:text="${category.name == '인기글' ? '🔥' : ''}" class="fw:bold fs:7"></span>
-                <h1 class="color:main-3 fw:bold fs:7 margin-bottom:4"
-                    th:classappend="${category.name == '인기글' ? 'color:accent-1' : ''}"
-                    th:text="${category.name == '인기글' || category.name == '굿즈&포스터 ' ? category.name : category.name+'게시판'}">
-                    자유게시판</h1></div>
+<main layout:fragment="main" class="media padding-x:2">
+    <section class="media-sect-for-commu">
+        <div class="d:flex"><span th:text="${category.name == '인기글' ? '🔥' : ''}" class="fw:bold fs:7"></span>
+            <h1 class="color:main-3 fw:bold fs:7 margin-bottom:4"
+                th:classappend="${category.name == '인기글' ? 'color:accent-1' : ''}"
+                th:text="${category.name == '인기글' || category.name == '굿즈&포스터 ' ? category.name : category.name+'게시판'}">
+                자유게시판</h1></div>
 
 
-            <section class="p:2 border-bottom">
-                <h1 class="fs:5 margin-bottom:1" th:text="${board.title}">게시글 제목이 나타날 위치입니다</h1>
-                <div class="d:flex ai:center gap:3 margin-bottom:1 mt:5">
-                    <div class="margin-right:auto">
-                        <span class="icon icon:bone">아이콘</span>
-                        <span class="fw:bold" th:text="${board.nickname}">작성자</span>
-                        <span class="d:inline-block">
+        <section class="p:2 border-bottom">
+            <h1 class="fs:5 margin-bottom:1" th:text="${board.title}">게시글 제목이 나타날 위치입니다</h1>
+            <div class="d:flex ai:center gap:3 margin-bottom:1 mt:5">
+                <div class="margin-right:auto">
+                    <span class="icon icon:bone">아이콘</span>
+                    <span class="fw:bold" th:text="${board.nickname}">작성자</span>
+                    <span class="d:inline-block">
                             <span class="fs:2 color:base-6" th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}">2024.04.08</span>
-                            <span class="fs:2 color:base-6" th:text="${#dates.format(board.regDate, 'HH:mm')}">11:35</span>
+                            <span class="fs:2 color:base-6"
+                                  th:text="${#dates.format(board.regDate, 'HH:mm')}">11:35</span>
                         </span>
-                    </div>
-                    <span class="fs:2 color:base-6">조회수<span class="fw:bold margin-left:1 color:base-10" th:text="${board.hit}">1004</span></span>
-                    <span class="fs:2 color:base-6">좋아요<span class="fw:bold margin-left:1 color:base-10" th:text="${board.likeCount}">18</span></span>
-                    <span class="fs:2 color:base-6">댓글<span class="fw:bold margin-left:1 color:base-10" th:text="${board.commentCount}">28</span></span>
                 </div>
-                <div class="padding-y:3 border-top margin-bottom:10">
-                    <span><img src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>
-                    <!--th:utext는 html태그를 해석해서 출력해줌-->
-                    <p th:utext="${board.contents}">작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다</p>
-                </div>
-                <div class="d:flex jc:center">
-                    <div th:data-boardid="${board.id}" th:data-status="${status}" id="vote-box" class="d:flex gap:3">
-                        <button th:classappend="${status} == 1 ? 'bd-color:accent-1':'' " class="d:flex flex-direction:column ai:center border border-radius:1 p:1 vote-box gap:1 like-box">
-                            <span class="fw:2 color:base-10" th:text="${board.likeCount}">좋아요 수</span>
-                            <span class="icon icon:thumbs_up icon-color:accent-1">아이콘</span>
-                        </button>
-                        <button th:classappend="${status} == -1 ? 'bd-color:sub-1':'' " class="d:flex flex-direction:column ai:center border border border-radius:1 p:1 vote-box gap:1 dislike-box">
-                            <span class="fw:2 color:base-10" th:text="${disLikeCount}">싫어요 수</span>
-                            <span class="icon icon:thumbs_down icon-color:sub-1">아이콘</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="text-align:end fs:5 fw:bold color:main-3" th:if="${memberId eq board.memberId}">
-                    <a th:href="@{'edit/'+${board.id}(c=${category.engName})}">수정</a>
-                    <a th:href="@{'delete/'+${board.id}(c=${category.engName})}">삭제</a>
-                </div>
-            </section>
-            <section th:each="list : ${list}" th:classappend="${memberId eq list.memberId ? 'my-comment-bgc' : ''}" class="pb:3 pt:2 padding-left:2 padding-right:1 border-bottom d:flex flex-direction:column gap:1 comment-box">
-                <h1 class="d:none">댓글창</h1>
-                <div class="d:flex ai:center gap:4">
-                    <div class="margin-right:auto">
-                        <span class="icon icon:bone">아이콘</span>
-                        <span class="fw:bold" th:text="${list.nickname}">작성자</span>
-                        <span class="color:accent-1 bd bd-radius:full fs:1 p:1" th:if="${board.memberId eq list.memberId}">작성자</span>
-                        <span class="fs:2 color:base-6" th:text="${#temporals.format(list.regDate, 'yyyy.MM.dd')}">2024.04.08</span>
-                        <span class="fs:2 color:base-6" th:text="${#temporals.format(list.regDate, 'HH:mm')}">11:35</span>
-                    </div>
-                    <span th:data-commentid="${list.id}" class="d:flex comment-vote-box mr:3">
-                        <button th:text="${list.likeCount}" th:classappend="${list.commentStatus} == 1 ? 'icon-color:accent-1':'' " class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_up margin-right:2">0</button>
-                        <button th:text="${list.disLikeCount}" th:classappend="${list.commentStatus} == -1 ? 'icon-color:sub-1':'' " class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_down">0</button>
-                    </span>
-<!--                    <span>-->
-<!--                        <span class="deco deco-size:2 icon-size:4 deco-ml:1 deco-position:right icon:chat_circle_text fs:2 fw:bold color:main-3">댓글</span>-->
-<!--                    </span>-->
-                </div>
-                <div class="px:7"><p th:utext="${list.contents}" class="mb:2 of-wrap:anywhere">댓글 내용이 출력될 장소입니다</p></div>
-                <div class="ml:auto">
-                    <button th:data-commentid="${list.id}" th:if="${memberId eq list.memberId}" class="del-btn mr:3 p:1 bd bd-radius:3 bg-color:base-1 box-shadow:2">삭제</button>
-                    <button th:if="${memberId eq list.memberId}" class="edit-btn mr:1 p:1 bd bd-radius:3 bg-color:base-1 box-shadow:2">수정</button>
-                </div>
-            </section>
-            <form action="detail" method="post" class="my-comment-bgc bd-bl-radius:1 bd-br-radius:1 padding-y:2 padding-left:2 padding-right:1 reg-box">
-                <div>
-                    <div sec:authorize="isAuthenticated()">
-                        <span class="icon icon:bone">아이콘</span>
-                        <span sec:authentication="principal.nickname" class="fw:bold">이름</span>
-                    </div>
-                    <div sec:authorize="isAnonymous()" class="d:flex jc:center ai:center">
-                        <span class="icon icon:warning_circle">아이콘</span>
-                        <span class="middle-position">로그인 후에 댓글을 작성하실 수 있습니다</span>
-                    </div>
-                </div>
-                <div class="d:flex">
-                    <div class="pb:2 pl:5 pr:3 pt:1 w:10p">
-                        <textarea sec:authorize="isAuthenticated()" name="content" id="" placeholder="댓글 내용 입력" class="ml:2 w:10p n-textbox mb:2 py:2 h:2 reg-textarea"></textarea>
-                        <input sec:authorize="isAuthenticated()" name="memberId" th:value="${memberId}" id="" placeholder="댓글 내용 입력" class="d:none">
-                        <input sec:authorize="isAuthenticated()" name="id" th:value="${board.id}" id="" placeholder="댓글 내용 입력" class="d:none">
-                        <input sec:authorize="isAuthenticated()" name="c" th:value="${category.engName}" id="" placeholder="댓글 내용 입력" class="d:none">
-                        <!--비로그인 댓글 금지-->
-                        <textarea sec:authorize="isAnonymous()" disabled name="content" id="" placeholder="댓글 내용 입력" class="n-textbox-status:disabled w:10p n-textbox"></textarea>
-                    </div>
-                    <!--비로그인시 버튼 submit 요청제거-->
-                    <button sec:authorize="isAnonymous()" type="button" style="cursor: not-allowed" class="fs:5 fw:bold color:main-3 w:1">등록</button>
-
-                    <button sec:authorize="isAuthenticated()" class="fs:5 fw:bold color:main-3 w:1 reg-button">등록</button>
-                </div>
-            </form>
-            <div class="text-align:center mt:5">
-                <a class="fs:5 fw:bold color:main-3" th:href="@{list(c=${category.engName})}">목록</a>
+                <span class="fs:2 color:base-6">조회수<span class="fw:bold margin-left:1 color:base-10"
+                                                         th:text="${board.hit}">1004</span></span>
+                <span class="fs:2 color:base-6">좋아요<span class="fw:bold margin-left:1 color:base-10"
+                                                         th:text="${board.likeCount}">18</span></span>
+                <span class="fs:2 color:base-6">댓글<span class="fw:bold margin-left:1 color:base-10"
+                                                        th:text="${board.commentCount}">28</span></span>
             </div>
-            <div class="text-align:left">
-                <div class="p:2">
-                    <span class="fs:4 fw:bold color:main-3">이전글</span>
-                    <th:block th:if="${nextBoard != null}">
-                        <a th:text="${nextBoard.title}" th:href="@{detail(id=${nextBoard.id},c=${category.engName})}"  class="" href="">이전글제목</a>
-                    </th:block>
-                    <th:block th:if="${nextBoard == null}">
-                        <span class="fs:3 color:base-5">(이전글이 없습니다)</span>
-                    </th:block>
+            <div class="padding-y:3 border-top margin-bottom:10">
+                <span><img src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>
+                <!--th:utext는 html태그를 해석해서 출력해줌-->
+                <p th:utext="${board.contents}">작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다</p>
+            </div>
+            <div class="d:flex jc:center">
+                <div th:data-boardid="${board.id}" th:data-status="${status}" id="vote-box" class="d:flex gap:3">
+                    <button th:classappend="${status} == 1 ? 'bd-color:accent-1':'' "
+                            class="d:flex flex-direction:column ai:center border border-radius:1 p:1 vote-box gap:1 like-box">
+                        <span class="fw:2 color:base-10" th:text="${board.likeCount}">좋아요 수</span>
+                        <span class="icon icon:thumbs_up icon-color:accent-1">아이콘</span>
+                    </button>
+                    <button th:classappend="${status} == -1 ? 'bd-color:sub-1':'' "
+                            class="d:flex flex-direction:column ai:center border border border-radius:1 p:1 vote-box gap:1 dislike-box">
+                        <span class="fw:2 color:base-10" th:text="${disLikeCount}">싫어요 수</span>
+                        <span class="icon icon:thumbs_down icon-color:sub-1">아이콘</span>
+                    </button>
                 </div>
-                <div class="p:2 mb:5">
-                    <span class="fs:4 fw:bold color:main-3">다음글</span>
-                    <th:block th:if="${prevBoard != null}">
-                        <a th:text="${prevBoard.title}" th:href="@{detail(id=${prevBoard.id},c=${category.engName})}" href="">이전글제목</a>
-                    </th:block>
-                    <th:block th:if="${prevBoard == null}">
-                        <span class="fs:3 color:base-5">(다음글이 없습니다)</span>
-                    </th:block>
-                </div>
+            </div>
+            <div class="text-align:end fs:5 fw:bold color:main-3" th:if="${memberId eq board.memberId}">
+                <a th:href="@{'edit/'+${board.id}(c=${category.engName})}">수정</a>
+                <a th:href="@{'delete/'+${board.id}(c=${category.engName})}">삭제</a>
             </div>
         </section>
-    </main>
+        <section th:each="list : ${list}" th:classappend="${memberId eq list.memberId ? 'my-comment-bgc' : ''}"
+                 class="pb:3 pt:2 padding-left:2 padding-right:1 border-bottom d:flex flex-direction:column gap:1 comment-box">
+            <h1 class="d:none">댓글창</h1>
+            <div class="d:flex ai:center gap:4">
+                <div class="margin-right:auto">
+                    <span class="icon icon:bone">아이콘</span>
+                    <span class="fw:bold" th:text="${list.nickname}">작성자</span>
+                    <span class="color:accent-1 bd bd-radius:full fs:1 p:1" th:if="${board.memberId eq list.memberId}">작성자</span>
+                    <span class="fs:2 color:base-6" th:text="${#temporals.format(list.regDate, 'yyyy.MM.dd')}">2024.04.08</span>
+                    <span class="fs:2 color:base-6" th:text="${#temporals.format(list.regDate, 'HH:mm')}">11:35</span>
+                </div>
+                <span th:data-commentid="${list.id}" class="d:flex comment-vote-box mr:3">
+                        <button th:text="${list.likeCount}"
+                                th:classappend="${list.commentStatus} == 1 ? 'icon-color:accent-1':'' "
+                                class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_up margin-right:2">0</button>
+                        <button th:text="${list.disLikeCount}"
+                                th:classappend="${list.commentStatus} == -1 ? 'icon-color:sub-1':'' "
+                                class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_down">0</button>
+                    </span>
+                <!--                    <span>-->
+                <!--                        <span class="deco deco-size:2 icon-size:4 deco-ml:1 deco-position:right icon:chat_circle_text fs:2 fw:bold color:main-3">댓글</span>-->
+                <!--                    </span>-->
+            </div>
+            <div class="px:7"><p th:utext="${list.contents}" class="mb:2 of-wrap:anywhere">댓글 내용이 출력될 장소입니다</p></div>
+            <div class="ml:auto">
+                <button th:data-commentid="${list.id}" th:if="${memberId eq list.memberId}"
+                        class="del-btn mr:3 p:1 bd bd-radius:3 bg-color:base-1 box-shadow:2">삭제
+                </button>
+                <button th:if="${memberId eq list.memberId}"
+                        class="edit-btn mr:1 p:1 bd bd-radius:3 bg-color:base-1 box-shadow:2">수정
+                </button>
+            </div>
+        </section>
+        <form th:classappend="${memberId != null ? '': 'h:4'}" action="detail" method="post"
+              class="my-comment-bgc bd-bl-radius:1 bd-br-radius:1 padding-top:4 padding-bottom:2 padding-left:2 padding-right:1 reg-box">
+            <div>
+                <div sec:authorize="isAuthenticated()">
+                    <span class="icon icon:bone">아이콘</span>
+                    <span sec:authentication="principal.nickname" class="fw:bold">이름</span>
+                </div>
+                <div sec:authorize="isAnonymous()" class="mb:4 d:flex jc:center ai:center">
+                    <span class="icon icon:warning_circle">아이콘</span>
+                    <span class="middle-position">로그인 후에 댓글을 작성하실 수 있습니다</span>
+                </div>
+            </div>
+            <div class="d:flex">
+                <div class="pb:2 pl:5 pr:3 pt:1 w:10p position:relative">
+                    <textarea sec:authorize="isAuthenticated()" name="content" id="" placeholder="댓글 내용 입력" maxlength="200" class="ml:2 w:10p n-textbox mb:2 py:2 h:2 reg-textarea"></textarea>
+                    <div sec:authorize="isAuthenticated()" class="charCount ml:2 color:base-6">0 / 200</div>
+                    <span class="color:accent-1 empty-field">공백은 입력할 수 없습니다</span>
+                    <input sec:authorize="isAuthenticated()" name="memberId" th:value="${memberId}" id=""
+                           placeholder="댓글 내용 입력" class="d:none">
+                    <input sec:authorize="isAuthenticated()" name="id" th:value="${board.id}" id=""
+                           placeholder="댓글 내용 입력" class="d:none">
+                    <input sec:authorize="isAuthenticated()" name="c" th:value="${category.engName}" id=""
+                           placeholder="댓글 내용 입력" class="d:none">
+                    <!--비로그인 댓글 금지-->
+                    <textarea sec:authorize="isAnonymous()" disabled name="content" id="" placeholder="댓글 내용 입력" class="n-textbox-status:disabled w:10p n-textbox"></textarea>
+                    <span sec:authorize="isAnonymous()" class="ml:2 color:base-6">0 / 200</span>
+                </div>
+                <!--비로그인시 버튼 submit 요청제거-->
+                <button sec:authorize="isAnonymous()" type="button" style="cursor: not-allowed"
+                        class="fs:5 fw:bold color:main-3 w:1">등록
+                </button>
+
+                <button sec:authorize="isAuthenticated()" class="mb:9 fs:5 fw:bold color:main-3 w:1 reg-button">등록</button>
+            </div>
+        </form>
+        <div class="text-align:center mt:5">
+            <a class="fs:5 fw:bold color:main-3" th:href="@{list(c=${category.engName})}">목록</a>
+        </div>
+        <div class="text-align:left">
+            <div class="p:2">
+                <span class="fs:4 fw:bold color:main-3">이전글</span>
+                <th:block th:if="${nextBoard != null}">
+                    <a th:text="${nextBoard.title}" th:href="@{detail(id=${nextBoard.id},c=${category.engName})}"
+                       class="" href="">이전글제목</a>
+                </th:block>
+                <th:block th:if="${nextBoard == null}">
+                    <span class="fs:3 color:base-5">(이전글이 없습니다)</span>
+                </th:block>
+            </div>
+            <div class="p:2 mb:5">
+                <span class="fs:4 fw:bold color:main-3">다음글</span>
+                <th:block th:if="${prevBoard != null}">
+                    <a th:text="${prevBoard.title}" th:href="@{detail(id=${prevBoard.id},c=${category.engName})}"
+                       href="">이전글제목</a>
+                </th:block>
+                <th:block th:if="${prevBoard == null}">
+                    <span class="fs:3 color:base-5">(다음글이 없습니다)</span>
+                </th:block>
+            </div>
+        </div>
+    </section>
+</main>
 </body>
 </html>

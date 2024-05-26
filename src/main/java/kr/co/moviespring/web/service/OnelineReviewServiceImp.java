@@ -59,4 +59,9 @@ public class OnelineReviewServiceImp implements OnelineReviewService {
         int cnt = onelineReviewRepository.getCount(memberId);
         return cnt;
     }
+
+    @Override
+    public void deleteComment(Long memberId, Long movieId) {
+        onelineReviewRepository.deleteCommentById(memberId,movieId);
+    }
 }

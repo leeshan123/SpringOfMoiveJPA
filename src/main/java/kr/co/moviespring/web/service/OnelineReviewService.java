@@ -17,5 +17,6 @@ public interface OnelineReviewService {
     // 회원이 작성한 리뷰 가져오기
     OnelineReview getById(Long movieId, Long memberId);
     int getCount(Long memberId);
+    void deleteComment(Long memberId, Long movieId);
 
 }

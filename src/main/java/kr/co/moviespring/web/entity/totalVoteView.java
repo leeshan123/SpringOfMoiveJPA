@@ -16,7 +16,7 @@ public class totalVoteView {
     private Long id;
     private String tmdbId;
     private String kobisId;
-    private String movieCd;
+    private Long movieCd;
     private Date regDate;
     private String korName;
     private String engName;

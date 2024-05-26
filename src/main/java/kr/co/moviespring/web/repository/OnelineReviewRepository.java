@@ -25,4 +25,6 @@ public interface OnelineReviewRepository {
     OnelineReview findById(Long movieId, Long memberId);
 
     int getCount(Long memberId);
+
+    void deleteCommentById(Long memberId, Long movieId);
 }

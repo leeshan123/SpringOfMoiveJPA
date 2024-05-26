@@ -36,11 +36,11 @@ public class GlobalExceptionHandler {
     //5/21회원가입에서 기존 회원정보와 중복되는 값 입력하면 2주의영화 오류페이지로 리다이렉션됨 개별핸들링추가예정
 
     //모든 exception 객체 받는 핸들러 (나중에 404밸류에러 핸들러로 만들어야함)
-    // @ExceptionHandler(Exception.class)
-    // public String handleGeneralException(Exception ex, RedirectAttributes redirectAttributes) {
-    //     redirectAttributes.addFlashAttribute("error", "unknown");
-    //     return "redirect:/2weeks/list";
-    // }
+     @ExceptionHandler(Exception.class)
+     public String handleGeneralException(Exception ex, RedirectAttributes redirectAttributes) {
+         redirectAttributes.addFlashAttribute("error", "unknown");
+         return "redirect:/error";
+     }
 
 
     public static class DuplicateVoteException extends RuntimeException {
