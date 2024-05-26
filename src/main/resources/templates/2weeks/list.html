@@ -113,17 +113,17 @@
                                             <form action="list" method="POST">
                                                 <input type="hidden" name="movieId" th:value="${m.id}" />
                                                 <input type="hidden" name="memberId" th:value="${#authentication.principal.id}" />
-                                                <button type="submit" name="vote" class=" submit-btn n-btn">추천합니다이!!</button>
+                                                <button type="submit" name="vote" class=" submit-btn n-btn">추천합니다!!</button>
                                             </form>
                                         </div>
                                     </div>
                                 </section>
                                 <section sec:authorize="isAnonymous()" class="modal n-modal d:none" tabindex="-1">
-                                    <span class="n-font:subtitle text-align:center">로그인 후 이용할수있습니다이 . . </span>
+                                    <span class="n-font:subtitle text-align:center">로그인 후 이용할수있습니다 . . </span>
                                     <div class="mt:4">
                                         <div class="m:2">
                                             <a href="/user/signin">
-                                                <button class="close-btn n-btn w:5">로그인 고고혓</button>
+                                                <button class="close-btn n-btn w:5">로그인 하러 가기!</button>
                                             </a>
                                         </div>
                                     </div>
