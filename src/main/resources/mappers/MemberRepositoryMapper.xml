@@ -83,4 +83,13 @@
             id=#{id};
     </delete>
 
+    <!-- 유저 확인 -->
+    <select id="findByEmailAndName" resultType="Long">
+        SELECT id
+        FROM 
+            member
+        WHERE 
+            email = #{email} AND name = #{username}
+    </select>
+
 </mapper>

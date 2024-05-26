@@ -2,6 +2,7 @@ package kr.co.moviespring.web.service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import kr.co.moviespring.web.entity.CommunityBoardView;
 import kr.co.moviespring.web.entity.Member;
@@ -30,5 +31,7 @@ public interface MemberService {
     void banById(Long memberId);
 
     void restoreById(Long memberId);
+
+    Long verifyUser(String username, String email);
     
 }
