@@ -101,4 +101,10 @@
             email = #{email} AND name = #{username} AND username = #{userId}
     </select>
 
+    <update id="plus1000Point">
+    UPDATE member
+    SET point = point + #{point}
+    WHERE id = #{memberId};
+    </update>
+
 </mapper>

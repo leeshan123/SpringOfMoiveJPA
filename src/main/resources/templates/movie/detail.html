@@ -240,7 +240,7 @@
                             </div>
                         </div> -->
                         <div th:each="m2 : ${movie2}" class="h:auto ml:4">
-                            <div th:if="${m2.movieCd == movie.id.toString()}" id="animatedDiv"
+                            <div th:if="${m2.movieCd == movie.id}" id="animatedDiv"
                                 class="slideblock d:flex ai:center h:1 px:2 bd-radius:3">
                                 <div class="align-items: center">
                                     <span class="txt-al:center fs:4">2주의 영화 후보에 등록된 영화입니다!</span>

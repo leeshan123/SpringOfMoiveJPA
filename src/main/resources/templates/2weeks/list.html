@@ -9,31 +9,6 @@
     <title>다음주영화 투표-영화의봄</title>
     <script src="/js/2weeks/list.js" defer></script>
     <link rel="stylesheet" href="/css/2weeks/list.css">
-
-    <!-- <style>
-        /* 장르에 따른 클래스와 색상 설정 */
-        .genre-sf { color: blue; }
-        .genre-family { color: green; }
-        .genre-performance { color: red; }
-        .genre-horror { color: purple; }
-        .genre-etc { color: orange; }
-        .genre-documentary { color: cyan; }
-        .genre-drama { color: pink; }
-        .genre-romance { color: yellow; }
-        .genre-musical { color: brown; }
-        .genre-mystery { color: darkcyan; }
-        .genre-crime { color: darkred; }
-        .genre-historical { color: darkgreen; }
-        .genre-western { color: darkblue; }
-        .genre-thriller { color: darkorange; }
-        .genre-animation { color: indigo; }
-        .genre-action { color: darkviolet; }
-        .genre-adventure { color: teal; }
-        .genre-war { color: slategray; }
-        .genre-comedy { color: olive; }
-        .genre-fantasy { color: maroon; }
-        /* 다른 장르에 대한 클래스와 색상 설정을 여기에 추가하세요. */
-    </style> -->
 </head>
 <body>
     <main layout:fragment="main" class="media">
@@ -79,6 +54,7 @@
                     alert("더이상 투표할 수 없습니다. 다음주 영화를 기대해주세요!");
                 </script>
             </div>
+
             <section class="d:flex fl-wrap:wrap jc:center my:9 bd-top">
                 <h1 class="d:none">컨텐츠</h1>
                 <section th:each="m:${Tm}" class="py:6 mx:10 p:2 bd-radius:3 box-shadow:1 my:4">
@@ -137,7 +113,7 @@
                                             <form action="list" method="POST">
                                                 <input type="hidden" name="movieId" th:value="${m.id}" />
                                                 <input type="hidden" name="memberId" th:value="${#authentication.principal.id}" />
-                                                <button type="submit" name="vote" class="submit-btn n-btn">추천합니다이!!</button>
+                                                <button type="submit" name="vote" class=" submit-btn n-btn">추천합니다이!!</button>
                                             </form>
                                         </div>
                                     </div>

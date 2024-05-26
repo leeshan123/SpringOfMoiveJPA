@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.moviespring.web.config.security.CustomUserDetails;
 import kr.co.moviespring.web.entity.OnelineReview;
@@ -19,6 +20,7 @@ import kr.co.moviespring.web.entity.totalVoteView;
 import kr.co.moviespring.web.service.MovieService;
 import kr.co.moviespring.web.service.OnelineReviewService;
 import kr.co.moviespring.web.service.TwoWeeksMovieService;
+import kr.co.moviespring.web.service.UserPointService;
 
 @Controller
 @RequestMapping("2weeks")
@@ -30,6 +32,8 @@ public class TwoWeeksMovieController {
     MovieService movieService;
     @Autowired
     TwoWeeksMovieService TWMovieService;
+    @Autowired
+    UserPointService userPointService;
 
     @GetMapping("movie")
     public String movie(Model model,@AuthenticationPrincipal CustomUserDetails userDetails) {
@@ -98,8 +102,9 @@ public class TwoWeeksMovieController {
 
     @PostMapping("list")
     public String voteMovie(@RequestParam("memberId") Long memberId,
-        @RequestParam("movieId") Integer movieId) {
+        @RequestParam("movieId") Integer movieId,RedirectAttributes redirectAttributes) {
             TWMovieService.vote(memberId, movieId);
+            // redirectAttributes.addFlashAttribute("message", "포인트가 지급되었습니다.");
         return "redirect:/2weeks/list";
     }
 

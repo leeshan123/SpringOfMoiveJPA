@@ -20,6 +20,7 @@ public interface MemberRepository {
     void regist(Member member);
     void update(Member member);
 
+    void plus1000Point(Long memberId, Integer point);
     void updatePoint(Member member);
 
     void delete(Long id);
