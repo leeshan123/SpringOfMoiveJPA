@@ -93,9 +93,9 @@
                             </form>
                         </section>
                         <!--비회원이 요청시-->
-                        <button sec:authorize="isAnonymous()" disabled type="button" class="ml:auto n-btn box-shadow:3">로그인후 작성</button>
+                        <button sec:authorize="isAnonymous()" th:classappend="${c.engName != 'best' ? '':'vis:hidden'}" disabled type="button" class="ml:auto n-btn box-shadow:3">로그인후 작성</button>
                         <!--회원이 요청시-->
-                        <a sec:authorize="isAuthenticated()" class="ml:auto" th:href="@{reg(c=${c.engName})}" href="reg">
+                        <a sec:authorize="isAuthenticated()" th:classappend="${c.engName != 'best' ? '':'vis:hidden'}" class="ml:auto" th:href="@{reg(c=${c.engName})}" href="reg">
                             <button type="button" class="n-btn box-shadow:3">게시글 작성</button>
                         </a>
                     </div>

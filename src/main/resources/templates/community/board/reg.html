@@ -33,18 +33,18 @@
         }
 
         .title-empty-field {
-            position: absolute;
-            left: 110px;
-            top: 207px;
+            position: relative;
+            left: 6px;
+            top: 0px;
             /*margin-left: 6px;*/
             /*margin-top: 8px;*/
             opacity: 0;
             transition: opacity 0.5s;
         }
         .content-empty-field {
-            position: absolute;
-            left: 118px;
-            bottom: 92px;
+            position: relative;
+            left: 6px;
+            bottom: 0px;
             /*margin-left: 6px;*/
             /*margin-top: 8px;*/
             opacity: 0;
@@ -57,20 +57,20 @@
 </head>
 
 <body>
-    <main layout:fragment="main">
-        <section class="color:base-10 mb:4 mx:4 bd bd-radius:3">
+    <main layout:fragment="main" class="d:flex jc:center">
+        <section class="color:base-10 mb:4 mx:4 bd bd-radius:3 media-sect-for-commu">
             <h1 class="text-align:center bg-color:base-9 color:base-1 bd-tl-radius:2 bd-tr-radius:2">게시글 작성</h1>
             <form th:action="${board != null ? board.id : 'reg'}" action="reg" method="post" class="mx:6">
                 <div class="margin-top:2 line-gap">
                     <input maxlength="100" class="mb:1 n-textbox n-textbox-type:underline" type="text" name="title" placeholder="제목을 입력해주세요" th:value="${board != null ? board.title : ''}">
-                    <div class="title-count ml:2 color:base-6">0 / 100</div>
+                    <span class="title-count ml:2 color:base-6">0 / 100</span>
                     <span class="color:accent-1 title-empty-field">공백은 입력할 수 없습니다</span>
                     <input class="d:none" type="text" name="categoryName" th:value="${cName}">
                 </div>
                 <div>
                     <!--textarea 작성줄 길어져도 줄넘김해서 쓰지 말것 입력창에 공백생김-->
                     <textarea maxlength="1000" name="contents" id="summernote" placeholder="내용을 입력해주세요" th:text="${board != null ? board.contents : ''}"></textarea>
-                    <div class="mt:1 content-count ml:2 color:base-6">0 / 1000</div>
+                    <span class="mt:1 content-count ml:2 color:base-6">0 / 1000</span>
                     <span class="color:accent-1 content-empty-field">공백은 입력할 수 없습니다</span>
                 </div>
 <!--                <div>-->

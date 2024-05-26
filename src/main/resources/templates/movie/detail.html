@@ -134,9 +134,9 @@
         }
 
         .empty-field {
-            position: absolute;
-            bottom: 46px;
-            left: 176px;
+            position: relative;
+            bottom: -10px;
+            right: 1086px;
             /*margin-left: 6px;*/
             /*margin-top: 8px;*/
             opacity: 0;
@@ -147,9 +147,9 @@
         }
 
         .charCount {
-            position: absolute;
-            bottom: 46px;
-            left: 106px;
+            position: relative;
+            bottom: -10px;
+            right: 1090px;
         }
 
         .delete-button {
@@ -320,10 +320,11 @@
                             <!--회원 접속시-->
                             <textarea sec:authorize="isAuthenticated()"
                                 th:text="${myReview != null ? myReview.comments : ''}" id="comments" name="comments"
-                                class="mb:5 width:10p height:2 p:2 n-textbox n-textbox-status:success reg-textarea" type="text"
+                                class="width:10p height:2 p:2 n-textbox n-textbox-status:success reg-textarea" type="text"
                                 placeholder="내용을 입력해주세요." maxlength="200"></textarea>
-                            <div class="charCount ml:2 color:base-6">0 / 200</div>
-                            <span class="color:accent-1 empty-field">공백은 입력할 수 없습니다</span>
+                            <div class="">
+                                <span class="charCount ml:2 color:base-6">0 / 200</span>
+                                <span class="color:accent-1 empty-field">공백은 입력할 수 없습니다</span></div>
                             <div class="d:flex">
                                 <!--평가 or 수정버튼-->
                                 <button sec:authorize="isAuthenticated()" type="submit"
