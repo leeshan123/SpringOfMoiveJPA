@@ -65,15 +65,15 @@
 
 	<select id="findAllPlusMovie" parameterType="PlayGroundBoard">
 		<![CDATA[
-    SELECT p.*, m.poster_url AS poster_url
-    FROM play_ground_board p
-    JOIN movie m ON p.movie_id = m.id
-    ORDER BY
-    CASE
-      WHEN p.vote_end_date < NOW() THEN 1
-      ELSE 0
-    END,
-    p.vote_end_date
+	SELECT p.*, m.poster_url AS poster_url
+	FROM play_ground_board p
+         JOIN movie m ON p.movie_id = m.id
+	ORDER BY
+    	CASE
+        WHEN p.vote_end_date < DATE_SUB(NOW(), INTERVAL 1 DAY) THEN 1
+        ELSE 0
+        END ASC,
+    p.vote_end_date ASC;
   	]]>
 	</select>
 
