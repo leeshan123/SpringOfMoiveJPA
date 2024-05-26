@@ -22,4 +22,6 @@ public interface PlayGroundService {
     int getCount(Long memberId);
 
     List<PlayGroundBoard> getBoardTop5();
+
+    List<PlayGroundBoard> getadminBoardList();
 }

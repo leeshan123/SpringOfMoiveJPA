@@ -20,7 +20,7 @@ public class Betting {
     Long bettingBoardId;
     LocalDateTime regDate;
     int choose;
-
+    int paymentStatus;
 
 
 

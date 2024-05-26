@@ -28,4 +28,6 @@ public interface PlayGroundRepository {
     int getCount(Long memberId);
 
     List<PlayGroundBoard> findTop5();
+
+    List<PlayGroundBoard> findAllAdmin();
 }

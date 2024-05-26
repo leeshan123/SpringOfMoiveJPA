@@ -27,5 +27,18 @@
             WHERE betting_board_id = #{betId} AND choose = #{choose}
         </select>
 
+    <update id="givePointUser" parameterType="Betting">
+    UPDATE member
+    SET point = point + #{successPoint}
+        WHERE id = #{memberId};
+    </update>
+
+    <update id="changePaymentStatus" parameterType="Betting">
+        UPDATE betting
+        SET payment_status = 0
+        WHERE betting_board_id = #{bettingBoardId};
+    </update>
+
+
 
 </mapper>

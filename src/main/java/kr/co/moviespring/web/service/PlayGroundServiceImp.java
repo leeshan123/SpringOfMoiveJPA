@@ -26,6 +26,11 @@ public class PlayGroundServiceImp implements PlayGroundService{
     }
 
     @Override
+    public List<PlayGroundBoard> getadminBoardList() {
+        return repository.findAllAdmin();
+    }
+
+    @Override
     public void deleteById(Long id) {
         repository.delete(id);
     }

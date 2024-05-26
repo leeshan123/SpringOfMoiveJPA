@@ -15,6 +15,10 @@ public interface BettingRepository {
 
     List<Betting> finaAllSuccessUser(Long betId, int choose);
 
+    void givePointUser(Betting bettingUser);
+
+    void changePaymentStatus(Betting bettingUser);
+
 //    void deletegetPoint(Long betId, int choose);
     
 }

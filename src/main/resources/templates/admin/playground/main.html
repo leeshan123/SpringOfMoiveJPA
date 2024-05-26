@@ -58,7 +58,9 @@
             </div>
             <div th:unless="${#dates.createNow().before(pgbList.deadLineDate)}">
                 <!-- 새로운 버튼 추가 -->
-                <button type="button" class="n-btn n-btn-color:sub point-btn" th:attr="data-id=${pgbList.id}">
+                <button type="button" class=""
+                th:class="${pgbList.paymentStatus == 0 ? 'n-btn n-btn-color:sub disabled' : 'n-btn n-btn-color:sub point-btn'}"
+                        th:attr="data-id=${pgbList.id}">
                         포인트 지급
                 </button>
             </div>

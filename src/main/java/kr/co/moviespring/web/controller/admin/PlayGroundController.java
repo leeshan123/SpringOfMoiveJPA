@@ -32,7 +32,9 @@ public class PlayGroundController {
     // 처음 메인 페이지
     @GetMapping("main")
     public String main(Model model) {
-        List<PlayGroundBoard> pgbList = playGroundService.getBoardList();
+        List<PlayGroundBoard> pgbList = playGroundService.getadminBoardList();
+
+
         model.addAttribute("pgbList", pgbList);
 
 

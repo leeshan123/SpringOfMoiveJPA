@@ -65,18 +65,35 @@
         .event-wrap section{
             width:640px;
         }
+
+        .main-screen {
+            width: 1332px;
+            height: 700px;
+            margin: 0 auto;
+
+        }
+
+        .main-screen iframe{
+            margin: 0 auto;
+        }
+
+
+
+
     </style>
 </head>
 
 <body>
     <main layout:fragment="main">
         <!-- 미디어로 가운데로 값주기-->
-        <section>
+        <section class="main-screen-wrap ">
+            <div class="main-screen">
             <h1 class="d:none">메인페이지 대문</h1>
 <!--            <img class="testzz" src="" th:src="${list[0].posterUrl}" width="100%" height="800px" alt=""> &lt;!&ndash;//메인이미지 수정중&ndash;&gt;-->
             <iframe class="bd-radius:3" width="100%" height="700" src="https://www.youtube.com/embed/-AZ7cnwn2YI"
                 frameborder="0" allowfullscreen>
             </iframe>
+            </div>
         </section>
         <section class="media">
             <h1 class="d:none">메인페이지 컨텐츠</h1>
@@ -90,9 +107,6 @@
                         <ul class="d:flex fs:1 ai:center jc:space-between p-right:1 fs:2 fw:bold color:base-6">
                             <li class="p-right:3 fs:3 color:base-10">
                                 <a href="">서울의 봄 순위</a>
-                            </li>
-                            <li class="">
-                                <a href="">평점 순위</a>
                             </li>
                         </ul>
                     </section>

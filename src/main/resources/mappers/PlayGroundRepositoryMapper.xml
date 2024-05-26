@@ -14,6 +14,12 @@
 		select * from play_ground_board
 	</select>
 
+	<select id="findAllAdmin" resultType="PlayGroundBoard">
+		SELECT DISTINCT pgb.*, COALESCE(b.payment_status, 1) AS payment_status
+		FROM play_ground_board pgb
+		LEFT JOIN betting b ON b.betting_board_id = pgb.id;
+	</select>
+
 	<delete id="delete">
 		delete from play_ground_board
 		where id = #{id}

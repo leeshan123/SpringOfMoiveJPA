@@ -25,6 +25,7 @@ public class PlayGroundBoard {
     int hit;
     Long adminId;
     String posterUrl;
+    int paymentStatus;
 
     @Builder
     public PlayGroundBoard(String title, String movieId, String bettingTitle, Date voteEndDate, Date deadLineDate, Long adminId) {

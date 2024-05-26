@@ -17,10 +17,6 @@ window.addEventListener('load', function () {
 
 
 
-
-
-
-
     //오픈버튼
     openButton.addEventListener('click', () => handleButtonClick('http://localhost/admin/playground/reg'));
 
@@ -50,13 +46,15 @@ window.addEventListener('load', function () {
     // 포인트 지급 버튼
     pointButtons.forEach(button => {
         button.addEventListener('click', function () {
-            const id = this.getAttribute('data-id');
-            givepointButton.setAttribute('data-id', id);
-            console.log("id: " + id);
-            realDeleteButton.setAttribute('data-id', id);
-            pointModal.classList.remove('d:none');
-            modalBackdrop.classList.remove('d:none');
-            pointModal.classList.add('modal-fade-in');
+            if (!this.classList.contains('disabled')) {
+                const id = this.getAttribute('data-id');
+                givepointButton.setAttribute('data-id', id);
+                console.log("id: " + id);
+                realDeleteButton.setAttribute('data-id', id);
+                pointModal.classList.remove('d:none');
+                modalBackdrop.classList.remove('d:none');
+                pointModal.classList.add('modal-fade-in');
+            }
         });
 
 
@@ -107,72 +105,80 @@ window.addEventListener('load', function () {
         });
     });
 
-    givepointButton.addEventListener('click', function() {
-        const pbgId = this.getAttribute('data-id');
-        let leftBettingCheckBox = document.querySelector('.left-betting-checkbox');
-        let rightBettingCheckBox = document.querySelector('.right-betting-checkbox');
-        let selectedBettingValue = null;
+    givepointButton.addEventListener('click', function(e) {
 
-        //체크가 안됏으면 실행 안되게
-        if(leftBettingCheckBox.checked || rightBettingCheckBox.checked) {
-            if (leftBettingCheckBox.checked) {
-                selectedBettingValue = leftBettingCheckBox.value;
-            } else if (rightBettingCheckBox.checked) {
-                selectedBettingValue = rightBettingCheckBox.value;
+
+            const pbgId = this.getAttribute('data-id');
+            let leftBettingCheckBox = document.querySelector('.left-betting-checkbox');
+            let rightBettingCheckBox = document.querySelector('.right-betting-checkbox');
+            let selectedBettingValue = null;
+            const pointButton = document.querySelector('.point-btn[data-id="' + pbgId + '"]');
+
+
+            //체크가 안됏으면 실행 안되게
+            if (leftBettingCheckBox.checked || rightBettingCheckBox.checked) {
+                if (leftBettingCheckBox.checked) {
+                    selectedBettingValue = leftBettingCheckBox.value;
+                } else if (rightBettingCheckBox.checked) {
+                    selectedBettingValue = rightBettingCheckBox.value;
+                }
+
+
+                console.log("selectedBettingValue:" + selectedBettingValue);
+
+                let data = {
+                    pbgId: pbgId,
+                    selectedBettingValue: parseInt(selectedBettingValue)
+                };
+
+                // API 호출
+                fetch('/api/playground/givepoint', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+
+                        // 포인트 지급 성공 시 버튼 삭제 및 콘솔에 메시지 출력
+                        // givepointButton.remove();
+                        alert('포인트 지급 완료!');
+
+
+
+                        pointButton.classList.replace('point-btn', 'disabled');
+                        pointModal.classList.replace('modal-fade-in', 'modal-fade-out');
+
+                        setTimeout(() => {
+                            pointModal.classList.add('d:none');
+                            modalBackdrop.classList.add('d:none');
+                            pointModal.classList.remove('modal-fade-out');
+                        }, 130);
+
+
+                    })
+                    .catch(error => {
+                        console.error('포인트 지급 실패:', error);
+                        // 실패 시 콘솔에 에러 메시지 출력
+                    });
+
+            } else {
+                alert('베팅 체크해야됨!');
             }
 
 
-            console.log("selectedBettingValue:" + selectedBettingValue);
-
-            let data = {
-                pbgId: pbgId,
-                selectedBettingValue: parseInt(selectedBettingValue)
-            };
-
-            // API 호출
-            fetch('/api/playground/givepoint', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    console.log('포인트 지급 성공:', data);
-                    // 포인트 지급 성공 시 버튼 삭제 및 콘솔에 메시지 출력
-                    // givepointButton.remove();
-                    alert('포인트 지급 완료!');
-
-                    pointModal.classList.replace('modal-fade-in', 'modal-fade-out');
-
-                    setTimeout(() => {
-                        pointModal.classList.add('d:none');
-                        modalBackdrop.classList.add('d:none');
-                        pointModal.classList.remove('modal-fade-out');
-                    }, 130);
-
-                })
-                .catch(error => {
-                    console.error('포인트 지급 실패:', error);
-                    // 실패 시 콘솔에 에러 메시지 출력
-                });
-
-        }else{
-            alert('베팅 체크해야됨!');
-        }
 
 
 
 
     });
-
-
 
 
 

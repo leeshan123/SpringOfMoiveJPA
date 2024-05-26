@@ -220,10 +220,16 @@ public class PlayGroundController {
 
         List<Betting> SuccessUsers = btRepository.finaAllSuccessUser(boardId, choose);
 
-        for(Betting user : SuccessUsers){
-            System.out.println(user.getSuccessPoint());
+        for(Betting bettingUser : SuccessUsers){
+            System.out.println(bettingUser.getSuccessPoint());
+
+
+            btRepository.givePointUser(bettingUser);
+            btRepository.changePaymentStatus(bettingUser);
 
         }
+
+        System.out.println("베팅 지급 완료!");
 
 //        btrRepository.getPoint(boardId, choose);
 //        btrRepository.deletegetPoint(boardId, choose);
