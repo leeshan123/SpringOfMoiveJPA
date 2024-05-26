@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="inc/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${people.korName != null ? people.korName : people.engName}+' - '+영화의봄">Document</title>
+<!--    <link rel="stylesheet" type="text/css" href="/css/components/movie/detail.css">-->
+    <style>
+        .poster{
+            transition: transform 0.5s;
+        }
+        .poster:hover{
+            transform: scale(4);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <main layout:fragment="main">
+        <section class="media">
+        <section class="media-sect-for-commu">
+            <div class="d:flex gap:5">
+            <div>
+                <img th:src="${people.imgUrl != null ? people.imgUrl : '/image/unknown_person.jpg'}" src="https://i.namu.wiki/i/y4KFt0ysuURf9XfTQFQONTqLMYXAX3w0Kauenq6wxjiDJaE-6ePOnSPR9E0DvJgD7X_uEPrjWlPo6ZA01YWnsxwscN9U9Atc8uf973nycoQxaTfqJNn8_a2KzRqnodDU2j0qlm5w9jIiWgDadqO-Kw.webp"
+                class="bd-radius:3 object-fit:cover" alt="" width="180" height="270">
+            </div>
+            <div class="d:flex flex-direction:column jc:end gap:5">
+                <p class="fs:7 fw:bold" th:if="${people.korName != null and people.engName == null}" th:text="${people.korName}">김성수</p>
+                <p class="fs:7 fw:bold" th:if="${people.korName == null and people.engName != null}" th:text="${people.engName}">김성수</p>
+                <div th:if="${people.korName != null and people.engName != null}">
+                    <p class="fs:7 mb:4 fw:bold" th:text="${people.korName}">김성수</p>
+                    <p class="fs:5 color:base-6" th:text="${people.engName}">김성수</p>
+                </div>
+            </div>
+            </div>
+
+            <table class="mb:4 mt:4 n-table n-table-hover n-table-border n-table-border-radius:3 fw:3">
+                <colgroup>
+                    <col style="width: 60px;"> <!--119-->
+                    <col style="width: 447px;"> <!--447-->
+                    <col style="width: 40px;"> <!--160-->
+                    <col style="width: 78px;"> <!--78-->
+<!--                    <col style="width: 60px;"> &lt;!&ndash;60&ndash;&gt;-->
+<!--                    <col style="width: 116px;"> &lt;!&ndash;116&ndash;&gt;-->
+                    <!-- 추가적인 열에 대한 너비 설정 -->
+                </colgroup>
+                <thead class="">
+                <tr class="jc:space-around">
+                    <th class="txt-al:center">개봉년도</th>
+                    <th class="txt-al:center">필모그래피</th>
+                    <th class="txt-al:center">역할</th>
+<!--                    <th class="txt-al:center">조회</th>-->
+<!--                    <th class="txt-al:center">추천</th>-->
+                    <th class="txt-al:center">평가</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="movie:${list}">
+                    <td class="txt-al:center py:1">
+                                <span class="color:base-6 px:1"
+                                      th:text="${#dates.format(movie.releaseDate, 'yyyy')}">개봉일</span>
+                    </td>
+                    <td class="overflow:visible txt-al:start px:0 py:3 white-space:normal d:flex">
+                        <a href="" th:href="@{/movie/detail(movieid=${movie.id})}" class="w:10p d:flex ai:center">
+                            <img th:src="${movie.posterUrl}" width="112px" alt="" class="poster bd-radius:1">
+                            <span th:text="${movie.korName}" class="p:6 fs:4">영화 제목</span>
+                        </a>
+                    </td>
+                    <td class="txt-al:center py:1 color:base-6" th:text="${{param.type}} == 'actor' ? '배우' : '감독'">배우</td>
+                    <td class="fw:2 txt-al:center py:1 " th:classappend="${movie.reviewCount == 0 ? 'color:base-6' : (((movie.totalMemberRate)/(movie.reviewCount)/100*100 >= 15000) ? 'color:accent-1' : 'color:sub-1')}"
+                        th:text="${movie.reviewCount == 0 ? '15000원' : (movie.totalMemberRate)/(movie.reviewCount)/100*100+'원'}">30000원</td>
+                </tr>
+                </tbody>
+            </table>
+
+<!--            <div class="h:1 bd-left bd-color:main-3 bd-w:3">-->
+<!--                <p class="fs:8 fw:bold ml:2">필모그래피</p>-->
+<!--            </div>-->
+
+<!--            <div class="h:1 d:flex bd-top bd-bottom bd-color:color:base-6 bd-w:2 ai:center gap:10">-->
+<!--                <div class="fs:6 w:2 ml:2">개봉</div>-->
+<!--                <div class="fs:6 w:10">제목</div>-->
+<!--                <div class="fs:6 w:2 txt-al:center">역할</div>-->
+<!--                <div class="fs:6 w:2 txt-al:center">평가</div>-->
+<!--            </div>-->
+
+<!--            <div class="h:4 d:flex bd-top bd-bottom bd-color:color:base-6 bd-w:2 ai:center gap:10">-->
+<!--                <div class="fs:6 w:2 ml:2">-->
+<!--                <div><p>2023</p></div>-->
+<!--                </div>-->
+<!--                <div class="d:flex fs:6 w:10 ai:center gap:3">-->
+<!--                <div><img src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231108_128%2F1699411327204OxmAK_JPEG%2Fmovie_image.jpg"-->
+<!--                alt="" width="180" height="180"></div>-->
+<!--                <div><p>서울의 봄</p></div>-->
+<!--                </div>-->
+<!--                <div class="fs:6 w:2 txt-al:center"><p>감독,주연,조연</p></div>-->
+<!--                <div class="fs:6 w:2 txt-al:center"><p>20000원</p></div>-->
+<!--            </div>-->
+
+<!--            <div class="h:4 d:flex bd-top bd-bottom bd-color:color:base-6 bd-w:2 ai:center gap:10">-->
+<!--                <div class="fs:6 w:2 ml:2">-->
+<!--                <div><p>2023</p></div>-->
+<!--                </div>-->
+<!--                <div class="d:flex fs:6 w:10 ai:center gap:3">-->
+<!--                <div><img src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231108_128%2F1699411327204OxmAK_JPEG%2Fmovie_image.jpg"-->
+<!--                alt="" width="180" height="180"></div>-->
+<!--                <div><p>서울의 봄</p></div>-->
+<!--                </div>-->
+<!--                <div class="fs:6 w:2 txt-al:center"><p>감독,주연,조연</p></div>-->
+<!--                <div class="fs:6 w:2 txt-al:center"><p>20000원</p></div>-->
+<!--            </div>-->
+
+<!--            <div class="h:4 d:flex bd-top bd-bottom bd-color:color:base-6 bd-w:2 ai:center gap:10">-->
+<!--                <div class="fs:6 w:2 ml:2">-->
+<!--                <div><p>2023</p></div>-->
+<!--                </div>-->
+<!--                <div class="d:flex fs:6 w:10 ai:center gap:3">-->
+<!--                <div><img src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231108_128%2F1699411327204OxmAK_JPEG%2Fmovie_image.jpg"-->
+<!--                alt="" width="180" height="180"></div>-->
+<!--                <div><p>서울의 봄</p></div>-->
+<!--                </div>-->
+<!--                <div class="fs:6 w:2 txt-al:center"><p>감독,주연,조연</p></div>-->
+<!--                <div class="fs:6 w:2 txt-al:center"><p>20000원</p></div>-->
+<!--            </div>-->
+<!--            <div class="h:4 d:flex bd-top bd-bottom bd-color:color:base-6 bd-w:2 ai:center gap:10">-->
+<!--                <div class="fs:6 w:2 ml:2">-->
+<!--                <div><p>2023</p></div>-->
+<!--                </div>-->
+<!--                <div class="d:flex fs:6 w:10 ai:center gap:3">-->
+<!--                <div><img src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231108_128%2F1699411327204OxmAK_JPEG%2Fmovie_image.jpg"-->
+<!--                alt="" width="180" height="180"></div>-->
+<!--                <div><p>서울의 봄</p></div>-->
+<!--                </div>-->
+<!--                <div class="fs:6 w:2 txt-al:center"><p>감독,주연,조연</p></div>-->
+<!--                <div class="fs:6 w:2 txt-al:center"><p>20000원</p></div>-->
+<!--            </div>-->
+<!--            <div class="h:4 d:flex bd-top bd-bottom bd-color:color:base-6 bd-w:2 ai:center gap:10">-->
+<!--                <div class="fs:6 w:2 ml:2">-->
+<!--                <div><p>2023</p></div>-->
+<!--                </div>-->
+<!--                <div class="d:flex fs:6 w:10 ai:center gap:3">-->
+<!--                <div><img src="https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20231108_128%2F1699411327204OxmAK_JPEG%2Fmovie_image.jpg"-->
+<!--                alt="" width="180" height="180"></div>-->
+<!--                <div><p>서울의 봄</p></div>-->
+<!--                </div>-->
+<!--                <div class="fs:6 w:2 txt-al:center"><p>감독,주연,조연</p></div>-->
+<!--                <div class="fs:6 w:2 txt-al:center"><p>20000원</p></div>-->
+<!--            </div>-->
+        </section>
+        </section>
+    </main>
+
+
+
+</body>
+</html>

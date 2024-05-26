@@ -18,7 +18,9 @@ public class Movie3 {
     private String audiAcc;
     private String movieNmEn;
     private String nationAlt;
-
+    private String prdYear;
+    private String directorNm;
+    private String companyCd;
 
     public String getMovieCd() {
         return movieCd;
@@ -80,7 +82,5 @@ public class Movie3 {
     public void setCompanyCd(String companyCd) {
         this.companyCd = companyCd;
     }
-    private String prdYear;
-    private String directorNm;
-    private String companyCd;
+    
 }

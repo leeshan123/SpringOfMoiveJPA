@@ -336,7 +336,7 @@ public class MovieAPI {
 
 
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         // 일단 위에거 안쓰고 데이터 저장용 테스트
         TMDBMovieAPI api = new TMDBMovieAPI();
         String movieName = "THE ROUNDUP : PUNISHMENT";
@@ -366,8 +366,8 @@ public class MovieAPI {
         movie.setMovieIntro(md.getOverview());
         movie.setPosterUrl("https://image.tmdb.org/t/p/original/" + md.getPosterPath());
         movie.setRunningTime(md.getRuntime());
-        movie.setStillcutUrl("https://image.tmdb.org/t/p/original/" + md.getBackdropPath());
-        movie.setTrailerUrl("https://www.youtube.com/watch?v=" + md.getResults().get(0).getKey());
+        movie.setMainImgUrl("https://image.tmdb.org/t/p/original/" + md.getBackdropPath());
+        // movie.setTrailerUrl("https://www.youtube.com/watch?v=" + md.getResults().get(0).getKey());
         
         // actor 저장
         List<Cast> casts = md.getCasts();

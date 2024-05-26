@@ -17,8 +17,8 @@ public class CommunityBoardServiceImp implements CommunityBoardService {
 
     // 게시글 등록//
     @Override
-    public void write(String title, String contents,Long categoryId) {
-        communityBoardRepository.saveContents(title,contents,categoryId);
+    public void write(Long memberId,String title, String contents,Long categoryId) {
+        communityBoardRepository.save(memberId,title,contents,categoryId);
     }
     
     // 게시글 삭제//
@@ -31,16 +31,16 @@ public class CommunityBoardServiceImp implements CommunityBoardService {
     // 게시글 수정
     @Override
     public void editById(Long id, String title, String contents) {
-        communityBoardRepository.edit(id, title, contents);
+        communityBoardRepository.update(id, title, contents);
     }
 
 
     //카테고리별+검색쿼리값 게시글 목록//
     @Override
     public List<CommunityBoardView> getList(Long categoryId, Integer page, Integer size, String query) {
-//        int size = 20;
+        //int size = 20;
         int offset = (page-1)*size;
-        List<CommunityBoardView> list = communityBoardRepository.findAll(categoryId, query, offset, size);
+        List<CommunityBoardView> list = communityBoardRepository.findAllByCategoryId(categoryId, query, offset, size);
         return list;
     }
 
@@ -51,20 +51,46 @@ public class CommunityBoardServiceImp implements CommunityBoardService {
     }
 
     //게시글 상세//
+    // @Override
+    // public CommunityBoard getById(Long id) {
+    //     CommunityBoard board = communityBoardRepository.findById(id);
+    //     return board;
+    // }
+
+    //게시글 상세 사용자 닉네임추가//
     @Override
-    public CommunityBoard getById(Long id) {
-        CommunityBoard board = communityBoardRepository.findById(id);
+    public CommunityBoardView getById(Long id) {
+        CommunityBoardView board = communityBoardRepository.findById(id);
         return board;
     }
+    // 다음글 아이디 가져오기
+    @Override
+    public CommunityBoard getNextId(Long boardId, Long categoryId) {
+        CommunityBoard nextBoard = communityBoardRepository.findNextId(boardId,categoryId);
+        return nextBoard;
+    }
+    // 이전글 아이디 가져오기
+    @Override
+    public CommunityBoard getPrevId(Long boardId, Long categoryId) {
+        CommunityBoard prevBoard = communityBoardRepository.findPrevId(boardId,categoryId);
+        return prevBoard;
+    }
+
+    
 
     @Override
-    public int getCount(Long categoryId) {
-        return getCount(categoryId, null);
+    public int getCount(Long memberId) {
+        return getCount(memberId, null, null);
     }
 
     @Override
-    public int getCount(Long categoryId, String query) {
-        int count = communityBoardRepository.getCount(categoryId, query);
+    public int getCount(Long memberId, Long categoryId) {
+        return getCount(memberId, categoryId, null);
+    }
+
+    @Override
+    public int getCount(Long memberId, Long categoryId, String query) {
+        int count = communityBoardRepository.getCount(memberId, categoryId, query);
         return count;
     }
 

@@ -3,9 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.moviespring.web.repository.MovieDirectorRepository">
+
     <insert id="save" parameterType="MovieDirector">
         insert into movie_director (movie_id, director_id)
         values (#{movieId}, #{directorId})
     </insert>
 
+    <!--영화코드별 감독리스트-->
+    <select id="findAllById" resultType="Director">
+        SELECT director.id, director.kobis_id, director.tmdb_id, director.kor_name, director.eng_name, director.img_url, director.popularity
+        FROM movie_director
+        JOIN director ON movie_director.director_id = director.id
+        WHERE movie_director.movie_id = #{movieId}
+        ORDER BY popularity DESC
+    </select>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM movie_director WHERE movie_id=#{movieId};
+    </delete>
 </mapper>

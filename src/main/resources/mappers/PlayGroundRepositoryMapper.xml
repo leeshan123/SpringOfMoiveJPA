@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.moviespring.web.repository.PlayGroundRepository">
+
+
+	<insert id="save" parameterType="PlayGroundBoard">
+		INSERT INTO play_ground_board (title, movie_id, betting_title, vote_end_date, dead_line_date, admin_id)
+		VALUES (#{title}, #{movieId},#{bettingTitle}, #{voteEndDate}, #{deadLineDate}, #{adminId})
+	</insert>
+
+	<select id="findAll" resultType="PlayGroundBoard">
+		select * from play_ground_board
+	</select>
+
+	<select id="findAllAdmin" resultType="PlayGroundBoard">
+		SELECT DISTINCT pgb.*, COALESCE(b.payment_status, 1) AS payment_status
+		FROM play_ground_board pgb
+		LEFT JOIN betting b ON b.betting_board_id = pgb.id;
+	</select>
+
+	<delete id="delete">
+		delete from play_ground_board
+		where id = #{id}
+	</delete>
+
+	<select id="findById" resultType="PlayGroundBoard">
+		SELECT p.*, m.poster_url poster_url
+		FROM play_ground_board p
+		JOIN movie m ON p.movie_id = m.id
+		where p.id = #{id}
+	</select>
+
+	<update id="update" parameterType="PlayGroundBoard">
+		update play_ground_board
+		set title = #{title},
+			movie_id = #{movieId},
+			betting_title = #{bettingTitle},
+			vote_end_date = #{voteEndDate},
+			dead_line_date = #{deadLineDate},
+			left_betting_point = #{leftBettingPoint},
+			right_betting_point = #{rightBettingPoint},
+			left_dividend = #{leftDividend},
+			right_dividend = #{RightDividend},
+			admin_id = #{adminId}
+		where id = #{id}
+	</update>
+
+	<resultMap id="PlayGroundBoardResultMap" type="kr.co.moviespring.web.entity.PlayGroundBoard">
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="movie_id" property="movieId"/>
+		<result column="betting_title" property="bettingTitle"/>
+		<result column="vote_end_date" property="voteEndDate"/>
+		<result column="dead_line_date" property="deadLineDate"/>
+		<result column="left_betting_point" property="leftBettingPoint"/>
+		<result column="right_betting_point" property="rightBettingPoint"/>
+		<result column="left_dividend" property="leftDividend"/>
+		<result column="right_dividend" property="RightDividend"/>
+		<result column="hit" property="hit"/>
+		<result column="admin_id" property="adminId"/>
+		<result column="poster_url" property="posterUrl"/>
+	</resultMap>
+
+	<select id="findAllPlusMovie" parameterType="PlayGroundBoard">
+		<![CDATA[
+	SELECT p.*, m.poster_url AS poster_url
+	FROM play_ground_board p
+         JOIN movie m ON p.movie_id = m.id
+	ORDER BY
+    	CASE
+        WHEN p.vote_end_date < DATE_SUB(NOW(), INTERVAL 1 DAY) THEN 1
+        ELSE 0
+        END ASC,
+    p.vote_end_date ASC;
+  	]]>
+	</select>
+
+	<insert id="saveBetting" parameterType="Betting">
+		INSERT INTO betting
+		(betting_point, success_point, member_id, betting_board_id,choose)
+		VALUES (#{bettingPoint}, #{successPoint},#{memberId}, #{bettingBoardId},#{choose})
+	</insert>
+	
+	<select id="countBettingUser" resultType="int">
+		select count(*) from betting where betting_board_id = #{bettingBoardId}
+	</select>
+
+	<select id="getCount" resultType="Integer">
+        select count(*) from betting
+        where member_id = #{memberId};
+    </select>
+
+	<select id="findTop5" resultType="PlayGroundBoard">
+		SELECT p.*, m.poster_url poster_url
+		FROM play_ground_board p
+		JOIN movie m ON p.movie_id = m.id
+		order by p.vote_end_date limit 5
+	</select>
+
+</mapper>
+

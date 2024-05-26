@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="inc/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${{c.name}}+게시판+' - '+영화의봄">Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="/js/community-board/list.js" defer></script>
+    <style>
+        .title-line-height{
+            height: 26px;
+            line-height: 26px;
+        }
+    </style>
+</head>
+
+<body>
+    <main layout:fragment="main">
+        <!-- <div style="height: 300px; width: 100px; background-color: red ;"></div>
+    </div> -->
+
+
+        <section class="media color:base-10">
+            <h1 class="d:none">게시글 리스트</h1>
+            <section class="media-sect-for-commu mt:8">
+                <h1 class="title-line-height fw:bold fs:6 color:main-3" th:classappend="${c.name} == '인기글' ? 'color:accent-1'" th:text="${(c.name == '인기글' || c.name == '굿즈&포스터 ') ? (c.name == '인기글' ? '🔥' + c.name : c.name+'게시판') : c.name+'게시판'}">인기글</h1>
+                <nav class="d:flex">
+                    <ul class="n-tabbar jc:end n-tabbar-type:outline">
+                        <li th:each="ctgList, stat : ${ctgList}" th:classappend="${c.name == ctgList.name ? 'active' : ''}">
+                            <a th:text="${stat.first || ctgList.name == '굿즈&포스터 ' ? ctgList.name : ctgList.name+'게시판'}" th:href="@{list(c=${ctgList.engName})}" @click.prevent="categoryClickHandler(ctgList.engName)">카테고리 목록</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div>
+                    <table class="mb:4 mt:4 n-table n-table-hover n-table-border n-table-border-radius:3 fw:3">
+                        <colgroup>
+                            <col style="width: 119px;"> <!--119-->
+                            <col style="width: 447px;"> <!--447-->
+                            <col style="width: 160px;"> <!--160-->
+                            <col style="width: 78px;"> <!--78-->
+                            <col style="width: 60px;"> <!--60-->
+                            <col style="width: 116px;"> <!--116-->
+                            <!-- 추가적인 열에 대한 너비 설정 -->
+                        </colgroup>
+                        <thead class="">
+                            <tr class="jc:space-around">
+                                <th class="txt-al:center">분류</th>
+                                <th class="txt-al:center">제목</th>
+                                <th class="txt-al:center">작성자</th>
+                                <th class="txt-al:center">조회</th>
+                                <th class="txt-al:center">추천</th>
+                                <th class="txt-al:center">작성일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="board:${list}">
+                                <td class="txt-al:center py:1">
+                                    <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
+                                        th:text="${c.name}">카테고리 이름</span>
+                                </td>
+                                <td class="txt-al:start py:1 white-space:normal">
+                                    <a href="" th:href="@{detail(c=${c.engName},id=${board.id})}" th:text="${board.title}">게시글 제목</a>
+                                    <span class=" color:base-6 fs:2" th:text="${board.commentCount > 0 ? '['+board.commentCount+']' :''}">[12]</span>
+                                </td>
+                                <td th:text="${board.nickname}" class="txt-al:start py:1">작성자</td>
+                                <td th:text="${board.hit}" class="txt-al:center py:1">조회수</td>
+                                <td class="txt-al:center py:1">123</td>
+                                <td class="txt-al:center py:1" th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}">작성일
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div th:if="${c.engName != 'best'}" class="d:flex jc:center my:3">
+                        <!-- th:href="@{reg(categoryId=${list.id})}" -->
+                        <section class="query-filter" id="query-form">
+                            <h1 class="d:none">이름 검색 폼</h1>
+                            <form class="p:0 n-form n-form-type:outline-none"
+                                  action="list">
+                                <fieldset>
+                                    <legend class="d:none">이름 검색</legend>
+                                    <input class="query-input" type="text" name="q" placeholder="게시글 검색">
+                                    <input class="d:none" type="text" name="c" th:value="${c.engName}">
+                                    <!-- <input type="hidden" name="u" value="${param.c}"> -->
+                                    <button class="icon icon:magnifying_glass" >검색</button>
+                                </fieldset>
+                            </form>
+                        </section>
+                        <!--비회원이 요청시-->
+                        <button sec:authorize="isAnonymous()" disabled type="button" class="n-btn box-shadow:1">로그인후 작성</button>
+                        <!--회원이 요청시-->
+                        <a sec:authorize="isAuthenticated()" th:href="@{reg(c=${c.engName})}" href="reg">
+                            <button type="button" class="n-btn box-shadow:1">게시글 작성</button>
+                        </a>
+                    </div>
+                </div>
+                <section style="" class="">
+                    <h1 class="d:none">페이저</h1>
+                    <!-- <div style="display: flex; justify-content: center;" th:text="${param.p} eq null? 0:${param.p}">1</div> -->
+                    <ul class="n-pager d:flex jc:center mb:5" th:with="page=${param.p} eq null ? 1 : ${{param.p}},
+                            floatnum=(${page}-1)/5,
+                            intnum=${T(java.lang.Math).floor(floatnum)},
+                            startnum=${intnum}*5+1,
+                            lastnum = ${count} mod 6 > 0 ? ${count div 6} + 1 : ${count div 6} + 0">
+
+                        <!-- <div th:text="${lastnum}"></div> -->
+
+                        <li>
+                            <!-- <span th:if="${page} lt 6">이전</span> -->
+                            <a th:if="${page} ge 6" th:href="@{list(p = ${startnum-1},c=${c.engName})}" href="list?p=1">이전</a>
+                        </li>
+                        <li th:class="${{param.p}} eq ${n}? active"
+                            th:each="n : ${#numbers.sequence(startnum,startnum+4)}">
+                            <span th:if="${n} gt ${lastnum}" th:text="${n}" style="visibility: hidden;">1</span>
+
+                            <a th:if="${n} le ${lastnum}" href="list?p=1" th:href="@{list(p = ${n},c=${c.engName})}"
+                               th:text="${n}">1</a>
+                        </li>
+
+                        <li>
+                            <a th:if="${lastnum} gt ${startnum+5}" th:href="@{list(p = ${startnum+5},c=${c.engName})}"
+                               href="list?p=11">다음</a>
+                            <!-- <span th:if="${lastnum} lt ${startnum+5}">다음</span> -->
+
+                        </li>
+                    </ul>
+                </section>
+            </section>
+        </section>
+        </div>
+    </main>
+</body>
+
+</html>

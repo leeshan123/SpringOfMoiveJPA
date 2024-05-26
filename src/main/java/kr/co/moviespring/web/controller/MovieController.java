@@ -1,22 +1,27 @@
 package kr.co.moviespring.web.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.moviespring.web.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import kr.co.moviespring.web.config.batch.BatchSchedulerConfig;
 import kr.co.moviespring.web.config.security.CustomUserDetails;
-import kr.co.moviespring.web.entity.Movie;
-import kr.co.moviespring.web.entity.OnelineReview;
+import kr.co.moviespring.web.movieapi.dto.kobis.KobisDailyBox;
+import kr.co.moviespring.web.service.MovieActorService;
+import kr.co.moviespring.web.service.MovieDirectorService;
 import kr.co.moviespring.web.service.MovieService;
+import kr.co.moviespring.web.service.MovieStillcutService;
+import kr.co.moviespring.web.service.MovieTrailerService;
 import kr.co.moviespring.web.service.OnelineReviewService;
+import kr.co.moviespring.web.service.TwoWeeksMovieService;
 
 @Controller
 @RequestMapping("movie")
@@ -28,9 +33,23 @@ public class MovieController {
     @Autowired
     OnelineReviewService onelineReviewService;
 
+    @Autowired
+    MovieActorService movieActorService;
+
+    @Autowired
+    MovieDirectorService movieDirectorService;
+
+    @Autowired
+    MovieStillcutService movieStillcutService;
+
+    @Autowired
+    MovieTrailerService movieTrailerService;
+    @Autowired
+    TwoWeeksMovieService TWMovieService;
+
     // 영화 목록//
-    @GetMapping("list")
-    public String list(Model model) {
+    @GetMapping("main")
+    public String main(Model model) {
 
         //영화 받아오기 테스트
         // List <Movie> mlist = new ArrayList<>();
@@ -61,10 +80,32 @@ public class MovieController {
         //     m.setMovieIntro(movieUrl.getOverView());
         //     mlist.add(m);
         // }
+        // List<String> sList = BatchSchedulerConfig.getList();
+        // List<Movie> dailyList = new ArrayList<>();
+        // for (String mCode : sList) {
+        //     Movie movie = movieService.getByKobisId(mCode);
+        //     dailyList.add(movie);
+        // }
+        // 슬슬 없는 영화들 나와서 movie3을 채우던지, 없는 영화에 대해 새로 받는 로직을 추가할건지
+        // 일단 일별박스오피스는 올해의 영화로 대체
+        List<Movie> dailyList = BatchSchedulerConfig.getList();
+        List<Movie> list = movieService.getListByYear();
+        List<Movie> listAfter = movieService.getListAfter();
 
-        List<Movie> list = movieService.getList();
+        // 서버로 돌면 풀어주기, 일단 그냥 리스트로
+        if(dailyList == null)
+            dailyList = list;
+
+        model.addAttribute("dlist", dailyList);
         model.addAttribute("list", list);
-        return "movie/list";
+        model.addAttribute("listAfter", listAfter);
+
+
+
+
+        return "movie/main";
+        
+        
     }
 
     // 영화 상세//
@@ -73,14 +114,50 @@ public class MovieController {
                          @RequestParam("movieid") Long movieId, Model model) {
         // 상세정보//
         Movie movie = movieService.getById(movieId);
+        List<MovieActorView> actors = movieActorService.getById(movieId);
+        List<Director> directors = movieDirectorService.getById(movieId); //디렉터 타입인데 무비디렉터 서비스 쓰는게 맞나?
+        List<MovieStillcut> stillcuts = movieStillcutService.getById(movieId);
+        List<totalVoteView> TWMovie = TWMovieService.findByMovieCd();
+        List<MovieTrailer> trailers = movieTrailerService.getById(movieId);
         // 리뷰목록//
-        List<OnelineReview> onelineReviews = onelineReviewService.getOnelineReviews(movieId);
+        List<OnelineReviewView> onelineReviews = onelineReviewService.getList(movieId);
+        // 로그인한 회원이 쓴 리뷰가 있을경우
+        if (userDetails != null) {
+        Long memberId = userDetails.getId();
+            OnelineReview review = onelineReviewService.getById(movieId, memberId);
+            if (review != null)
+            model.addAttribute("myReview", review);
+        }
+        // 영화 평점 불러오기
+        {
+            model.addAttribute("avgRate", 15000); //리뷰가 없을경우 기본값 전송
+            if (onelineReviews.size() != 0) {
+                int total = 0;
+                int avg = 0;
+                for (int i = 0; i < onelineReviews.size(); i++) {
+                    total += onelineReviews.get(i).getMemberRate();
+                }
+                avg = total / (onelineReviews.size());
+                int intAvg = avg / 100 * 100; // 소수점 앞 2자리 잘라서 100단위까지만 나오게
+                model.addAttribute("avgRate", intAvg); //유저 평점을 기준으로 평균가격 측정
+            }
+        }
+        // for(totalVoteView TWMovies : TWMovie){
+        //     if(TWMovies.getMovieCd() == movie.getId())
 
+        // }
+        
+        model.addAttribute("movie2", TWMovie);
         model.addAttribute("movie", movie);
+        model.addAttribute("actors", actors);
+        model.addAttribute("directors", directors);
         model.addAttribute("reviews", onelineReviews);
+        model.addAttribute("stillcuts", stillcuts);
+        model.addAttribute("trailers", trailers);
         model.addAttribute("user", userDetails); //유저 정보 객체 넣어줌 테스트중
+        
 
-        return "movie/detail-copy";
+        return "movie/detail";
     }
 
     // @PostMapping("Comment")
@@ -92,21 +169,37 @@ public class MovieController {
     // }
     // 한줄평 등록//
     @PostMapping("comment")
-    public String comment(String comments, int rate, @RequestParam("movie-id") Long movieId) {
+    public String comment(String comments, @RequestParam(value = "rate", defaultValue = "15000") int rate, @RequestParam("movieid") Long movieId,
+                          @AuthenticationPrincipal CustomUserDetails userDetails) {
 
-        String id = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println(id);
-
-        onelineReviewService.saveComment(id, comments, rate, movieId);
-
-        System.out.println("댓글작성");
+        Long memberId = userDetails.getId();
+        onelineReviewService.saveComment(memberId, comments, rate, movieId);
         return "redirect:/movie/detail?movieid=" + movieId;
     }
 
-    @GetMapping("actor")
-    public String actor() {
-
-        return "movie/actor";
+    /*한줄평 삭제 */
+    @PostMapping("comment/delete/{movieid}")
+    public String delete(@PathVariable("movieid") Long movieId,@AuthenticationPrincipal CustomUserDetails userDetails){
+        Long memberId = userDetails.getId();
+        onelineReviewService.deleteComment(memberId, movieId);
+        return "redirect:/movie/detail?movieid=" + movieId;
+    
     }
+    // 한줄평 수정// //put으로 바꿔야함
+    @PostMapping("comment/edit/{movieid}")
+    public String edit(String comments , int rate, @PathVariable("movieid") Long movieId,
+                       @AuthenticationPrincipal CustomUserDetails userDetails) {
+
+        Long memberId = userDetails.getId();
+        onelineReviewService.editComment(memberId, comments, rate, movieId);
+
+        return "redirect:/movie/detail?movieid=" + movieId;
+    }
+
+//    @GetMapping("actor")
+//    public String actor() {
+//
+//        return "movie/people";
+//    }
 
 }

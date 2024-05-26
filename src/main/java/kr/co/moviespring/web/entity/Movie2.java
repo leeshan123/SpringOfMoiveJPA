@@ -17,7 +17,7 @@ public class Movie2 {
     private String movieCd; // 영화 코드(PK)
     private String movieNm; // 영화한국이름
     private String movieNmEn; // 영화영어이름
-    private String prdtYear; // 제작년도
+    private String prdYear; // 제작년도
     private String openDt; //날짜 일단 string으로
     private int salesAmt; //해당 매출액
     private int audiCnt; //해당 관객수

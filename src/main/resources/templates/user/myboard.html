@@ -8,12 +8,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>내 게시글 - 영화의봄</title>
     <link rel="stylesheet" href="/css/components/user/myboard.css">
     <style>
         .user-info-section ul li:nth-child(3){
             color: green;
             border-bottom: solid 2px green;
+        }
+        main>h1{
+            font-size: 22px;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -21,60 +25,12 @@
     <main layout:fragment="main">
         <h1>내 게시물</h1>
         <ul class="board-list fw:3">
-            <li class="bd-bottom border-width:2 pb:4 mb:3">
-                <span class="">작성일: <span>2024.02.08</span></span>
+            <li th:each="m : ${list}" class="bd-bottom border-width:2 pb:2 mb:2">
+                <span class="fs:1 color:base-6" th:text="${#dates.format(m.regDate, 'yyyy.MM.dd')}">2024.02.08</span>
                 <div class="mt:2">
-                    <span class="fs:7">서울의봄 재밌다</span>
-                    <span class="ml:3">댓글: <span class="color:accent-3">3</span></span>
-                </div>
-            </li>
-            <li class="bd-bottom border-width:2 pb:4 mb:3">
-                <span class="">작성일: <span>2024.02.08</span></span>
-                <div class="mt:2">
-                    <span class="fs:7">전장군님 나라를 이끌어 주십시오</span>
-                    <span class="ml:3">댓글: <span class="color:accent-3">3</span></span>
-                </div>
-            </li>
-            <li class="bd-bottom border-width:2 pb:4 mb:3">
-                <span class="">작성일: <span>2024.02.08</span></span>
-                <div class="mt:2">
-                    <span class="fs:7">외계+인 준순 후기 알려준다. (스포주의)</span>
-                    <span class="ml:3">댓글: <span class="color:accent-3">3</span></span>
-                </div>
-            </li>
-            <li class="bd-bottom border-width:2 pb:4 mb:3">
-                <span class="">작성일: <span>2024.02.08</span></span>
-                <div class="mt:2">
-                    <span class="fs:7">정소민 무대인사에서 본 썰 말해본다.</span>
-                    <span class="ml:3">댓글: <span class="color:accent-3">3</span></span>
-                </div>
-            </li>
-            <li class="bd-bottom border-width:2 pb:4 mb:3">
-                <span class="">작성일: <span>2024.02.08</span></span>
-                <div class="mt:2">
-                    <span class="fs:7">강하늘한테 반한 썰 말해본다.</span>
-                    <span class="ml:3">댓글: <span class="color:accent-3">3</span></span>
-                </div>
-            </li>
-            <li class="bd-bottom border-width:2 pb:4 mb:3">
-                <span class="">작성일: <span>2024.02.08</span></span>
-                <div class="mt:2">
-                    <span class="fs:7">서울의봄 재밌다</span>
-                    <span class="ml:3">댓글: <span class="color:accent-3">3</span></span>
-                </div>
-            </li>
-            <li class="bd-bottom border-width:2 pb:4 mb:3">
-                <span class="">작성일: <span>2024.02.08</span></span>
-                <div class="mt:2">
-                    <span class="fs:7">서울의봄 재밌다</span>
-                    <span class="ml:3">댓글: <span class="color:accent-3">3</span></span>
-                </div>
-            </li>
-            <li class="bd-bottom border-width:2 pb:4 mb:3">
-                <span class="">작성일: <span>2024.02.08</span></span>
-                <div class="mt:2">
-                    <span class="fs:7">서울의봄 재밌다</span>
-                    <span class="ml:3">댓글: <span class="color:accent-3">3</span></span>
+                    <a class="fs:4" th:href="'/community/board/detail?c=' + ${clist.get(m.categoryId-1).engName} + '&amp;id=' + ${m.id}" th:text="${m.title}">서울의봄 재밌다</a>
+                    <span class="fw:2 color:base-7" th:text="'('+${clist.get(m.categoryId-1).name}+' 게시판)'"></span>
+                    <span class="ml:3">댓글: <span th:text="${m.commentCount}" class="color:accent-3">3</span></span>
                 </div>
             </li>
         </ul>

@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>마이페이지 - 영화의봄</title>
     <link rel="stylesheet" href="/css/components/user/main.css">
 </head>
 <body>
@@ -17,37 +17,41 @@
             <h1 class="d:none">내 활동내역</h1>
             <div class="activity-point">
                 <h1>내 관객수</h1>
-                <span>10,000,000명</span>
+                <span 
+                    th:with="point=${#authentication.getPrincipal().getPoint()},
+                             point=${point > 999 ? #numbers.formatInteger(point,3,'COMMA') : point}"
+                    th:text="${point}"
+                >10,000,000</span> 명
             </div>
             <nav>
                 <ul>
                     <li>
                         <div>
                             <span>내가 평가한 영화</span>
-                            <span>13개</span>
+                            <span th:text="${orCnt}">13개</span>
                         </div>
-                        <a href="#">보러가기</a>
+                        <a href="mymovie">바로가기</a>
                     </li>
                     <li>
                         <div>
                             <span>내가 배팅한 영화</span>
-                            <span>5개</span>
+                            <span th:text="${pgCnt}">5개</span>
                         </div>
-                        <a href="#">보러가기</a>
+                        <a href="mybet">바로가기</a>
                     </li>
                     <li>
                         <div>
                             <span>내 게시물</span>
-                            <span>5개</span>
+                            <span th:text="${cbCnt}">5개</span>
                         </div>
-                        <a href="#">보러가기</a>
+                        <a href="myboard">바로가기</a>
                     </li>
                     <li>
                         <div>
                             <span>내 댓글</span>
-                            <span>18개</span>
+                            <span th:text="${cbcCnt}">18개</span>
                         </div>
-                        <a href="#">보러가기</a>
+                        <a href="mycomment">바로가기</a>
                     </li>
                 </ul>
             </nav>

@@ -1,70 +1,84 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="inc/adminlayout">
+      layout:decorate="inc/adminlayout">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-<style>
-.main-container {
-    width: 980px; margin: 0 auto; 
-    height: 100%;
-        
-    }   
-        
-</style>
+    <title>Title</title>
+    <style>
+      .main-container {
+          width: 980px; margin: 0 auto; 
+          height: 100%;
+      } 
+  </style>
 </head>
-
-
 <body>
-    <main layout:fragment="main">
-        <section class="">
-            <section class="main-container">
-                <section class="d:flex fl-dir:column ">
-                    <div class="fs:5 fw:bold  
-                    bd-bottom bd-color:base-5">총 회원 수</div>
-                    <div class="fs:3 fw:bold color:main-3 h:1
-                    d:flex align-items:center">12312명</div>
-                </section>
-            </section>
-            <section class="main-container">
-                <section class="d:flex fl-dir:column ">
-                    <div class="fs:5 fw:bold  
-                    bd-bottom bd-color:base-5">오늘 가입자 수</div>
-                    <div class="fs:3 fw:bold color:main-3 h:1
-                    d:flex align-items:center">132명</div>
-                </section>
-            </section>
-            <section class="main-container">
-                <section class="d:flex fl-dir:column ">
-                    <div class="fs:5 fw:bold  
-                    bd-bottom bd-color:base-5">누적 방문자 수</div>
-                    <div class="fs:3 fw:bold color:main-3 h:1
-                    d:flex align-items:center">1333333337777명</div>
-                </section>
-            </section>
-            <section class="main-container">
-                <section class="d:flex fl-dir:column ">
-                    <div class="fs:5 fw:bold  
-                    bd-bottom bd-color:base-5">오늘 방문자 수</div>
-                    <div class="fs:3 fw:bold color:main-3 h:1
-                    d:flex align-items:center">12312명</div>
-                </section>
-            </section>
-            <section class="main-container">
-                <section class="d:flex fl-dir:column ">
-                    <div class="fs:5 fw:bold  
-                    bd-bottom bd-color:base-5">나이대 통계</div>
-                    <div class="fs:3 fw:bold color:main-3 h:4
-                    d:flex align-items:center"><img src="https://news.nateimg.co.kr/orgImg/na/2023/09/06/6196788_high.jpg"
-                    width="300px" height="200px" alt=""></div>
-                </section>
-            </section>
-        </section>
-    
-        
+  <main layout:fragment="main">
+    <div class="bg-color:base-3 h:1">
+        <div class="main-container fs:5 fw:3 
+        d:flex align-items:center">통계</div>
+    </div>
+    <section class="mt:4">
+      <section class="main-container">
+          <section class="d:flex fl-dir:column ">
+              <div class="fs:5 fw:bold  
+              bd-bottom bd-color:base-5">총 회원 수</div>
+              <div class="fs:3 fw:bold color:main-3 h:1
+              d:flex align-items:center" th:text="${total}+'명'">12312명</div>
+          </section>
+      </section>
+      <section class="main-container">
+          <section class="d:flex fl-dir:column ">
+              <div class="fs:5 fw:bold  
+              bd-bottom bd-color:base-5">오늘 가입자 수</div>
+              <div class="fs:3 fw:bold color:main-3 h:1
+              d:flex align-items:center" th:text="${today}+'명'">132명</div>
+          </section>
+      </section>
+      <section class="main-container">
+          <section class="d:flex fl-dir:column ">
+              <div class="fs:5 fw:bold  
+              bd-bottom bd-color:base-5">누적 방문자 수</div>
+              <div class="fs:3 fw:bold color:main-3 h:1
+              d:flex align-items:center" th:text="${totalVisitors}+'명'">1557명</div>
+          </section>
+      </section>
+      <section class="main-container">
+          <section class="d:flex fl-dir:column ">
+              <div class="fs:5 fw:bold  
+              bd-bottom bd-color:base-5">오늘 방문자 수</div>
+              <div class="fs:3 fw:bold color:main-3 h:1
+              d:flex align-items:center" th:text="${todayVisitors}+'명'">1004명</div>
+          </section>
+      </section>
+      <section class="main-container">
+          <section class="d:flex fl-dir:column ">
+              <div class="fs:5 fw:bold
+              bd-bottom bd-color:base-5 mb:3">나이대 통계</div>
 
-    </main>
-    
+              <div th:text="'0~20대 '+${ageRangeList[0]}+'명'+'('+${percentList[0]}+'%)'" class="mb:2"> ~20대</div>
+              <div th:with="test=${ageRangeList[0]}" class="mb:10 n-progress n-progress-color:main" role="progressbar">
+                  <div th:style="'width: ' + ${percentList[0]} + '%'" ></div>
+              </div>
+
+
+              <div th:text="'20~40대 '+${ageRangeList[1]}+'명'+'('+${percentList[1]}+'%)'" class="mb:2"> 20~40대</div>
+              <div class="mb:10 n-progress n-progress-color:sub" role="progressbar">
+                  <div th:style="'width: ' + ${percentList[1]} + '%'" ></div>
+              </div>
+
+              <div th:text="'40~60대 '+${ageRangeList[2]}+'명'+'('+${percentList[2]}+'%)'" class="mb:2"> 40~60대</div>
+              <div class="mb:10 n-progress n-progress-color:accent" role="progressbar">
+                  <div th:style="'width: ' + ${percentList[2]} + '%'" ></div>
+              </div>
+
+              <div th:text="'60대~ 황혼기에 접어든 중년리뷰어 김봉식과 함께하는 특별한 밤 '+${ageRangeList[3]}+'명'+'('+${percentList[3]}+'%)'" class="mb:2"> 60대 이상</div>
+              <div class="mb:10 n-progress n-progress-color:base" role="progressbar">
+                  <div th:style="'width: ' + ${percentList[3]} + '%'" ></div>
+              </div>
+          </section>
+      </section>
+  </section>
+  </main>
+
 </body>
 </html>

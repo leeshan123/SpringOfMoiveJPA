@@ -1,56 +1,248 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="inc/layout">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<meta name="subject" content="영화의 봄" />
+<meta name="description" content="영화 관련 배팅 사이트 입니다." />
+<meta name="keywords" content="백앤드 개발자, 영화 페이지, 웹사이트 만들기">
+<meta name="author" content="이승환, 서민석, 반준순, 이택평" />
+    <title>관객놀이터 - 영화의봄</title>
+    <script type="module" src="../js/playground/playground.js" defer></script>
+
+    <style>
+        .sec_container {
+            min-width: 780px;
+            height: 100%;
+            margin: 20px auto 50px auto;
+            color: #262F45;
+        }
+
+        .icon-size {
+            width: 28px;
+            height: 28px;
+        }
+
+        .line-height {
+            line-height: 28px;
+        }
+        .betting_wrap{
+            width:100%;
+            margin-bottom: 30px;
+            box-sizing: border-box;
+        }
+        .betting_wrap .flex-box{
+            width:980px;
+            justify-content: space-between;
+        }
+        .betting_wrap .text-box{
+            width:780px;
+            box-sizing: border-box;
+        }
+        .betting_wrap .title-box,
+        .betting_wrap .icon2_box{
+            margin-bottom: 15px;
+        }
+        .betting_wrap .icon_num{
+            margin-right: 15px;
+        }
+        .betting_wrap .title-box div:nth-child(3){
+            margin-left:10px;
+        }
+        .date_box,
+        .button_box{
+            margin-top:15px;
+        }
+
+        .n-progress.progress-bg {
+            background-color: #339af0;
+
+        }
+
+        .n-progress>div:first-child {
+            background-color: #ff6b6b;
+        }
+
+        .left-betting-checkbox{
+            --toggle-check-background-color-checked: #ff6b6b;
+        }
+
+        .right-betting-checkbox{
+            --toggle-check-background-color-checked: #339af0;
+
+        }
+
+        .betting-btn,#submit-btn {
+            background-color: #E9C566;
+
+        }
+
+        .betting-btn:hover,#submit-btn {
+            background-color: #D4AF43;
+        }
+
+        .betting-btn:active,#submit-btn {
+            background-color: #C49B32;
+        }
+
+        .movie-img{
+            filter: grayscale(100%);
+        }
+
+
+    </style>
 </head>
 
+
 <body>
-    <main layout:fragment="main">
-            <section>
-                <h1 class="d:none">베팅리스트</h1>
-                <section th:each="c : ${#numbers.sequence(1,5)}">
-                    <h1 class="d:none">베팅내용</h1>
-                    <div th:text="${c}+위">순위</div>
-                    <div class="d:flex">
-                        <div><img class="bd-radius:2" src="http://image.tmdb.org/t/p/original/ukVVnY9ovwl78WE5KndcpA6SnAm.jpg" height="200px" alt=""></div>
-                        <div class="d:flex flex-direction:column ai:center p:2">
-                            <div class="fw:bold fs:4">"서울의 봄" 천만관객수 돌파 가능!?</div>
-                            <div class="color:base-6">
+    <main layout:fragment="main" class="media">
+            <section class="sec_container">
+                <section  th:each="pbg,count:${pgbList}"
+                          th:count="true" class="h:5 betting_wrap "
+                          th:classappend="${#dates.format(pbg.voteEndDate, 'yyyyMMdd') < #dates.format(#dates.createNow(), 'yyyyMMdd')
+                                                   ? 'bg-color:base-3 opacity:7' : ''}">
+                    <h1 class="d:none" >베팅내용</h1>
+                    <div class="d:flex flex-box ">
+                        <div class="img_box"><img class="bd-radius:2 "
+                                                  th:classappend="${#dates.format(pbg.voteEndDate, 'yyyyMMdd') < #dates.format(#dates.createNow(), 'yyyyMMdd')
+                                                   ? 'movie-img' : ''}"
+                                                  th:src="${pbg.posterUrl}"
+                                                  src="http://image.tmdb.org/t/p/original/ukVVnY9ovwl78WE5KndcpA6SnAm.jpg" height="250px" alt=""></div>
+                        <div class="d:flex flex-direction:column text-box">
+                            <div class="d:flex title-box ai:center">
+                            <div
+                                    class="icon-size d:inline-block bg-color:base-8 bd-radius:1 color:base-1 txt-al:center line-height fw:bold icon_num"
+                                    th:text="${count.count}">1</div>
+                            <div class="fw:bold fs:4" th:text="${pbg.title}">"서울의 봄" 천만 돌파 가능!?</div>
+                                <div class="color:accent-2" th:text="${#dates.format(pbg.voteEndDate, 'yy.MM.dd')}+'까지 투표 마감'">투표 마감: 24.05.09까지</div>
+                            </div>
+                            <div class="d:flex color:base-6 gap:2 icon2_box ai:center">
                                 <span class="icon icon:user">아이콘</span>
-                                <span th:text="200명">참여인원</span>
-                                <span>참여중</span>
+                                <span th:text="${countList.get(count.index)}+'명'">참여인원</span>
                             </div>
-                            <div class="w:10p d:flex jc:space-between fw:bold">
-                                <span>1000만 이하</span>
-                                <span>VS</span>
-                                <span>1000만 이상</span>
+                            <ul class="w:10p d:flex jc:space-between fw:bold ">
+                                <li class="ml:2" th:text="${pbg.bettingTitle}+ ' 이상'">1000만 이하</li>
+                                <li>VS</li>
+                                <li class="mr:2" th:text="${pbg.bettingTitle}+ ' 이하'">1000만 이상</li>
+                            </ul>
+                            <div class="n-progress bd-radius:4 progress-bg mt:2 mb:2">
+                                <div th:style="'width:' +${percentList.get(count.index)}+'%'" class=""></div>
+                                <span class="d:flex ml:auto"></span>
                             </div>
-                            <div class="n-progress height:1 bd-radius:4">
-                                <div style="width: 35%;" class="">35%</div>
-                                <span class="d:flex ai:center ml:auto">65%</span>
+                            <div class="w:10p d:flex jc:space-between fw:bold mr:2 ">
+                                <div class="d:flex  gap:2 ai:center">
+                                    <div>
+                                    <label>
+                                    <input
+
+                                            type="checkbox"
+                                            value="0"
+                                            id="left-betting-checkbox"
+                                            th:classappend="${#dates.format(pbg.voteEndDate, 'yyyyMMdd') < #dates.format(#dates.createNow(), 'yyyyMMdd')
+                                                   ? 'n-toggle n-toggle-type:check-box n-toggle-size:2 n-toggle-status:disabled' : 'betting-checkbox n-toggle n-toggle-type:check-box n-toggle-size:2 left-betting-checkbox'}"
+                                            class="" />
+                                    </label>
+                                    </div>
+                                    <div th:text="${#numbers.formatDecimal(pbg.leftDividend,1,2)}">
+                                        2.522
+                                    </div>
+                                    <div th:if="${percentList.get(count.index) > 50}">
+                                        <span class="icon icon:arrow_down"></span>
+                                    </div>
+                                    <div th:if="${percentList.get(count.index) < 50}">
+                                        <span class="icon icon:arrow_up"></span>
+                                    </div>
+                                </div>
+                                <div th:text="'누적 포인트: ' + (${pbg.leftBettingPoint} + ${pbg.rightBettingPoint}-100000)">누적 포인트 123,456,789</div>
+                                <div class="d:flex ml:5 gap:2 ai:center">
+                                    <div th:text="${#numbers.formatDecimal(pbg.RightDividend,1,2)}" class="">
+                                        2.522
+                                    </div>
+                                    <div th:if="${percentList.get(count.index) < 50}">
+                                        <span class="icon icon:arrow_down"></span>
+                                    </div>
+                                    <div th:if="${percentList.get(count.index) > 50}">
+                                        <span class="icon icon:arrow_up"></span>
+                                    </div>
+                                    <div>
+                                        <label>
+                                            <input
+                                                   type="checkbox"
+                                                   value="1"
+                                                   id="right-betting-checkbox"
+                                                   th:classappend="${#dates.format(pbg.voteEndDate, 'yyyyMMdd') < #dates.format(#dates.createNow(), 'yyyyMMdd')
+                                                   ? 'n-toggle n-toggle-type:check-box n-toggle-size:2 n-toggle-status:disabled' : 'betting-checkbox n-toggle n-toggle-type:check-box n-toggle-size:2 right-betting-checkbox'}"
+                                                   class="" />
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="w:10p d:flex jc:space-between fw:bold">
-                                <span>2.522</span>
-                                <span>:</span>
-                                <span>1.35</span>
-                            </div>
-                            <div class="w:10p d:flex jc:center color:base-6">
-                                <span class="mr:1">누적 포인트</span>
-                                <span class="fw:bold">123,456,789</span>
+                            <div class="w:10p d:flex color:base-6 fl-grow:1 button_box gap:2">
+                                    <button
+                                            th:classappend="${#dates.format(pbg.voteEndDate, 'yyyyMMdd') < #dates.format(#dates.createNow(), 'yyyyMMdd')
+                                            ? 'n-btn n-btn-size:3 w:2 disabled' : 'n-btn n-btn-size:3 w:2 betting-btn '}"
+                                            class="" th:data-pbg-id="${pbg.id}">참여하기</button>
+                                <span class=" color:base-6 date_box " th:text="${#dates.format(pbg.deadLineDate, 'yy.MM.dd')}+'까지 집계'"}>
+                                        24.05.29 집계마감
+                                </span>
                             </div>
                         </div>
-                        <div class="d:flex fl-dir:column jc:end">
-                            <button class="n-btn">베팅 참여하기</button>
-                            <div class="d:flex fl-dir:column color:base-6">
-                                <span>~2024.02.28 투표마감</span>
-                                <span>~2024.03.10 집계마감</span>
-                            </div>
-                        </div>
+
                     </div>
                 </section>
             </section>
+
+            <!--          베팅 모달 나오게 하기 betting-modal -->
+            <section id="betting-modal" class=" n-modal d:none w:8" tabindex="-1">
+                <h1 class="n-font:h3 font-weight:3">배팅 하시겠습니까? ^^</h1>
+                <form>
+                    <div class="my:5">
+                        <label>
+                            배팅 금액
+                            <input type="text" id="betting-input" class="n-textbox n-textbox-label:top w:5" />
+                        </label>
+                        <button id ="betting-check-btn" type="submit" class="n-btn mt:2 n-btn-color:base">가능 여부</button>
+                    </div>
+                    <div id="btn-div" class="d:flex jc:flex-end gap:2 mt:8">
+                        <button id ="submit-btn" type="submit" class="n-btn ">배팅</button>
+                        <button id ="close-btn" type="button" class="n-btn n-btn:outline">취소</button>
+                    </div>
+                </form>
+            </section>
+            <div id="modal-backdrop" class="backdrop d:none"></div>
+
+            <!--          로그인 모달 나오게 하기 login-modal -->
+            <section id="login-modal" class="n-modal d:none" tabindex="-1">
+            <h1 class="n-font:h3 font-weight:3">로그인 후 이용 부탁드립니다!</h1>
+
+            <div class="d:flex fl-direction:column gap:2 mt:8">
+                <button id ="login-btn" type="button" class="n-btn n-btn-size:3">로그인 하러 가기</button>
+                <button id ="close-login-btn" type="button" class="n-btn n-btn:void n-btn-size:3">뒤로 가기</button>
+            </div>
+        </section>
+
+        <!--        베팅 완료 모달-->
+        <section id="finish-modal" class="n-modal d:none" tabindex="-1">
+            <h1 class="n-font:h1 fw:bold text-align:center">베팅완료! 적중을 기원합니다!👋</h1>
+            <h1 class="n-font:h1 fw:bold text-align:center">사람들과 이야기 하려면 게시판으로 이동해주세요😄</h1>
+            <div class="d:flex ai:center jc:center"><img src="/image/jun.jpg" alt="" width="150"></div>
+            <div class="mt:4 d:flex gap:3 jc:center">
+                <button id="board-btn" type="button" class="n-btn w:2">게시판 가기</button>
+                <button id="finish-btn" type="button" class="n-btn w:2 n-btn-color:accent">닫기</button>
+            </div>
+        </section>
+
+        <!--    체크박스 선택되지 않으면 빠꾸 먹이는 모달-->
+        <section id="checkbox-modal" class="n-modal d:none" tabindex="-1">
+            <h1 class="n-font:h1 fw:bold">투자할 곳을 선택해주세요!</h1>
+            <div class="mt:4 d:flex jc:center">
+                <button id="close-checkbox-btn" type="button" class="n-btn  n-btn-color:base">닫기</button>
+            </div>
+        </section>
+
+
+
     </main>
 </body>
 

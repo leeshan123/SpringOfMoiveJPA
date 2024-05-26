@@ -10,24 +10,33 @@ import kr.co.moviespring.web.entity.CommunityBoard;
 @Mapper
 public interface CommunityBoardRepository {
     // 게시글 등록//
-    void saveContents(String title, String contents, Long categoryId);
+    // void saveContents(String title, String contents, Long categoryId);
+
+    //nickname 붙여서 게시글등록
+    void save(Long memberId, String title, String contents, Long categoryId);
+
+    // 게시글 수정
+    void update(Long id, String title, String contents);
 
     // 게시글 삭제//
     int delete(Long id);
 
-    // 게시글 수정
-    void edit(Long id, String title, String contents);
-
     // 카테고리별 게시글 목록
-    List<CommunityBoardView> findAll(Long categoryId, String query, int offset, int size);
+    List<CommunityBoardView> findAllByCategoryId(Long categoryId, String query, int offset, int size);
 
     //게시글 디테일페이지
-    CommunityBoard findById(Long id);
+    CommunityBoardView findById(Long id);
 
     //페이징을 위한 게시글 갯수 카운팅
-    int getCount(Long categoryId, String query);
+    int getCount(Long memberId, Long categoryId, String query);
 
+    // 아이디별 조회
+    List<CommunityBoardView> findByMemberId(Long memberId);
+    // 게시글 조회시마다 조회수 업데이트
+    void updateHit(Long boardId);
 
-//    List<GeneralBoard> findAll();
-
+    // 다음글 아이디 가져오기
+    CommunityBoard findNextId(Long boardId, Long categoryId);
+    // 이전글 아이디 가져오기
+    CommunityBoard findPrevId(Long boardId, Long categoryId);
 }

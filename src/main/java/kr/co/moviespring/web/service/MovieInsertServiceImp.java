@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import kr.co.moviespring.web.entity.Movie2;
 import kr.co.moviespring.web.entity.Movie3;
+import kr.co.moviespring.web.entity.MovieSearchView;
 import kr.co.moviespring.web.repository.MovieInsertRepository;
 
 import org.apache.poi.ss.usermodel.CellType;
@@ -141,7 +142,7 @@ public class MovieInsertServiceImp implements MovieInsertService{
 
         // 1부터 10까지 실행(총 100개)
 
-        for (int i = 1; i < 1100; i++) {
+        for (int i = 1; i < 6; i++) {
             try {
                 StringBuilder sb = new StringBuilder();
                 URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=" + key + "&curPage=" + i+"&itemPerPage=100");
@@ -165,7 +166,7 @@ public class MovieInsertServiceImp implements MovieInsertService{
                         Movie2 movie2 = new Movie2();
                         movie2.setMovieCd(movielistinfo.getMovieCd());
                         movie2.setMovieNm(movielistinfo.getMovieNm());
-                        movie2.setPrdtYear(movielistinfo.getPrdtYear());
+                        movie2.setPrdYear(movielistinfo.getPrdYear());
                         movie2.setOpenDt(movielistinfo.getOpenDt());
                         movie2.setRepGenreNm(movielistinfo.getRepGenreNm());
                         movie2.setMovieNmEn(movielistinfo.getMovieNmEn());
@@ -312,9 +313,37 @@ class MovieListInfo {
 
     //일단 10개만 가져와서 테스트
     @Override
-    public List<Movie3> getMovieList() {
-        List<Movie3> list = repository.getlist();
+    public List<Movie3> getMovie3List(String year) {
+        List<Movie3> list = repository.getlist(year);
         return list;
+    }
+
+    @Override
+    public List<Movie3> getMovie3ListByPrd(String year) {
+        List<Movie3> list = repository.getlistByPrd(year);
+        return list;
+    }
+    
+    @Override
+    public List<Movie3> getMovie3ListByQuery(Integer page) {
+        return getMovie3ListByQuery(page, null);
+    }
+    
+    @Override
+    public List<Movie3> getMovie3ListByQuery(Integer page, String query) {
+        int size = 10;
+        int offset = (page-1) * size;
+        return repository.findByQuery(query, offset, size);
+    }
+    
+    @Override
+    public int getCount() {
+        return repository.getCount(null);
+    }
+
+    @Override
+    public int getCount(String query) {
+        return repository.getCount(query);
     }
 
 

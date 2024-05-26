@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="inc/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main layout:fragment="main">
+        <section class="d:flex flex-direction:column ai:center gap:5">
+            <div><img src="/image/bad.png" alt="" width="250"></div>
+            <div class="fs:6 fw:bold">삭제된 회원입니다.</div>
+            <div>
+                <a type="button" class="n-btn"  href="/">홈으로</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

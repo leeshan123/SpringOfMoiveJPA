@@ -2,6 +2,7 @@ package kr.co.moviespring.web.repository;
 
 import kr.co.moviespring.web.entity.Movie2;
 import kr.co.moviespring.web.entity.Movie3;
+import kr.co.moviespring.web.entity.MovieSearchView;
 
 import java.util.List;
 
@@ -26,6 +27,12 @@ public interface MovieInsertRepository {
     void MovieDataUpdate(Movie2 movie2);
 
     // 태평 Movie3 가져오기 테스트
-    List<Movie3> getlist();
+    List<Movie3> getlist(String year);
+
+    List<Movie3> getlistByPrd(String year);
+
+    int getCount(String query);
+
+    List<Movie3> findByQuery(String query, int offset, int size);
 
 }

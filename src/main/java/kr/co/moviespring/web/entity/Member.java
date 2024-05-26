@@ -2,8 +2,8 @@ package kr.co.moviespring.web.entity;
 
 import java.util.Date;
 
-import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,7 +22,7 @@ public class Member {
  private String email;
  private int point;
  private Date regDate;
+ private int Status; // tinyint(1)
  private String profileImageUrl;
- private boolean isWithDrawn;// tinyint(1)
  private String role;
 }

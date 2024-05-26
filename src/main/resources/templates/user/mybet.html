@@ -8,12 +8,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>내 베팅내역 - 영화의봄</title>
     <link rel="stylesheet" href="/css/components/user/mybet.css">
     <style>
         .user-info-section ul li:nth-child(2){
             color: green;
             border-bottom: solid 2px green;
+        }
+        main>h1{
+            font-size: 22px;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -21,7 +25,71 @@
     <main layout:fragment="main">
         <h1>내가 배팅한 영화</h1>
         <section class="bet-list">
-            
+            <h1 class="d:none">베팅리스트</h1>
+            <section class="content" th:each="pg, iterStat : ${plist}">
+                <h1 class="d:none">베팅내용</h1>
+                <div th:text="${blist.get(iterStat.index).regDate}" class="date fs:1 color:base-6">2024-05-01</div>
+                <div class="content-img-block">
+                    <img class="bd-radius:2" 
+                        th:src="${pg.posterUrl}"
+                        src="http://image.tmdb.org/t/p/original/ukVVnY9ovwl78WE5KndcpA6SnAm.jpg" 
+                        height="216px" 
+                        alt="">
+                </div>
+                <div class="content-info d:flex flex-direction:column ai:center p:2 row-gap:2">
+                    <div th:text="${pg.title}" class="fw:bold fs:4">"서울의 봄" 천만관객수 돌파 가능!?</div>
+                    <div class="color:base-6">
+                        <span class="icon icon:user">아이콘</span>
+                        <span th:text="${nums.get(iterStat.index)}">참여인원</span>
+                        <span>명 참여중</span>
+                    </div>
+                    <div class="w:10p d:flex jc:space-between fw:bold">
+                        <div>
+                            <span th:text="${pg.bettingTitle}">1000만 이하</span> 이상
+                        </div>
+                        <span class="ml:1 mr:1">VS</span>
+                        <div>
+                            <span th:text="${pg.bettingTitle}">1000만 이상</span> 미만
+                        </div>
+                    </div>
+                    <!-- <div class="n-progress height:1 bd-radius:4">
+                        <div style="width: 35%;" class="d:flex ai:center p:2 color:base-1">35%</div>
+                        <span class="d:flex ai:center ml:auto p:2">65%</span>
+                    </div> -->
+                    <div class="n-progress bd-radius:4 progress-bg mt:2 mb:2">
+                        <div th:style="'width:' +${percentList.get(iterStat.index)}+'%'" class=""></div>
+                        <span class="d:flex ml:auto"></span>
+                    </div>
+                    <div class="w:10p d:flex jc:space-between fw:bold">
+                        <span th:text="${#numbers.formatDecimal(pg.leftDividend,1, 2)}"></span>
+                        <span>:</span>
+                        <span th:text="${#numbers.formatDecimal(pg.RightDividend,1, 2)}"></span>
+                    </div>
+                    <div class="w:10p d:flex jc:center color:base-6">
+                        <span class="mr:1">누적 포인트</span>
+                        <span th:text="${pg.leftBettingPoint+pg.rightBettingPoint}"  class="fw:bold">123,456,789</span>점
+                    </div>
+                </div>
+                <section class="content-result d:flex fl-dir:column ai:center p:3">
+                    <h1 class="d:none">배팅결과</h1>
+                    <div>
+                        배팅 포인트: 
+                        <span th:text="${blist.get(iterStat.index).bettingPoint}">50000</span>p
+                    </div>
+                    <div class="bd-bottom pb:2 mb:4">
+                        성공 포인트:
+                        <span th:text="${blist.get(iterStat.index).successPoint}" style="color: #db5f5f;">+50000</span>p
+                    </div>
+                    <div class="fs:3 fw:500 color:base-6">
+                        <span th:text="${#dates.format(pg.voteEndDate, '~yyyy.MM.dd')}">~2024.02.28</span>
+                        배팅마감
+                    </div>
+                    <div class="fs:3 fw:500 color:base-6">
+                        <span th:text="${#dates.format(pg.deadLineDate, '~yyyy.MM.dd')}">~2024.03.11</span>
+                        집계마감
+                    </div>
+                </section>
+            </section>
         </section>
     </main>
 </body>

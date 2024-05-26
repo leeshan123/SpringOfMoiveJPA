@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="inc/adminlayout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/admin/playgroundmain.js" defer></script>
+    <style>
+        .main-container {
+            width: 980px;
+            margin: 0 auto;
+            height: 100%;
+        }
+
+        .n-progress.progress-bg {
+            background-color: #339af0;
+
+        }
+
+        .n-progress>div:first-child {
+            background-color: #ff6b6b;
+        }
+
+        .left-betting-checkbox{
+            --toggle-check-background-color-checked: #ff6b6b;
+        }
+
+        .right-betting-checkbox{
+            --toggle-check-background-color-checked: #339af0;
+
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+<main layout:fragment="main">
+
+
+    <div class="bg-color:base-3 h:1">
+        <div class="main-container fs:4 fw:3
+      d:flex align-items:center">놀이터 관리
+        </div>
+    </div>
+    <section class="main-container">
+
+        <div th:each="pgbList:${pgbList}" class="d:flex bd-bottom bd-color:base-5 ai:center gap:1">
+            <div class="fs:3 fw:2 h:1 d:flex ai:center flex-grow:1">
+                <a th:text="${pgbList.title}">롯데시네마 할인정보</a>
+            </div>
+            <div th:if="${#dates.createNow().before(pgbList.deadLineDate)}">
+                <!-- 여기에 조건을 추가하여 dead_line_date가 오늘 날짜보다 전이면 숨깁니다. -->
+                <button type="button" class="n-btn n-btn-color:main edit-btn"
+                        th:attr="data-id=${pgbList.id}">수정
+                </button>
+            </div>
+            <div th:unless="${#dates.createNow().before(pgbList.deadLineDate)}">
+                <!-- 새로운 버튼 추가 -->
+                <button type="button" class=""
+                th:class="${pgbList.paymentStatus == 0 ? 'n-btn n-btn-color:sub disabled' : 'n-btn n-btn-color:sub point-btn'}"
+                        th:attr="data-id=${pgbList.id}">
+                        포인트 지급
+                </button>
+            </div>
+            <div>
+                <!-- 삭제 버튼 -->
+                <button type="button" class="n-btn n-btn-color:accent delete-btn"
+                        th:attr="data-id=${pgbList.id}">삭제
+                </button>
+            </div>
+
+        </div>
+
+        <div class="d:flex jc:center mt:3">
+            <div class="d:flex">
+                <button id="reg-btn" type="button" class="n-btn n-btn-size:2 w:3">
+                    놀이터 글 등록
+                </button>
+            </div>
+        </div>
+    </section>
+    <!--삭제를 위한 Modal-->
+    <section id="modal" class="n-modal d:none" tabindex="-1">
+        <h1 class="n-font:subtitle text-align:center">삭제하시겠습니까?</h1>
+        <div class="mt:4">
+            <button id="real-delete-btn" type="button" class="n-btn n-btn-color:accent w:2">삭제</button>
+            <button id="close-btn" type="button" class="n-btn n-btn:outline w:2">뒤로가기</button>
+
+        </div>
+    </section>
+
+    <!--포인트 지급을 위한 modal    -->
+    <section id="point-modal" class="n-modal d:none" tabindex="-1">
+        <h1 class=" fs:4 fw:3 n-font:subtitle text-align:center mb:4">포인트를 지급하시겠습니까? 승자를 알려주세요!</h1>
+        <div class="d:flex jc:space-between ">
+            <div class="d:flex ai:center gap:2">
+                <span>왼쪽승(이상)</span>
+            <input type="checkbox" value="0" class="betting-checkbox n-toggle n-toggle-type:check-box n-toggle-size:2 left-betting-checkbox"/>
+            </div>
+            <div class="d:flex ai:center gap:2">
+                <span>오른쪽승(이하)</span>
+            <input type="checkbox" value="1" class="betting-checkbox n-toggle n-toggle-type:check-box n-toggle-size:2 right-betting-checkbox" />
+            </div>
+        </div>
+        <div class="mt:4 d:flex jc:center gap:3">
+            <button id="give-point-btn" type="button" class="n-btn n-btn-color:sub w:2">지급</button>
+            <button  id="point-close-btn" type="button" class="n-btn n-btn:outline w:2 close-btn">뒤로가기</button>
+
+        </div>
+    </section>
+    <div id="modal-backdrop" class="backdrop d:none"></div>
+
+</main>
+
+</body>
+</html>

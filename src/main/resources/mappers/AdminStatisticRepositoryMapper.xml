@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		<!DOCTYPE mapper
+				PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.moviespring.web.repository.StatisticRepository">
+
+	<select id="CountAllMember" resultType="int">
+		select count(*) from member
+	</select>
+
+	<select id="CountTodayRegMember" resultType="int">
+		SELECT count(*) FROM member WHERE DATE(reg_date) = CURDATE()
+	</select>
+
+	<select id="CountMemberAgeRange" parameterType="int" resultType="int">
+		<choose>
+		<when test="count == 0">
+			SELECT count(*) FROM member WHERE age &lt; 20
+		</when>
+		<when test="count == 1">
+			SELECT count(*) FROM member WHERE age &gt;= 20 AND age &lt; 40
+		</when>
+		<when test="count == 2">
+			SELECT count(*) FROM member WHERE age &gt;= 40 AND age &lt; 60
+		</when>
+		<when test="count == 3">
+			SELECT count(*) FROM member WHERE age &gt;= 60
+		</when>
+		</choose>
+	</select>
+
+
+
+
+
+</mapper>

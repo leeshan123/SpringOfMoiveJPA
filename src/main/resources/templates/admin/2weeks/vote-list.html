@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="inc/adminlayout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/admin/modal.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="/css/modal.css" />
+
+    <title>2주의 영화 - 영화의봄</title>
+
+    <style>
+        .main-container {
+            width: 980px;
+            margin: 0 auto;
+            height: 100%;
+        }
+    </style>
+    
+</head>
+
+
+<body>
+    <main layout:fragment="main">
+        <div class="bg-color:base-3 h:1">
+            <div class="main-container fs:4 fw:3
+            d:flex align-items:center">2주의 영화 관리</div>
+        </div>
+        <section class="main-container">
+            <h1 class="py:4">현재 투표진행중인 영화목록</h1>
+            <section class="d:flex fl-wrap:wrap jc:space-between">
+                <section th:each="m:${movies}" class="py:6 p:2 d:flex">
+                    <h1 class="d:none">컨텐츠</h1>
+                    <div class="max-w:10 ">
+                        <div class="w:6 d:flex ai:center">
+                            <h2 class="d:none">영화정보</h2>
+                            <div class="d:flex fl-wrap:wrap ">
+                                <div class="fw:3 fs:7 " th:text="${m.korName}" >영화제목</div>
+                            </div>
+                        </div>
+                        <div class="my:2">
+                            <div class="n-progress n-progress-color:main txt-al:center color:base-1 w:auto  box-shadow:1" role="progressbar w:10">
+                                <div th:if="${m.voteCount == 0}" th:style="'margin:0 auto; background: transparent; width: 0%; color:#262F45 !important; text-wrap: nowrap;'" class="ai:center text-wrap: nowrap ">0표</div>
+                                <div th:if="${m.voteCount != 0}" th:style="'width: ' + (${m.voteCount} * 100 / ${v}) + '%; text-wrap: nowrap;'" class="ai:center text-wrap: nowrap" th:text="${m.voteCount}+표">1표</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <section class="my:4">
+                <h1>다음주 후보를 등록해주세요.</h1>
+                <form action="vote-list" method="post" class="n-form my:2">
+
+                    <select id="parentSelect" class="w:3" name="pS">
+                        <option value="">테마를 정해주세요</option>
+                        <option value="releaseDate" name="releaseDate">개봉년도</option>
+                        <option value="genre" name="genre">장르</option>
+                        <option value="distributor" name="distributor">영화사(이벤트테마)</option>
+                    </select>
+                    <select id="childSelect" name="cS">
+                    </select>
+                    <button type="submit" class="n-btn submit-button">등록</button>
+                </form>
+                <!-- <button id="modal-btn" type="button" class="n-btn">등록정보 확인</button> -->
+
+                <!-- <section id="modal" class="n-modal d:none" tabindex="-1">
+                  <h1 class="n-font:subtitle text-align:center">반갑습니다 신이시여. 등록정보를 확인 하십시오👋</h1>
+
+                  <div class="mt:4">
+                    <button id="close-btn" type="button" class="n-btn w:5">닫기</button>
+                  </div>
+                </section> -->
+                <div id="modal-backdrop" class="backdrop d:none"></div>
+
+                <div class="movieListContainer"></div>
+
+                    <script>
+                        const parentSelect = document.getElementById('parentSelect');
+                        const childSelect = document.getElementById('childSelect');
+
+
+                        // 부모 select 요소가 변경될 때마다 자식 select 요소를 업데이트
+                        parentSelect.addEventListener('change', function () {
+                            childSelect.innerHTML = '';
+
+                            const selectedValue = parentSelect.value;
+
+                            switch (selectedValue) {
+                                case 'releaseDate':
+                                    childSelect.add(new Option('2018','2018'));
+                                    childSelect.add(new Option('2019','2019'));
+                                    childSelect.add(new Option('2020','2020'));
+                                    childSelect.add(new Option('2021','2021'));
+                                    childSelect.add(new Option('2022','2022'));
+                                    childSelect.add(new Option('2023','2023'));
+                                    childSelect.add(new Option('2024','2024'));
+                                    break;
+                                case 'genre':
+                                    childSelect.add(new Option('SF', "SF"));
+                                    childSelect.add(new Option('가족', "가족"));
+                                    childSelect.add(new Option('공연', "공연"));
+                                    childSelect.add(new Option('공포(호러)', "공포(호러)"));
+                                    childSelect.add(new Option('기타', "기타"));
+                                    childSelect.add(new Option('다큐멘터리', "다큐멘터리"));
+                                    childSelect.add(new Option('드라마', "드라마"));
+                                    childSelect.add(new Option('멜로/로맨스', "멜로/로맨스"));
+                                    childSelect.add(new Option('뮤지컬', "뮤지컬"));
+                                    childSelect.add(new Option('미스터리', "미스터리"));
+                                    childSelect.add(new Option('범죄', "범죄"));
+                                    childSelect.add(new Option('사극', "사극"));
+                                    childSelect.add(new Option('서부극(웨스턴)', "서부극(웨스턴)"));
+                                    childSelect.add(new Option('스릴러', "스릴러"));
+                                    childSelect.add(new Option('애니메이션', "애니메이션"));
+                                    childSelect.add(new Option('액션', "액션"));
+                                    childSelect.add(new Option('어드벤처', "어드벤처"));
+                                    childSelect.add(new Option('전쟁', "전쟁"));
+                                    childSelect.add(new Option('코미디', "코미디"));
+                                    childSelect.add(new Option('판타지', "판타지"));
+
+                                    break;
+                                case 'distributor':
+                                    childSelect.add(new Option('롯데시네마', '롯데시네마'));
+                                    childSelect.add(new Option('CGV', 'CGV'));
+                                    childSelect.add(new Option('메가박스', '메가박스'));
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        });
+                    </script>
+            </section>
+
+        </section>
+    </main>
+</body>
+
+</html>

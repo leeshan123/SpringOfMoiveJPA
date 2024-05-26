@@ -23,16 +23,23 @@ import kr.co.moviespring.web.movieapi.dto.kobis.sub.Actors;
 import kr.co.moviespring.web.movieapi.dto.kobis.sub.Audits;
 import kr.co.moviespring.web.movieapi.dto.kobis.sub.Companys;
 import kr.co.moviespring.web.movieapi.dto.kobis.sub.Directors;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class KobisMovieAPI {
+
+    //후보군: fa4a546d896ea6a36a7db5d09bcb80f3(내꺼) (1~2500)
+    //후보군: 382938328dd953840168608f3f58b586(내꺼) (2500~5000)
+    //후보군: 860589c36cddbbbbd930b4a6aaa53da7(태평이형꺼) (5000~7500)
+    //후보군: a131ca3b5ab570fb631f8ca391fb7c74(민석이꺼) (7500~10000)
+    //후보군: 92902be4026fea05023b7f31b4324c40(민석이꺼2) (10000 ~ 12500)
+    //후보군: e7f6a63edea6295a55b893dcc0071d60(준순이꺼) (12500 ~ 15000)
+    //후보군: 7142d2f276da9b8a161e569423e64ec3(준순이꺼2) (15000 ~ 17500)
+    //후보군: 8eebf0d30cb02fd27d0ccede30262ce2(태평이형꺼2) 18490
 
     // 상수 설정
     //   - 요청(Request) 요청 변수
     private String REQUEST_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
-    private final String AUTH_KEY = "8eebf0d30cb02fd27d0ccede30262ce2";
+    // private String REQUEST_URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=1e5731730c8946b865535ff457996b63&targetDt=";
+    private final String AUTH_KEY = "1e5731730c8946b865535ff457996b63";
  
     //   - 일자 포맷
     private final SimpleDateFormat DATE_FMT = new SimpleDateFormat("yyyyMMdd");
@@ -60,8 +67,8 @@ public class KobisMovieAPI {
         Map<String, String> paramMap = new HashMap<String, String>();
         paramMap.put("key"          , AUTH_KEY);                        // 발급받은 인증키
         paramMap.put("targetDt"     , DATE_FMT.format(cal.getTime()));  // 조회하고자 하는 날짜
-        paramMap.put("itemPerPage"  , "10");                            // 결과 ROW 의 개수( 최대 10개 )
-        paramMap.put("multiMovieYn" , "N");                             // Y:다양성 영화, N:상업영화, Default:전체
+        // paramMap.put("itemPerPage"  , "10");                            // 결과 ROW 의 개수( 최대 10개 )
+        // paramMap.put("multiMovieYn" , "N");                             // Y:다양성 영화, N:상업영화, Default:전체
         
         //반환할 리스트 객체 생성
         List<KobisDailyBox> dbeList = new ArrayList<>();
@@ -69,6 +76,7 @@ public class KobisMovieAPI {
         try {
             // Request URL 연결 객체 생성
             URL requestURL = new URL(REQUEST_URL+"?"+makeQueryString(paramMap));
+            // URL requestURL = new URL(REQUEST_URL);
             HttpURLConnection conn = (HttpURLConnection) requestURL.openConnection();
             
             // GET 방식으로 요청
@@ -168,6 +176,10 @@ public class KobisMovieAPI {
  
             // JSON 객체로  변환
             JSONObject responseBody = new JSONObject(response.toString());
+
+            // 예외처리
+            if(!responseBody.has("movieInfoResult"))
+                return null;
  
             // 데이터 추출
             JSONObject movieInfoResult = responseBody.getJSONObject("movieInfoResult").getJSONObject("movieInfo");

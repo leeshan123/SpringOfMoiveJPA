@@ -15,5 +15,15 @@
         values 
             (#{movieId}, #{url})
     </insert>
-    
+
+    <!--영화 아이디별 스틸컷 리스트-->
+    <select id="findAllById" resultType="MovieStillcut">
+        SELECT * FROM movie_stillcut
+        WHERE movie_id=#{movieId}
+    </select>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM movie_stillcut WHERE movie_id=#{movieId};
+    </delete>
+
 </mapper>

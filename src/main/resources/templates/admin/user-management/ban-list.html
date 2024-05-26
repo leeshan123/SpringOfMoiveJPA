@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="inc/adminlayout"
+        >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .main-container {
+            width: 980px; margin: 0 auto; 
+            height: 100%;
+        } 
+
+        .main-contents{
+            width: 980px; margin: 0 auto; 
+            min-height: 500px;
+        }
+    </style>
+    <script src="/js/admin/user-management/ban-list.js" defer></script>
+</head>
+<body>
+<main layout:fragment="main">
+    <div class="bg-color:base-3 h:1">
+        <div class="main-container fs:4 fw:3 
+        d:flex align-items:center">유저 관리</div>
+    </div>
+    <section class="main-contents mt:2 mb:5">
+        <h1 class="d:none">커뮤니티 게시글 목록</h1>
+        <nav class="nav-contents mt:4 mb:1">
+            <ul class="d:flex col-gap:1 jc:flex-end">
+                <li>
+                    <a href="list">회원 목록</a> |
+                </li>
+                <li>
+                    <a href="" class="fw:bold">제제중인 회원 목록</a>
+                </li>
+            </ul>
+        </nav>
+        <table class="mb:4 n-table n-table-hover n-table-border n-table-border-radius:3 fw:3">
+            <colgroup>
+                <col style="width: 100px;"> <!--119-->
+                <col style="width: 130px;"> <!--447-->
+                <col style="width: 130px;"> <!--160-->
+                <col style="width: 180px;"> <!--60-->
+                <col style="width: 260px;"> <!--116-->
+                <col style="width: 150px;"> <!--116-->
+                <!-- 추가적인 열에 대한 너비 설정 -->
+            </colgroup>
+            <thead class="">
+                <tr class="jc:space-around">
+                    <th class="txt-al:center">회원번호</th>
+                    <th class="txt-al:center">회원아이디</th>
+                    <th class="txt-al:center">회원이름</th>
+                    <th class="txt-al:center">회원닉네임</th>
+                    <th class="txt-al:center">회원이메일</th>
+                    <th class="txt-al:center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user:${list}">
+                    <td class="txt-al:center py:1">
+                        <span class="user-id d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
+                            th:text="${user.id}">회원번호</span>
+                    </td>
+                    <td class="txt-al:center py:1 white-space:normal">
+                        <span href="" th:text="${user.username}">회원아이디</span>
+                    </td>
+                    <td th:text="${user.name}" class="txt-al:center py:1">회원이름</td>
+                    <td th:text="${user.nickname}" class="txt-al:center py:1">회원닉네임</td>
+                    <td th:text="${user.email}" class="txt-al:center py:1">회원이메일</td>
+                    <td class="txt-al:center py:1" >
+                        <!-- <input type="checkbox" class="" name=""> -->
+                        <a type="button" class="restore n-btn n-btn-color:main">복구하기</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <div class="d:flex jc:flex-end">
+            <a type="button" class="n-btn n-btn-color:main">정보보기</a>
+        </div> -->
+        
+        
+    </section>
+
+    <section class="mb:10">
+        <h1 class="d:none">페이저</h1>
+        <!-- <div th:text="${param.p} eq null ? 0:${param.p}">1</div> -->
+        <ul class="n-pager"
+            style="display:flex; justify-content:center; font-size: 20px;"
+            th:with="page=${param.p} eq null ? 1 : ${{param.p}}
+                    ,floatnum=(${page}-1)/5
+                    ,startnum=${T(java.lang.Math).floor(floatnum)} * 5 + 1
+                    ,lastnum=${count} mod 10 > 0 ? ${count div 10}+1 : ${count div 10}"
+                    >
+            <!-- <li th:text="${startnum}">aa</li> -->
+            <li>
+                <span style="color: rgb(189, 189, 189)" th:if="${page} lt 6">이전</span><!-- 현재 페이지가 6 미만인 경우 -->
+                <a th:if="${page} ge 6" th:href="@{ban-list(p=${startnum-1}, q=${searchQuery})}" href="boardlist?p=1">이전</a><!-- 현재 페이지가 6 이상인 경우 -->
+            </li>
+            <li th:class="${page} == ${n} ? 'active' : ''"  th:each="n : ${#numbers.sequence(startnum, startnum+4)}">
+                <!-- 각 페이지 번호에 대한 링크를 생성합니다 -->
+                <!-- <a th:href="@{'list?p=' + ${n}}" th:text="${n}"></a> -->
+                <a th:if="${n} le ${lastnum}" href="boardlist?p=1" th:href="@{ban-list(p=${n}, q=${searchQuery})}" th:text="${n}">1</a>
+                <span style="color: rgb(189, 189, 189)" th:if="${n} gt ${lastnum}" th:text="${n}"></span>
+            </li>
+            <li>
+                <span style="color: rgb(189, 189, 189)" th:if="${startnum}+4 gt ${lastnum}">다음</span> <!--  현재 페이지의 끝이 lastnum 초과인 경우 -->
+                <a th:if="${startnum}+4 le ${lastnum}" th:href="@{ban-list(p=${startnum+5}, q=${searchQuery})}">다음</a><!-- 현재 페이지의 끝이 lastnum 이하인 경우 -->
+            </li>
+        </ul>
+    </section>
+</main>
+
+</body>
+</html>

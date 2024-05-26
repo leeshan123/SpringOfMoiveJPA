@@ -5,11 +5,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title th:text="${{c.name}}+게시판+' - '+영화의봄">Document</title>
     <style>
         .title-line-height{
             height: 26px;
             line-height: 26px;
+        }
+        .search-icon-position{
+            right: 10px;
+            top:10px;
+        }
+        button {
+            cursor: pointer;
         }
     </style>
 </head>
@@ -35,9 +42,9 @@
                     <table class="mb:4 mt:4 n-table n-table-hover n-table-border n-table-border-radius:3 fw:3">
                         <colgroup>
                             <col style="width: 119px;"> <!--119-->
-                            <col style="width: 447px;"> <!--447-->
+                            <col style="width: 445px;"> <!--445-->
                             <col style="width: 160px;"> <!--160-->
-                            <col style="width: 78px;"> <!--78-->
+                            <col style="width: 80px;"> <!--80-->
                             <col style="width: 60px;"> <!--60-->
                             <col style="width: 116px;"> <!--116-->
                             <!-- 추가적인 열에 대한 너비 설정 -->
@@ -55,23 +62,24 @@
                         <tbody>
                             <tr th:each="board:${list}">
                                 <td class="txt-al:center py:1">
-                                    <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1"
+                                    <span class="d:inline-block icon-size bg-color:base-6 bd-radius:1 color:base-1 px:1 box-shadow:6"
                                         th:text="${c.name}">카테고리 이름</span>
                                 </td>
                                 <td class="txt-al:start py:1 white-space:normal">
                                     <a href="" th:href="@{detail(c=${c.engName},id=${board.id})}" th:text="${board.title}">게시글 제목</a>
+                                    <span class=" color:base-6 fs:2" th:text="${board.commentCount > 0 ? '['+board.commentCount+']' :''}">[12]</span>
                                 </td>
-                                <td th:text="${board.nickname}" class="txt-al:start py:1">작성자</td>
+                                <td th:text="${board.nickname}" class="txt-al:center py:1">작성자</td>
                                 <td th:text="${board.hit}" class="txt-al:center py:1">조회수</td>
-                                <td class="txt-al:center py:1">123</td>
+                                <td th:text="${board.likeCount}" class="txt-al:center py:1">123</td>
                                 <td class="txt-al:center py:1" th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}">작성일
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <div th:if="${c.engName != 'best'}" class="d:flex jc:center my:3">
+                    <div class="position:relative d:flex jc:center my:3">
                         <!-- th:href="@{reg(categoryId=${list.id})}" -->
-                        <section class="query-filter" id="query-form">
+                        <section class="query-filter position:absolute" id="query-form">
                             <h1 class="d:none">이름 검색 폼</h1>
                             <form class="p:0 n-form n-form-type:outline-none"
                                   action="list">
@@ -80,43 +88,47 @@
                                     <input class="query-input" type="text" name="q" placeholder="게시글 검색">
                                     <input class="d:none" type="text" name="c" th:value="${c.engName}">
                                     <!-- <input type="hidden" name="u" value="${param.c}"> -->
-                                    <button class="icon icon:magnifying_glass" >검색</button>
+                                    <button class="position:absolute search-icon-position fa-solid fa-magnifying-glass"></button>
                                 </fieldset>
                             </form>
                         </section>
-                        <a th:href="@{reg(c=${c.engName})}" href="reg">
-                            <button type="button" class="n-btn box-shadow:1">게시글 작성</button>
+                        <!--비회원이 요청시-->
+                        <button sec:authorize="isAnonymous()" th:classappend="${c.engName != 'best' ? '':'vis:hidden'}" disabled type="button" class="ml:auto n-btn box-shadow:3">로그인후 작성</button>
+                        <!--회원이 요청시-->
+                        <a sec:authorize="isAuthenticated()" th:classappend="${c.engName != 'best' ? '':'vis:hidden'}" class="ml:auto" th:href="@{reg(c=${c.engName})}" href="reg">
+                            <button type="button" class="n-btn box-shadow:3">게시글 작성</button>
                         </a>
                     </div>
                 </div>
                 <section style="" class="">
                     <h1 class="d:none">페이저</h1>
                     <!-- <div style="display: flex; justify-content: center;" th:text="${param.p} eq null? 0:${param.p}">1</div> -->
-                    <ul class="n-pager d:flex jc:center mb:5" th:with="page=${param.p} eq null ? 1 : ${{param.p}},
-                            floatnum=(${page}-1)/5,
-                            intnum=${T(java.lang.Math).floor(floatnum)},
-                            startnum=${intnum}*5+1,
-                            lastnum = ${count} mod 6 > 0 ? ${count div 6} + 1 : ${count div 6} + 0">
+                    <ul class="n-pager d:flex jc:center mb:5"
+                        th:with="
+                                page=${param.p} eq null ? 1 : ${{param.p}},
+                                floatnum=(${page}-1)/5,
+                                intnum=${T(java.lang.Math).floor(floatnum)},
+                                startnum=${intnum}*5+1,
+                                lastnum=${count} mod 20 > 0 ? ${count div 20} + 1 : ${count div 20},
+                                lastnum=${lastnum} eq 0 ? 1 : ${lastnum},
+                                startnum=${startnum} lt 1 ? 1 : ${startnum}">
 
-                        <!-- <div th:text="${lastnum}"></div> -->
-
+                        <!-- 이전 버튼 -->
                         <li>
-                            <!-- <span th:if="${page} lt 6">이전</span> -->
-                            <a th:if="${page} ge 6" th:href="@{list(p = ${startnum-1},c=${c.engName})}" href="list?p=1">이전</a>
-                        </li>
-                        <li th:class="${{param.p}} eq ${n}? active"
-                            th:each="n : ${#numbers.sequence(startnum,startnum+4)}">
-                            <span th:if="${n} gt ${lastnum}" th:text="${n}" style="visibility: hidden;">1</span>
-
-                            <a th:if="${n} le ${lastnum}" href="list?p=1" th:href="@{list(p = ${n},c=${c.engName})}"
-                               th:text="${n}">1</a>
+                            <span th:if="${page} le 5" style="color: rgb(189, 189, 189)">이전</span>
+                            <a th:if="${page} gt 5" th:href="@{list(p=${startnum-1}, q=${param.q}, c=${c.engName})}">이전</a>
                         </li>
 
-                        <li>
-                            <a th:if="${lastnum} gt ${startnum+5}" th:href="@{list(p = ${startnum+5},c=${c.engName})}"
-                               href="list?p=11">다음</a>
-                            <!-- <span th:if="${lastnum} lt ${startnum+5}">다음</span> -->
+                        <!-- 페이지 번호 버튼 -->
+                        <li th:each="n, iterStat : ${#numbers.sequence(startnum, (lastnum < (startnum + 4)) ? lastnum : (startnum + 4))}"
+                            th:class="${page} eq ${n} ? 'active' : ''">
+                            <a th:href="@{list(p=${n}, q=${param.q}, c=${c.engName})}" th:text="${n}">1</a>
+                        </li>
 
+                        <!-- 다음 버튼 -->
+                        <li>
+                            <a th:if="${lastnum gt startnum + 4}" th:href="@{list(p=${startnum + 5}, q=${param.q}, c=${c.engName})}">다음</a>
+                            <span th:if="${lastnum le startnum + 4}" style="color: rgb(189, 189, 189)">다음</span>
                         </li>
                     </ul>
                 </section>

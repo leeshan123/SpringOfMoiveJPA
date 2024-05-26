@@ -40,29 +40,45 @@
 }
 
 .top_nav .search {
-    width: 370px;
+    width: 300px;
     height: 100%;
     background-color: #fff;
     border: 1px #e4e5e4 solid;
     border-radius: 17px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
 }
 
 .top_nav .search input {
-    width: 80%;
+    width: 100%;
     height: 30px;
     font-size: 18px;
     border: none;
     border-radius: 17px;
+    padding: 4px 12px 4px 12px;
+    /*line-height: 18px;*/
+}
+
+.top_nav .search input::placeholder {
+    position: relative;
+    bottom: 2px;
+    line-height: 4px;
+    /*color: #1c7ed6;*/
+    font-size: 14px;
 }
 
 .top_nav .search button {
     border: none;
-    width: 50px;
+    /*width: 50px;*/
     height: 30px;
     border-radius: 15px;
     background-color: transparent;
     font-size: 18px;
     cursor: pointer;
+    /*margin-right: 12px;*/
+    position: absolute;
+    right: 16px;
 }
 
 .top_nav .search button .fa-magnifying-glass,
@@ -72,6 +88,9 @@
 
 .top_nav .search button .fa-magnifying-glass {
     font-size: 18px;
+    /*position: absolute;*/
+    /*top: 20px;*/
+    /*left: 20px;*/
 }
 
 .top_nav .login_btn,
@@ -103,6 +122,24 @@
 
 .tabbar-height {
     height: 40px;
+}
+
+/* 관리자 헤더 추가 */
+.nav-test>div{
+    box-sizing: content-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border-left: dashed 2px #9A9A9A;
+
+    :last-child{
+        width: 100%;
+    }
+}
+
+.nav-test>div:last-child{
+    border-right: dashed 2px #9A9A9A;
 }
 
 /*유저 헤더 추가 부분*/

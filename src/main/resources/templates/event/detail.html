@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="inc/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${menu.title} + ' - '+영화의봄">이벤트 상세 - 영화의봄</title>
+    <style>
+        .vote-box {
+            width: 56px;
+            height: 56px;
+        }
+        .middle-positiongg {
+            height: 24px;
+            line-height: 28px;
+        }
+        .media-sect-for-commu>h1{
+            border-bottom: solid 2px #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <main layout:fragment="main" class="media padding-x:2">
+        <section class="media-sect-for-commu">
+            <h1 class="fw:bold fs:7 pb:1 mb:10 color:main-3">EVENT</h1>
+            <section class="p:2 border-bottom">
+                <h1 th:text="${menu.title}" class="fs:5 margin-bottom:1">이벤트 제목이 나타날 위치입니다</h1>
+                <div class="d:flex ai:center gap:3 margin-bottom:1 mt:5">
+                    <div class="margin-right:auto">
+                        <span class="icon icon:bone">아이콘</span>
+                        <span class="fw:bold">관리자</span>
+                        <span class="d:inline-block">
+                            <span th:text="${#dates.format(menu.regDate, 'yyyy.MM.dd')}" class="fs:2 color:base-6" >2024.04.08</span>
+                            <span th:text="${#dates.format(menu.regDate, 'HH:mm')}" class="fs:2 color:base-6" >11:35</span>
+                        </span>
+                    </div>
+                    <span th:text="${menu.hit}" class="fs:2 color:base-6">조회수<span class="fw:bold margin-left:1 color:base-10" >1004</span></span>
+                </div>
+                <div class="padding-y:3 border-top margin-bottom:10">
+                    <div class="p:2">
+                        <h1 class="fw:2">이벤트 기간</h1>
+                        <span th:text="${#dates.format(menu.startDate, 'yyyy.MM.dd')}">시작날짜</span>
+                        ~
+                        <span th:text="${#dates.format(menu.endDate, 'yyyy.MM.dd')}">종료날짜</span>
+                    </div>
+                    <span><img style="max-width: 980px;" th:src="${menu.imageUrl}" src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>
+                    <!--th:utext는 html태그를 해석해서 출력해줌-->
+                    <p th:utext="${menu.contents}">작성글 내용이 담길 위치입니다</p>
+                </div>
+            </section>
+            <!-- <section class="padding-y:1 padding-left:2 padding-right:1 border-bottom d:flex flex-direction:column gap:1">
+                <h1 class="d:none">댓글창</h1>
+                <div class="d:flex ai:center gap:4">
+                    <div class="margin-right:auto">
+                        <span class="icon icon:bone">아이콘</span>
+                        <span class="fw:bold">작성자</span>
+                        <span class="fs:2 color:base-6">2024.04.08</span>
+                        <span class="fs:2 color:base-6">11:35</span>
+                    </div>
+                    <span class="d:flex">
+                        <span class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_up margin-right:2">13</span>
+                        <span class="deco deco-size:2 icon-size:4 deco-mr:1 icon:thumbs_down">2</span>
+                    </span>
+                    <span>
+                        <span class="deco deco-size:2 icon-size:4 deco-ml:1 deco-position:right icon:chat_circle_text fs:2 fw:bold color:main-3">댓글</span>
+                    </span>
+                </div>
+                <p>댓글 내용이 출력될 장소입니다</p>
+            </section> -->
+            <!-- <form action="" class="padding-y:1 padding-left:2 padding-right:1">
+                <div>
+                    <span sec:authorize="isAuthenticated()" class="icon icon:bone">아이콘</span>
+                    <span sec:authorize="isAuthenticated()"
+                        sec:authentication="principal.nickname">이름</span>
+                    <div class="d:flex jc:center ai:center">
+                        <span sec:authorize="isAnonymous()" class="icon icon:warning_circle">아이콘</span>
+                        <span sec:authorize="isAnonymous()" class="middle-positiongg">로그인 후에 댓글을 작성하실 수 있습니다</span>
+                    </div>
+                </div>
+                <div class="d:flex">
+                    <div class="p:5 w:10p">
+                        <textarea sec:authorize="isAuthenticated()" name="content" id="" placeholder="댓글 내용 입력" class="w:10p n-textbox"></textarea>
+                        <textarea sec:authorize="isAnonymous()" disabled name="content" id="" placeholder="댓글 내용 입력" class="n-textbox-status:disabled w:10p n-textbox"></textarea>
+                    </div>
+                    <button class="fs:5 fw:bold color:main-3 w:1">등록</button>
+                </div>
+            </form> -->
+            <div class="text-align:left">
+                <div class="p:2">
+                    <span class="fs:4 fw:bold color:main-3 mr:2">이전글</span>
+                    <th:block th:if="${premenu.id != NULL}">
+                        <a th:text="${premenu.title}" th:href="@{detail(id=${premenu.id})}" href="">이전글제목</a>
+                    </th:block>
+                    <th:block th:if="${premenu.id == NULL}">
+                        <a th:text="${premenu.title}" class="fs:4 color:main-3" >이전글없음</a>
+                    </th:block>
+                    <!-- <a href="" th:text="${premenu.title}" class="fs:4 color:main-3">이전글제목</a> -->
+                </div>
+                <div class="p:2 mb:5">
+                    <span class="fs:4 fw:bold color:main-3 mr:2">다음글</span>
+                    <th:block th:if="${nextmenu.id != NULL}">
+                        <a th:text="${nextmenu.title}" th:href="@{detail(id=${nextmenu.id})}"  class="fs:4 color:main-3" href="">다음글제목</a>
+                    </th:block>
+                    <th:block th:if="${nextmenu.id == NULL}">
+                        <a th:text="${nextmenu.title}" class="fs:4 color:main-3">다음글없음</a>
+                    </th:block>
+                </div>
+            </div>
+            <div class="text-align:center">
+                <a href="list" class="fs:5 fw:bold color:main-3">목록</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

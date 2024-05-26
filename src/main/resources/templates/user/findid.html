@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>아이디 찾기 - 영화의봄</title>
     <link rel="stylesheet" href="/css/components/user/finduser.css">
     <style>
         main nav .deco:first-child{
@@ -18,7 +18,11 @@
         main nav .deco:last-child{
             color: #ADB5BD;
         }
+        .find-block input{
+            padding: 4px 10px;
+        }
     </style>
+    <script src="/js/user/findid.js" defer></script>
 </head>
 <body>
     <main layout:fragment="main">
@@ -34,17 +38,19 @@
                 <h1>아이디 찾기</h1>
             </div>
             <form action="findid-result">
-                <label for="">이름</label>
-                <input type="text">
-                <label for="">이메일 주소</label>
-                <input type="email">
+                <label >이름</label>
+                <input class="name-input" type="text">
+                <label >이메일 주소</label>
+                <input class="email-input" type="email">
                 <div class="email_button">
-                    <button type="button" onclick="handleEmailButtonClick()">인증번호 받기</button>
+                    <div>
+                        <button type="button" class="find-btn">인증번호 받기</button>
+                    </div>
                 </div>
-                <div class="inputcert">
+                <!-- <div class="inputcert">
                     <input type="text" placeholder="인증번호 6자리 숫자 입력">
                     <button>확인</button>
-                </div>
+                </div> -->
             </form>
         </section>
     </main>

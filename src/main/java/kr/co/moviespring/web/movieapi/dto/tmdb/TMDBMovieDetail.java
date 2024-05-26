@@ -1,5 +1,6 @@
 package kr.co.moviespring.web.movieapi.dto.tmdb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Cast;
@@ -8,6 +9,19 @@ import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Genre;
 import kr.co.moviespring.web.movieapi.dto.tmdb.sub.Result;
 
 public class TMDBMovieDetail {
+
+    // 생성자 null값 반환이 안되게
+    // public TMDBMovieDetail() {
+    //     this.results = new ArrayList<>();
+    //     this.casts = new ArrayList<>();
+    //     this.crews = new ArrayList<>();
+    //     this.genres = new ArrayList<>();
+    //     this.productCountries = new ArrayList<>();
+    //     this.originCountries = new ArrayList<>();
+    //     this.stillCuts = new ArrayList<>();
+    // }
+
+
     private List<Result> results;   // 유튜브 미리보기
     private List<Cast> casts;       // 캐스팅 배우 정보
     private List<Crew> crews;       // 스텝 정보, 감독만 빼올거임
@@ -25,6 +39,7 @@ public class TMDBMovieDetail {
     private String releaseDate;   // 개봉일
     private String posterPath;    // 메인 포스터
     private String tagLine;       // 영화 한마디 소개
+    private String logo;          // 로고(한국, 영어만 받기)
 
     public List<Result> getResults() {
         return results;
@@ -121,5 +136,11 @@ public class TMDBMovieDetail {
     }
     public void setStillCuts(List<String> stillCuts) {
         this.stillCuts = stillCuts;
+    }
+    public String getLogo() {
+        return logo;
+    }
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 }

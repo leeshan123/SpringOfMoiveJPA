@@ -12,7 +12,7 @@
 <!--    </select>-->
 
     <!-- 카테고리별 게시글 목록view -->
-    <select id="findAll" resultType="CommunityBoardView">
+    <select id="findAllByCategoryId" resultType="CommunityBoardView">
 <!--        SELECT c.*, m.nickname AS nickname-->
 <!--        FROM community_board c-->
 <!--        JOIN member m ON c.member_id = m.id where category_id = #{categoryId}-->
@@ -39,19 +39,49 @@
     </select>
 
     <!--게시글 상세-->
-    <select id="findById" resultType="CommunityBoard">
-        SELECT * FROM community_board
+    <select id="findById" resultType="CommunityBoardView">
+        SELECT * FROM community_board_view
         WHERE id=#{id}
     </select>
 
+    <!--다음 게시글 상세-->
+    <select id="findNextId" resultType="CommunityBoard">
+        SELECT id, title FROM community_board
+        WHERE id &gt; #{boardId} AND category_id = ${categoryId}
+        ORDER BY id ASC
+        LIMIT 1;
+    </select>
+
+    <!--이전 게시글 상세-->
+    <select id="findPrevId" resultType="CommunityBoard">
+        SELECT id, title FROM community_board
+        WHERE id &lt; #{boardId} AND category_id = ${categoryId}
+        ORDER BY id DESC
+        LIMIT 1;
+    </select>
+
+    <!--게시글 상세-->
+    <select id="findByMemberId" resultType="CommunityBoardView">
+        SELECT * FROM community_board_view
+        WHERE member_id=#{memberId}
+        ORDER BY reg_date DESC
+    </select>
+
+    <!--게시글 조회시 조회수 증가-->
+    <update id="updateHit">
+        UPDATE community_board
+        SET hit = hit + 1
+        WHERE id = #{boardId}
+    </update>
+
     <!-- 게시글 등록 -->
-    <insert id="saveContents">
+    <insert id="save">
         INSERT INTO community_board (title,contents,member_id,category_id)
-        VALUES (#{title},#{contents},12,#{categoryId});
+        VALUES (#{title},#{contents},#{memberId},#{categoryId});
     </insert>
 
     <!-- 게시글 수정 -->
-    <update id="edit">
+    <update id="update">
         UPDATE community_board SET title=#{title}, contents=#{contents} WHERE id=#{id};
     </update>
 
@@ -70,8 +100,11 @@
     <select id="getCount" resultType="Integer">
         SELECT COUNT(*) FROM community_board
         <where>
+            <if test="memberId != null">
+                member_id = #{memberId}
+            </if>
             <if test="categoryId != null">
-                category_id = #{categoryId}
+                AND category_id = #{categoryId}
             </if>
             <if test="query != null">
                 AND title LIKE '%${query}%'

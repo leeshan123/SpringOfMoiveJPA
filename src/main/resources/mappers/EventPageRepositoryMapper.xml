@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.moviespring.web.repository.EventPageRepository">
+    <select id="findAll" resultType="EventPage">
+		select * from event_page
+	</select>
+
+    <select id="findById" resultType="EventPage">
+        select * from event_page
+        where id = #{id}
+    </select>
+
+    <select id="findByNextId" resultType="EventPage">
+        SELECT * FROM event_page
+        WHERE id &gt; #{id}
+        ORDER BY id ASC
+        LIMIT 1;
+    </select>
+
+    <select id="findByPreId" resultType="EventPage">
+        SELECT * FROM event_page
+        WHERE id &lt; #{id}
+        ORDER BY id DESC
+        LIMIT 1;
+    </select>
+
+    <select id="ongoingEvents" resultType="EventPage">
+        SELECT * FROM 
+            event_page
+        WHERE 
+            end_date &gt;= #{currentDate};
+    </select>
+
+    <select id="endedEvents" resultType="EventPage">
+        SELECT * FROM 
+            event_page
+        WHERE 
+            end_date &lt; #{currentDate};
+    </select>
+
+    <insert id="save" parameterType="map">
+        insert into event_page(title, contents, start_date, end_date, image_url, member_id)
+        values(#{eventPage.title},#{eventPage.contents},#{eventPage.startDate},#{eventPage.endDate},#{eventPage.imageUrl},#{memberId})
+    </insert>
+
+    <update id="update" parameterType="EventPage">
+        update event_page
+        set
+            title=#{title},
+            contents=#{contents},
+            image_url=#{imageUrl}
+        where
+            id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from event_page
+        where id = #{id}
+    </delete>
+
+    <select id="findByTop5" resultType="EventPage">
+        select * from event_page
+        order by start_date limit 5
+    </select>
+
+</mapper>

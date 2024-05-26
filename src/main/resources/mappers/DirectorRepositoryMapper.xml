@@ -9,6 +9,12 @@
 		where tmdb_id=#{id}
 	</select>
 
+    <select id="findAllByName" resultType="Director">
+        SELECT * FROM director WHERE kor_name LIKE CONCAT('%', #{query}, '%')
+        OR REPLACE(kor_name, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+        OR LOWER(eng_name) LIKE CONCAT('%', LOWER(#{query}), '%');
+    </select>
+
     <insert id="save" parameterType="Director" useGeneratedKeys="true" keyProperty="id">
         insert into director (kobis_id, tmdb_id, kor_name, eng_name, img_url, popularity)
         values (#{kobisId}, #{tmdbId}, #{korName}, #{engName}, #{imgUrl}, #{popularity})

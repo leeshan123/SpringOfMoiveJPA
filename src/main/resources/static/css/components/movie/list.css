@@ -1,4 +1,5 @@
-.test{
+
+/* .test{
     display: flex;
     position: absolute;
     justify-content: space-between;
@@ -6,16 +7,49 @@
     max-width: 980px;
     margin-top: 115px;
     border-radius: 30px;
-}
+} */
 .aa{
     background-color: #ffffff;
     border: 1px hidden #000;
     border-radius: 9999px;
+
 }
+
+.left-div,
+.right-div {
+    z-index: 1;
+    height: auto;
+    width: 1px;
+    padding-bottom: 80px;
+}
+
+.scr-btn-left{
+    position: absolute;
+}
+.scr-btn-left{
+    position: absolute;
+}
+.scrable-content1,
+.scrable-content2,
+.scrable-content3,
+.scrable-content4 {
+    scroll-behavior: smooth; /* 스크롤이 부드럽게 이동하도록 함 */
+    overflow-y: scroll; /* 수직 스크롤만 허용 */
+    overflow-x: hidden; /* 수평 스크롤 제거 */
+}
+
+/* Webkit 브라우저의 스크롤바 감추기 */
+.scrable-content1::-webkit-scrollbar,
+.scrable-content2::-webkit-scrollbar,
+.scrable-content3::-webkit-scrollbar,
+.scrable-content4::-webkit-scrollbar {
+    display: none;
+}
+
 
   /* 크로스 브라우저 스크롤바 스타일링 */
 /* Webkit */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 12px;
 }
 
@@ -28,15 +62,9 @@
     background-color: #555;
 }
 
-/* Firefox */
-/* Firefox에서는 scrollbar-thumb에 대한 스타일링이 별도로 필요합니다. */
-/* Firefox 스크롤바의 색상을 변경 */
 * {
-    scrollbar-color: #ffffff #ffffff; /* 색상, 배경 색상 */
 }
 
-/* Firefox 스크롤바 썸네일의 모양 변경 */
 * {
     scrollbar-width:thin;
-}
-
+} */

@@ -3,37 +3,58 @@
       layout:decorate="inc/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원가입 - 영화의봄</title>
+    <link rel="stylesheet" href="/css/user/signup.css">
+    <script src="/js/user/signup.js" defer></script>
 </head>
 <body>
 <main layout:fragment="main">
     <section class="d:flex jc:space-around">
 
             <div class="w:9 max-w:9 mx:5 m-bottom:10">
-                <div class="d:flex flex-direction:row">
+                <div class="d:flex flex-direction:row mb:5">
                     <h1 class="fw:bold fs:8 bd-bottom bd-w:2 bd-color:base-10 display:inline-block">
                       회원가입
                     </h1>
                     <span class="flex-grow:1 bd-bottom bd-w:2"></span>
                 </div>
-                <form action="regist" method="post" class="n-form n-form-type:shadow n-form-type:outline-none d:flex flex-direction:column">
-                    <label for="user-id">아이디 입력</label>
-                    <input type="text" id="user-id" name="username" src="" alt="" required>
+                <form action="signup" method="post" class="n-form n-form-type:shadow n-form-type:outline-none d:flex flex-direction:column">
                     
+                    <label for="user-id">아이디 입력</label>
+                    <p class="status"></p>
+                    <span>
+                        <input type="text" id="user-id" name="username" src="" alt="" autofocus
+                        minlength="4" maxlength="15" autocomplete="false" required>
+                    </span>
+
                     <label for="password">비밀번호 입력</label>
-                    <input type="text" id="password" name="password" src="" alt="" required>
+                    <span>
+                        <input type="password" id="password" name="password" src="" alt="" 
+                        minlength="8" maxlength="16" required>
+                    </span>
 
                     <label for="nickname">닉네임 입력</label>
-                    <input type="text" id="nickname" name="nickname" src="" alt="" required>
-                    
+                    <span>
+                        <input type="text" id="nickname" name="nickname" src="" alt="" 
+                        minlength="2" autocomplete="false" required>
+                    </span>
+                
                     <label for="name">이름</label>
-                    <input type="text" id="name" name="name" src="" alt="" required>
-
+                    <span>
+                        <input type="text" id="name" name="name" src="" alt="" 
+                        minlength="2" autocomplete="false" required>
+                    </span>
+                
                     <label for="age">나이</label>
-                    <input type="text" id="age" name="age" src="" alt="" required>
-                    
+                    <span>
+                        <input type="number" id="age" name="age" src="" alt="" 
+                        min="3" max="120" autocomplete="false" required>
+                    </span>
+                
                     <label for="email">이메일 입력</label>
-                    <input type="text" id="email" name="email" src="" alt="" required>
+                    <span>
+                        <input type="email" id="email" name="email" src="" alt="" required>
+                    </span>
                     
                     <button class="n-btn m-top:8" type="submit">회원가입</button>
                 </form>

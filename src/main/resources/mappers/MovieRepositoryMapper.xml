@@ -5,10 +5,118 @@
 <mapper namespace="kr.co.moviespring.web.repository.MovieRepository">
 	<!-- 영화 목록 -->
 	<select id="findAll" resultType="Movie">
-		select * from movie
+		SELECT * FROM movie
+		LIMIT #{offset}, #{size};
     </select>
 
-	<!-- 영화 상세 목록 -->
+	<select id="findAllByQuery" resultType="MovieSearchView">
+		SELECT * FROM movie_search_view
+		<where>
+			<if test="query != null">
+				kor_name LIKE CONCAT('%', #{query}, '%')
+				OR REPLACE(kor_name, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+				OR LOWER(eng_name) LIKE CONCAT('%', LOWER(#{query}), '%')
+			</if>
+		</where>
+		LIMIT #{offset}, #{size};
+    </select>
+
+	<select id="getCount" resultType="Integer">
+		SELECT COUNT(*) FROM movie_search_view
+		<where>
+			<if test="query != null">
+				kor_name LIKE CONCAT('%', #{query}, '%')
+				OR REPLACE(kor_name, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+				OR LOWER(eng_name) LIKE CONCAT('%', LOWER(#{query}), '%')
+			</if>
+		</where>
+	</select>
+
+
+	<!-- 올해의 영화 -->
+	<select id="findAllByYear" resultType="Movie">
+		SELECT m.*,
+		COALESCE(r.review_count, 0) AS review_count,
+		COALESCE(r.total_member_rate, 0) AS total_member_rate
+		FROM movie m
+		LEFT JOIN (
+		SELECT movie_id,
+		COUNT(id) AS review_count,
+		SUM(member_rate) AS total_member_rate
+		FROM oneline_review
+		GROUP BY movie_id
+		) r ON m.id = r.movie_id
+		WHERE YEAR(m.release_date) = YEAR(CURDATE())
+		ORDER BY m.audi_acc desc
+		LIMIT 10;
+    </select>
+
+	<select id="findAllAfter" resultType="Movie">
+		SELECT m.*,
+		COALESCE(r.review_count, 0) AS review_count,
+		COALESCE(r.total_member_rate, 0) AS total_member_rate
+		FROM movie m
+		LEFT JOIN (
+		SELECT movie_id,
+		COUNT(id) AS review_count,
+		SUM(member_rate) AS total_member_rate
+		FROM oneline_review
+		GROUP BY movie_id
+		) r ON m.id = r.movie_id
+		WHERE m.release_date > CURDATE()
+		ORDER BY m.release_date
+		LIMIT 10;
+	</select>
+
+	<!-- 검색한 영화 목록 -->
+	<select id="findAllByName" resultType="Movie">
+		SELECT m.*,
+		COALESCE(r.review_count, 0) AS review_count,
+		COALESCE(r.total_member_rate, 0) AS total_member_rate
+		FROM movie m
+		LEFT JOIN (
+		SELECT movie_id,
+		COUNT(id) AS review_count,
+		SUM(member_rate) AS total_member_rate
+		FROM oneline_review
+		GROUP BY movie_id
+		) r ON m.id = r.movie_id
+		WHERE kor_name LIKE CONCAT('%', #{query}, '%')
+		OR REPLACE(kor_name, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+		OR LOWER(eng_name) LIKE CONCAT('%', LOWER(#{query}), '%');
+	</select>
+
+	<!--인물별 필모리스트-->
+	<select id="findAllByPeopleId" resultType="Movie">
+		SELECT m.id,
+		m.kobis_id,
+		m.kor_name,
+		m.eng_name,
+		m.poster_url,
+		m.release_date,
+		COALESCE(r.review_count, 0) AS review_count,
+		COALESCE(r.total_member_rate, 0) AS total_member_rate
+		FROM movie m
+		LEFT JOIN (
+		SELECT movie_id,
+		COUNT(id) AS review_count,
+		SUM(member_rate) AS total_member_rate
+		FROM oneline_review
+		GROUP BY movie_id
+		) r ON m.id = r.movie_id
+		<if test="type == 'director'">
+			INNER JOIN movie_director md ON m.id = md.movie_id
+			WHERE md.director_id = #{id}
+		</if>
+		<if test="type == 'actor'">
+			INNER JOIN movie_actor ma ON m.id = ma.movie_id
+			WHERE ma.actor_id = #{id}
+		</if>
+		ORDER BY m.release_date DESC
+	</select>
+
+
+	<!-- 영화 상세 페이지 -->
 	<select id="findById" resultType="Movie">
 		select * from movie
 		where id=#{id}
@@ -18,17 +126,105 @@
 		select * from movie
 		where tmdb_id=#{id}
 	</select>
-	
+
+	<select id="findByKobisId" resultType="Movie">
+		SELECT m.*,
+		COALESCE(r.review_count, 0) AS review_count,
+		COALESCE(r.total_member_rate, 0) AS total_member_rate
+		FROM movie m
+		LEFT JOIN (
+		SELECT movie_id,
+		COUNT(id) AS review_count,
+		SUM(member_rate) AS total_member_rate
+		FROM oneline_review
+		GROUP BY movie_id
+		) r ON m.id = r.movie_id
+		WHERE m.kobis_id=#{id}
+	</select>
 
 	<!-- 영화 등록 (임시) -->
 	<insert id="save" parameterType="Movie" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO movie (tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, stillcut_url, trailer_url, release_nation, genre)
+		INSERT INTO movie (tmdb_id, kobis_id, kor_name, eng_name, sponsor, release_date, running_time, watch_grade, movie_intro, poster_url, logo_url, main_img_url, release_nation, genre)
     	VALUES 
 			(#{tmdbId}, #{kobisId}, #{korName}, #{engName}, #{sponsor},
 			#{releaseDate}, #{runningTime}, #{watchGrade}, #{movieIntro}, #{posterUrl},
-			#{stillcutUrl}, #{trailerUrl}, #{releaseNation}, #{genre})
+			#{logoUrl}, #{mainImgUrl}, #{releaseNation}, #{genre})
 	</insert>
 
 
+	<!-- 장르별 영화등록,조회 -->
+	<insert id="getByGenre">
+		INSERT INTO twoweek_movie_vote_list (movie_cd)
+		SELECT movie.id
+		FROM movie
+		INNER JOIN movie3 ON movie.kobis_id = movie3.movie_cd
+		WHERE movie.genre = #{childSelectValue}
+		ORDER BY movie3.audi_acc DESC
+		LIMIT 6;
+	</insert>
 
+	<select id="getVoteList1">
+		SELECT movie.*, movie3.audi_acc
+		FROM movie
+		INNER JOIN movie3 ON movie.kobis_id = movie3.movie_cd
+		WHERE movie.genre = #{childSelectValue}
+		ORDER BY movie3.audi_acc DESC
+		LIMIT 5;
+	</select>
+	<!--//////////////////////////////////////////////-->
+
+
+
+	<!-- 년도별 영화등록,조회 -->
+	<insert id="getByReleseDate">
+		INSERT INTO twoweek_movie_vote_list (movie_cd)
+		SELECT movie.id
+		FROM movie
+		INNER JOIN movie3 ON movie.kobis_id = movie3.movie_cd
+		WHERE YEAR(movie.release_date) = #{childSelectValue}
+		ORDER BY movie3.audi_acc DESC
+		LIMIT 6;
+	</insert>
+
+	<select id="getVoteList2">
+		SELECT movie.*, movie3.audi_acc
+		FROM movie
+		INNER JOIN movie3 ON movie.kobis_id = movie3.movie_cd
+		WHERE movie.genre = #{childSelectValue}
+		ORDER BY movie3.audi_acc DESC
+		LIMIT 5;
+	</select>
+	<!--//////////////////////////////////////////////-->
+
+
+
+	<!-- 배급사별 영화등록,조회 -->
+	<insert id="getByDistributor">
+		INSERT INTO twoweek_movie_vote_list (movie_cd)
+		SELECT movie.id
+		FROM movie
+		INNER JOIN movie3 ON movie.kobis_id = movie3.movie_cd
+		WHERE YEAR(movie.release_date) = #{childSelectValue}
+		ORDER BY movie3.audi_acc DESC
+		LIMIT 6;
+	</insert>
+
+	<select id="getVoteList3">
+		SELECT movie.*, movie3.audi_acc
+		FROM movie
+		INNER JOIN movie3 ON movie.kobis_id = movie3.movie_cd
+		WHERE movie.genre = #{childSelectValue}
+		ORDER BY movie3.audi_acc DESC
+		LIMIT 5;
+	</select>
+	<!-- 배급사별 영화등록,조회 -->
+
+	<select id="getEditedList">
+		select movie.* from twoweek_movie_vote_list
+		inner join movie on movie.id = twoweek_movie_vote_list.movie_cd
+	</select>
+
+	<delete id="delete" parameterType="Long">
+        DELETE FROM movie WHERE id=#{id};
+    </delete>
 </mapper>

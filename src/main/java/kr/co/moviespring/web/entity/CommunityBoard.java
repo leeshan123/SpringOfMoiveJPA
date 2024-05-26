@@ -21,5 +21,4 @@ public class CommunityBoard {
  private Long memberId;
  private Long categoryId;
  private String imageUrl;
-
 }

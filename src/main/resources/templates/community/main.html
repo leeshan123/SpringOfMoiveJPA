@@ -39,27 +39,27 @@
             /* place-self: stretch stretch; */
             height: 236px;
         }
-        /* .grid-container { */
-            /* d:grid grid-template-rows:3 grid-template-columns:2 ji:center ai:center gap:4 max-w:100p*/
+        /* .grid-container {
+            d:grid grid-template-rows:3 grid-template-columns:2 ji:center ai:center gap:4 max-w:100p
             display: grid;
             grid-template-rows: 3;
             grid-template-columns: 2;
             justify-items: center;
             align-items: center;
             gap: 16px;
-        }
+        } */
 
         /* @media screen and (max-width: 600px) { */
             /* 그리드 템플릿 변경: 2열에서 1열로 변경 */
-            /* .grid-container { */
-                grid-template-columns: 1fr; /* 1열 */
-            }
-            /* .first-grid { */
-                grid-template-columns: 1fr; /* 1열 */
-            }
-        }
+            /* .grid-container {
+                grid-template-columns: 1fr;  
+            } 1열 */
+            /* .first-grid {
+                grid-template-columns: 1fr; 1열
+            } */
+        /* } */
     </style>
-    <title>Document</title>
+    <title>커뮤니티 - 영화의봄</title>
 </head>
 
 <body>
@@ -98,7 +98,7 @@
                                         <!-- <div>
                                             <a href="" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="color:base-10 m-right:1" th:href="@{board/detail(c=${category.engName},id=${list.id})}" th:text="${list.title}">제목</a>
                                         </div> -->
-                                        <div class="color:base-6 fs:2">[12]</div>
+                                        <div class="color:base-6 fs:2" th:text="${list.commentCount > 0 ? '['+list.commentCount+']' :''}">[12]</div>
                                     </li>
                                 </ul>
 

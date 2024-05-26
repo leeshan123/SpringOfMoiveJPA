@@ -4,17 +4,26 @@ import kr.co.moviespring.web.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import groovyjarjarantlr4.v4.parse.ANTLRParser.ruleAction_return;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
-public class CustomUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails, OAuth2User {
 
     private Member member;
-    // private String nickname;
+
+//    public CustomUserDetails(){
+//    }
+
     public CustomUserDetails(Member member) {
 
         this.member = member;
     }
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -28,6 +37,13 @@ public class CustomUserDetails implements UserDetails {
             }
         });
         return collection;
+    }
+    public Long getId(){
+        return member.getId();
+    }
+
+    public void setId(Long Id){
+        this.member.setId(Id);
     }
 
     public String getNickname() {
@@ -53,6 +69,14 @@ public class CustomUserDetails implements UserDetails {
 
     public void setAge(int age) {
         this.member.setAge(age);
+    }
+
+    public int getStatus(){
+        return member.getStatus();
+    }
+
+    public void setStatus(int status){
+        this.member.setStatus(status);
     }
 
     public String getEmail() {
@@ -81,6 +105,8 @@ public class CustomUserDetails implements UserDetails {
         return member.getUsername();
     }
 
+    public void setUsername(String username) { this.member.setUsername(username); }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -100,4 +126,20 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    //구글 로그인 설정
+    private Map<String, Object> attributes;
+//    private String name;
+
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, Object> attributes) {
+        this.attributes = attributes;
+    }
+
+
 }

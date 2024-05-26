@@ -6,11 +6,45 @@
 
 	<select id="getlist" resultType="Movie3">
 		SELECT * FROM 
-			spring_of_movie_db.movie3 
+			movie3
 		where 
 			rep_genre_nm not like '%에로%' 
-			and open_dt &lt; 20240425 
-		order by open_dt desc limit 10
+		and 
+			open_dt like '${year}%'
+	</select>
+	
+
+	<select id="getlistByPrd" resultType="Movie3">
+		SELECT * FROM movie3
+		where 
+			rep_genre_nm not like '%에로%' 
+		and 
+			prd_year like '${year}%'
+	</select>
+
+	<select id="findByQuery" resultType="Movie3">
+		SELECT * FROM 
+        	movie3
+		WHERE 
+			rep_genre_nm not like '%에로%' 
+		<if test="query != null">
+			AND (movie_nm LIKE CONCAT('%', #{query}, '%')
+			OR REPLACE(movie_nm, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+			OR LOWER(movie_nm_en) LIKE CONCAT('%', LOWER(#{query}), '%'))
+		</if>
+		ORDER BY movie_cd DESC
+		LIMIT #{offset}, #{size};
+	</select>
+
+	<select id="getCount" resultType="Integer">
+		SELECT COUNT(*) FROM movie3
+		<where>
+			<if test="query != null">
+				movie_nm LIKE CONCAT('%', #{query}, '%')
+				OR REPLACE(movie_nm, ' ', '') LIKE CONCAT('%',REPLACE(#{query}, ' ', ''), '%')
+				OR LOWER(movie_nm_en) LIKE CONCAT('%', LOWER(#{query}), '%')
+			</if>
+		</where>
 	</select>
 
 
@@ -22,8 +56,8 @@
 
 	<!--	영화 목록 중에 없는 데이터 집어넣기-->
 	<insert id="saveIfNotMovie" parameterType="Movie2">
-		INSERT INTO movie3 (movie_cd, movie_nm, open_dt, rep_genre_nm, movie_nm_en, nation_alt, prd_year)
-		SELECT #{movieCd}, #{movieNm}, #{openDt}, #{repGenreNm}, #{movieNmEn}, #{nationAlt},#{prdYear}
+		INSERT INTO movie3 (movie_cd, movie_nm, open_dt, rep_genre_nm, movie_nm_en, nation_alt, prd_year, director_nm, company_cd)
+		SELECT #{movieCd}, #{movieNm}, #{openDt}, #{repGenreNm}, #{movieNmEn}, #{nationAlt},#{prdYear}, #{directorNm}, #{companyCd}
 		FROM (SELECT 1) AS dummy
 		WHERE NOT EXISTS (
 		SELECT 1 FROM movie3 WHERE movie_cd = #{movieCd}
@@ -33,7 +67,8 @@
 	<!--엑셀에서 누적관객수 데이터 집어넣기	-->
 	<insert id="excelDataInsert" parameterType="Movie2">
 		UPDATE movie3
-		SET audi_acc = #{audiAcc}
+		SET audi_acc = #{audiAcc},
+		reg_date = NOW()
 		WHERE movie_nm = #{movieNm}
 		AND open_dt = #{openDt}
 	</insert>
@@ -47,7 +82,7 @@
 		open_dt = #{openDt},
 		rep_genre_nm = #{repGenreNm},
 		nation_alt = #{nationAlt},
-		prd_year = #{prdtYear},
+		prd_year = #{prdYear},
 		company_cd = #{companyCd},
 		director_nm = #{directorNm}
 		WHERE movie_cd = #{movieCd}
