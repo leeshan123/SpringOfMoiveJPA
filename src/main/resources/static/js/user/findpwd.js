@@ -1,8 +1,7 @@
 window.addEventListener('load', function(){
     const findBtn = this.document.querySelector(".find-btn");
     window.memberId;
-
-
+    
     findBtn.onclick = function(e){
         // 현재 클릭되는 태그를 반환해줌
         console.log(e.target);
@@ -11,32 +10,35 @@ window.addEventListener('load', function(){
         if(e.target.tagName != "BUTTON")
             return;
 
-        
         // 이미 존재하는 인증 div가 있는지 확인
         if (document.querySelector(".verification-div")) {
             showMessage("이미 인증이 진행중입니다.");
             return; // 이미 div가 존재하면 추가하지 않음
         }
 
+        let userid = document.querySelector(".id-input").value;
         let email = document.querySelector(".email-input").value;
         let name = document.querySelector(".name-input").value;
         
-
-        if (email && name) {
-            // 이메일 전송 전에 이름이랑 이메일이 있는지 확인
-            const url = "/api/email/verify-user";
+        // 공란인지 확인
+        if (email && name && userid){
+            const url = "/api/email/verify-pwd";
             fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email: email, name: name })
+                body: JSON.stringify(
+                    { email: email, name: name, userid: userid }
+                )
             })
             .then(response => response.json())
             .then(data => {
                 if (data.id) {
+
                     // 반환받은 아이디가 있으면 저장
                     window.memberId = data.id;
+                    
                     // 이메일 전송
                     sendVerificationEmail(email);
                 } else {
@@ -47,15 +49,15 @@ window.addEventListener('load', function(){
                 console.error('Error:', error);
                 alert("확인 중 오류가 발생했습니다.");
             });
-
-        } else {
-            alert("이름, 이메일 주소 모두 입력해주세요.");
         }
+        else {
+            alert("아이디, 이름, 이메일 주소 모두 입력해주세요.");
+        }
+
     }
 
 
     function sendVerificationEmail(email) {
-        // AJAX를 사용하여 서버로 이메일 주소 전송
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "/api/email/sendVerificationEmail", true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -108,28 +110,12 @@ window.addEventListener('load', function(){
                     button.addEventListener("click", function() {
                         if(input.value == responseData){
                             
-                            // 유저 아이디를 받아옴
-                            fetch('/api/member/' + window.memberId)
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Network response was not ok');
-                                }
-                                return response.json();
-                            })
-                            .then(user => {
-                                // 유저 정보 사용
-                                console.log(user);
-                                alert("회원님의 아이디는 [" + user.username + "] 입니다.");
-
-                                // 새로운 페이지로 이동
-                                window.location.href = 'findid';
-                            })
-                            .catch(error => {
-                                console.error('There was a problem with the fetch operation:', error);
-                            });
-
-
+                            // 인증이 완료되었으므로 인증키 창은 닫는다.
                             div.parentNode.removeChild(div);
+
+                            // 변경할 암호 작성하기
+                            openModal(); // 모달 열기
+
                         }
                         else
                             alert("코드를 다시 한 번 확인해주세요.");
@@ -155,27 +141,9 @@ window.addEventListener('load', function(){
 
     }
 
-    // 타이머 설정 인자값으로 초, 노드를 실행
-    function startTimer(sec, span, delDiv) {
-        let timeLeft = sec;
 
-        const timerInterval = setInterval(() => {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            span.textContent = formattedTime;
 
-            // 시간이 다 되면 타이머 중지 및 div 제거
-            if (timeLeft === 0) {
-                clearInterval(timerInterval);
-                delDiv.parentNode.removeChild(delDiv);
-            }
 
-            timeLeft--;
-        }, 1000);
-    }
-
-    
     function showMessage(message) {
         // 기존 메시지 div가 있는지 확인
         let messageDiv = document.querySelector(".message-div");
@@ -204,4 +172,78 @@ window.addEventListener('load', function(){
         }, 3000);
     }
 
+    // 모달 열기
+    function openModal() {
+        const modal = document.getElementById("passwordModal");
+        modal.style.display = "block";
+
+        // 모달 닫기 버튼 클릭 이벤트
+        const closeBtn = modal.querySelector(".close");
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        // 비밀번호 변경 버튼 클릭 이벤트
+        const changePasswordBtn = modal.querySelector("#changePasswordBtn");
+        changePasswordBtn.onclick = function() {
+            const newPassword = modal.querySelector("#newPassword").value;
+            const confirmPassword = modal.querySelector("#confirmPassword").value;
+            if (newPassword && confirmPassword) {
+                if (newPassword === confirmPassword) {
+                    changePassword(newPassword);
+                } else {
+                    alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+                }
+            } else {
+                alert("모든 필드를 입력해주세요.");
+            }
+        };
+    }
+
+    // 비밀번호 변경
+    function changePassword(newPassword) {
+        const url = "/api/member/change-password";
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: window.memberId, newPassword: newPassword })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("비밀번호가 성공적으로 변경되었습니다.");
+                const modal = document.getElementById("passwordModal");
+                modal.style.display = "none";
+                // 새로운 페이지로 이동
+                window.location.href = 'findpwd';
+            } else {
+                alert("비밀번호 변경에 실패했습니다.");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("비밀번호 변경 중 오류가 발생했습니다.");
+        });
+    }
+
+    // 타이머 설정 인자값으로 초, 노드를 실행
+    function startTimer(sec, span, delDiv) {
+        let timeLeft = sec;
+
+        const timerInterval = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            span.textContent = formattedTime;
+
+            // 시간이 다 되면 타이머 중지 및 div 제거
+            if (timeLeft === 0) {
+                clearInterval(timerInterval);
+                delDiv.parentNode.removeChild(delDiv);
+            }
+
+            timeLeft--;
+        }, 1000);
+    }
 })

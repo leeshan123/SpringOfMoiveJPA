@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,6 +58,22 @@ public class MemberController {
         }
     }
 
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(
+        @RequestBody Map<String, String> requestData 
+    ) {
+        
+        Long memberId = Long.parseLong(requestData.get("id"));
+        String newPassword = requestData.get("newPassword");
+
+        boolean isChanged = memberService.changePassword(memberId, newPassword);
+
+        if (isChanged) {
+            return ResponseEntity.ok("비밀번호가 변경되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("변경에 실패하였습니다. 관리자에게 문의하세요.");
+        }
+    }
 
     @GetMapping("board-list")
     public List<CommunityBoardView> boardList(

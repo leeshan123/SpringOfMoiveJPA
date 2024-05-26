@@ -92,4 +92,13 @@
             email = #{email} AND name = #{username}
     </select>
 
+    <!-- 유저 확인 -->
+    <select id="findByEmailAndNameAndId" resultType="Long">
+        SELECT id
+        FROM 
+            member
+        WHERE 
+            email = #{email} AND name = #{username} AND username = #{userId}
+    </select>
+
 </mapper>

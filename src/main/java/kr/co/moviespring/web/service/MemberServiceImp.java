@@ -143,5 +143,27 @@ public class MemberServiceImp implements MemberService {
         return memberId;
     }
 
+    @Override
+    public Long verifyPwd(String userId, String username, String email) {
+        Long memberId = memberRepository.findByEmailAndNameAndId(username, email, userId);
+        return memberId;
+    }
+
+    @Override
+    @Transactional
+    public boolean changePassword(Long memberId, String newPassword) {
+        Member member = memberRepository.findById(memberId);
+        member.setPassword(bCryptPasswordEncoder.encode(newPassword));
+        
+        try {
+            memberRepository.update(member);
+            // 성공적으로 업데이트된 경우
+            return true;
+        } catch (Exception ex) {
+            // 업데이트에 실패한 경우
+            return false;
+        }
+    }
+
 
 }

@@ -32,6 +32,8 @@ public interface MemberRepository {
 
     Long findByEmailAndName(String username, String email);
 
+    Long findByEmailAndNameAndId(String username, String email, String userId);
+
 //    String username, String password, String name, String nickname, int age, String email
   
 }

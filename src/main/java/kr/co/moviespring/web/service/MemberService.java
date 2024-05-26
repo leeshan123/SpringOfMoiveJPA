@@ -33,5 +33,9 @@ public interface MemberService {
     void restoreById(Long memberId);
 
     Long verifyUser(String username, String email);
+
+    Long verifyPwd(String userId, String username, String email);
+
+    boolean changePassword(Long memberId, String newPassword);
     
 }

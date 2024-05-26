@@ -44,6 +44,21 @@ public class EmailController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("verify-pwd")
+    public ResponseEntity<Map<String, Long>> verifyPwd(
+        @RequestBody Map<String, String> requestData    
+    ) {
+        String username = requestData.get("name");
+        String email = requestData.get("email");
+        String userId = requestData.get("userid");
+        
+        Long id = memberService.verifyPwd(userId, username, email);
+        Map<String, Long> response = new HashMap<>();
+
+        response.put("id", id);
+        return ResponseEntity.ok(response);
+    }
+
 
     @PostMapping("/sendVerificationEmail")
     public ResponseEntity<String> sendVerificationEmail(@RequestBody EmailRequest emailRequest) {

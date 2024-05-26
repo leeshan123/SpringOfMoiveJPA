@@ -17,7 +17,59 @@
         main nav .deco:last-child{
             color: #54644A;
         }
+
+        .find-block input{
+            padding: 4px 10px;
+        }
+
+        /* 비밀번호 변경 모달 스타일 */
+        .modal {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            row-gap: 16px;
+            border-radius: 10px;
+        }
+
+        .modal-content input{
+            border: 1px solid #aaaaaa;
+            border-radius: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
+    <script src="/js/user/findpwd.js" defer></script>
 </head>
 <body>
     <main layout:fragment="main">
@@ -32,22 +84,44 @@
             <div class="head">
                 <h1>비밀번호 찾기</h1>
             </div>
-            <form action="changepwd">
-                <label for="">아이디</label>
-                <input type="text">
-                <label for="">이름</label>
-                <input type="text">
-                <label for="">이메일 주소</label>
-                <input type="email">
+            <form>
+                <label >아이디</label>
+                <input class="id-input" type="text">
+                <label >이름</label>
+                <input class="name-input" type="text">
+                <label >이메일 주소</label>
+                <input class="email-input" type="email">
                 <div class="email_button">
-                    <button type="button">인증번호 받기</button>
+                    <button type="button" class="find-btn mb:2">인증번호 받기</button>
                 </div>
                 <!-- <div class="inputcert">
                     <input type="text" placeholder="인증번호 6자리 숫자 입력">
                     <button type="submit">확인</button>
                 </div> -->
             </form>
+
         </section>
+
+        <!-- 모달 구조 -->
+        <div id="passwordModal" class="modal">
+            <div class="modal-content">
+                <div class="d:flex ai:flex-end fl-dir:column">
+                    <span class="close">&times;</span>
+                    <div class="d:flex jc:center w:10p">
+                        <span class="fs:5">비밀번호 변경</span>
+                    </div>
+                </div>
+                <div class="d:flex fl-dir:column row-gap:1">
+                    <label for="newPassword">새 비밀번호:</label>
+                    <input class="p:1" type="password" id="newPassword">
+                </div>
+                <div class="d:flex fl-dir:column row-gap:1">
+                    <label for="confirmPassword">비밀번호 확인:</label>
+                    <input class="p:1" type="password" id="confirmPassword">
+                </div>
+                <button type="button" class="n-btn" id="changePasswordBtn">변경하기</button>
+            </div>
+        </div>
     </main>
 </body>
 </html>
