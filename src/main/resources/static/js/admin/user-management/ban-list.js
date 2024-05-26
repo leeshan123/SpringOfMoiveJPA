@@ -9,7 +9,7 @@ window.addEventListener("load", function() {
             const userRow = this.closest('tr');
             const userId = userRow.querySelector(".user-id");
 
-            const apiUrl = `http://localhost/api/member/restore`;
+            const apiUrl = `/api/member/restore`;
 
             if (confirm("해당 유저를 복구하시겠습니까?")){
                 fetch(apiUrl, {

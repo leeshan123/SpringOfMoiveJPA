@@ -12,7 +12,7 @@ window.addEventListener('load', function() {
     });
 
     deleteBtn.onclick = function() {
-        const apiUrl = `http://localhost/api/community-board/delete-comment`;
+        const apiUrl = `/api/community-board/delete-comment`;
         const checkedItems = [];
         Array.from(checkMovie).forEach((checkbox) => { // NodeList를 배열로 변환
             if (checkbox.checked) {

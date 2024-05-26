@@ -279,7 +279,7 @@ window.addEventListener('load', function () {
                         // finish 버튼 누르면 다시 메인 페이지로 이동
                         finishButton.addEventListener('click', () => {
                             modalBackdrop.classList.add('d:none');
-                            window.location.href = 'http://localhost/playground/main';
+                            window.location.href = '/playground/main';
                         });
 
                     } else {

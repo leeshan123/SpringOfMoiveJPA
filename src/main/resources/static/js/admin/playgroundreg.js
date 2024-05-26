@@ -4,7 +4,7 @@ window.addEventListener('load', function () {
     const resultList = document.querySelector(".result-list");
     const submitButton = document.getElementById("submit-btn");
 
-    backButton.addEventListener('click', () => handleButtonClick('http://localhost/admin/playground/main'));
+    backButton.addEventListener('click', () => handleButtonClick('/admin/playground/main'));
 
     SearchButton.addEventListener('click', function(e) {
 
@@ -21,7 +21,7 @@ window.addEventListener('load', function () {
 
         if (movieQuery) {
             let xhr = new XMLHttpRequest();
-            xhr.open('GET', 'http://localhost/admin/playground/search?movie_query=' + encodeURIComponent(movieQuery), true);
+            xhr.open('GET', '/admin/playground/search?movie_query=' + encodeURIComponent(movieQuery), true);
 
             xhr.onload = function() {
                 if (xhr.status === 200) {

@@ -18,7 +18,7 @@ window.addEventListener('load', function () {
 
 
     //오픈버튼
-    openButton.addEventListener('click', () => handleButtonClick('http://localhost/admin/playground/reg'));
+    openButton.addEventListener('click', () => handleButtonClick('/admin/playground/reg'));
 
     //삭제버튼
     deleteButtons.forEach(button => {
@@ -38,7 +38,7 @@ window.addEventListener('load', function () {
     editButtons.forEach(button => {
         button.addEventListener('click', function () {
             const id = this.getAttribute('data-id');
-            window.location.href = `http://localhost/admin/playground/edit?id=${id}`;
+            window.location.href = `/admin/playground/edit?id=${id}`;
 
         });
     });
@@ -86,7 +86,7 @@ window.addEventListener('load', function () {
     realDeleteButton.addEventListener('click', function() {
         const id = this.getAttribute('data-id');
         if (id) {
-            window.location.href = `http://localhost/admin/playground/delete?id=${id}`;
+            window.location.href = `/admin/playground/delete?id=${id}`;
             alert("게시글이 정상적으로 삭제되었습니다!");
         } else {
             console.error('게시글 삭제 중 오류가 발생되었습니다.');

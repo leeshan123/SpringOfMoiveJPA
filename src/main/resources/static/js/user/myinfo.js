@@ -5,7 +5,7 @@ window.addEventListener('load', function () {
     
     btnDelete.onclick = function(){
 
-        const apiUrl = `http://localhost/api/member/delete`;
+        const apiUrl = `/api/member/delete`;
 
         if (confirm("정말 삭제하시겠습니까?")){
             fetch(apiUrl, {

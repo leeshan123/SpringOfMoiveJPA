@@ -22,6 +22,10 @@ main h1{
     max-width: 980px;
 }
 
+.content-info{
+    min-width: 400px;
+}
+
 .bet-list>section{
     display: flex;
     position: relative;

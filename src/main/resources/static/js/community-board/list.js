@@ -14,7 +14,7 @@ createApp({
             console.log("클릭", category);
 
             try {
-                const response = await fetch(`http://localhost/api/community-boards/${category}?p=${this.page}`);
+                const response = await fetch(`/api/community-boards/${category}?p=${this.page}`);
                 const data = await response.json();
                 this.list = data.list; // API 응답에서 리스트 데이터 추출하여 할당
             } catch (error) {

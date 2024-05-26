@@ -4,7 +4,7 @@ window.addEventListener('load', function() {
     // 체크된 체크박스의 값을 저장할 배열 생성.
     
     deleteBtn.onclick = function() {
-        const apiUrl = `http://localhost/api/movie/delete`;
+        const apiUrl = `/api/movie/delete`;
         const checkedItems = []; 
         Array.from(checkMovie).forEach((checkbox) => { // NodeList를 배열로 변환
             if (checkbox.checked) {
