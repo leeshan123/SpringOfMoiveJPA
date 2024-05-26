@@ -1,6 +1,7 @@
 package kr.co.moviespring.web.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -134,6 +135,12 @@ public class MemberServiceImp implements MemberService {
         member = memberRepository.findById(memberId);
         member.setStatus(0);
         memberRepository.update(member);
+    }
+
+    @Override
+    public Long verifyUser(String username, String email) {
+        Long memberId = memberRepository.findByEmailAndName(username, email);
+        return memberId;
     }
 
 

@@ -1,6 +1,7 @@
 package kr.co.moviespring.web.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -28,6 +29,8 @@ public interface MemberRepository {
     int getCount(Integer status);
 
     Member findById(long memberId);
+
+    Long findByEmailAndName(String username, String email);
 
 //    String username, String password, String name, String nickname, int age, String email
   
