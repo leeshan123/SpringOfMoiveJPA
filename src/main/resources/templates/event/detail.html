@@ -43,7 +43,7 @@ layout:decorate="inc/layout">
                         ~
                         <span th:text="${#dates.format(menu.endDate, 'yyyy.MM.dd')}">종료날짜</span>
                     </div>
-                    <span><img th:src="${menu.imageUrl}" src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>
+                    <span><img style="max-width: 980px;" th:src="${menu.imageUrl}" src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>
                     <!--th:utext는 html태그를 해석해서 출력해줌-->
                     <p th:text="${menu.contents}">작성글 내용이 담길 위치입니다</p>
                 </div>
