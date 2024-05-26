@@ -11,6 +11,13 @@ window.addEventListener('load', function(){
         if(e.target.tagName != "BUTTON")
             return;
 
+        
+        // 이미 존재하는 인증 div가 있는지 확인
+        if (document.querySelector(".verification-div")) {
+            showMessage("이미 인증이 진행중입니다.");
+            return; // 이미 div가 존재하면 추가하지 않음
+        }
+
         let email = document.querySelector(".email-input").value;
         let name = document.querySelector(".name-input").value;
         
@@ -70,8 +77,11 @@ window.addEventListener('load', function(){
                     //버튼 박스 선택
                     const emailBtn = document.querySelector(".email_button");
 
+
                     // 새로운 div 엘리먼트 생성
                     const div = document.createElement("div");
+                    // 클래스를 추가하여 이후에 확인할 수 있게 함
+                    div.className = "verification-div"; 
 
                     // 오른쪽 정렬을 위해 스타일을 설정
                     div.style.textAlign = "right";
@@ -163,6 +173,35 @@ window.addEventListener('load', function(){
 
             timeLeft--;
         }, 1000);
+    }
+
+    
+    // 기존 메시지 div가 있는지 확인
+    function showMessage(message) {
+        let messageDiv = document.querySelector(".message-div");
+        if (!messageDiv) {
+            // 메시지 div가 없으면 생성
+            messageDiv = document.createElement("div");
+            messageDiv.className = "message-div";
+            messageDiv.style.position = "fixed";
+            messageDiv.style.top = "0";
+            messageDiv.style.width = "100%";
+            messageDiv.style.backgroundColor = "#f8d7da";
+            messageDiv.style.color = "#721c24";
+            messageDiv.style.padding = "10px";
+            messageDiv.style.textAlign = "center";
+            messageDiv.style.zIndex = "1000";
+            document.body.appendChild(messageDiv);
+        }
+        // 메시지 업데이트
+        messageDiv.textContent = message;
+
+        // 3초 후에 메시지 자동 제거
+        setTimeout(() => {
+            if (messageDiv) {
+                messageDiv.parentNode.removeChild(messageDiv);
+            }
+        }, 3000);
     }
 
 })
