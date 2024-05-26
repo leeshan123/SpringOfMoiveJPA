@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${movie.korName}+' - '+영화의봄">Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/components/movie/detail.css">
     <link rel="stylesheet" href="/css/components/movie/list.css">
     <script src="/js/movie/list.js" defer></script>
@@ -129,6 +131,25 @@
         .slideblock {
             background-color: rgba(255, 255, 255, 0.6);
             /* 흰색 배경에 투명도 50% */
+        }
+
+        .empty-field {
+            position: absolute;
+            bottom: 46px;
+            left: 176px;
+            /*margin-left: 6px;*/
+            /*margin-top: 8px;*/
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .show-and-hide {
+            opacity: 1;
+        }
+
+        .charCount {
+            position: absolute;
+            bottom: 46px;
+            left: 106px;
         }
 
         .delete-button {
@@ -299,8 +320,10 @@
                             <!--회원 접속시-->
                             <textarea sec:authorize="isAuthenticated()"
                                 th:text="${myReview != null ? myReview.comments : ''}" id="comments" name="comments"
-                                class="width:10p height:2 p:2 n-textbox n-textbox-status:success" type="text"
-                                placeholder="내용을 입력해주세요."></textarea>
+                                class="mb:5 width:10p height:2 p:2 n-textbox n-textbox-status:success reg-textarea" type="text"
+                                placeholder="내용을 입력해주세요." maxlength="200"></textarea>
+                            <div class="charCount ml:2 color:base-6">0 / 200</div>
+                            <span class="color:accent-1 empty-field">공백은 입력할 수 없습니다</span>
                             <div class="d:flex">
                                 <!--평가 or 수정버튼-->
                                 <button sec:authorize="isAuthenticated()" type="submit"
@@ -507,13 +530,13 @@
                             <li class="p-right:3 fs:3 color:base-10">
                                 <a href="" class="">최신 순</a>
                             </li>
-                            <li class="p-right:3">
-                                <a href="">평점 순</a>
-                            </li>
+<!--                            <li class="p-right:3">-->
+<!--                                <a href="">평점 순</a>-->
+<!--                            </li>-->
 
-                            <li class="">
-                                <a href="">좋아요 순</a>
-                            </li>
+<!--                            <li class="">-->
+<!--                                <a href="">좋아요 순</a>-->
+<!--                            </li>-->
                         </ul>
                     </div>
                     <ul class="mb:7 d:flex flex-direction:column gap:2">
@@ -530,11 +553,11 @@
                                     <span th:text="${r.nickname}">닉네임</span>
                                 </div>
                                 <div th:text="${r.comments}">한줄평이 출력됩니다</div>
-                                <div class="d:inline-block bd bd-radius:5">
-                                    <span class="icon icon:thumbs_up">아이콘</span>
-                                    <span th:text="${count.count}">좋아요 수</span>
-                                    <button class="ml:2">좋아요</button>
-                                </div>
+<!--                                <div class="mt:auto d:inline-block">-->
+<!--                                    <span class="icon icon:thumbs_up">아이콘</span>-->
+<!--                                    <span th:text="${count.count}">좋아요 수</span>-->
+<!--                                    <button class="ml:2">좋아요</button>-->
+<!--                                </div>-->
                             </div>
                         </li>
                         <!--리뷰 없을시 출력되는 창-->

@@ -56,7 +56,7 @@
             <h1 class="fs:5 margin-bottom:1" th:text="${board.title}">게시글 제목이 나타날 위치입니다</h1>
             <div class="d:flex ai:center gap:3 margin-bottom:1 mt:5">
                 <div class="margin-right:auto">
-                    <span class="icon icon:bone">아이콘</span>
+                    <span class="icon icon:user">아이콘</span>
                     <span class="fw:bold" th:text="${board.nickname}">작성자</span>
                     <span class="d:inline-block">
                             <span class="fs:2 color:base-6" th:text="${#dates.format(board.regDate, 'yyyy.MM.dd')}">2024.04.08</span>
@@ -71,8 +71,8 @@
                 <span class="fs:2 color:base-6">댓글<span class="fw:bold margin-left:1 color:base-10"
                                                         th:text="${board.commentCount}">28</span></span>
             </div>
-            <div class="padding-y:3 border-top margin-bottom:10">
-                <span><img src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>
+            <div class="padding-y:3 border-top margin-bottom:10 min-h:10">
+<!--                <span><img src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>-->
                 <!--th:utext는 html태그를 해석해서 출력해줌-->
                 <p th:utext="${board.contents}">작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다 작성글 내용이 담길 위치입니다</p>
             </div>
@@ -92,7 +92,7 @@
             </div>
             <div class="text-align:end fs:5 fw:bold color:main-3" th:if="${memberId eq board.memberId}">
                 <a th:href="@{'edit/'+${board.id}(c=${category.engName})}">수정</a>
-                <a th:href="@{'delete/'+${board.id}(c=${category.engName})}">삭제</a>
+                <a th:href="@{'delete/'+${board.id}(c=${category.engName})}" class="board-delete-button">삭제</a>
             </div>
         </section>
         <section th:each="list : ${list}" th:classappend="${memberId eq list.memberId ? 'my-comment-bgc' : ''}"
@@ -100,7 +100,7 @@
             <h1 class="d:none">댓글창</h1>
             <div class="d:flex ai:center gap:4">
                 <div class="margin-right:auto">
-                    <span class="icon icon:bone">아이콘</span>
+                    <span class="icon icon:user">아이콘</span>
                     <span class="fw:bold" th:text="${list.nickname}">작성자</span>
                     <span class="color:accent-1 bd bd-radius:full fs:1 p:1" th:if="${board.memberId eq list.memberId}">작성자</span>
                     <span class="fs:2 color:base-6" th:text="${#temporals.format(list.regDate, 'yyyy.MM.dd')}">2024.04.08</span>
@@ -132,7 +132,7 @@
               class="my-comment-bgc bd-bl-radius:1 bd-br-radius:1 padding-top:4 padding-bottom:2 padding-left:2 padding-right:1 reg-box">
             <div>
                 <div sec:authorize="isAuthenticated()">
-                    <span class="icon icon:bone">아이콘</span>
+                    <span class="icon icon:user">아이콘</span>
                     <span sec:authentication="principal.nickname" class="fw:bold">이름</span>
                 </div>
                 <div sec:authorize="isAnonymous()" class="mb:4 d:flex jc:center ai:center">

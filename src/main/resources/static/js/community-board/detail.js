@@ -1,23 +1,54 @@
 const inputField = document.querySelector(".reg-textarea");
 let legButton = document.querySelector(".reg-button");
 let emptyBox = document.querySelector(".empty-field");
-legButton.onclick = function (e) {
-    let inputText = inputField.value;
-    // 입력값이 공백인지 확인
-    if (inputText.trim() === "") {
-        emptyBox.classList.add("show-and-hide");
-        setTimeout(function () {
-            emptyBox.classList.remove("show-and-hide");
-        },3000)
-        return false; // 제출을 방지하기 위해 false 반환
+if (legButton) {
+    legButton.onclick = function (e) {
+        let inputText = inputField.value;
+        // 입력값이 공백인지 확인
+        if (inputText.trim() === "") {
+            emptyBox.classList.add("show-and-hide");
+            setTimeout(function () {
+                emptyBox.classList.remove("show-and-hide");
+            }, 3000)
+            return false; // 제출을 방지하기 위해 false 반환
+        }
+        return true; // 유효한 입력이므로 제출 허용
     }
-    return true; // 유효한 입력이므로 제출 허용
 }
 {
 // 게시글 버튼 요소 가져오기
     let voteBox = document.querySelector("#vote-box");
     let likeButtonBox = voteBox.querySelector(".like-box");
     let disLikeButtonBox = voteBox.querySelector(".dislike-box");
+    let boardDeleteButton = document.querySelector(".board-delete-button");
+
+    if (boardDeleteButton) {
+        //게시글 삭제 버튼 클릭시
+        boardDeleteButton.onclick = function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: "정말 삭제하시겠습니까?",
+                text: "삭제한 후에는 복구가 불가능합니다 🥲",
+                // icon: "warning",
+                showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+                confirmButtonColor: "#d33", //빨간색
+                cancelButtonColor: "#3085d6", //파란색
+                confirmButtonText: "삭제",
+                cancelButtonText: "취소",
+                reverseButtons: false // 버튼 순서 거꾸로
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "게시글이 삭제되었습니다",
+                        closeOnClickOutside: true,
+                        confirmButtonColor: "#3085d6",
+                    }).then(() => {
+                        window.location.href = boardDeleteButton.getAttribute("href");
+                    });
+                }
+            });
+        }
+    }
 
     let likeCount = likeButtonBox.querySelector(".like-box > span:first-child");
     let disLikeCount = disLikeButtonBox.querySelector(".dislike-box > span:first-child");
@@ -30,10 +61,10 @@ legButton.onclick = function (e) {
         e.preventDefault();
 
         if (likeButtonBox.classList.contains('bd-color:accent-1')) {
-            alert("이미 '좋아요' 하신 게시글 입니다.");
+            Swal.fire("이미 '좋아요' 하신 게시글 입니다.");
             return;
         } else if (disLikeButtonBox.classList.contains('bd-color:sub-1')) {
-            alert("이미 '싫어요' 하신 게시글 입니다.");
+            Swal.fire("이미 '싫어요' 하신 게시글 입니다.");
             return;
         }
         // 좋아요 클릭
@@ -58,7 +89,7 @@ legButton.onclick = function (e) {
 
                 switch (result) {
                     case 100:
-                        alert("로그인후 이용할수 있습니다")
+                        Swal.fire("로그인후 이용할수 있습니다");
                         break;
                     case 1:
                         likeButtonBox.classList.add('bd-color:accent-1');
@@ -70,7 +101,7 @@ legButton.onclick = function (e) {
                         likeCount.innerText = addLikeCount;
                         break;
                     default:
-                        alert('예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요');
+                        Swal.fire("예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요");
                         break;
                 }
             }
@@ -101,7 +132,7 @@ legButton.onclick = function (e) {
 
                 switch (result) {
                     case 100:
-                        alert("로그인후 이용할수 있습니다")
+                        Swal.fire("로그인후 이용할수 있습니다");
                         break;
                     case -1:
                         disLikeButtonBox.classList.add('bd-color:sub-1');
@@ -113,7 +144,7 @@ legButton.onclick = function (e) {
                         disLikeCount.innerText = addDisLikeCount;
                         break;
                     default:
-                        alert('예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요');
+                        Swal.fire("예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요");
                         break;
                 }
             }
@@ -143,10 +174,11 @@ legButton.onclick = function (e) {
             e.preventDefault();
 
             if (likeButtonBox.classList.contains('icon-color:accent-1')) {
-                alert("이미 '좋아요' 하신 댓글 입니다.");
+                Swal.fire("이미 '좋아요' 하신 댓글 입니다.");
+
                 return;
             } else if (disLikeButtonBox.classList.contains('icon-color:sub-1')) {
-                alert("이미 '싫어요' 하신 댓글 입니다.");
+                Swal.fire("이미 '싫어요' 하신 댓글 입니다.");
                 return;
             }
             // 좋아요 클릭
@@ -171,7 +203,7 @@ legButton.onclick = function (e) {
 
                     switch (result) {
                         case 100:
-                            alert("로그인후 이용할수 있습니다")
+                            Swal.fire("로그인후 이용할수 있습니다");
                             break;
                         case 1:
                             likeButtonBox.classList.add('icon-color:accent-1');
@@ -183,7 +215,7 @@ legButton.onclick = function (e) {
                             likeCount.innerText = addLikeCount;
                             break;
                         default:
-                            alert('예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요');
+                            Swal.fire("예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요");
                             break;
                     }
                 }
@@ -214,7 +246,7 @@ legButton.onclick = function (e) {
 
                     switch (result) {
                         case 100:
-                            alert("로그인후 이용할수 있습니다")
+                            Swal.fire("로그인후 이용할수 있습니다");
                             break;
                         case -1:
                             disLikeButtonBox.classList.add('icon-color:sub-1');
@@ -226,7 +258,7 @@ legButton.onclick = function (e) {
                             disLikeCount.innerText = addDisLikeCount;
                             break;
                         default:
-                            alert('예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요');
+                            Swal.fire("예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요");
                             break;
                     }
                 }
@@ -321,7 +353,7 @@ legButton.onclick = function (e) {
 
                     switch (result) {
                         case 100:
-                            alert("로그인후 이용할수 있습니다");
+                            Swal.fire("로그인후 이용할수 있습니다");
                             break;
                         case 1:
                             await Swal.fire({
@@ -330,10 +362,10 @@ legButton.onclick = function (e) {
                                 closeOnClickOutside: true,
                                 confirmButtonColor: "#3085d6",
                             });
-                            window.location.href = `http://localhost/community/board/detail?c=${categoryEngName}&id=${boardId}`;
+                            window.location.href = `/community/board/detail?c=${categoryEngName}&id=${boardId}`;
                             break;
                         default:
-                            alert('예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요');
+                            Swal.fire("예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요");
                             break;
                     }
                 };
@@ -410,7 +442,8 @@ legButton.onclick = function (e) {
 
                         switch (result) {
                             case 100:
-                                alert("로그인후 이용할수 있습니다");
+                                Swal.fire("로그인후 이용할수 있습니다");
+
                                 break;
                             case 1:
                                 // 수정완료
@@ -418,7 +451,7 @@ legButton.onclick = function (e) {
                                 // window.location.href = 'http://localhost/community/board/detail?c=review&id=81';
                                 break;
                             default:
-                                alert('예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요');
+                                Swal.fire("예기치못한 오류가 발생했습니다, 잠시후 다시 시도해주세요");
                                 break;
                         }
 
@@ -450,20 +483,7 @@ legButton.onclick = function (e) {
             currentLength = maxLength;
         }
 
-        const remainingLength = maxLength - currentLength;
+        // const remainingLength = maxLength - currentLength;
         counterElement.textContent = `${currentLength} / ${maxLength}`;
     };
-    //텍스트 공백 필터링 스크립트
-    function checkInput() {
-        let inputText = inputField.value;
-        let legButton = document.querySelector(".reg-button");
-        legButton.onclick = function () {
-            // 입력값이 공백인지 확인
-            if (inputText.trim() === "") {
-                alert("공백은 입력할 수 없습니다.");
-                return false; // 제출을 방지하기 위해 false 반환
-            }
-            return true; // 유효한 입력이므로 제출 허용
-        }
-    }
 }

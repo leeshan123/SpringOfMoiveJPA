@@ -4,7 +4,7 @@ layout:decorate="inc/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title th:text="${menu.title} + ' - '+영화의봄">이벤트 상세 - 영화의봄</title>
     <style>
         .vote-box {
             width: 56px;
@@ -43,9 +43,9 @@ layout:decorate="inc/layout">
                         ~
                         <span th:text="${#dates.format(menu.endDate, 'yyyy.MM.dd')}">종료날짜</span>
                     </div>
-                    <span><img th:src="${menu.imageUrl}" src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>
+                    <span><img style="max-width: 980px;" th:src="${menu.imageUrl}" src="https://dummyimage.com/300x200/000/fff.jpg" alt=""></span>
                     <!--th:utext는 html태그를 해석해서 출력해줌-->
-                    <p th:text="${menu.contents}">작성글 내용이 담길 위치입니다</p>
+                    <p th:utext="${menu.contents}">작성글 내용이 담길 위치입니다</p>
                 </div>
             </section>
             <!-- <section class="padding-y:1 padding-left:2 padding-right:1 border-bottom d:flex flex-direction:column gap:1">

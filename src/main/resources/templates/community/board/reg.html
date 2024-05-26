@@ -5,11 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/translations/ko.js"></script>
+    <title>게시글 등록 - 영화의봄</title>
+<!--    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>-->
+<!--    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/translations/ko.js"></script>-->
 <!--    <script src="/ckeditor/ckeditor.js"></script>-->
 <!--    <script src="/ckeditor/translations/ko.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="/js/community-board/reg.js" defer></script>
 
     <style>
         /*.ck-editor__editable {*/
@@ -28,12 +32,26 @@
             margin-bottom: 100px;
         }
 
-        .ck-editor__editable_inline {
-            min-height: 400px;
+        .title-empty-field {
+            position: absolute;
+            left: 110px;
+            top: 207px;
+            /*margin-left: 6px;*/
+            /*margin-top: 8px;*/
+            opacity: 0;
+            transition: opacity 0.5s;
         }
-
-        strong {
-            font-weight: bold; /* 임시로 글꼴 두께 설정만 초기화 해봄*/
+        .content-empty-field {
+            position: absolute;
+            left: 118px;
+            bottom: 92px;
+            /*margin-left: 6px;*/
+            /*margin-top: 8px;*/
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .show-and-hide {
+            opacity: 1;
         }
     </style>
 </head>
@@ -44,32 +62,24 @@
             <h1 class="text-align:center bg-color:base-9 color:base-1 bd-tl-radius:2 bd-tr-radius:2">게시글 작성</h1>
             <form th:action="${board != null ? board.id : 'reg'}" action="reg" method="post" class="mx:6">
                 <div class="margin-top:2 line-gap">
-                    <input class="n-textbox n-textbox-type:underline" type="text" name="title" placeholder="제목을 입력해주세요" th:value="${board != null ? board.title : ''}">
+                    <input maxlength="100" class="mb:1 n-textbox n-textbox-type:underline" type="text" name="title" placeholder="제목을 입력해주세요" th:value="${board != null ? board.title : ''}">
+                    <div class="title-count ml:2 color:base-6">0 / 100</div>
+                    <span class="color:accent-1 title-empty-field">공백은 입력할 수 없습니다</span>
                     <input class="d:none" type="text" name="categoryName" th:value="${cName}">
                 </div>
                 <div>
                     <!--textarea 작성줄 길어져도 줄넘김해서 쓰지 말것 입력창에 공백생김-->
-                    <textarea name="contents" id="editor" placeholder="내용을 입력해주세요" th:text="${board != null ? board.contents : ''}"></textarea>
+                    <textarea maxlength="1000" name="contents" id="summernote" placeholder="내용을 입력해주세요" th:text="${board != null ? board.contents : ''}"></textarea>
+                    <div class="mt:1 content-count ml:2 color:base-6">0 / 1000</div>
+                    <span class="color:accent-1 content-empty-field">공백은 입력할 수 없습니다</span>
                 </div>
-                <div>
-                    <input class="" name="img-file" type="file" multiple />
-                </div>
-                <div class="mb:4 text-align:right">
-                    <button type="submit" class="n-btn n-btn-color:main-1 n-btn-size:2">작성완료</button>
+<!--                <div>-->
+<!--                    <input class="" name="img-file" type="file" multiple />-->
+<!--                </div>-->
+                <div class="mb:4 mt:4 text-align:right">
+                    <button type="submit" class="n-btn n-btn-color:main-1 n-btn-size:2 reg-button">작성완료</button>
                 </div>
             </form>
-            <script>
-
-                    ClassicEditor.create( document.querySelector( '#editor' ), {
-
-                        language: "ko",
-                        ckfinder: {
-                            uploadUrl: "/image/upload",
-                            withCredentials: true
-                        }
-                    });
-
-            </script>
         </section>
     </main>
 </body>

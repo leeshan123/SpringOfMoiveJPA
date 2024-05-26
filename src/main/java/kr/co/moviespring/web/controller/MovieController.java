@@ -95,28 +95,6 @@ public class MovieController {
         // 서버로 돌면 풀어주기, 일단 그냥 리스트로
         if(dailyList == null)
             dailyList = list;
-//
-//
-//        List<OnelineReviewView> memberRateList = null;
-//        Long movieId = null;
-//        int total = 15000;
-//        int avg = 0;
-//        for (int i = 0; i < list.size(); i++) {
-//            movieId = list.get(i).getId();
-//            memberRateList = onelineReviewService.getList(movieId);
-//            if (memberRateList.size() == 0) {
-//                total = 15000;
-//                avg = 15000;
-//                model.addAttribute("avgRate"+(i), avg);
-//                continue;
-//            }
-//            for (int j = 0; j < memberRateList.size(); j++) {
-//                total += memberRateList.get(j).getMemberRate();
-//            }
-////            if (memberRateList.size() != 0)
-//            avg = total/ memberRateList.size();
-//            model.addAttribute("avgRate"+(i), avg);
-//        }; //모르겠다 일단 보류
 
         model.addAttribute("dlist", dailyList);
         model.addAttribute("list", list);

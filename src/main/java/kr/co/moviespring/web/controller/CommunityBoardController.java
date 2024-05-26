@@ -119,6 +119,15 @@ public class CommunityBoardController {
         }
 
         CommunityBoardView board = communityBoardService.getById(boardId);
+
+        //유저가 올린 이미지가 없을경우 기본이미지 추가
+        String defaultImagePath = "/image/popcorn3.jpeg"; //default_image
+        String content = board.getContents();
+        if (!content.contains("<img")) {
+            content = "<img class=\"bd-radius:4\" width=400px src='" + defaultImagePath + "' alt='Default Image' /><br />" + content;
+            board.setContents(content);
+        }
+
         List<CommunityBoardCommentsView> list = communityBoardCommentsService.getListById(boardId, memberId); //로그인한 상태일시 해당 멤버아이디를 전달시켜서 멤버가 댓글들에 좋아요한 상태값도 포함해서 받아옴
         CommunityBoard nextBoard = communityBoardService.getNextId(boardId, categoryId); //다음글 가져오기
         CommunityBoard prevBoard = communityBoardService.getPrevId(boardId, categoryId); //이전글 가져오기

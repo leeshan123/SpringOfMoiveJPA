@@ -6,6 +6,10 @@ layout:decorate="inc/adminlayout">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="/js/community-board/reg.js" defer></script>
 <style>
 .main-container {
     width: 980px; margin: 0 auto; 
@@ -37,12 +41,15 @@ layout:decorate="inc/adminlayout">
             </div>
 
             <div>
-                <textarea  class="w:10p h:1 bd bd-w:1 bd-color:base-5  p:2" name="title" id="editor" placeholder="이벤트 제목을 입력해주세요"></textarea>
+                <textarea class="w:10p h:1 bd bd-w:1 bd-color:base-5  p:2" name="title" placeholder="이벤트 제목을 입력해주세요"></textarea>
             </div>
             
             <div>
                 <!--textarea 작성줄 길어져도 줄넘김해서 쓰지 말것 입력창에 공백생김-->
-                <textarea  class="w:10p h:6 bd bd-w:1 bd-color:base-5  p:2" name="contents" id="editor" placeholder="내용을 입력해주세요"></textarea>
+<!--                <textarea class="w:10p h:6 bd bd-w:1 bd-color:base-5  p:2" name="contents" id="editor" placeholder="내용을 입력해주세요"></textarea>-->
+                <textarea maxlength="1000" name="contents" id="summernote" placeholder="내용을 입력해주세요" th:text="${board != null ? board.contents : ''}"></textarea>
+                <div class="mt:1 content-count ml:2 color:base-6">0 / 1000</div>
+                <span class="color:accent-1 content-empty-field">공백은 입력할 수 없습니다</span>
             </div>
 
             <div class="p:3 d:flex jc:center">
