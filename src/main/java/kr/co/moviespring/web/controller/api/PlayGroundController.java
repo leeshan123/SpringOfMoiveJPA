@@ -126,6 +126,8 @@ public class PlayGroundController {
                 //유저 포인트 변경점 업데이트해주기
                 userPoint = userPoint - bettingPoint;
                 member.setPoint(userPoint);
+                userDetails.setPoint(userPoint);
+
 
                 System.out.println(userPoint);
 
