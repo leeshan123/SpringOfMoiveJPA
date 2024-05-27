@@ -7,13 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/desktop.css">
     <title>2주의 영화 - 영화의봄</title>
-    <style>
-    .delete-button {
-    position: relative;
-    bottom: 52px;
-    right: -770px;
-    }
-    </style>
 </head>
 
 <body>
@@ -90,7 +83,7 @@
 
                 <section th:if="${movie.voteCount != 0}">
                     <h1 class="d:none">한줄 평</h1>
-                    <div class="d:flex mb:5">
+                    <div class="d:flex mb:5 bd-top py:4">
                         <h1 class="pl:1 fw:3 fs:5 section-font border-left bd-color:main-2 bd-w:3  mr:auto">한줄 평
                             <span class="fs:3 fw:2 color:base-10"
                                 th:with="formattedSize=${reviews.size() > 999 ? #numbers.formatInteger(reviews.size(),3,'COMMA') : reviews.size()}"
@@ -111,11 +104,11 @@
                                     <span th:text="${r.nickname}">닉네임</span>
                                 </div>
                                 <div th:text="${r.comments}">한줄평이 출력됩니다</div>
-<!--                                <div class="d:inline-block ">-->
-<!--                                    <span class="icon icon:thumbs_up">아이콘</span>-->
-<!--                                    <span th:text="${count.count}">좋아요 수</span>-->
-<!--                                    <button class="ml:2">좋아요</button>-->
-<!--                                </div>-->
+                                <div class="d:inline-block ">
+                                    <span class="icon icon:thumbs_up">아이콘</span>
+                                    <span th:text="${count.count}">좋아요 수</span>
+                                    <button class="ml:2">좋아요</button>
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -152,10 +145,7 @@
                             <textarea sec:authorize="isAnonymous()" disabled
                                 class="anonymous-font-size width:10p height:2 p:2 n-textbox n-textbox-status:success"
                                 type="text" placeholder="로그인후 이용하실수 있습니다."></textarea>
-<!--                            <div sec:authorize="isAnonymous()" class="mr:auto mt:1">-->
-<!--                                <span class="charCount ml:2 color:base-6">0 / 50</span>-->
-<!--                                <span class="color:accent-1 empty-field ml:2">공백은 입력할 수 없습니다</span>-->
-<!--                            </div>-->
+
                             <a href="/user/signin">
                                 <button sec:authorize="isAnonymous()" type="button"
                                 class="n-btn n-btn-type:filled m:2 submit-button">로그인하기</button>
@@ -179,7 +169,7 @@
                        <input type="text" name="movieCd" th:value="${movie.movieCd}" class="d:none">
                        <button sec:authorize="isAuthenticated()" type="submit"
                        th:if="${myReview != null}"
-                       class="n-btn n-btn-type:filled m:2 delete-button n-btn-color:accent">삭제하기
+                       class="n-btn n-btn-type:filled m:2 submit-button n-btn-color:accent">삭제하기
                    </button>
                    </form>
                     <div class="d:flex jc:center my:4">
