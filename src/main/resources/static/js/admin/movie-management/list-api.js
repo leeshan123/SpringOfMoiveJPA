@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 각 검색 버튼에 이벤트 리스너 등록
   buttons.forEach(button => {
       button.addEventListener('click', async function(e) {
+          // 여기 이프문
           // 클릭된 버튼이 속한 섹션 요소 가져오기
           const section = this.closest('section');
           // 섹션 요소에서 영화 이름 가져오기
