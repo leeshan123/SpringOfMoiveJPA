@@ -13,7 +13,8 @@ public class SpringOfMovieApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(SpringOfMovieApplication.class, args);
         System.out.println("서버시작");
-        
+
+        System.out.println("테스트");
         
 
 
